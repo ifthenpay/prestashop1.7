@@ -1,0 +1,31 @@
+
+[{shop_url}] 
+
+Hi {firstname} {lastname},
+
+Thanks for shopping at {shop_name}!
+
+Your order with the reference {order_name} has been placed with
+success and will BE SHIPPED AS SOON AS PAYMENT IS RECEIVED.
+
+You have chosen to pay by Payshop.  
+
+Here are the details to make the payment:
+
+Reference: {referencia}
+
+Total to Pay: {total_paid}	 
+
+Deadline: {validade}
+
+You can review your order and download your invoice from
+from the "Order history" section [{history_url}]
+of your customer account by clicking on "My Account"
+[{my_account_url}] in our store.
+
+If you have a visitor account, you can track your order on
+"Visitor orders" section
+[{guest_tracking_url}] from our store.
+
+{shop_name} [{shop_url}] uses the platform
+PrestaShop(tm) [http://www.prestashop.com/] 

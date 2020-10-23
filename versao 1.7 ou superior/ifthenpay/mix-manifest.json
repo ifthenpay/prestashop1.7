@@ -1,0 +1,10 @@
+{
+    "/views/js/ifthenpayPaymentMethodOrderBoOrderCreate.js": "/views/js/ifthenpayPaymentMethodOrderBoOrderCreate.js",
+    "/views/js/ifthenpayPaymentMethodSetup.js": "/views/js/ifthenpayPaymentMethodSetup.js",
+    "/views/css/ifthenpayConfig.css": "/views/css/ifthenpayConfig.css",
+    "/views/css/ifthenpayPaymentMethodSetup.css": "/views/css/ifthenpayPaymentMethodSetup.css",
+    "/views/css/ifthenpayConfirmPage.css": "/views/css/ifthenpayConfirmPage.css",
+    "/views/css/ifthenpayAdminOrder.css": "/views/css/ifthenpayAdminOrder.css",
+    "/views/css/ifthenpayOrderDetail.css": "/views/css/ifthenpayOrderDetail.css",
+    "/views/js/setMbwayPhoneBoOrderCreate.js": "/views/js/setMbwayPhoneBoOrderCreate.js"
+}

@@ -1,0 +1,23 @@
+Hi {firstname} {lastname},
+
+Thank you for shopping in the store {shop_name}!
+
+Your order {order_name} has been successfully placed and will be shipped as soon as your payment is confirmed.
+
+You Chose payment by Payshop reference.
+
+Here are the details to make the payment:
+
+Payshop reference: {referencia}
+
+Total to Pay: {total_paid}
+
+Deadline: {validade}
+
+You can review your Order and download your Invoice in the "Order History" section from your Customer Account by clicking on "My Account" in our store.
+
+If you still have a Visitor Account, you can follow your Order by using this link: {shop_url} guest-tracking.php
+
+{shop_name} - {shop_url}
+
+{shop_url} powered by PrestaShop™

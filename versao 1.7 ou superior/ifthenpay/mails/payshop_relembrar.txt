@@ -1,0 +1,23 @@
+Olá {firstname} {lastname},
+
+Serve o presente para o relembrar de que ainda não efectuou o pagamento das compras efectuadas na loja {shop_name}!
+
+A sua Encomenda {order_name} só será enviada logo que o seu pagamento for confirmado.
+
+Escolheu como forma de pagamento a Pagamento por Payshop.
+
+Aqui estão os detalhes para realizar o pagamento:
+
+Referencia: {referencia}
+
+Valor: {total_paid}
+
+Validade: {validade}
+
+Pode rever a sua Encomenda e realizar a descarga (download) da sua Fatura na secção "Histórico de Encomendas" a partir da sua Conta de Cliente por clicar em "Minha Conta" na nossa loja.
+
+Se possui ainda uma Conta de Visitante, pode seguir a sua Encomenda por usar este link: {shop_url}guest-tracking.php
+
+{shop_name} - {shop_url}
+
+{shop_url} powered by PrestaShop™

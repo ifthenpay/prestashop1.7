@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <title>Message from {shop_name}</title>
+   </head>
+   <body>
+      <table style="font-family: Verdana,sans-serif; font-size: 11px; color: #374953; width: 550px;">
+         <tbody>
+            <tr>
+               <td align="left"><a title="{shop_name}" href="{shop_url}"><img style="border: none;" src="{shop_logo}" alt="{shop_name}" /></a></td>
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
+            </tr>
+            <tr>
+               <td align="left">Ol&aacute; <strong style="color: #db3484;">{firstname} {lastname}</strong>,</td>
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
+            </tr>
+            <tr>
+               <td style="background-color: #db3484; color: #fff; font-size: 12px; font-weight: bold; padding: 0.5em 1em;" align="left">Sua Encomenda {order_name} - Aguardar pagamento por Payshop</td>
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
+            </tr>
+            <tr>
+               <td align="left">Serve o presente para o relembrar de que ainda n&atilde;o efectuou o pagamento das compras efectuadas na loja {shop_name}!<br /><br /> A sua Encomenda {order_name} s&oacute; ser&aacute; <strong>enviada logo que o seu pagamento for confirmado</strong>.</td>
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
+            </tr>
+            <tr>
+               <td align="left">
+                  Escolheu como forma de pagamento o Pagamento por Payshop<br /><br />Aqui est&atilde;o os detalhes para realizar o pagamento: <br /><br />
+                     <table style="border: 0px; width: 260px;border: 1px solid #000000;">
+                        <tr>
+                           <td style="padding: 4px;"><img src="https://ifthenpay.com/img/payshop.png"/></td>
+                           <td style="text-align: right;padding: 4px;">
+                              <img src="https://ifthenpay.com/img/ctt.png"/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td colspan="2" style="padding-top:10px; padding-left: 4px;">Referência Payshop: <b>{referencia}</b></td>
+                        </tr>
+                        <tr>
+                           <td colspan="2" style="padding-left: 4px;">Valor: <b>{total_paid}</b></td>
+                        </tr>
+                           <tr>
+                              <td colspan="2" style="padding-left: 4px;">Data limite: <b>{validade}</b></td>
+                           </tr>
+                        <tr style="font-size:11px; padding: 4px;">
+                           <td colspan="2" style="padding-top:10px;">Pagável em qualquer Agente Payshop, Loja CTT ou Posto de Correios</td>
+                        </tr>
+                     </table>
+               </td>
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
+            </tr>
+            <tr>
+               <td align="left">Pode rever a sua Encomenda e realizar a descarga (download) da sua Fatura na sec&ccedil;&atilde;o <a style="color: #db3484; font-weight: bold; text-decoration: none;" href="{shop_url}history.php">"Hist&oacute;rico de Encomendas"</a> a partir da sua Conta Cliente por clicar em <a style="color: #db3484; font-weight: bold; text-decoration: none;" href="{shop_url}my-account.php">"Minha Conta"</a> na nossa loja.<br /><br /></td>
+            </tr>
+            <tr>
+               <td align="left">Se ainda possui uma Conta de Visitante, pode seguir a sua Encomenda por usar a sec&ccedil;&atilde;o <a style="color: #db3484; font-weight: bold; text-decoration: none;" href="{shop_url}guest-tracking.php">"Acompanhamento de Visitante"</a> na nossa loja.</td>
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
+            </tr>
+            <tr>
+               <td style="font-size: 10px; border-top: 1px solid #D9DADE;" align="center"><a style="color: #db3484; font-weight: bold; text-decoration: none;" href="{shop_url}">{shop_name}</a> powered by <a style="text-decoration: none; color: #374953;" href="http://www.prestashop.com/">PrestaShop&trade;</a></td>
+            </tr>
+         </tbody>
+      </table>
+   </body>
+</html>

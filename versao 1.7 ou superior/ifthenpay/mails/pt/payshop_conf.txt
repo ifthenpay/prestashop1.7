@@ -1,0 +1,12 @@
+Olá {firstname} {lastname},
+
+Obrigado pela compra {shop_name}!
+
+O pagamento do seu pedido {order_name} foi processado com sucesso.
+
+Acendendo à sua conta poderá rever o seu pedido.
+
+Se tem uma conta de convidado pode acompanhar seu pedido através deste link: {shop_url}?controller=guest-tracking
+
+{shop_name} - {shop_url}
+

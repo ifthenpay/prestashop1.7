@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <title>Message from {shop_name}</title>
+   </head>
+   <body>
+      <table style="font-family: Verdana,sans-serif; font-size: 11px; color: #374953; width: 550px;">
+         <tbody>
+            <tr>
+               <td align="left"><a title="{shop_name}" href="{shop_url}"><img style="border: none;" src="{shop_logo}" alt="{shop_name}" /></a></td>
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
+            </tr>
+            <tr>
+               <td align="left">Hi <strong style="color: #db3484;">{firstname} {lastname}</strong>,</td>
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
+            </tr>
+            <tr>
+               <td style="background-color: #db3484; color: #fff; font-size: 12px; font-weight: bold; padding: 0.5em 1em;" align="left">Your order {order_name} - Wait for payment by Payshop</td>
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
+            </tr>
+            <tr>
+               <td align="left">It serves as a reminder that you have not yet paid for purchases made at {shop_name}!<br /><br /> Your Order {order_name} will be <strong> shipped as soon as your payment is confirmed</strong>.</td>
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
+            </tr>
+            <tr>
+               <td align="left">
+                  You Chose payment by Payshop<br /><br />Here are the details to make the payment: <br /><br />
+                     <table style="border: 0px; width: 260px;border: 1px solid #000000;">
+                        <tr>
+                           <td style="padding: 4px;"><img src="https://ifthenpay.com/img/payshop.png"/></td>
+                           <td style="text-align: right;padding: 4px;">
+                              <img src="https://ifthenpay.com/img/ctt.png"/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td colspan="2" style="padding-top:10px; padding-left: 4px;">Payshop reference: <b>{referencia}</b></td>
+                        </tr>
+                        <tr>
+                           <td colspan="2" style="padding-left: 4px;">Total to Pay: <b>{total_paid}</b></td>
+                        </tr>
+                           <tr>
+                              <td colspan="2" style="padding-left: 4px;">Deadline: <b>{validade}</b></td>
+                           </tr>
+                        <tr style="font-size:11px; padding: 4px;">
+                           <td colspan="2" style="padding-top:10px;">Payable at any Payshop Agent, CTT Store or Post Office</td>
+                        </tr>
+                     </table>
+               </td>
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
+            </tr>
+            <tr>
+               <td align="left">You can review your order and download your invoice at <a style="color: #db3484; font-weight: bold; text-decoration: none;" href="{shop_url}history.php">"Orders history"</a> your customer account by clicking <a style="color: #db3484; font-weight: bold; text-decoration: none;" href="{shop_url}my-account.php">"My account"</a> in our store.<br /><br /></td>
+            </tr>
+            <tr>
+               <td align="left">If you have a visitor account, you can track your order at <a style="color: #db3484; font-weight: bold; text-decoration: none;" href="{shop_url}guest-tracking.php">"Visitor orders"</a> from our store.</td>
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
+            </tr>
+            <tr>
+               <td style="font-size: 10px; border-top: 1px solid #D9DADE;" align="center"><a style="color: #db3484; font-weight: bold; text-decoration: none;" href="{shop_url}">{shop_name}</a> powered by <a style="text-decoration: none; color: #374953;" href="http://www.prestashop.com/">PrestaShop&trade;</a></td>
+            </tr>
+         </tbody>
+      </table>
+   </body>
+</html>

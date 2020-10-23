@@ -1,0 +1,32 @@
+
+[{shop_url}] 
+
+Olá {firstname} {lastname},
+
+Obrigado por fazer compras na {shop_name}! 
+
+A sua encomenda com a referência {order_name} foi colocada com
+sucesso e será DESPACHADA LOGO QUE SEJA RECEPCIONADO O PAGAMENTO. 
+
+Selecionou realizar o pagamento por multibanco. 
+
+Aqui estão os detalhes para realizar o pagamento:
+
+Entidade: {entidade}
+
+Referencia: {referencia}
+
+Valor: {total_paid}	 
+
+Pode rever a sua encomenda e fazer download da sua fatura apartir
+da seção "Histórico de encomendas" [{history_url}]
+da sua conta de cliente clicando em "A minha conta"
+[{my_account_url}] na nossa loja. 
+
+Se tiver uma conta de visitante, pode seguir a sua encomenda na
+seção "Encomendas de visitantes"
+[{guest_tracking_url}] da nossa loja. 
+
+{shop_name} [{shop_url}] usa a plataforma
+PrestaShop(tm) [http://www.prestashop.com/] 
+

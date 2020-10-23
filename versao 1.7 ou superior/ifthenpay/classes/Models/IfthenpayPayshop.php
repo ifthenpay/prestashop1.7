@@ -1,0 +1,122 @@
+<?php
+/**
+ * 2007-2020 Ifthenpay Lda
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ * @copyright 2007-2020 Ifthenpay Lda
+ * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ */
+
+
+namespace PrestaShop\Module\Ifthenpay\Models;
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
+use PrestaShop\Module\Ifthenpay\Contracts\Models\PaymentModelInterface;
+use PrestaShop\Module\Ifthenpay\Factory\Database\DatabaseFactory;
+
+class IfthenpayPayshop extends \ObjectModel implements PaymentModelInterface
+{
+    public $id;
+    public $id_ifthenpay_payshop;
+    public $id_transacao;
+    public $referencia;
+    public $validade;
+    public $order_id;
+
+    public static $definition = [
+        'table' => "ifthenpay_payshop",
+        'primary' => 'id_ifthenpay_payshop',
+        'multilang' => false,
+        'multishop' => true,
+        'fields' => [
+            'id_transacao' => [
+                'type' => self::TYPE_STRING,
+                'required' => true,
+                'validate' => 'isString',
+                'size' => 20,
+            ],
+            'referencia' => [
+                'type' => self::TYPE_STRING,
+                'required' => true,
+                'validate' => 'isString',
+                'size' => 13,
+            ],
+            'validade' => [
+                'type' => self::TYPE_STRING,
+                'validate' => 'isString',
+                'size' => 8,
+            ],
+            'order_id' => [
+                'type' => self::TYPE_INT,
+                'required' => true,
+                'validate' => 'isUnsignedInt',
+            ],
+            'status' => [
+                'type' => self::TYPE_STRING,
+                'required' => true,
+                'validate' => 'isString',
+                'size' => 50,
+            ],
+        ]
+    ];
+    /**
+    *@param string $id_name_table, @param string $id_lang, @param string $id_shop
+    */
+    public function __construct($id_name_table = null, $id_lang = null, $id_shop = null)
+    {
+        parent::__construct($id_name_table, $id_lang, $id_shop);
+        \Shop::addTableAssociation(self::$definition['table'], array('type' => 'shop'));
+    }
+    /**
+    * Get multibanco payment by id
+    *@param string $orderId
+    *@return array
+    */
+    public static function getByOrderId($orderId)
+    {
+        $query = DatabaseFactory::build('dbQuery');
+        $query->from('ifthenpay_payshop');
+        $query->where('order_id = ' . (int) $orderId);
+        $rowOrder = \Db::getInstance()->getRow($query);
+
+        if (is_array($rowOrder)) {
+            return $rowOrder;
+        } else {
+            return array();
+        }
+    }
+    /**
+    * Get payshop payment by transaction id
+    *@param string $idTransacao
+    *@return array
+    */
+    public static function getPayshopByIdTransacao($idTransacao)
+    {
+        $rowOrder = \Db::getInstance()
+            ->executeS('SELECT * FROM `ps_ifthenpay_payshop` USE INDEX (idTransacao) WHERE (id_transacao = ' . '\'' . \pSQL($idTransacao) . '\') LIMIT 1');
+        if (is_array($rowOrder)) {
+            return $rowOrder[0];
+        } else {
+            return array();
+        }
+    }
+}

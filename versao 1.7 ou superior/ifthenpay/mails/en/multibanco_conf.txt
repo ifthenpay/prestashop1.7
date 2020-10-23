@@ -1,0 +1,12 @@
+Hi {firstname} {lastname},
+
+Thanks for buying {shop_name}!
+
+The payment for your order {order_name} has been successfully processed.
+
+By accessing your account, you can review your request.
+
+If you have a guest account you can track your order through this link: {shop_url}?controller=guest-tracking
+
+{shop_name} - {shop_url}
+
