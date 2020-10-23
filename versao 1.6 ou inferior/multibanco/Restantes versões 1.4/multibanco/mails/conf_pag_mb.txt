@@ -1,0 +1,19 @@
+Olá {firstname} {lastname},
+
+Obrigado por ter criado uma conta de cliente na loja {shop_name}.
+
+Aqui estão os seus detalhes para login:
+
+Endereço de E-mail: {email}
+Password: {passwd}
+
+Dicas importante de Segurança:
+
+1. Conserve sempre os detalhes da sua conta em segurança.
+2. Nunca ceda os seus detalhes de login a outra pessoa.
+3. Altere a sua password regularmente.
+4. Caso suspeite de que alguém está a usar a sua conta ilegalmente, comunique-nos isso de imediato.
+
+Agora pode colocar encomendas na nossa loja: {shop_url}
+
+{shop_url} powered by PrestaShop™

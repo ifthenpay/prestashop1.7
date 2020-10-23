@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Mensagem de {shop_name}</title>
+	</head>
+	<body>
+		<table style="font-family: Verdana,sans-serif; font-size: 11px; color: #374953; width: 550px;">
+			<tbody>
+				<tr>
+					<td align="left"><a title="{shop_name}" href="{shop_url}"><img style="border: none;" src="{shop_logo}" alt="{shop_name}" /></a></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td align="left">Olá <strong style="color: #db3484;">{firstname} {lastname}</strong>,<br /><br />Obrigada por comprar na loja <strong>{shop_name}</strong>!</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="background-color: #db3484; color: #fff; font-size: 12px; font-weight: bold; padding: 0.5em 1em;" align="left">Detalhes da Encomenda</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td align="left">Encomenda: <strong><span style="color: #db3484;">{order_name}</span> realizada a {date}</strong></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td align="left"> 
+						<table style="width: 100%; font-family: Verdana,sans-serif; font-size: 11px; color: #374953;">
+							<!-- Title --> 
+							<tbody>
+								<tr style="background-color: #b9babe; text-align: center;">
+									<th style="width: 15%; padding: 0.6em 0;">Referência</th> <th style="width: 35%; padding: 0.6em 0;">Produto</th> <th style="width: 15%; padding: 0.6em 0;">Preço Unitário</th> <th style="width: 15%; padding: 0.6em 0;">Quantidade</th> <th style="width: 20%; padding: 0.6em 0;">Preço Total</th>
+								</tr>
+								{products} {discounts}
+								<!-- Products --><!-- Footer: prices --> 
+								<tr style="text-align: right;">
+									<td>&nbsp;</td>
+									<td style="background-color: #b9babe; padding: 0.6em 0.4em;" colspan="3">Produtos</td>
+									<td style="background-color: #b9babe; padding: 0.6em 0.4em;">{total_products}</td>
+								</tr>
+								<tr style="text-align: right;">
+									<td>&nbsp;</td>
+									<td style="background-color: #ebecee; padding: 0.6em 0.4em;" colspan="3">Descontos</td>
+									<td style="background-color: #ebecee; padding: 0.6em 0.4em;">{total_discounts}</td>
+								</tr>
+								<tr style="text-align: right;">
+									<td>&nbsp;</td>
+									<td style="background-color: #ebecee; padding: 0.6em 0.4em;" colspan="3">Embrulho</td>
+									<td style="background-color: #ebecee; padding: 0.6em 0.4em;">{total_wrapping}</td>
+								</tr>
+								<tr style="text-align: right;">
+									<td>&nbsp;</td>
+									<td style="background-color: #dde2e6; padding: 0.6em 0.4em;" colspan="3">Envio</td>
+									<td style="background-color: #dde2e6; padding: 0.6em 0.4em;">{total_shipping}</td>
+								</tr>
+								<tr style="text-align: right; font-weight: bold;">
+									<td>&nbsp;</td>
+									<td style="background-color: #f1aecf; padding: 0.6em 0.4em;" colspan="3">Total a Pagar</td>
+									<td style="background-color: #f1aecf; padding: 0.6em 0.4em;">{total_paid}</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="background-color: #db3484; color: #fff; font-size: 12px; font-weight: bold; padding: 0.5em 1em;" align="left">Envio</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td align="left">Transportadora: <strong>{carrier}</strong></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>
+						<table style="width: 100%; font-family: Verdana,sans-serif; font-size: 11px; color: #374953;">
+							<tbody>
+								<tr style="background-color: #b9babe; text-transform: uppercase;">
+									<th style="text-align: left; padding: 0.3em 1em;">Morada de Entrega</th> <th style="text-align: left; padding: 0.3em 1em;">Morada de Faturação</th>
+								</tr>
+								<tr>
+									<td style="padding: 0.5em 0 0.5em 0.5em; background-color: #ebecee;">{delivery_block_html}</td>
+									<td style="padding: 0.5em 0 0.5em 0.5em; background-color: #ebecee;">{invoice_block_html}</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="background-color: #db3484; color: #fff; font-size: 12px; font-weight: bold; padding: 0.5em 1em;" align="left">Informações de Pagamento</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td align="left">Tipo de pagamento: <strong>{payment}</strong></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>
+						<table style="width: 100%; font-family: Verdana,sans-serif; font-size: 11px; color: #374953;">
+							<tbody>
+								<tr>
+									<td style="font-size: x-small; border-top: 0px; border-left: 0px; border-right: 0px; border-bottom: 1px solid #45829F; background-color: #45829F; color: White" colspan="3"><div align="center">Pagamento por Multibanco ou Homebanking</div></td>
+								</tr>
+								<tr>
+									<td rowspan="3"><div align="center"><img src="{this_path}img/mb.jpg" alt="" width="52" height="60"/></div></td>
+									<td style="font-size: x-small; font-weight:bold; text-align:left">Entidade:</td>
+									<td style="font-size: x-small; text-align:left">{entidade}</td>
+								</tr>
+								<tr>
+									<td style="font-size: x-small; font-weight:bold; text-align:left">Refer&ecirc;ncia:</td>
+									<td style="font-size: x-small; text-align:left">{referencia}</td>
+								</tr>
+								<tr>
+									<td style="font-size: x-small; font-weight:bold; text-align:left">Valor:</td>
+									<td style="font-size: x-small; text-align:left">{total_paid}</td>
+								</tr>
+								<tr>
+									<td style="font-size: xx-small;border-top: 1px solid #45829F; border-left: 0px; border-right: 0px; border-bottom: 0px; background-color: #45829F; color: White" colspan="3">O tal&atilde;o emitido pela caixa autom&aacute;tica faz prova de pagamento. Conserve-o.</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td align="left">Pode rever a sua encomenda na secção <a style="color: #db3484; font-weight: bold; text-decoration: none;" href="{shop_url}history.php">"Histórico de Encomendas"</a> da sua conta de cliente clicando na secção <a style="color: #db3484; font-weight: bold; text-decoration: none;" href="{shop_url}my-account.php">"Minha Conta"</a> na nossa loja.<br /><br /></td>
+				</tr>
+				<tr>
+					<td align="left">Se tem uma conta de convidado, pode seguir a sua encomenda a partir da secção <a style="color: #db3484; font-weight: bold; text-decoration: none;" href="{shop_url}guest-tracking.php">"Seguimento de Convidado"</a> na nossa loja.</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="font-size: 10px; border-top: 1px solid #D9DADE;" align="center"><a style="color: #db3484; font-weight: bold; text-decoration: none;" href="{shop_url}">{shop_name}</a> powered by <a style="text-decoration: none; color: #374953;" href="http://www.prestashop.com/">PrestaShop&trade;</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

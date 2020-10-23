@@ -1,0 +1,3 @@
+1. Fazer upload da pasta modules para a raiz do seu servidor onde se encontram os ficheiros do prestashop
+
+2. Ir à área de administração configurar o mesmo com os respectivos dados fornecidos pela ifthen software.

@@ -1,0 +1,16 @@
+Olá {firstname} {lastname},
+
+Seu pedido #{id_order} foi realizado com sucesso. Seu pedido lhe será enviado tão logo recebamos a seu pagamento.
+
+Por favor atente que você escolheu pagar por Multibanco.
+
+Order total amout is {total_paid}
+
+Você pode revisar seu pedido e baixar a fatura na seção "Histórico do pedido" de sua conta clicando em "Minha conta" em nosso Website.
+
+Obrigado por comprar em {shop_name}.
+
+{shop_name} - {shop_url}
+
+
+{shop_url} baseado em PrestaShop&trade;

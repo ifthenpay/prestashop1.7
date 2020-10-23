@@ -1,0 +1,41 @@
+Olá {firstname} {lastname},
+
+Obrigada por comprar na loja {shop_name}!
+
+Encomenda: {order_name} realizada a {date}
+
+Produtos: {total_products}
+Descontos: {total_discounts}
+Envio: {total_shipping}
+Embrulho: {total_wrapping}
+Total a Pagar: {total_paid}
+
+
+Envio
+
+	Transportadora: {carrier}
+
+	Morada de Entrega:
+
+	{delivery_block_txt}
+
+	Morada de Faturação:
+
+	{invoice_block_txt}
+	
+
+Informações de Pagamento
+
+	Tipo de pagamento: {payment}
+	
+	Entidade: {entidade}
+	
+	Referência: {referencia}
+	
+	Valor: {total_paid}
+
+Pode rever a sua encomenda na secçã "Histórico de Encomendas" da sua conta de cliente clicando na secção "Minha Conta" na nossa loja.
+
+Se tem uma conta de convidado, pode seguir a sua encomenda a partir da secção: {shop_url}guest-tracking.php
+
+{shop_url} powered by PrestaShop™﻿

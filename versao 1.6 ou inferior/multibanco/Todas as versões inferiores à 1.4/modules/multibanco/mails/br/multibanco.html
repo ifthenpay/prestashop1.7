@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Mensagem de {shop_name}</title>
+</head>
+<body>
+	<table style="font-family:Verdana; font-size:11px; color:#374953; width: 550px;">
+		<tr>
+			<td align="left">
+				<a href="{shop_url}" title="{shop_name}"><img alt="{shop_name}" src="{shop_logo}" style="border:none;" ></a>
+			</td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td align="left">Sr.(a) <strong style="color:#333333;">{firstname} {lastname}</strong> obrigado por comprar na {shop_name}</td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td align="left" style="background-color:#333333; color:#FFF; font-size: 12px; font-weight:bold; padding: 0.5em 1em;">A sua encomenda #{id_order}</td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td align="left">
+				A sua encomenda #{id_order} foi realizada com sucesso. 
+                <br /><br />
+                Após a confirmação do pagamento da encomenda, enviamos-lhe o(s) produto(s) adequirido(s) na nossa loja online.
+			</td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+        <td align="left" style="background-color:#333333; color:#FFF; font-size: 12px; font-weight:bold; padding: 0.5em 1em;">Modo de Pagamento</td>
+		</tr>
+        <tr><td>&nbsp;</td></tr>
+			<td align="left">
+                O meio escolhido para pagamento da encomenda foi:
+                <br /><br />
+                <strong>Pagamento por Referência Multibanco</strong>.
+                <br /><br />
+   				Para concluir a compra deverá dirigir-se a uma Caixa Multibanco, ou efectuar o pagamento através do seu Home Banking.
+                <br /><br />
+                Em qualquer dos casos deverá escolher o pagamento de serviços e efectuar o pagamento inserindo a <strong>Entidade, Referência e Valor</strong> conforme se discrimina a seguir.
+                <br /><br />
+			</td>
+		</tr>
+		<tr><td align="left" style="background-color: #EBECEE; color:#000; font-size: 12px; font-weight:bold; padding: 0.5em 0.5em;">{result}</td>
+       </tr>
+       <td align="left">
+            <tr><td>&nbsp;</td></tr>
+		    <tr>
+			<td align="left">
+				Pode visualizar o estado da sua encomenda em<a href="{shop_url}history.php" style="color:#333333; font-weight:bold; text-decoration:none;">"Encomendas"</a> na secção <a href="{shop_url}my-account.php" style="color:#333333; font-weight:bold; text-decoration:none;">"Minha conta"</a>
+			</td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+		<tr>
+			<td align="center" style="font-size:10px; border-top: 1px solid #D9DADE;">
+				<a href="{shop_url}" style="color:#333333; font-weight:bold; text-decoration:none;">{shop_name}</a> Criada em <a href="http://www.prestashop.com/" style="text-decoration:none; color:#374953;">PrestaShop&trade;</a>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

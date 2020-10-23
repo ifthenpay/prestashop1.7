@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>ifthenpay_mbway</name>
+	<displayName><![CDATA[Pagamento por MBWay]]></displayName>
+	<version><![CDATA[1.0.1]]></version>
+	<description><![CDATA[Este m&oacute;dulo permite pagamentos recorrendo &agrave; plataforma de pagamentos portuguesa MBWay.]]></description>
+	<author><![CDATA[IfthenPay, Lda]]></author>
+	<tab><![CDATA[payments_gateways]]></tab>
+	<confirmUninstall><![CDATA[Tem a certeza de que quer desinstalar?]]></confirmUninstall>
+	<is_configurable>1</is_configurable>
+	<need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>

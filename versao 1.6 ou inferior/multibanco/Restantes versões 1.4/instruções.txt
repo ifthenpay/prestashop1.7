@@ -1,0 +1,13 @@
+1. Compactar a pasta multibanco em um arquivo Zip
+
+2. Entrar na área de administração do seu prestashop
+
+3. Ir à secção dos módulos
+
+4. Clicar onde diz "Adicionar um módulo a partir do meu computador"
+
+5. Onde tem "Ficheiro do módulo" clique onde diz "Escolher Arquivo" e seleccione o ficheiro multibanco.zip correspondente à sua versão.
+
+6. Clicar em "Carregar este módulo"
+
+7. Ir à secção "Pagamentos & Plataformas" e instale e configure o módulo com os dados fornecidos por nós.

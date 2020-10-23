@@ -1,0 +1,19 @@
+p.payment_module.multibanco a {
+	padding-left: 17px;
+}
+.panel-paymentExecution {
+	width: 500px;
+    display: block;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    transition: box-shadow .25s;
+}
+.panel-paymentExecution .panel-header div {
+	padding: 15px;
+}
+.panel-paymentExecution .price {
+	font-weight: bold;
+}

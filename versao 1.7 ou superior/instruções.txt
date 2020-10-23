@@ -1,0 +1,15 @@
+1. Compactar a pasta ifthenpay em arquivo Zip
+
+2. Entrar na área de administração do seu prestashop
+
+3. Ir à secção dos módulos > módulos
+
+4. Clicar onde diz "Adicionar novo módulo"
+
+5. Onde tem "Ficheiro do módulo" clique onde diz "Escolher Arquivo" e seleccione o ficheiro ifthenpay.zip.
+
+6. Clicar em "Carregar este módulo"
+
+7. Configure o módulo com os dados fornecidos pela Ifthenpay.
+
+Nota: O manual de utilizador está disponível quando acede às configurações do módulo.

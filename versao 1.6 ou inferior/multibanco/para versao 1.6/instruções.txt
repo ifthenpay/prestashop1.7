@@ -1,0 +1,22 @@
+NOTA: SE JÁ TIVER UM MÓDULO DE MULTIBANCO INSTALADO DESINSTALE ANTES DE INSTALAR A NOVA VERSÃO
+
+1. Compactar a pasta multibanco em arquivo Zip
+
+2. Entrar na área de administração do seu prestashop
+
+3. Ir à secção dos módulos > módulos
+
+4. Clicar onde diz "Adicionar novo módulo"
+
+5. Onde tem "Ficheiro do módulo" clique onde diz "Escolher Arquivo" e seleccione o ficheiro multibanco.zip correspondente à sua versão.
+
+6. Clicar em "Carregar este módulo"
+
+7. Ir à secção "Pagamentos & Plataformas" e instale e configure o módulo com os dados fornecidos por nós.
+
+
+###########################
+# CONFIGURAÇÕES AVANÇADAS #
+###########################
+
+Para fazer override à função de gerar referências MB, substituindo a entidade e sub-entidade, deverá colocar o conteúdo do ficheiro override.zip na raiz do PrestaShop. A classe disponibilizada é apenas um boilerplate, deverão efetuar as alterações que considerem necessárias para o correto funcionamento.
