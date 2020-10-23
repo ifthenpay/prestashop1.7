@@ -12,7 +12,7 @@ This module will allow you to generate a payment Reference that the customer can
 This module will allow you to generate a request payment to the customer mobile phone, and he can authorize the payment for his order on the MBWAY App service. This module uses one of the several gateways/services available in Portugal, IfthenPay.
 
 **Payshop** is one Portuguese payment method that allows the customer to pay by payshop reference.
-This module will allow you to generate a payment Reference that the customer can then use to pay for his order on the Payshop agent or CTT. This plugin uses one of the several gateways/services available in Portugal, IfthenPay.
+This module will allow you to generate a payment Reference that the customer can then use to pay for his order on the Payshop agent or CTT. This module uses one of the several gateways/services available in Portugal, IfthenPay.
 
 **Contract with Ifthenpay is required.**
 
