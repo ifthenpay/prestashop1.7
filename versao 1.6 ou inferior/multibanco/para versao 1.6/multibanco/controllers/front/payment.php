@@ -24,12 +24,34 @@
 *  International Registered Trademark & Property of PrestaShop SA
 */
 
-header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+/**
+ * @since 1.5.0
+ */
+class MultibancoPaymentModuleFrontController extends ModuleFrontController
+{
+	public $ssl = true;
 
-header('Cache-Control: no-store, no-cache, must-revalidate');
-header('Cache-Control: post-check=0, pre-check=0', false);
-header('Pragma: no-cache');
+	/**
+	 * @see FrontController::initContent()
+	 */
+	public function initContent()
+	{
+		$this->display_column_left = false;
+		parent::initContent();
 
-header('Location: ../../../');
-exit;
+		$cart = $this->context->cart;
+		if (!$this->module->checkCurrency($cart))
+			Tools::redirect('index.php?controller=order');
+
+		$this->context->smarty->assign(array(
+			'nbProducts' => $cart->nbProducts(),
+			'cust_currency' => $cart->id_currency,
+			'currencies' => $this->module->getCurrency((int)$cart->id_currency),
+			'total' => $cart->getOrderTotal(true, Cart::BOTH),
+			'this_path' => $this->module->getPathUri(),
+			'this_path_ssl' => Tools::getShopDomainSsl(true, true).__PS_BASE_URI__.'modules/'.$this->module->name.'/'
+		));
+
+		$this->setTemplate('payment_execution.tpl');
+	}
+}
