@@ -28,7 +28,6 @@
 		<img src="{$module_dir|escape:'html':'UTF-8'}views/img/ifthenpay.png" id="payment-logo" />
 		<h5>{l s='Smart Payments' mod='ifthenpay'}</h5>
         <h3 class="help-documentation-title">{l s='Need Help?' mod='ifthenpay'}</h3>
-        {$isoCode}
         {if {$isoCode} eq "pt"}
             <a href="https://www.ifthenpay.com/downloads/prestashop/prestashop_user_guide_pt.pdf" target="_blank" class="btn btn-default" id="help-documentation-btn">{l s='Access the user documentation.' mod='ifthenpay'}</a><br />
         {else}
