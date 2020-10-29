@@ -186,7 +186,10 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
             parent::setMedia($isNewTheme);
             $this->addJS($this->module->getLocalPath() . '/views/js/ifthenpayPaymentMethodSetup.js');
             $this->addCSS($this->module->getLocalPath() . 'views/css/ifthenpayPaymentMethodSetup.css');
-            Media::addJsDef(array('ifthenpayUserPaymentMethods' => (array) unserialize($ifthenpayUserPaymentMethods)));
+            Media::addJsDef(array(
+                'ifthenpayUserPaymentMethods' => (array) unserialize($ifthenpayUserPaymentMethods),
+                'controllerUrl' => $this->context->link->getAdminLink('AdminIfthenpayPaymentMethodSetup')
+            ));
         }
     }
 
