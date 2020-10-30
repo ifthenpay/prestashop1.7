@@ -63,7 +63,7 @@ class Multibanco extends MasterPayment implements PaymentMethodInterface
     * Calculate multibanco referencia
     *@return string
     */
-    private function setReferencia(): string
+    private function setReferencia()
     {
         
         $this->orderId = "0000" . $this->orderId;
