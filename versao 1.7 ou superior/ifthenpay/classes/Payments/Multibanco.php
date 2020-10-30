@@ -63,11 +63,20 @@ class Multibanco extends MasterPayment implements PaymentMethodInterface
     * Calculate multibanco referencia
     *@return string
     */
-    private function setReferencia()
+    private function setReferencia(): string
     {
-        $subent=str_pad($this->subEntidade, 3, "0", STR_PAD_LEFT);
-        $seed=str_pad($this->orderId, 4, "0", STR_PAD_LEFT);
-        $chk_str=sprintf('%05u%03u%04u%08u', $this->entidade, $this->subEntidade, $seed, round($this->valor*100));
+        
+        $this->orderId = "0000" . $this->orderId;
+        
+        if(strlen($this->subEntidade) === 2){
+			//Apenas sao considerados os 5 caracteres mais a direita do order_id
+			$seed = substr($this->orderId, (strlen($this->orderId) - 5), strlen($this->orderId));
+			$chk_str = sprintf('%05u%02u%05u%08u', $this->entidade, $this->subEntidade, $seed, round($this->valor*100));
+		}else {
+			//Apenas sao considerados os 4 caracteres mais a direita do order_id
+			$seed = substr($this->orderId, (strlen($this->orderId) - 4), strlen($this->orderId));
+			$chk_str = sprintf('%05u%03u%04u%08u', $this->entidade, $this->subEntidade, $seed, round($this->valor*100));
+		}
         $chk_array=array(3, 30, 9, 90, 27, 76, 81, 34, 49, 5, 50, 15, 53, 45, 62, 38, 89, 17, 73, 51);
         $chk_val=0;
         for ($i = 0; $i < 20; $i++) {
@@ -77,7 +86,7 @@ class Multibanco extends MasterPayment implements PaymentMethodInterface
         $chk_val %= 97;
         $chk_digits = sprintf('%02u', 98-$chk_val);
         //referencia
-        return $subent.$seed.$chk_digits;
+        return $this->subEntidade.$seed.$chk_digits;
     }
     /**
     * Get multibanco payment data
