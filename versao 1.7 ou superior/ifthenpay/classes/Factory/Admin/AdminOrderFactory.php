@@ -52,7 +52,7 @@ class AdminOrderFactory
             case 'payshop':
                 return new PayshopAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
             default:
-                throw new Exception('Unknown Admin Order class');
+                throw new \Exception('Unknown Admin Order class');
         }
     }
 }

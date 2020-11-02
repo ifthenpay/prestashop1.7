@@ -42,7 +42,7 @@ class DatabaseFactory
         if ($type === 'dbQuery') {
             return new \DbQuery();
         } else {
-            throw new Exception('Unknown Database class');
+            throw new \Exception('Unknown Database class');
         }
     }
 }

@@ -54,7 +54,7 @@ class IfthenpayModelFactory
             case 'log':
                 return new IfthenpayLog($modelId);
             default:
-                throw new Exception("Unknown Payment Model Class");
+                throw new \Exception("Unknown Payment Model Class");
         }
     }
 }

@@ -43,7 +43,7 @@ class GatewayFactory
         if ($type === 'gateway') {
             return new Gateway();
         } else {
-            throw new Exception('Unknown gateway class');
+            throw new \Exception('Unknown gateway class');
         }
     }
 }

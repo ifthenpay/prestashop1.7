@@ -94,7 +94,7 @@ class Gateway
             )->getResponseJson();
 
         if (!$authenticate[0]['Entidade'] && empty($authenticate[0]['SubEntidade'])) {
-            throw new Exception('Backoffice key is invalid');
+            throw new \Exception('Backoffice key is invalid');
         } else {
             $this->account = $authenticate;
         }

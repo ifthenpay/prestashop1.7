@@ -52,7 +52,7 @@ class AdminResendFactory
             case 'payshop':
                 return new PayshopAdminResend($ifthenpayModule, $paymentDefaultData, $smartyDefaultData, $emailDefaultData);
             default:
-                throw new Exception('Unknown Admin Order Resend Class');
+                throw new \Exception('Unknown Admin Order Resend Class');
         }
     }
 }

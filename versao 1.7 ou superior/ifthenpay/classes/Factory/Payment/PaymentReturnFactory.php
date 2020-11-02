@@ -67,7 +67,7 @@ class PaymentReturnFactory
                     $emailDefaultData
                 );
             default:
-                throw new Exception('Unknown Payment Return Class');
+                throw new \Exception('Unknown Payment Return Class');
         }
     }
 }

@@ -84,7 +84,7 @@ class IfthenpayOrderStates implements InstallerInterface
                         $destination = _PS_ROOT_DIR_ . '/img/os/' . (int)$order_state->id . '.gif';
                         copy($source, $destination);
                     } else {
-                        throw new Exception('Error saving order state.');
+                        throw new \Exception('Error saving order state.');
                     }
 
                     if (\Shop::isFeatureActive()) {

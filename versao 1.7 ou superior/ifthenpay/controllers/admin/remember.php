@@ -46,7 +46,7 @@ class RememberController extends ModuleAdminController
             IfthenpayStrategyFactory::build('ifthenpayAdminRemember', $order, $this->module)->execute();
             IfthenpayLogProcess::addLog('Remember notification sent with success', IfthenpayLogProcess::INFO, $order->id);
             Utility::setPrestashopCookie('success', $this->l('Remember notification sent with success!'));
-        } catch (Exception $th) {
+        } catch (\Exception $th) {
             IfthenpayLogProcess::addLog('Error sent remember notification - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $order->id);
             Utility::setPrestashopCookie('error', $this->l('Error sent remember notification!'));
         }

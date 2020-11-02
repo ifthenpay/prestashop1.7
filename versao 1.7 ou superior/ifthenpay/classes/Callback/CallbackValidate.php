@@ -57,7 +57,7 @@ class CallbackValidate
     private function validateOrder()
     {
         if (!$this->order) {
-            throw new Exception('Ordem não encontrada.');
+            throw new \Exception('Ordem não encontrada.');
         }
     }
 
@@ -68,7 +68,7 @@ class CallbackValidate
     private function validateOrderValue()
     {
         if ((string) round($this->order->getOrdersTotalPaid(), 2) !== $this->httpRequest['valor']) {
-            throw new Exception('Valor não corresponde ao valor da encomenda.');
+            throw new \Exception('Valor não corresponde ao valor da encomenda.');
         }
     }
 
@@ -79,7 +79,7 @@ class CallbackValidate
     private function validateOrderStatus()
     {
         if ($this->paymentDataFromDb['status'] === 'paid') {
-                throw new Exception('Encomenda já foi paga.');
+                throw new \Exception('Encomenda já foi paga.');
         }
     }
 
@@ -90,11 +90,11 @@ class CallbackValidate
     private function validateChaveAntiPhishing()
     {
         if (!$this->httpRequest['chave']) {
-            throw new Exception('Chave Anti-Phishing não foi enviada.');
+            throw new \Exception('Chave Anti-Phishing não foi enviada.');
         }
 
         if ($this->httpRequest['chave'] !== $this->configurationChaveAntiPhishing) {
-            throw new Exception('Chave Anti-Phishing não é válida.');
+            throw new \Exception('Chave Anti-Phishing não é válida.');
         }
     }
 

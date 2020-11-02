@@ -42,7 +42,7 @@ class IfthenpayConfigFormsFactory
         if ($type === 'ifthenpayConfigForms') {
             return new IfthenpayConfigForms($paymentMethod, $form, $ifthenpayModule);
         } else {
-            throw new Exception('Unknown config form class');
+            throw new \Exception('Unknown config form class');
         }
     }
 }

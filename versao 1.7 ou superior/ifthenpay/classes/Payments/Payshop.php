@@ -71,7 +71,7 @@ class Payshop extends Payment implements PaymentMethodInterface
     public function checkValue()
     {
         if ($this->valor < 0) {
-            throw new Exception('Payshop does not allow payments of 0€');
+            throw new \Exception('Payshop does not allow payments of 0€');
         }
     }
     /**
@@ -81,7 +81,7 @@ class Payshop extends Payment implements PaymentMethodInterface
     private function checkEstado()
     {
         if ($this->payshopPedido['Code'] !== '0') {
-            throw new Exception($this->payshopPedido['Message']);
+            throw new \Exception($this->payshopPedido['Message']);
         }
     }
     /**

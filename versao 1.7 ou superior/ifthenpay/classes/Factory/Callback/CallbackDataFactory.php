@@ -52,7 +52,7 @@ class CallbackDataFactory
             case 'payshop':
                 return new CallbackDataPayshop();
             default:
-                throw new Exception('Unknown Callback Data Class');
+                throw new \Exception('Unknown Callback Data Class');
         }
     }
 }

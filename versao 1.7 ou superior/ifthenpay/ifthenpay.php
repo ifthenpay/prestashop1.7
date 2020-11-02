@@ -111,7 +111,7 @@ class Ifthenpay extends PaymentModule
             ConfigFactory::buildIfthenpaySql()->createIfthenpayLogSql();
             return true;
         } catch (\Throwable $th) {
-            throw new Exception($th->getMessage());
+            throw new \Exception($th->getMessage());
         }
     }
 
@@ -132,7 +132,7 @@ class Ifthenpay extends PaymentModule
                 $this
             )->execute('uninstall');
         } catch (\Throwable $th) {
-            throw new Exception($th->getMessage());
+            throw new \Exception($th->getMessage());
         }
         return parent::uninstall();
     }

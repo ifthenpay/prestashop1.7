@@ -43,7 +43,7 @@ class IfthenpayInstallerFactory
         if ($type === 'ifthenpayInstaller') {
             return new IfthenpayInstaller($userPaymentMethods, $ifthenpayModule);
         } else {
-            throw new Exception('Unknown installer class');
+            throw new \Exception('Unknown installer class');
         }
     }
 }

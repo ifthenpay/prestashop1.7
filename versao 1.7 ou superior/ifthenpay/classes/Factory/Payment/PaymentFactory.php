@@ -52,7 +52,7 @@ class PaymentFactory
             case 'payshop':
                 return new Payshop($data, $orderId, $valor);
             default:
-                throw new Exception("Unknown Payment Class");
+                throw new \Exception("Unknown Payment Class");
         }
     }
 }

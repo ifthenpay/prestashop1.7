@@ -59,7 +59,7 @@ class IfthenpayInstaller
     public function execute($type)
     {
         if (!$this->userPaymentMethods) {
-            throw new Exception('Error instaling, paymentMethods not defined!');
+            throw new \Exception('Error instaling, paymentMethods not defined!');
         } else {
             if ($type === 'install') {
                 $this->ifthenpaySql->install();

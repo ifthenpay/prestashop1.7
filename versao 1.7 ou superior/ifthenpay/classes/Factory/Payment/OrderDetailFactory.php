@@ -53,7 +53,7 @@ class OrderDetailFactory
             case 'payshop':
                 return new PayshopOrderDetail($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
             default:
-                throw new Exception('Unknown Order Detail Class');
+                throw new \Exception('Unknown Order Detail Class');
         }
     }
 }

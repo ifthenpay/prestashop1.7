@@ -64,7 +64,7 @@ class IfthenpayControllersTabs implements InstallerInterface
             $tab->module = $this->ifthenpayModule->name;
             $tab->add();
             if (!$tab->save()) {
-                throw new Exception('Error creating admin controllers tab.');
+                throw new \Exception('Error creating admin controllers tab.');
             }
         }
     }

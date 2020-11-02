@@ -51,7 +51,7 @@ class IfthenpayConfigFormFactory
             case 'payshop':
                 return new PayshopConfigForm($form, $ifthenpayController);
             default:
-                throw new Exception('Unknown Admin Config Form');
+                throw new \Exception('Unknown Admin Config Form');
         }
     }
 }

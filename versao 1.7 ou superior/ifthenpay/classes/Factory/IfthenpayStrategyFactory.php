@@ -61,7 +61,7 @@ class IfthenpayStrategyFactory
             case 'ifthenpayOrderDetail':
                 return new IfthenpayOrderDetail($order, $ifthenpayModule);
             default:
-                throw new Exception("Unknown Strategy class");
+                throw new \Exception("Unknown Strategy class");
         }
     }
 }

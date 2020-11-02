@@ -56,7 +56,7 @@ class MbWay extends Payment implements PaymentMethodInterface
     public function checkValue()
     {
         if ($this->valor < 0.10) {
-            throw new Exception('Mbway does not allow payments under 0.10€');
+            throw new \Exception('Mbway does not allow payments under 0.10€');
         }
     }
     /**
@@ -66,7 +66,7 @@ class MbWay extends Payment implements PaymentMethodInterface
     private function checkEstado()
     {
         if ($this->mbwayPedido['Estado'] !== '000') {
-            throw new Exception($this->mbwayPedido['MsgDescricao']);
+            throw new \Exception($this->mbwayPedido['MsgDescricao']);
         }
     }
     /**

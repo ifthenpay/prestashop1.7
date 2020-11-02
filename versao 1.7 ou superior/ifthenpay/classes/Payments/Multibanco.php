@@ -56,7 +56,7 @@ class Multibanco extends MasterPayment implements PaymentMethodInterface
     public function checkValue()
     {
         if ($this->valor >= 1000000) {
-            throw new Exception('Invalid Multibanco value, above 999999€');
+            throw new \Exception('Invalid Multibanco value, above 999999€');
         }
     }
     /**

@@ -49,7 +49,7 @@ class AdminRememberFactory
             case 'payshop':
                 return new PayshopAdminRemember($ifthenpayModule, $paymentDefaultData, $smartyDefaultData, $emailDefaultData);
             default:
-                throw new Exception('Unknown Admin Remember class');
+                throw new \Exception('Unknown Admin Remember class');
         }
     }
 }

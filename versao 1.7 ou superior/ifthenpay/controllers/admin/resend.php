@@ -45,7 +45,7 @@ class ResendController extends ModuleAdminController
             IfthenpayStrategyFactory::build('ifthenpayAdminResend', $order, $this->module)->execute();
             IfthenpayLogProcess::addLog('Payment data sent with success', IfthenpayLogProcess::INFO, $order->id);
             Utility::setPrestashopCookie('success', $this->l('Payment data sent with success!'));
-        } catch (Exception $th) {
+        } catch (\Exception $th) {
             IfthenpayLogProcess::addLog('Error sending payment data - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $order->id);
             Utility::setPrestashopCookie('error', $this->l('Error sending payment data!'));
         }

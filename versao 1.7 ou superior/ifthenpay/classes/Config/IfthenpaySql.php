@@ -110,7 +110,7 @@ class IfthenpaySql implements InstallerInterface
         foreach ($this->userPaymentMethods as $paymentMethod) {
             $sql = \Db::getInstance()->execute($this->storeSql[$paymentMethod]);
             if (!$sql) {
-                throw new Exception($this->l('Error creating ifthenpay payment shop table!'));
+                throw new \Exception($this->l('Error creating ifthenpay payment shop table!'));
             }
         }
     }
@@ -124,7 +124,7 @@ class IfthenpaySql implements InstallerInterface
         foreach ($this->userPaymentMethods as $paymentMethod) {
                 $sql = \Db::getInstance()->execute($this->ifthenpaySqlTables[$paymentMethod]);
             if (!$sql) {
-                throw new Exception($this->l('Error creating ifthenpay payment table!'));
+                throw new \Exception($this->l('Error creating ifthenpay payment table!'));
             }
         }
     }
@@ -137,7 +137,7 @@ class IfthenpaySql implements InstallerInterface
     {
         $sql = \Db::getInstance()->execute($this->ifthenpaySqlLogTable);
         if (!$sql) {
-            throw new Exception($this->l('Error creating ifthenpay log table!'));
+            throw new \Exception($this->l('Error creating ifthenpay log table!'));
         }
     }
 
@@ -150,7 +150,7 @@ class IfthenpaySql implements InstallerInterface
         foreach ($this->userPaymentMethods as $paymentMethod) {
                 $sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_' . $paymentMethod);
             if (!$sql) {
-                throw new Exception($this->l('Error deleting ifthenpay payment table!'));
+                throw new \Exception($this->l('Error deleting ifthenpay payment table!'));
             }
         }
     }
@@ -164,7 +164,7 @@ class IfthenpaySql implements InstallerInterface
         foreach ($this->userPaymentMethods as $paymentMethod) {
                 $sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_' . $paymentMethod . '_shop');
             if (!$sql) {
-                throw new Exception($this->l('Error deleting ifthenpay payment shop table!'));
+                throw new \Exception($this->l('Error deleting ifthenpay payment shop table!'));
             }
         }
     }
@@ -177,7 +177,7 @@ class IfthenpaySql implements InstallerInterface
     {
         $sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_log');
         if (!$sql) {
-            throw new Exception($this->l('Error deleting ifthenpay log table!'));
+            throw new \Exception($this->l('Error deleting ifthenpay log table!'));
         }
     }
 

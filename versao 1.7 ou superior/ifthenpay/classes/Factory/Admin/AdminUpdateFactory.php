@@ -48,7 +48,7 @@ class AdminUpdateFactory
             case 'payshop':
                 return new PayshopAdminUpdate($ifthenpayModule, $paymentDefaultData);
             default:
-                throw new Exception('Unknown Admin Order Update Class');
+                throw new \Exception('Unknown Admin Order Update Class');
         }
     }
 }
