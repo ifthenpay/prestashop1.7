@@ -67,7 +67,9 @@ class CallbackValidate
     */
     private function validateOrderValue()
     {
-        if ((string) round($this->order->getOrdersTotalPaid(), 2) !== $this->httpRequest['valor']) {
+        $orderTotal = floatval($this->order->getOrdersTotalPaid());
+        $requestValor = floatval($this->httpRequest['valor']);
+        if (round($orderTotal, 2) !== round($requestValor, 2)) {
             throw new \Exception('Valor não corresponde ao valor da encomenda.');
         }
     }
