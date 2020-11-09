@@ -42,14 +42,14 @@ class IfthenpayConfigFormFactory
     *@param string $type, @param array $form, @param Ifthenpay $ifthenpayModule
     * @return ConfigForm
     */
-    public static function build($type, $form, $ifthenpayController) {
+    public static function build($type, $form, $ifthenpayModule) {
         switch ($type) {
             case 'multibanco':
-                return new MultibancoConfigForm($form, $ifthenpayController);
+                return new MultibancoConfigForm($form, $ifthenpayModule);
             case 'mbway':
-                return new MbwayConfigForm($form, $ifthenpayController);
+                return new MbwayConfigForm($form, $ifthenpayModule);
             case 'payshop':
-                return new PayshopConfigForm($form, $ifthenpayController);
+                return new PayshopConfigForm($form, $ifthenpayModule);
             default:
                 throw new \Exception('Unknown Admin Config Form');
         }

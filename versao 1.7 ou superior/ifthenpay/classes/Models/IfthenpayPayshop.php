@@ -94,7 +94,7 @@ class IfthenpayPayshop extends \ObjectModel implements PaymentModelInterface
     public static function getByOrderId($orderId)
     {
         $query = DatabaseFactory::build('dbQuery');
-        $query->from('ifthenpay_payshop');
+        $query->from(self::$definition['table']);
         $query->where('order_id = ' . (int) $orderId);
         $rowOrder = \Db::getInstance()->getRow($query);
 
@@ -112,7 +112,7 @@ class IfthenpayPayshop extends \ObjectModel implements PaymentModelInterface
     public static function getPayshopByIdTransacao($idTransacao)
     {
         $rowOrder = \Db::getInstance()
-            ->executeS('SELECT * FROM `ps_ifthenpay_payshop` USE INDEX (idTransacao) WHERE (id_transacao = ' . '\'' . \pSQL($idTransacao) . '\') LIMIT 1');
+            ->executeS('SELECT * FROM ' . _DB_PREFIX_  . self::$definition['table'] . ' WHERE (id_transacao = ' . '\'' . \pSQL((string) $idTransacao) .  '\') ');
         if (is_array($rowOrder)) {
             return $rowOrder[0];
         } else {

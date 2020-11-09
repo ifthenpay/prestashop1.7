@@ -107,8 +107,8 @@ class IfthenpayMultibanco extends \ObjectModel implements PaymentModelInterface
     public function getMultibancoByReferencia($referencia)
     {
         $rowOrder = \DB::getInstance()
-            ->executeS('SELECT * FROM ps_' . self::$definition['table'] . ' USE INDEX (referencia) 
-                WHERE (referencia = ' . $referencia . ') ORDER BY ' . self::$definition['primary'] . ' DESC LIMIT 1');
+            ->executeS('SELECT * FROM ' . _DB_PREFIX_  . self::$definition['table'] . ' WHERE (referencia = ' . \pSQL($referencia) . ') ORDER BY ' . self::$definition['primary'] . ' DESC LIMIT 1');
+
 
         if (is_array($rowOrder)) {
             return $rowOrder[0];
