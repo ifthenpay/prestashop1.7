@@ -76,7 +76,7 @@ class IfthenpayOrderStates implements InstallerInterface
                     $order_state->delivery = false;
                     $order_state->logable = false;
                     $order_state->invoice = false;
-                    $order_state->module_name = $this->name;
+                    $order_state->module_name = 'ifthenpay';
                     $order_state->unremovable = true;
 
                     if ($order_state->add()) {
