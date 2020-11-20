@@ -57,7 +57,7 @@ class IfthenpayOrderStates implements InstallerInterface
         foreach ($this->userPaymentMethods as $paymentMethod) {
             foreach ($this->ifthenpayStatusKeys as $status) {
                 $status = str_replace('{paymentMethod}', \Tools::strtoupper($paymentMethod), $status);
-                if (!\Configuration::get($status) || !\Validate::isLoadedObject(PrestashopModelFactory::buildOrderState((int)\Configuration::get($status)))) {
+                if (!\Configuration::get($status) || !\Validate::isLoadedObject(PrestashopModelFactory::buildOrderState(\Configuration::get($status)))) {
                     $order_state = PrestashopModelFactory::buildOrderState();
                     $order_state->name = array();
                     foreach (\Language::getLanguages() as $language) {

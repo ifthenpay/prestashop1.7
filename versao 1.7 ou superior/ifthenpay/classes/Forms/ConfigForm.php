@@ -104,6 +104,34 @@ abstract class ConfigForm
         return CallbackFactory::buildCallback($this->gatewayDataBuilder);
     }
 
+    /**
+    * Delete default config values
+    * @return void
+    */
+    protected function deleteDefaultConfigValues()
+    {
+        \Configuration::deleteByName('IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod));
+        \Configuration::deleteByName('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($this->paymentMethod)); 
+    }
+
+    protected function setIfthenpayCallback()
+    {
+        
+        $activateCallback = !\Configuration::get('IFTHENPAY_ACTIVATE_SANDBOX_MODE', false)  && 
+        \Configuration::get('IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod)) && 
+        !\Configuration::get('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($this->paymentMethod)) ? true : false;
+        $ifthenpayCallback = $this->getIfthenpayCallback();
+        $ifthenpayCallback->make($this->paymentMethod, $this->getCallbackControllerUrl(), $activateCallback);
+
+        if (!\Configuration::get('IFTHENPAY_' . strtoupper($this->paymentMethod) . '_URL_CALLBACK', false) &&
+        !\Configuration::get('IFTHENPAY_' . strtoupper($this->paymentMethod) . '_CHAVE_ANTI_PHISHING', false)) {
+
+            \Configuration::updateValue('IFTHENPAY_' . strtoupper($this->paymentMethod) . '_URL_CALLBACK', $ifthenpayCallback->getUrlCallback());
+            \Configuration::updateValue('IFTHENPAY_' . strtoupper($this->paymentMethod) . '_CHAVE_ANTI_PHISHING', $ifthenpayCallback->getChaveAntiPhishing());
+        }
+    }
+
+
     abstract protected function setOptions();
     abstract public function getForm();
     abstract public function processForm();

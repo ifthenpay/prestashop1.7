@@ -50,7 +50,7 @@ class Ifthenpay extends PaymentModule
     {
         $this->name = 'ifthenpay';
         $this->tab = 'payments_gateways';
-        $this->version = '1.0.2';
+        $this->version = '1.0.3';
         $this->author = 'Ifthenpay';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -102,7 +102,6 @@ class Ifthenpay extends PaymentModule
         if (!parent::install() || !$this->registerHook('payment') || !$this->registerHook('paymentOptions') ||
         !$this->registerHook('paymentReturn') || !$this->registerHook('displayAdminOrder') ||
         !$this->registerHook('displayOrderDetail') || !$this->registerHook('header') ||
-        !$this->registerHook('actionAdminControllerSetMedia') ||
         !$this->registerHook('actionAdminControllerSetMedia')
         ) {
             return false;
@@ -226,6 +225,27 @@ class Ifthenpay extends PaymentModule
         } else {
             $form = [
                 'form' => [
+                    'input' => [
+                        [
+                            'type' => 'switch',
+                            'label' => $this->l('Sandbox Mode'),
+                            'name' => 'IFTHENPAY_ACTIVATE_SANDBOX_MODE',
+                            'desc' => $this->l('Activate sandbox mode, to test the module without activating the callback.'),
+                            'is_bool' => true,
+                            'values' => [
+                                [
+                                    'id' => 'active_on',
+                                    'value' => true,
+                                    'label' => $this->l('Enabled')
+                                ],
+                                [
+                                    'id' => 'active_off',
+                                    'value' => false,
+                                    'label' => $this->l('Disabled')
+                                ]
+                            ]   
+                        ],
+                    ],
                     'submit' => [
                         'title' => $this->l('Save'),
                     ],
@@ -298,6 +318,7 @@ class Ifthenpay extends PaymentModule
     {
         $formValues = array(
             'IFTHENPAY_BACKOFFICE_KEY' => Configuration::get('IFTHENPAY_BACKOFFICE_KEY', false),
+            'IFTHENPAY_ACTIVATE_SANDBOX_MODE' => Configuration::get('IFTHENPAY_ACTIVATE_SANDBOX_MODE', false)
         );
 
         if ($this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']) {
@@ -363,6 +384,9 @@ class Ifthenpay extends PaymentModule
      */
     protected function postProcess()
     {
+        Configuration::updateValue(
+            'IFTHENPAY_ACTIVATE_SANDBOX_MODE', Tools::getValue('IFTHENPAY_ACTIVATE_SANDBOX_MODE')
+        );
         if (!$this->ifthenpayConfig['IFTHENPAY_BACKOFFICE_KEY']) {
             return $this->postProcessBackofficeKey();
         } else {
@@ -575,7 +599,8 @@ class Ifthenpay extends PaymentModule
                 );
                 $this->smarty->assign('status', 'failed');
             }
-            return $this->fetch('module:ifthenpay/views/templates/hook/payment_return.tpl');
+            //return $this->fetch('module:ifthenpay/views/templates/hook/payment_return.tpl');
+            return $this->display(__FILE__, 'payment_return.tpl');
         }
     }
 
@@ -614,7 +639,7 @@ class Ifthenpay extends PaymentModule
             }
 
             if ($this->context->cookie->__isset('error')) {
-                $message = $this->displayConfirmation($this->context->cookie->__get('error'));
+                $message = $this->displayError($this->context->cookie->__get('error'));
                 $this->context->cookie->__unset('error');
             }
 
@@ -639,7 +664,8 @@ class Ifthenpay extends PaymentModule
                     throw $th;
             }
                 $this->smarty->assign($ifthenpayAdminOrder->getSmartyVariables()->toArray());
-                return $this->fetch('module:ifthenpay/views/templates/hook/admin.tpl');
+                return $this->display(__FILE__, 'admin.tpl');
+               // return $this->fetch('module:ifthenpay/views/templates/hook/admin.tpl');
         }
     }
 
@@ -693,7 +719,8 @@ class Ifthenpay extends PaymentModule
             );
             throw $th;
         }
-        return $this->fetch('module:ifthenpay/views/templates/hook/history.tpl');
+        //return $this->fetch('module:ifthenpay/views/templates/hook/history.tpl');
+        return $this->display(__FILE__, 'history.tpl');
     }
 
     /**

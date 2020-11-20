@@ -43,6 +43,8 @@ class Callback
     private $backofficeKey;
     private $entidade;
     private $subEntidade;
+    private $paymentType;
+
 
     private $urlCallbackParameters = [
         'multibanco' => '?payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&entidade=[ENTIDADE]&referencia=[REFERENCIA]&valor=[VALOR]',
@@ -100,20 +102,24 @@ class Callback
 
         $response = $request->getResponse();
         if (!$response->getStatusCode() === 200 && !$response->getReasonPhrase()) {
-            throw new \Exception("Error Activating Callback");
+            throw new Exception("Error Activating Callback");
         }
+        \Configuration::updateValue('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($this->paymentType), true);
     }
 
     /**
     * Main method to create callback data and activation
-    *@param string $paymentType, @param $moduleLink 
+    *@param string $paymentType, @param $moduleLink, @param bool $activateCallback 
     * @return SmartyDataBuilderInterface
     */
-    public function make($paymentType, $moduleLink)
+    public function make($paymentType, $moduleLink, $activateCallback)
     {
+        $this->paymentType = $paymentType;
         $this->createAntiPhishing();
         $this->createUrlCallback($paymentType, $moduleLink);
-        $this->activateCallback();
+        if ($activateCallback) {
+            $this->activateCallback();
+        }
     }
 
     /**

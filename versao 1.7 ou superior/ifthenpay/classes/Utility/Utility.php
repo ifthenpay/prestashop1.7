@@ -26,6 +26,8 @@
 
 namespace PrestaShop\Module\Ifthenpay\Utility;
 
+use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -71,5 +73,23 @@ class Utility
     {
         \Context::getContext()->cookie->__set($cookieName, $cookieValue);
         \Context::getContext()->cookie->write();
+    }
+
+    /**
+    * Get formated price
+    *@param Order $order
+    *@return string
+    */
+    public static function getFormatedPrice($order)
+    {
+        $price = $order->getOrdersTotalPaid();
+        if (version_compare(_PS_VERSION_, '1.7.6', '<')) {
+            return \Tools::displayPrice(
+                $price, 
+                PrestashopModelFactory::buildCurrency($order->id_currency), false);
+        } else {
+            return \Context::getContext()->currentLocale
+            ->formatPrice($price, \Context::getContext()->currency->iso_code);
+        }
     }
 }

@@ -32,6 +32,7 @@ if (!defined('_PS_VERSION_')) {
 
 use PrestaShop\Module\Ifthenpay\Factory\Builder\BuilderFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 
 class IfthenpayStrategy
 {
@@ -52,8 +53,7 @@ class IfthenpayStrategy
         $this->smartyDefaultData = BuilderFactory::build('smarty');
         $this->emailDefaultData = [];
         $this->order = $order;
-        $this->paymentValueFormated = \Context::getContext()->currentLocale
-            ->formatPrice($this->order->getOrdersTotalPaid(), \Context::getContext()->currency->iso_code);
+        $this->paymentValueFormated = Utility::getFormatedPrice($this->order);
     }
     /**
     * Set default payment default data

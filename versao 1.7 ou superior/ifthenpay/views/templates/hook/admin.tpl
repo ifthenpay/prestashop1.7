@@ -67,8 +67,9 @@
 						{if $idPedido && $telemovel}
 							<a href="{$resendControllerUrl}" class="btn btn-primary">{l s='Resend Payment Data' mod='ifthenpay' }</a>
 						{else}
-							<a id="resendPaymentBtn" href="{$resendControllerUrl}" class="btn btn-primary">{l s='Resend Payment Data' mod='ifthenpay' }</a>
-						{/if}						{if $paymentMethod === 'multibanco' || $paymentMethod === 'payshop'}
+							<a id="resendPaymentBtn" href="{$resendControllerUrl}" class="btn btn-primary" style="display:none;">{l s='Resend Payment Data' mod='ifthenpay' }</a>
+						{/if}
+						{if $paymentMethod === 'multibanco' || $paymentMethod === 'payshop'}
 							<a href="{$rememberControllerUrl}" class="btn btn-primary">{l s='Remember Payment Details' mod='ifthenpay' }</a>
 						{/if}
 					</div>

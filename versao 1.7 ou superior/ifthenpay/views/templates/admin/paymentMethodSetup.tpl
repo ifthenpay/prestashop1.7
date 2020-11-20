@@ -86,7 +86,11 @@
                         {l s='Callback Settings' mod='ifthenpay'}
                     </div>
                     <div class="panel-body">
-                        <span class="label label-success">{l s='Callback is activated' mod='ifthenpay'}</span>
+                        {if $isCallbackActivated}
+                            <span class="label label-success">{l s='Callback is activated' mod='ifthenpay'}</span>
+                        {else}
+                            <span class="label label-danger">{l s='Callback not activated' mod='ifthenpay'}</span>
+                        {/if}
                         <ul class="list-group callback-list-group">
                             <li class="list-group-item">
                                 {l s='Anti-Phishing key' mod='ifthenpay'}

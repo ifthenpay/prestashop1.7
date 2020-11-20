@@ -50,6 +50,7 @@ class IfthenpayConfiguration implements InstallerInterface
             'IFTHENPAY_USER_PAYMENT_METHODS',
             'IFTHENPAY_USER_ACCOUNT',
             'IFTHENPAY_UPDATE_USER_ACCOUNT_TOKEN',
+            'IFTHENPAY_ACTIVATE_SANDBOX_MODE',
         ];
     }
 
@@ -67,6 +68,8 @@ class IfthenpayConfiguration implements InstallerInterface
                 \Configuration::deleteByName('IFTHENPAY_ACTIVATE_NEW_' . \Tools::strtoupper($paymentMethod) .  '_ACCOUNT');
                 \Configuration::deleteByName('IFTHENPAY_' . \Tools::strtoupper($paymentMethod) . '_URL_CALLBACK');
                 \Configuration::deleteByName('IFTHENPAY_' . \Tools::strtoupper($paymentMethod) . '_CHAVE_ANTI_PHISHING');
+                \Configuration::deleteByName('IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($paymentMethod));
+                \Configuration::deleteByName('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($paymentMethod));
 
                 switch ($paymentMethod) {
                     case 'multibanco':

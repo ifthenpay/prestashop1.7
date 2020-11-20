@@ -30,10 +30,11 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Factory\Admin\AdminOrderFactory;
+use PrestaShop\Module\Ifthenpay\Payments\Data\IfthenpayStrategy;
 use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminOrderInterface;
 use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
-use PrestaShop\Module\Ifthenpay\Payments\Data\IfthenpayStrategy;
 
 class IfthenpayAdminOrder extends IfthenpayStrategy
 {
@@ -90,10 +91,7 @@ class IfthenpayAdminOrder extends IfthenpayStrategy
     private function setDefaultSmartyData()
     {
         $this->smartyDefaultData->setTotalToPay(
-            \Context::getContext()->currentLocale->formatPrice(
-                $this->order->total_paid,
-                \Context::getContext()->currency->iso_code
-            )
+            Utility::getFormatedPrice($this->order)
         );
         $this->smartyDefaultData->setPaymentMethod($this->order->payment);
         $this->smartyDefaultData->setPaymentLogo(

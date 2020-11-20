@@ -83,6 +83,9 @@ class PayshopConfigForm extends ConfigForm
     */
     public function setSmartyVariables()
     {
+        $this->setGatewayBuilderData();
+        $this->setIfthenpayCallback();
+
         \Context::getContext()->smarty->assign('payshopKey', \Configuration::get('IFTHENPAY_PAYSHOP_KEY'));
         \Context::getContext()->smarty->assign('payshopValidade', \Configuration::get('IFTHENPAY_PAYSHOP_VALIDADE'));
         \Context::getContext()->smarty->assign('chaveAntiPhishing', \Configuration::get('IFTHENPAY_PAYSHOP_CHAVE_ANTI_PHISHING'));
@@ -94,9 +97,10 @@ class PayshopConfigForm extends ConfigForm
     */
     public function setGatewayBuilderData()
     {
+        $getPayshopKeyFromRequest = \Tools::getValue('IFTHENPAY_PAYSHOP_KEY');
         parent::setGatewayBuilderData();
         $this->gatewayDataBuilder->setEntidade(\Tools::strtoupper($this->paymentMethod));
-        $this->gatewayDataBuilder->setSubEntidade(\Tools::getValue('IFTHENPAY_PAYSHOP_KEY'));
+        $this->gatewayDataBuilder->setSubEntidade($getPayshopKeyFromRequest ? $getPayshopKeyFromRequest : \Configuration::get('IFTHENPAY_PAYSHOP_KEY'));
     }
     /**
     * Process payshop config form
@@ -108,12 +112,8 @@ class PayshopConfigForm extends ConfigForm
         \Configuration::updateValue('IFTHENPAY_PAYSHOP_KEY', $this->gatewayDataBuilder->getData()->subEntidade);
         \Configuration::updateValue('IFTHENPAY_PAYSHOP_VALIDADE', \Tools::getValue('IFTHENPAY_PAYSHOP_VALIDADE'));
 
-        $ifthenpayCallback = $this->getIfthenpayCallback();
+        $this->setIfthenpayCallback();
 
-        $ifthenpayCallback->make($this->paymentMethod, $this->getCallbackControllerUrl());
-
-        \Configuration::updateValue('IFTHENPAY_PAYSHOP_URL_CALLBACK', $ifthenpayCallback->getUrlCallback());
-        \Configuration::updateValue('IFTHENPAY_PAYSHOP_CHAVE_ANTI_PHISHING', $ifthenpayCallback->getChaveAntiPhishing());
         Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('Payshop key successfully updated.'));
     }
     /**
@@ -122,6 +122,8 @@ class PayshopConfigForm extends ConfigForm
     */
     public function deleteConfigValues()
     {
+        $this->deleteDefaultConfigValues();
+
         \Configuration::deleteByName('IFTHENPAY_PAYSHOP_KEY');
         \Configuration::deleteByName('IFTHENPAY_PAYSHOP_VALIDADE');
         \Configuration::deleteByName('IFTHENPAY_PAYSHOP_URL_CALLBACK');

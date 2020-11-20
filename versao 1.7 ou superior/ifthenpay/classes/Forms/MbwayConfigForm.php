@@ -75,6 +75,9 @@ class MbwayConfigForm extends ConfigForm
     */
     public function setSmartyVariables()
     {
+        $this->setGatewayBuilderData();
+        $this->setIfthenpayCallback();
+
         \Context::getContext()->smarty->assign('mbwayKey', \Configuration::get('IFTHENPAY_MBWAY_KEY'));
         \Context::getContext()->smarty->assign('chaveAntiPhishing', \Configuration::get('IFTHENPAY_MBWAY_CHAVE_ANTI_PHISHING'));
         \Context::getContext()->smarty->assign('urlCallback', \Configuration::get('IFTHENPAY_MBWAY_URL_CALLBACK'));
@@ -85,9 +88,10 @@ class MbwayConfigForm extends ConfigForm
     */
     public function setGatewayBuilderData()
     {
+        $getMbwayKeyFromRequest = \Tools::getValue('IFTHENPAY_MBWAY_KEY');
         parent::setGatewayBuilderData();
         $this->gatewayDataBuilder->setEntidade(\Tools::strtoupper($this->paymentMethod));
-        $this->gatewayDataBuilder->setSubEntidade(\Tools::getValue('IFTHENPAY_MBWAY_KEY'));
+        $this->gatewayDataBuilder->setSubEntidade($getMbwayKeyFromRequest ? $getMbwayKeyFromRequest : \Configuration::get('IFTHENPAY_MBWAY_KEY'));
     }
     /**
     * Process mbway config form
@@ -98,11 +102,8 @@ class MbwayConfigForm extends ConfigForm
         $this->setGatewayBuilderData();
         \Configuration::updateValue('IFTHENPAY_MBWAY_KEY', $this->gatewayDataBuilder->getData()->subEntidade);
 
-        $ifthenpayCallback = $this->getIfthenpayCallback();
-        $ifthenpayCallback->make($this->paymentMethod, $this->getCallbackControllerUrl());
+        $this->setIfthenpayCallback();
 
-        \Configuration::updateValue('IFTHENPAY_MBWAY_URL_CALLBACK', $ifthenpayCallback->getUrlCallback());
-        \Configuration::updateValue('IFTHENPAY_MBWAY_CHAVE_ANTI_PHISHING', $ifthenpayCallback->getChaveAntiPhishing());
         Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('Mbway key successfully updated.'));
     }
     /**
@@ -111,6 +112,7 @@ class MbwayConfigForm extends ConfigForm
     */
     public function deleteConfigValues()
     {
+        $this->deleteDefaultConfigValues();
         \Configuration::deleteByName('IFTHENPAY_MBWAY_KEY');
         \Configuration::deleteByName('IFTHENPAY_MBWAY_URL_CALLBACK');
         \Configuration::deleteByName('IFTHENPAY_MBWAY_CHAVE_ANTI_PHISHING');

@@ -94,6 +94,9 @@ class MultibancoConfigForm extends ConfigForm
     */
     public function setSmartyVariables()
     {
+        $this->setGatewayBuilderData();
+        $this->setIfthenpayCallback();
+
         \Context::getContext()->smarty->assign('entidade', \Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE'));
         \Context::getContext()->smarty->assign('subEntidade', \Configuration::get('IFTHENPAY_MULTIBANCO_SUBENTIDADE'));
         \Context::getContext()->smarty->assign('chaveAntiPhishing', \Configuration::get('IFTHENPAY_MULTIBANCO_CHAVE_ANTI_PHISHING'));
@@ -105,9 +108,11 @@ class MultibancoConfigForm extends ConfigForm
     */
     public function setGatewayBuilderData()
     {
+        $getEntidadeFromRequest = \Tools::getValue('IFTHENPAY_MULTIBANCO_ENTIDADE');
+        $getSubEntidadeFromRequest = \Tools::getValue('IFTHENPAY_MULTIBANCO_SUBENTIDADE');
         parent::setGatewayBuilderData();
-        $this->gatewayDataBuilder->setEntidade(\Tools::getValue('IFTHENPAY_MULTIBANCO_ENTIDADE'));
-        $this->gatewayDataBuilder->setSubEntidade(\Tools::getValue('IFTHENPAY_MULTIBANCO_SUBENTIDADE'));
+        $this->gatewayDataBuilder->setEntidade($getEntidadeFromRequest ? $getEntidadeFromRequest : \Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE'));
+        $this->gatewayDataBuilder->setSubEntidade($getSubEntidadeFromRequest ? $getSubEntidadeFromRequest : \Configuration::get('IFTHENPAY_MULTIBANCO_SUBENTIDADE'));
     }
     /**
     * Process multibanco config form
@@ -119,11 +124,8 @@ class MultibancoConfigForm extends ConfigForm
         \Configuration::updateValue('IFTHENPAY_MULTIBANCO_ENTIDADE', $this->gatewayDataBuilder->getData()->entidade);
         \Configuration::updateValue('IFTHENPAY_MULTIBANCO_SUBENTIDADE', $this->gatewayDataBuilder->getData()->subEntidade);
 
-        $ifthenpayCallback = $this->getIfthenpayCallback();
-        $ifthenpayCallback->make($this->paymentMethod, $this->getCallbackControllerUrl());
+        $this->setIfthenpayCallback();
 
-        \Configuration::updateValue('IFTHENPAY_MULTIBANCO_URL_CALLBACK', $ifthenpayCallback->getUrlCallback());
-        \Configuration::updateValue('IFTHENPAY_MULTIBANCO_CHAVE_ANTI_PHISHING', $ifthenpayCallback->getChaveAntiPhishing());
         Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('Entity/SubEntity successfully updated.'));
     }
     /**
@@ -132,6 +134,7 @@ class MultibancoConfigForm extends ConfigForm
     */
     public function deleteConfigValues()
     {
+        $this->deleteDefaultConfigValues();
         \Configuration::deleteByName('IFTHENPAY_MULTIBANCO_ENTIDADE');
         \Configuration::deleteByName('IFTHENPAY_MULTIBANCO_SUBENTIDADE');
         \Configuration::deleteByName('IFTHENPAY_MULTIBANCO_URL_CALLBACK');
