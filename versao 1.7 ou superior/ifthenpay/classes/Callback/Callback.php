@@ -102,7 +102,7 @@ class Callback
 
         $response = $request->getResponse();
         if (!$response->getStatusCode() === 200 && !$response->getReasonPhrase()) {
-            throw new Exception("Error Activating Callback");
+            throw new \Exception("Error Activating Callback");
         }
         \Configuration::updateValue('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($this->paymentType), true);
     }
