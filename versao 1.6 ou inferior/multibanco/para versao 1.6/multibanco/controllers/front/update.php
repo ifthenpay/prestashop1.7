@@ -50,7 +50,7 @@ class MultibancoUpdateModuleFrontController extends ModuleFrontController
 			Db::getInstance()->Execute('UPDATE `' . _DB_PREFIX_ . 'multibanco` SET referencia=\''.preg_replace("/\s+/", "", $novaRef).'\', valor=\''.number_format((float)$order->total_paid, 2, '.', '').'\' WHERE `order_id` = '.$order_id);
 
 			$status = "sucesso";
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$status = "erro";
 		}
 

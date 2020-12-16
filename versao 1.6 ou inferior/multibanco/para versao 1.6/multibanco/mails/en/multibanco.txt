@@ -1,0 +1,23 @@
+Olá {firstname} {lastname},
+
+Obrigado por ter feito compras na loja {shop_name}!
+
+Sua encomenda {order_name} foi colocada com sucesso e será enviada logo que o seu pagamento for confirmado.
+
+Escolheu como forma de pagamento a Pagamento por Referência Multibanco.
+
+Aqui estão os detalhes para realizar o pagamento:
+
+Entidade: {entidade}
+
+Referencia: {referencia}
+
+Valor: {total_paid}
+
+Pode rever a sua Encomenda e realizar a descarga (download) da sua Fatura na secção "Histórico de Encomendas" a partir da sua Conta de Cliente por clicar em "Minha Conta" na nossa loja.
+
+Se possui ainda uma Conta de Visitante, pode seguir a sua Encomenda por usar este link: {shop_url}guest-tracking.php
+
+{shop_name} - {shop_url}
+
+{shop_url} powered by PrestaShop™

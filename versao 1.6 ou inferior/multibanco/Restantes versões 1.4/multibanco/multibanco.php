@@ -91,7 +91,7 @@ class Multibanco extends PaymentModule
 
 				foreach ( $languages as $language_atual )
 				{
-					/** CRIANDO AS DESCRIï¿½ï¿½ES DOS STATUS NA TABELA order_state_lang  **/
+					/** CRIANDO AS DESCRIÇÕES DOS STATUS NA TABELA order_state_lang  **/
 					Db::getInstance()->Execute
 					('
 						INSERT INTO `' . _DB_PREFIX_ . 'order_state_lang`
@@ -99,7 +99,7 @@ class Multibanco extends PaymentModule
 						VALUES
 					('.$this->figura .', '.$language_atual['id_lang'].', \''.$value[2].'\', \''.$value[3].'\');
 					');
-					/** /CRIANDO AS DESCRIï¿½ï¿½ES DOS STATUS NA TABELA order_state_lang  **/
+					/** /CRIANDO AS DESCRIÇÕES DOS STATUS NA TABELA order_state_lang  **/
 				}
 				
 				/** COPIANDO O ICONE ATUAL **/
@@ -113,11 +113,11 @@ class Multibanco extends PaymentModule
 				
 				
 
-				/** GRAVA AS CONFIGURAï¿½ï¿½ES  **/
+				/** GRAVA AS CONFIGURAÇÕES  **/
 				Configuration::updateValue("_PS_OS_MULTIBANCO_$key", 	$this->figura);
 				
 				
-				/** CRIANDO A Tabela de Registo de referï¿½ncias multibanco  **/
+				/** CRIANDO A Tabela de Registo de referências multibanco  **/
 					Db::getInstance()->Execute
 					('
 						CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'multibanco`(
@@ -130,7 +130,7 @@ class Multibanco extends PaymentModule
 						  PRIMARY KEY (`id`)
 						) ENGINE=InnoDB  DEFAULT CHARSET=latin1;'
 					);
-					/** /CRIANDO A Tabela de Registo de referï¿½ncias multibanco  **/
+					/** /CRIANDO A Tabela de Registo de referências multibanco  **/
 
 			}
 		
@@ -149,7 +149,7 @@ class Multibanco extends PaymentModule
 			return true;
 			
 
-		} catch (\Exception $e1) {
+		} catch (Exception $e1) {
 		
 			
 			$this->warning = "ERRO: " .  $e->getMessage();
@@ -525,7 +525,7 @@ class Multibanco extends PaymentModule
 		
 		return $valorTmp; 
 	} 
-	//FIM TRATAMENTO DEFINIï¿½ï¿½ES REGIONAIS
+	//FIM TRATAMENTO DEFINIÇÕES REGIONAIS
 
 
 	//INICIO REF MULTIBANCO
@@ -544,7 +544,7 @@ class Multibanco extends PaymentModule
 
 
 		if ($order_value < 1){
-                 echo "Lamentamos mas ï¿½ impossï¿½vel gerar uma referï¿½ncia MB para valores inferiores a 1 Euro";
+                 echo "Lamentamos mas é impossível gerar uma referência MB para valores inferiores a 1 Euro";
                  return;
            }
            if ($order_value >= 1000000){
@@ -556,7 +556,7 @@ class Multibanco extends PaymentModule
            }
                               
            
-        //cï¿½lculo dos check digits
+        //cálculo dos check digits
 		
 		   
            $chk_str = sprintf('%05u%03u%04u%08u', $ent_id, $subent_id, $order_id, round($order_value*100));
@@ -1167,7 +1167,7 @@ class Multibanco extends PaymentModule
 	}
 	
 	/* 
-	 * Funï¿½ï¿½o para tratamento do callback
+	 * Função para tratamento do callback
      */	 
 	public function callback($chave, $entidade, $referencia, $valor)
 	{

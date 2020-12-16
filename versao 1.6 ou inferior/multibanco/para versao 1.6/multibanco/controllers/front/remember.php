@@ -66,7 +66,7 @@ class MultibancoRememberModuleFrontController extends ModuleFrontController
 			Mail::Send((int)$order->id_lang, 'multibanco_relembrar', 'Pagamento em falta...', $data, $cliente->email, $cliente->firstname.' '.$cliente->lastname,null, null, null, null, _PS_MODULE_DIR_ . 'multibanco/mails/', false, (int)$order->id_shop);
 
 			$status = "sucesso";
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$status = "erro";
 		}
 
