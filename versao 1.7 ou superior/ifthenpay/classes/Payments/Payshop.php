@@ -30,7 +30,6 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-use DateTime;
 use PrestaShop\Module\Ifthenpay\Payments\Payment;
 use PrestaShop\Module\Ifthenpay\Builders\DataBuilder;
 use PrestaShop\Module\Ifthenpay\Builders\GatewayDataBuilder;
@@ -61,7 +60,7 @@ class Payshop extends Payment implements PaymentMethodInterface
         if ($validade === '0' || $validade === '') {
             return '';
         }
-        return (new DateTime(date("Ymd")))->modify('+' . $this->validade['value'] . 'day')
+        return (new \DateTime(date("Ymd")))->modify('+' . $validade . 'day')
             ->format('Ymd');
     }
     /**

@@ -43,7 +43,7 @@ class PayshopPaymentReturn extends PayshopBase implements PaymentReturnInterface
     public function setSmartyVariables()
     {
         $this->smartyDefaultData->setReferencia($this->paymentGatewayResultData->referencia);
-        $this->smartyDefaultData->setValidade($this->paymentGatewayResultData->validade);
+        $this->smartyDefaultData->setValidade((new \DateTime($this->paymentGatewayResultData->validade))->format('Y-m-d'));
     }
     /**
     * Get payshop payment return data

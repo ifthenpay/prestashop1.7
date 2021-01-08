@@ -42,7 +42,7 @@ class PayshopOrderDetail extends PayshopBase implements OrderDetailInterface
     public function setSmartyVariables()
     {
         $this->smartyDefaultData->setReferencia($this->paymentDataFromDb['referencia']);
-        $this->smartyDefaultData->setValidade($this->paymentDataFromDb['validade']);
+        $this->smartyDefaultData->setValidade((new \DateTime($this->paymentDataFromDb['validade']))->format('Y-m-d'));
         $this->smartyDefaultData->setIdPedido($this->paymentDataFromDb['id_transacao']);
     }
     /**
