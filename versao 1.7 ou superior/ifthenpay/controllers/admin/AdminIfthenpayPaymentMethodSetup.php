@@ -31,7 +31,6 @@ if (!defined('_PS_VERSION_')) {
 use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Log\IfthenpayLogProcess;
 use PrestaShop\Module\Ifthenpay\Factory\Payment\GatewayFactory;
-use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Config\IfthenpayConfigFormsFactory;
 
 class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
@@ -82,103 +81,10 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
         if (!Configuration::get('IFTHENPAY_BACKOFFICE_KEY')) {
             Utility::redirectIfthenpayConfigPage();
         }
-        if (!Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_URL_CALLBACK')
-            && !Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_CHAVE_ANTI_PHISHING')
-        ) {
-                $this->context->smarty->assign('form', $this->displayForm());
-        } else {
-            try {
-                IfthenpayConfigFormsFactory::build('ifthenpayConfigForms', $this->paymentMethod, [], $this->module)->setSmartyVariables();
-                IfthenpayLogProcess::addLog('Config form build with success', IfthenpayLogProcess::INFO, 0);
-            } catch (\Throwable $th) {
-                IfthenpayLogProcess::addLog('Error building config form', IfthenpayLogProcess::ERROR, 0);
-                throw $th;
-            }        
-        }
-        $this->context->smarty->assign('isCallbackActivated', 
-            Configuration::get('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($this->paymentMethod)) ? true : false
-        );
+        
+        IfthenpayConfigFormsFactory::build('ifthenpayConfigForms', $this->paymentMethod, $this->module, $this)->buildForm();
+
         $this->context->smarty->assign('content', $this->context->smarty->fetch($this->getTemplatePath() . '/paymentMethodSetup.tpl'));
-    }
-
-    public function displayForm()
-    {
-        $helper = PrestashopFactory::buildHelperForm();
-        $helper->show_toolbar = false;
-        $helper->table = $this->table;
-        $helper->module = $this->module;
-        $helper->identifier = $this->identifier;
-        $helper->submit_action = 'submitIfthenpay' . Tools::ucfirst($this->paymentMethod) . 'Config';
-        $helper->currentIndex = AdminController::$currentIndex;
-        $helper->token = Tools::getAdminTokenLite($this->controller_name);
-
-        $helper->default_form_language = $this->context->language->id;
-        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG', 0);
-
-        $helper->tpl_vars = array(
-            'fields_value' => $this->getConfigFormValues(),
-            'languages' => $this->context->controller->getLanguages(),
-            'id_language' => $this->context->language->id,
-        );
-
-        return $helper->generateForm(array($this->getConfigForm()));
-    }
-    private function getConfigForm()
-    {
-        $this->context->smarty->assign('spinnerUrl', _MODULE_DIR_ . $this->module->name . '/views/svg/oval.svg');
-        $form = [
-            'form' => [
-                'legend' => [
-                    'title' => Tools::ucfirst($this->paymentMethod) . ' ' . $this->l('Settings'),
-                    'icon' => 'icon-cogs',
-                ],
-                'input' => [
-                        [
-                            'type' => 'hidden',
-                            'name' => 'IFTHENPAY_PAYMENT_METHOD',
-                        ],
-                        [
-                            'type' => 'html',
-                            'html_content' => $this->context->smarty->fetch($this->module->getLocalPath() . 'views/templates/admin/_partials/spinner.tpl'),
-                        ],
-                        [
-                            'type' => 'switch',
-                            'label' => $this->l('Callback'),
-                            'name' => 'IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod),
-                            'desc' => $this->l('Activate callback automatically. If sandbox mode is enabled, callback will not activate.'),
-                            'is_bool' => true,
-                            'values' => [
-                                [
-                                    'id' => 'active_on',
-                                    'value' => true,
-                                    'label' => $this->l('Activate')
-                                ],
-                                [
-                                    'id' => 'active_off',
-                                    'value' => false,
-                                    'label' => $this->l('Disabled')
-                                ]
-                            ]   
-                        ]
-                ],
-                'submit' => [
-                    'title' => $this->l('Save'),
-                ],
-            ],
-        ];
-
-        return IfthenpayConfigFormsFactory::build('ifthenpayConfigForms', $this->paymentMethod, $form, $this->module)->buildForm();
-    }
-
-    /**
-     * Set values for the inputs.
-     */
-    protected function getConfigFormValues()
-    {
-        return [
-            'IFTHENPAY_PAYMENT_METHOD' => $this->paymentMethod,
-            'IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod) => Configuration::get('IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod), false)
-        ];
     }
 
     public function postProcess()
@@ -188,10 +94,13 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
 
         if ($this->paymentMethod && Tools::isSubmit('submitIfthenpay' . Tools::ucfirst($this->paymentMethod) . 'Config')) {
             try {
-                Configuration::updateValue(
-                    'IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod), Tools::getValue('IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod))
-                );
-                IfthenpayConfigFormsFactory::build('ifthenpayConfigForms', $this->paymentMethod, [], $this->module)->processForm();
+                $activateCallbackFor = Tools::getValue('IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod));
+                if ($activateCallbackFor) {
+                    Configuration::updateValue(
+                        'IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod), $activateCallbackFor
+                    );
+                }
+                IfthenpayConfigFormsFactory::build('ifthenpayConfigForms', $this->paymentMethod, $this->module)->processForm();
                 IfthenpayLogProcess::addLog(Tools::ucfirst($this->paymentMethod) . ' Form Data saved with success.', IfthenpayLogProcess::INFO, 0);
             } catch (\Throwable $th) {
                 IfthenpayLogProcess::addLog('Error saving ' . Tools::ucfirst($this->paymentMethod) . ' Form Data - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
@@ -203,8 +112,8 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
                     true,
                     [],
                     [
-                    'paymentMethod' => $this->paymentMethod
-                        ]
+                        'paymentMethod' => $this->paymentMethod
+                    ]
                 )
             );
         }
@@ -215,7 +124,7 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
         $ifthenpayUserPaymentMethods = Configuration::get('IFTHENPAY_USER_PAYMENT_METHODS');
         if ($ifthenpayUserPaymentMethods) {
             parent::setMedia($isNewTheme);
-            $this->addJS($this->module->getLocalPath() . '/views/js/ifthenpayPaymentMethodSetup.js');
+            $this->addJS($this->module->getLocalPath() . '/views/js/adminConfigPage.js');
             $this->addCSS($this->module->getLocalPath() . 'views/css/ifthenpayPaymentMethodSetup.css');
             Media::addJsDef(array(
                 'ifthenpayUserPaymentMethods' => (array) unserialize($ifthenpayUserPaymentMethods),
@@ -241,7 +150,7 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
     {
         $this->paymentMethod = Tools::getValue('paymentMethod');
         try {
-            IfthenpayConfigFormsFactory::build('ifthenpayConfigForms', $this->paymentMethod, [], $this->module)->deleteConfigFormValues();
+            IfthenpayConfigFormsFactory::build('ifthenpayConfigForms', $this->paymentMethod, $this->module)->deleteConfigFormValues();
             IfthenpayLogProcess::addLog('Choose new Entidade executed with success', IfthenpayLogProcess::INFO, 0);
             die(
                 json_encode(

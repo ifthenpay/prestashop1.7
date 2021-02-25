@@ -38,9 +38,9 @@ class WebService
     private $client;
     private $response;
 
-    public function __construct()
+    public function __construct($headers = [])
     {
-        $this->client = RequestFactory::buildClient();
+        $this->client = RequestFactory::buildClient($headers);
     }
     /**
     * Get response from webservice
@@ -81,7 +81,7 @@ class WebService
     *@param string $url, @param array $data
     *@return Webservice
     */
-    public function getRequest($url, $data)
+    public function getRequest($url, $data = [])
     {
         try {
             $this->response = $this->client->get($url, ['query' => $data]);

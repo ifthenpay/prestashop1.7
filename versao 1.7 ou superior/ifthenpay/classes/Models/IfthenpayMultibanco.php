@@ -88,7 +88,7 @@ class IfthenpayMultibanco extends \ObjectModel implements PaymentModelInterface
     */
     public static function getByOrderId($orderId)
     {
-        $query = DatabaseFactory::build('dbQuery');
+        $query = DatabaseFactory::buildDbQuery();
         $query->from(self::$definition['table']);
         $query->where('order_id = ' . (int) $orderId);
         $rowOrder = \Db::getInstance()->getRow($query);

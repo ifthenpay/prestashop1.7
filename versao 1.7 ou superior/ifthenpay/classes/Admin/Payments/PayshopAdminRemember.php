@@ -30,6 +30,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Base\Payments\PayshopBase;
 use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminRememberInterface;
 
@@ -45,6 +46,6 @@ class PayshopAdminRemember extends PayshopBase implements AdminRememberInterface
         $this->setPaymentModel('payshop');
         $this->getFromDatabaseById();
         $this->setEmailVariables();
-        $this->sendEmail('payshop', $this->ifthenpayModule->l('Payment missing...'));
+        $this->sendEmail('payshop_relembrar', Utility::getMailTranslationString('payshop'));
     }
 }

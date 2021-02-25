@@ -43,11 +43,15 @@ class PayshopAdminOrder extends PayshopBase implements AdminOrderInterface
     {
         if ($paymentInDatabase) {
             $this->smartyDefaultData->setReferencia($this->paymentDataFromDb['referencia']);
-            $this->smartyDefaultData->setValidade($this->paymentDataFromDb['validade']);
+            $this->smartyDefaultData->setValidade($this->paymentDataFromDb['validade'] !== '' ? 
+                (new \DateTime($this->paymentDataFromDb['validade']))->format('d-m-Y') : ''
+            );
             $this->smartyDefaultData->setIdPedido($this->paymentDataFromDb['id_transacao']);
         } else {
             $this->smartyDefaultData->setReferencia($this->paymentGatewayResultData->referencia);
-            $this->smartyDefaultData->setValidade($this->paymentGatewayResultData->validade);
+            $this->smartyDefaultData->setValidade($this->paymentGatewayResultData->validade !== '' ? 
+                (new \DateTime($this->paymentGatewayResultData->validade))->format('d-m-Y') : ''
+            );
             $this->smartyDefaultData->setIdPedido($this->paymentGatewayResultData->idPedido);
         }
     }

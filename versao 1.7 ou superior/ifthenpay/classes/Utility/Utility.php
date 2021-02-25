@@ -49,10 +49,18 @@ class Utility
     *@param string $orderId
     *@return void
     */
-    public static function redirectAdminOrder($orderId)
+    public static function redirectAdminOrder($order)
     {
-        $token = \Tools::getAdminTokenLite('AdminOrders');
-        \Tools::redirect(\Context::getContext()->link->getAdminLink('AdminOrders') . '&vieworder=&id_order=' . $orderId . '&token=' . $token);
+        if (version_compare(_PS_VERSION_, '1.7.5', '<')) {
+            $token = \Tools::getAdminTokenLite('AdminOrders');
+            \Tools::redirectAdmin(\Context::getContext()->link->getAdminLink('AdminOrders') . '&vieworder=&id_order=' . $order->id . '&token=' . $token);
+        } else {
+            \Tools::redirectAdmin(
+                \Context::getContext()->link->getAdminLink('AdminOrders', true, [], [
+                    'vieworder' => 1,
+                    'id_order' => (int) $order->id,
+                ]));
+        }
     }
     /**
     * Check if payment method is present in url
@@ -66,7 +74,7 @@ class Utility
     }
     /**
     * Set coockie
-    *@param string $cookieName, @param string $cookieValue
+    *@param string $cookieName, @param $cookieValue
     *@return void
     */
     public static function setPrestashopCookie($cookieName, $cookieValue)
@@ -86,10 +94,20 @@ class Utility
         if (version_compare(_PS_VERSION_, '1.7.6', '<')) {
             return \Tools::displayPrice(
                 $price, 
-                PrestashopModelFactory::buildCurrency($order->id_currency), false);
+                PrestashopModelFactory::buildCurrency((string) $order->id_currency), false);
         } else {
             return \Context::getContext()->currentLocale
             ->formatPrice($price, \Context::getContext()->currency->iso_code);
         }
+    }
+
+    public static function getMailTranslationString($paymentType, $type = '')
+    {
+        if ($type === 'details') {
+            return \Context::getContext()->language->iso_code === 'pt' ? 'Dados de pagamento ' . ucfirst($paymentType) : 'Payment details for ' . ucfirst($paymentType);
+        } else {
+            return \Context::getContext()->language->iso_code === 'pt' ? 'Pagamento em falta...' : 'Payment missing...';
+        }
+        
     }
 }

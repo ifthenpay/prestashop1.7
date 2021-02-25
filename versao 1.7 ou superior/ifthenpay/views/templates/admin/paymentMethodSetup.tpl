@@ -76,7 +76,10 @@
                         {/if}
                         </ul>
                     </div>
-                    <button class="btn btn-primary" id="chooseNewEntidade">{l s='Choose New Entity/SubEntity' mod='ifthenpay'}</button>
+                    <div class="chooseNewEntidadeDiv">
+                        <button class="btn btn-primary" id="chooseNewEntidade">{l s='Choose New Entity/SubEntity' mod='ifthenpay'}</button>
+                        {include file="./_partials/spinner.tpl"}
+                    </div>
                 </div>
             </div>
             <div class="col-md-8">

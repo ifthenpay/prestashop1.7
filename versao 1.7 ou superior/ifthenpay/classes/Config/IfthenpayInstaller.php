@@ -44,6 +44,7 @@ class IfthenpayInstaller
     */
     public function __construct($userPaymentMethods, $ifthenpayModule)
     {
+        $this->ifthenpayModule = $ifthenpayModule;
         $this->userPaymentMethods = (array) unserialize($userPaymentMethods);
         $this->ifthenpayOrderStates = ConfigFactory::buildIfthenpayOrderStates($this->userPaymentMethods);
         $this->ifthenpayControllersTab = ConfigFactory::buildIfthenpayControllersTabs($ifthenpayModule);
@@ -62,7 +63,7 @@ class IfthenpayInstaller
             throw new \Exception('Error instaling, paymentMethods not defined!');
         } else {
             if ($type === 'install') {
-                $this->ifthenpaySql->install();
+                $this->ifthenpaySql->setIfthenpayModule($this->ifthenpayModule)->install();
                 $this->ifthenpayOrderStates->install();
                 $this->ifthenpayControllersTab->install();
             } else {

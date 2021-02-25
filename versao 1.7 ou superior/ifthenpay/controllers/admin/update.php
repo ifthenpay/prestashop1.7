@@ -49,6 +49,6 @@ class UpdateController extends ModuleAdminController
             IfthenpayLogProcess::addLog('Error updating payment data - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $order->id);
             Utility::setPrestashopCookie('error', $this->l('Error updating payment data!'));
         }
-        Utility::redirectAdminOrder((string) $order->id);
+        Utility::redirectAdminOrder($order);
     }
 }

@@ -50,6 +50,6 @@ class RememberController extends ModuleAdminController
             IfthenpayLogProcess::addLog('Error sent remember notification - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $order->id);
             Utility::setPrestashopCookie('error', $this->l('Error sent remember notification!'));
         }
-        Utility::redirectAdminOrder((string) $order->id);
+        Utility::redirectAdminOrder($order);
     }
 }

@@ -54,39 +54,46 @@ class MultibancoConfigForm extends ConfigForm
     */
     public function getForm()
     {
-        $this->setOptions();
-        $this->form['form']['input'][] = [
-            'type' => 'select',
-            'label' => $this->ifthenpayModule->l('Entity'),
-            'desc' => $this->ifthenpayModule->l('Choose Entity'),
-            'name' => 'IFTHENPAY_MULTIBANCO_ENTIDADE',
-            'id' => 'ifthenpayMultibancoEntidade',
-            'required' => true,
-            'options' => [
-                'query' => $this->options,
-                'id' => 'id',
-                'name' => 'name'
-            ]
-        ];
-        $this->form['form']['input'][] = [
-            'type' => 'select',
-            'label' => $this->ifthenpayModule->l('SubEntity'),
-            'desc' => $this->ifthenpayModule->l('Choose SubEntity'),
-            'name' => 'IFTHENPAY_MULTIBANCO_SUBENTIDADE',
-            'id' => 'ifthenpayMultibancoSubentidade',
-            'required' => true,
-            'options' => [
-                'query' => [
-                    [
-                      'id' => $this->ifthenpayModule->l('Choose Entity'),
-                      'name' => $this->ifthenpayModule->l('Choose Entity')
+        if (!$this->checkIfCallbackIsSet()
+        ) {
+            $this->setFormParent();
+            $this->addActivateCallbackToForm();
+            $this->setOptions();
+            $this->form['form']['input'][] = [
+                'type' => 'select',
+                'label' => $this->ifthenpayModule->l('Entity'),
+                'desc' => $this->ifthenpayModule->l('Choose Entity'),
+                'name' => 'IFTHENPAY_MULTIBANCO_ENTIDADE',
+                'id' => 'ifthenpayMultibancoEntidade',
+                'required' => true,
+                'options' => [
+                    'query' => $this->options,
+                    'id' => 'id',
+                    'name' => 'name'
+                ]
+            ];
+            $this->form['form']['input'][] = [
+                'type' => 'select',
+                'label' => $this->ifthenpayModule->l('SubEntity'),
+                'desc' => $this->ifthenpayModule->l('Choose SubEntity'),
+                'name' => 'IFTHENPAY_MULTIBANCO_SUBENTIDADE',
+                'id' => 'ifthenpayMultibancoSubentidade',
+                'required' => true,
+                'options' => [
+                    'query' => [
+                        [
+                        'id' => $this->ifthenpayModule->l('Choose Entity'),
+                        'name' => $this->ifthenpayModule->l('Choose Entity')
+                        ],
                     ],
-                ],
-                'id' => 'id',
-                'name' => 'name'
-            ]
-        ];
-        return $this->form;
+                    'id' => 'id',
+                    'name' => 'name'
+                ]
+            ];
+            $this->generateHelperForm();
+        } else {
+            $this->setSmartyVariables();
+        }
     }
     /**
     * Set multibanco smarty variables for view
@@ -96,7 +103,7 @@ class MultibancoConfigForm extends ConfigForm
     {
         $this->setGatewayBuilderData();
         $this->setIfthenpayCallback();
-
+        \Context::getContext()->smarty->assign('spinnerUrl', _MODULE_DIR_ . $this->ifthenpayModule->name . '/views/svg/oval.svg');
         \Context::getContext()->smarty->assign('entidade', \Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE'));
         \Context::getContext()->smarty->assign('subEntidade', \Configuration::get('IFTHENPAY_MULTIBANCO_SUBENTIDADE'));
         \Context::getContext()->smarty->assign('chaveAntiPhishing', \Configuration::get('IFTHENPAY_MULTIBANCO_CHAVE_ANTI_PHISHING'));

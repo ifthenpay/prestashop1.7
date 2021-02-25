@@ -42,6 +42,13 @@ class CallbackDataMbway implements CallbackDataInterface
     */
     public function getData($request)
     {
-        return IfthenpayModelFactory::build('mbway')->getMbwayByIdTransacao($request['id_pedido']);
+        $mbwayModel = IfthenpayModelFactory::build('mbway');
+        $callbackData = $mbwayModel->getMbwayByIdTransacao($request['id_pedido']); 
+        
+        if (empty($callbackData)) {
+            return $mbwayModel->getByOrderId($request['referencia']);
+        } else {
+            return $callbackData;
+        }
     }
 }

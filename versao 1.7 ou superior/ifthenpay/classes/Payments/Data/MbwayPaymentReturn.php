@@ -23,23 +23,20 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Payments\Data;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Base\Payments\MbwayBase;
 use PrestaShop\Module\Ifthenpay\Contracts\Payments\PaymentReturnInterface;
 
 class MbwayPaymentReturn extends MbwayBase implements PaymentReturnInterface
 {
 
-    /**
-    * Set mbway smarty variables for view
-    *@return void
-    */
+
     public function setSmartyVariables()
     {
         $this->smartyDefaultData->setTelemovel($this->paymentGatewayResultData->telemovel);
@@ -57,11 +54,11 @@ class MbwayPaymentReturn extends MbwayBase implements PaymentReturnInterface
                 ]
             )
         );
+        $this->setOrderIcons();
+        Utility::setPrestashopCookie('mbwayCountdownShow', true);
+        $this->smartyDefaultData->setMbwayCountdownShow(true);
     }
-    /**
-    * Get mbway payment return data
-    *@return PaymentReturnInterface
-    */
+
     public function getPaymentReturn()
     {
         $this->setPaymentModel('mbway');

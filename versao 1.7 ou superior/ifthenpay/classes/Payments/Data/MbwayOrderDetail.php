@@ -23,31 +23,52 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Payments\Data;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Base\Payments\MbwayBase;
 use PrestaShop\Module\Ifthenpay\Contracts\Order\OrderDetailInterface;
 
 class MbwayOrderDetail extends MbwayBase implements OrderDetailInterface
 {
-    /**
-    * Set mbway smarty variables for view
-    *@return void
-    */
     public function setSmartyVariables()
     {
-        $this->smartyDefaultData->setTelemovel($this->paymentDataFromDb['telemovel']);
-        $this->smartyDefaultData->setIdPedido($this->paymentDataFromDb['id_transacao']);
+        $this->smartyDefaultData->setTelemovel(!empty($this->paymentDataFromDb) ? $this->paymentDataFromDb['telemovel'] : '');
+        $this->smartyDefaultData->setOrderId((string) $this->paymentDefaultData->order->id);
+        $this->smartyDefaultData->setIdPedido(!empty($this->paymentDataFromDb) ? $this->paymentDataFromDb['id_transacao'] : '');
+        if (!empty($this->paymentDataFromDb) && $this->paymentDataFromDb['status'] !== 'paid' && $this->paymentDefaultData->order->getCurrentOrderState()->name[1] !== 'Canceled') {
+            $this->smartyDefaultData->setResendMbwayNotificationControllerUrl(
+                \Context::getContext()->link->getModuleLink(
+                    'ifthenpay',
+                    'resendMbwayNotification',
+                    [
+                    'orderId' => $this->paymentDataFromDb['order_id'],
+                    'mbwayTelemovel' => $this->paymentDataFromDb['telemovel'],
+                    'orderTotalPay' => $this->paymentDefaultData->order->getOrdersTotalPaid(),
+                    'cartId' => \Tools::getValue('id_cart'),
+                    'customerSecureKey' => $this->paymentDefaultData->customer->secure_key
+                    ]
+                )
+            );
+            $this->setOrderIcons();
+            if (!\Context::getContext()->cookie->__isset('mbwayResendNotificationSent') && \Context::getContext()->cookie->__isset('mbwayCountdownShow')) {
+                \Context::getContext()->cookie->__unset('mbwayCountdownShow');
+                $this->smartyDefaultData->setMbwayCountdownShow(false);
+            } else {
+                Utility::setPrestashopCookie('mbwayCountdownShow', true);
+                $this->smartyDefaultData->setMbwayCountdownShow(true);
+                \Context::getContext()->cookie->__unset('mbwayResendNotificationSent');
+            }
+        } else {
+            $this->smartyDefaultData->setMbwayCountdownShow(false);
+            $this->smartyDefaultData->setResendMbwayNotificationControllerUrl('');
+        }
     }
-    /**
-    * Get mbway order detail data
-    *@return OrderDetailInterface
-    */
+
     public function getOrderDetail()
     {
         $this->setPaymentModel('mbway');

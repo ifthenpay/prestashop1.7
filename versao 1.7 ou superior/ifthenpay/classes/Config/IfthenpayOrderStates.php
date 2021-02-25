@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Config;
 
 if (!defined('_PS_VERSION_')) {
@@ -31,7 +30,6 @@ if (!defined('_PS_VERSION_')) {
 }
 
 use PrestaShop\Module\Ifthenpay\Contracts\Config\InstallerInterface;
-use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
 
 class IfthenpayOrderStates implements InstallerInterface
@@ -39,19 +37,12 @@ class IfthenpayOrderStates implements InstallerInterface
     private $ifthenpayStatusKeys;
     private $userPaymentMethods;
 
-    /**
-    *@param array $userPaymentMethods 
-    */
-    public function __construct($userPaymentMethods)
+    public function __construct(array $userPaymentMethods)
     {
         $this->userPaymentMethods = $userPaymentMethods;
         $this->ifthenpayStatusKeys = ['IFTHENPAY_{paymentMethod}_OS_WAITING', 'IFTHENPAY_{paymentMethod}_OS_CONFIRMED'];
     }
 
-    /**
-    * Install ifthenpay order states
-    * @return void
-    */
     public function install()
     {
         foreach ($this->userPaymentMethods as $paymentMethod) {
@@ -74,10 +65,11 @@ class IfthenpayOrderStates implements InstallerInterface
                     $order_state->color = strpos($status, 'WAITING') ? '#FF8100' : '#33B200';
                     $order_state->hidden = false;
                     $order_state->delivery = false;
-                    $order_state->logable = false;
+                    $order_state->logable = strpos($status, 'WAITING')  ? false : true;
                     $order_state->invoice = false;
                     $order_state->module_name = 'ifthenpay';
                     $order_state->unremovable = true;
+                    $order_state->paid = strpos($status, 'WAITING')  ? false : true;
 
                     if ($order_state->add()) {
                         $source = _PS_MODULE_DIR_ . 'ifthenpay/views/img/os_' . $paymentMethod . '.png';
@@ -100,21 +92,29 @@ class IfthenpayOrderStates implements InstallerInterface
         }
     }
 
-    /**
-    * Delete ifthenpay order states 
-    * @return void
-    */
     public function uninstall()
     {
-        /* @var $orderState OrderState */
-        $result = true;
-        $collection = PrestashopFactory::buildPrestaShopCollection('OrderState');
-        $collection->where('module_name', '=', 'ifthenpay');
-        $orderStates = $collection->getResults();
+        $query = new \DbQuery();
+        $query->select('id_order_state');
+        $query->from('order_state');
+        $query->where('module_name = \''.pSQL('ifthenpay').'\'');
 
-        if ($orderStates !== false) {
-            foreach ($orderStates as $orderState) {
-                $result &= $orderState->delete();
+        $orderStateData = \Db::getInstance()->executeS($query);
+
+        if (!empty($orderStateData)) {
+            foreach ($orderStateData as $data) {
+                $query = new \DbQuery();
+                $query->select('1');
+                $query->from('orders');
+                $query->where('current_state = '.$data['id_order_state']);
+                $isUsed = (bool)\Db::getInstance()->getValue($query);
+                $orderState = new \OrderState($data['id_order_state']);
+                if ($isUsed && version_compare(_PS_VERSION_, '1.7.6.8', '>')) {
+                    $orderState->deleted = true;
+                    $orderState->save();
+                } else {
+                    $orderState->delete();
+                }
             }
         }
     }

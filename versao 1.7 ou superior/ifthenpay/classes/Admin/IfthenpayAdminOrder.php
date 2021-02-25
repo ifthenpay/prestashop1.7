@@ -78,6 +78,14 @@ class IfthenpayAdminOrder extends IfthenpayStrategy
                 $this->paymentDefaultData->setPaymentMethod('payshop');
                 $this->order->payment = 'payshop';
                 $this->order->save();
+            } else {
+                $this->paymentDefaultData->setPaymentMethod('multibanco');
+                $this->order->payment = 'multibanco';
+                $this->order->save();
+                $new_history = PrestashopModelFactory::buildOrderHistory();
+                $new_history->id_order = (int) $this->order->id;
+                $new_history->changeIdOrderState((int) \Configuration::get('IFTHENPAY_MULTIBANCO_OS_WAITING'), (int) $this->order->id);
+                $new_history->addWithemail(true);
             }
 
             $this->paymentDefaultData->setOrder($this->order);
@@ -102,6 +110,7 @@ class IfthenpayAdminOrder extends IfthenpayStrategy
         $this->smartyDefaultData->setUpdateControllerUrl(\Context::getContext()->link->getAdminLink('Update') . $this->getControllersUrlParameters());
         $this->smartyDefaultData->setResendControllerUrl(\Context::getContext()->link->getAdminLink('Resend') . $this->getControllersUrlParameters());
         $this->smartyDefaultData->setRememberControllerUrl(\Context::getContext()->link->getAdminLink('Remember') . $this->getControllersUrlParameters());
+        $this->smartyDefaultData->setChooseNewPaymentMethodControllerUrl(\Context::getContext()->link->getAdminLink('AdminIfthenpayChooseNewPaymentMethod'));
         $this->smartyDefaultData->setMessage($this->message);
     }
 

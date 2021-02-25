@@ -36,6 +36,7 @@ class IfthenpaySql implements InstallerInterface
 {
 
     private $userPaymentMethods;
+    private $ifthenpayModule;
 
     private $ifthenpaySqlTables = [
         'multibanco' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_multibanco` (
@@ -202,5 +203,18 @@ class IfthenpaySql implements InstallerInterface
             $this->deleteShopSql();
         }
         $this->deleteIfthenpayLogSql();
+    }
+
+    /**
+     * Set the value of ifthenpayModule
+     * /**
+     * @param Ifthenpay $ifthenpayModule 
+     * @return  self
+     */ 
+    public function setIfthenpayModule($ifthenpayModule)
+    {
+        $this->ifthenpayModule = $ifthenpayModule;
+
+        return $this;
     }
 }

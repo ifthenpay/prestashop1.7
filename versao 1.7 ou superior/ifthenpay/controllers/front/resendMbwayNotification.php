@@ -23,11 +23,11 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Log\IfthenpayLogProcess;
 use PrestaShop\Module\Ifthenpay\Factory\Builder\BuilderFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Payment\GatewayFactory;
@@ -62,14 +62,14 @@ class IfthenpayResendMbwayNotificationModuleFrontController extends ModuleFrontC
                 strval($orderId),
                 strval($totalToPay)
             )->getData();
-            IfthenpayLogProcess::addLog('Resend MBWAY notification with success', IfthenpayLogProcess::INFO, (int) $orderId);
+            IfthenpayLogProcess::addLog('Resend MB WAY notification with success', IfthenpayLogProcess::INFO, (int) $orderId);
             $ifthenpayMbway = IfthenpayModelFactory::build('mbway');
             $mbwayDB = $ifthenpayMbway->getByOrderId($orderId);
             $ifthenpayMbway = IfthenpayModelFactory::build('mbway', $mbwayDB['id_ifthenpay_mbway']);
             $ifthenpayMbway->id_transacao = $gatewayResult->idPedido;
             $ifthenpayMbway->update();
+            Utility::setPrestashopCookie('mbwayResendNotificationSent', true);
             IfthenpayLogProcess::addLog('MBWAY id_transacao updated with success', IfthenpayLogProcess::INFO, (int) $orderId);
-
             $this->success[] = $this->l('Mbway notification successfully resent, confirm payment on your MBWAY app.');
             $this->redirectWithNotifications($redirectLink);
         } catch (\Throwable $th) {

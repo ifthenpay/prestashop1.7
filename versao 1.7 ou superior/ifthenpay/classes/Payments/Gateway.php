@@ -38,7 +38,7 @@ class Gateway
 {
     private $webservice;
     private $account;
-    private $paymentMethods = ['multibanco', 'mbway', 'payshop'];
+    private $paymentMethods = ['multibanco', 'mbway', 'payshop', 'ifthenpay'];
     private $previousModulePaymentMethods = ['pagamento por multibanco', 'pagamento por mbway', 'pagamento por payshop'];
 
     public function __construct()
@@ -60,7 +60,7 @@ class Gateway
     */
     public function checkIfthenpayPaymentMethod($paymentMethod)
     {
-        if (in_array($paymentMethod, $this->paymentMethods)) {
+        if (in_array(strtolower($paymentMethod), $this->paymentMethods)) {
             return true;
         }
         return false;

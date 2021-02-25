@@ -54,20 +54,46 @@ class MbwayConfigForm extends ConfigForm
     */
     public function getForm()
     {
-        $this->setOptions();
-        $this->form['form']['input'][] = [
-            'type' => 'select',
-            'label' => $this->ifthenpayModule->l('Mbway key'),
-            'desc' => $this->ifthenpayModule->l('Choose Mbway key'),
-            'name' => 'IFTHENPAY_MBWAY_KEY',
-            'required' => true,
-            'options' => [
-                'query' => $this->options,
-                'id' => 'id',
-                'name' => 'name'
-            ]
-        ];
-        return $this->form;
+        if (!$this->checkIfCallbackIsSet()
+        ) {
+            $this->setFormParent();
+            $this->addActivateCallbackToForm();
+            $this->setOptions();
+            $this->form['form']['input'][] = [
+                'type' => 'switch',
+                'label' => $this->ifthenpayModule->l('Cancel MB WAY Order'),
+                'name' => 'IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT',
+                'desc' => $this->ifthenpayModule->l('Cancel MB WAY order after notification expire. This will only work, if the callback is activated.'),
+                'is_bool' => true,
+                'values' => [
+                    [
+                        'id' => 'active_on',
+                        'value' => true,
+                        'label' => $this->ifthenpayModule->l('Activate')
+                    ],
+                    [
+                        'id' => 'active_off',
+                        'value' => false,
+                        'label' => $this->ifthenpayModule->l('Disabled')
+                    ]
+                ]   
+            ];
+            $this->form['form']['input'][] = [
+                'type' => 'select',
+                'label' => $this->ifthenpayModule->l('Mbway key'),
+                'desc' => $this->ifthenpayModule->l('Choose Mbway key'),
+                'name' => 'IFTHENPAY_MBWAY_KEY',
+                'required' => true,
+                'options' => [
+                    'query' => $this->options,
+                    'id' => 'id',
+                    'name' => 'name'
+                ]
+            ];
+            $this->generateHelperForm();
+        } else {
+            $this->setSmartyVariables();
+        }
     }
     /**
     * Set mbway smarty variables for view
@@ -101,7 +127,7 @@ class MbwayConfigForm extends ConfigForm
     {
         $this->setGatewayBuilderData();
         \Configuration::updateValue('IFTHENPAY_MBWAY_KEY', $this->gatewayDataBuilder->getData()->subEntidade);
-
+        \Configuration::updateValue('IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT', \Tools::getValue('IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT'));
         $this->setIfthenpayCallback();
 
         Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('Mbway key successfully updated.'));
@@ -116,5 +142,6 @@ class MbwayConfigForm extends ConfigForm
         \Configuration::deleteByName('IFTHENPAY_MBWAY_KEY');
         \Configuration::deleteByName('IFTHENPAY_MBWAY_URL_CALLBACK');
         \Configuration::deleteByName('IFTHENPAY_MBWAY_CHAVE_ANTI_PHISHING');
+        \Configuration::deleteByName('IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT');
     }
 }

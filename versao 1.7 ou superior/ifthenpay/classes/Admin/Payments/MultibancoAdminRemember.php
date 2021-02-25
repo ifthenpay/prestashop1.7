@@ -30,6 +30,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Base\Payments\MultibancoBase;
 use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminRememberInterface;
 
@@ -45,6 +46,6 @@ class MultibancoAdminRemember extends MultibancoBase implements AdminRememberInt
         $this->setPaymentModel('multibanco');
         $this->getFromDatabaseById();
         $this->setEmailVariables();
-        $this->sendEmail('multibanco', $this->ifthenpayModule->l('Payment missing...'));
+        $this->sendEmail('multibanco_relembrar', Utility::getMailTranslationString('multibanco'));
     }
 }

@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Payments\Data;
 
 if (!defined('_PS_VERSION_')) {
@@ -35,20 +34,15 @@ use PrestaShop\Module\Ifthenpay\Contracts\Order\OrderDetailInterface;
 
 class PayshopOrderDetail extends PayshopBase implements OrderDetailInterface
 {
-    /**
-    * Set payshop smarty variables for view
-    *@return void
-    */
     public function setSmartyVariables()
     {
-        $this->smartyDefaultData->setReferencia($this->paymentDataFromDb['referencia']);
-        $this->smartyDefaultData->setValidade((new \DateTime($this->paymentDataFromDb['validade']))->format('Y-m-d'));
-        $this->smartyDefaultData->setIdPedido($this->paymentDataFromDb['id_transacao']);
+        $this->smartyDefaultData->setReferencia(!empty($this->paymentDataFromDb) ? $this->paymentDataFromDb['referencia'] : '');
+        $this->smartyDefaultData->setValidade(!empty($this->paymentDataFromDb) ? 
+            (new \DateTime($this->paymentDataFromDb['validade']))->format('d-m-Y') : ''
+        );
+        $this->smartyDefaultData->setIdPedido(!empty($this->paymentDataFromDb) ? $this->paymentDataFromDb['id_transacao'] : '');
     }
-    /**
-    * Get payshop order detail data
-    *@return OrderDetailInterface
-    */
+
     public function getOrderDetail()
     {
         $this->setPaymentModel('payshop');

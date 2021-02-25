@@ -30,6 +30,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Base\Payments\PayshopBase;
 use PrestaShop\Module\Ifthenpay\Contracts\Payments\PaymentReturnInterface;
 
@@ -43,7 +44,9 @@ class PayshopPaymentReturn extends PayshopBase implements PaymentReturnInterface
     public function setSmartyVariables()
     {
         $this->smartyDefaultData->setReferencia($this->paymentGatewayResultData->referencia);
-        $this->smartyDefaultData->setValidade((new \DateTime($this->paymentGatewayResultData->validade))->format('Y-m-d'));
+        $this->smartyDefaultData->setValidade(
+            $this->paymentGatewayResultData->validade !== '' ? (new \DateTime($this->paymentGatewayResultData->validade))->format('d-m-Y') : ''
+        );
     }
     /**
     * Get payshop payment return data
@@ -62,7 +65,7 @@ class PayshopPaymentReturn extends PayshopBase implements PaymentReturnInterface
         $this->saveToDatabase();
         $this->setSmartyVariables();
         $this->setEmailVariables();
-        $this->sendEmail('payshop', $this->ifthenpayModule->l('Payment details for Payshop'));
+        $this->sendEmail('payshop', Utility::getMailTranslationString('payshop', 'details'));
         return $this;
     }
 }

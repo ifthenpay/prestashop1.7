@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Base\Payments;
 
 if (!defined('_PS_VERSION_')) {
@@ -34,10 +33,24 @@ use PrestaShop\Module\Ifthenpay\Base\PaymentBase;
 
 class MbwayBase extends PaymentBase
 {
-    /**
-    * Set mbway data for gateway 
-    * @return void
-    */
+    protected function setOrderIcons()
+    {
+        $this->smartyDefaultData->setCancelOrderImg(
+            \Media::getMediaPath(
+                _PS_MODULE_DIR_ . 'ifthenpay/views/svg/cancelOrder.svg'
+            )
+        );
+        $this->smartyDefaultData->setConfirmOrderImg(
+            \Media::getMediaPath(
+                _PS_MODULE_DIR_ . 'ifthenpay/views/svg/mbwayOrderConfirm.svg'
+            )
+        );
+        $this->smartyDefaultData->setSpinnerImg(
+            \Media::getMediaPath(
+                _PS_MODULE_DIR_ . 'ifthenpay/views/svg/oval.svg'
+            )
+        );
+    }
     protected function setGatewayBuilderData()
     {
         $this->gatewayBuilder->setMbwayKey(\Configuration::get('IFTHENPAY_MBWAY_KEY'));
@@ -52,10 +65,6 @@ class MbwayBase extends PaymentBase
         }
     }
 
-    /**
-    * Save mbway payment in database 
-    * @return void
-    */
     protected function saveToDatabase()
     {
         $this->paymentModel->id_transacao = $this->paymentGatewayResultData->idPedido;
@@ -65,10 +74,6 @@ class MbwayBase extends PaymentBase
         $this->paymentModel->save();
     }
 
-    /**
-    * Update mbway payment in database 
-    * @return void
-    */
     protected function updateDatabase()
     {
         $this->setPaymentModel('mbway', $this->paymentDataFromDb['id_ifthenpay_mbway']);
@@ -76,10 +81,6 @@ class MbwayBase extends PaymentBase
         $this->paymentModel->update();
     }
 
-    /**
-    * Set email variables 
-    * @return void
-    */
     protected function setEmailVariables()
     {
         //void

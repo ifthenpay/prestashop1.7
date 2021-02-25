@@ -39,10 +39,11 @@ class RequestFactory
     * Set ifthenpay WebService class
     * @return WebService
     */
-    public static function buildWebservice()
+    public static function buildWebservice(array $headers = [])
     {
-        return new Webservice();
+        return new Webservice($headers);
     }
+
     /**
     * Set guzzle client class
     * @return Client

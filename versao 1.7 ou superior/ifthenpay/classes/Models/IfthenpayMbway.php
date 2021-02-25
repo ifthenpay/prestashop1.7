@@ -87,7 +87,7 @@ class IfthenpayMbway extends \ObjectModel implements PaymentModelInterface
     */
     public static function getByOrderId($orderId)
     {
-        $query = DatabaseFactory::build('dbQuery');
+        $query = DatabaseFactory::buildDbQuery();
         $query->from(self::$definition['table']);
         $query->where('order_id = ' . (int) $orderId);
         $rowOrder = \Db::getInstance()->getRow($query);
@@ -110,6 +110,24 @@ class IfthenpayMbway extends \ObjectModel implements PaymentModelInterface
 
         if (is_array($rowOrder)) {
             return $rowOrder[0];
+        } else {
+            return array();
+        }
+    }
+
+    /**
+    * Get all pending mbway orders
+    *@param string $idTransacao
+    *@return array
+    */
+    public static function getAllPendingOrders()
+    {
+        
+        $rowOrder = \Db::getInstance()
+            ->executeS('SELECT * FROM `' . _DB_PREFIX_ . 'orders`' . ' WHERE `current_state` = ' . \Configuration::get('IFTHENPAY_MBWAY_OS_WAITING') . ' AND `payment` = "mbway"');
+
+        if (is_array($rowOrder)) {
+            return $rowOrder;
         } else {
             return array();
         }

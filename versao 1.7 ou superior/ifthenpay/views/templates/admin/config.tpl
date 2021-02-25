@@ -28,10 +28,10 @@
 		<img src="{$module_dir|escape:'html':'UTF-8'}views/img/ifthenpay.png" id="payment-logo" />
 		<h5>{l s='Smart Payments' mod='ifthenpay'}</h5>
         <h3 class="help-documentation-title">{l s='Need Help?' mod='ifthenpay'}</h3>
-        {if {$isoCode} eq "pt"}
-            <a href="https://www.ifthenpay.com/downloads/prestashop/prestashop_user_guide_pt.pdf" target="_blank" class="btn btn-default" id="help-documentation-btn">{l s='Access the user documentation.' mod='ifthenpay'}</a><br />
+        {if $isoCode eq 'PT'}
+            <a href="teste" target="_blank" class="btn btn-default" id="help-documentation-btn">{l s='Access the user documentation.' mod='ifthenpay'}</a><br />
         {else}
-            <a href="https://www.ifthenpay.com/downloads/prestashop/prestashop_user_guide_en.pdf" target="_blank" class="btn btn-default" id="help-documentation-btn">{l s='Access the user documentation.' mod='ifthenpay'}</a><br />
+            <a href="teste en" target="_blank" class="btn btn-default" id="help-documentation-btn">{l s='Access the user documentation.' mod='ifthenpay'}</a><br />
         {/if}
 		<h3 class="create-account-title">{l s='Already have an account?' mod='ifthenpay'}</h3>
         <a href="https://www.ifthenpay.com/downloads/ifmb/contratomb.pdf" target="_blank" class="btn btn-default" id="create-account-btn">{l s='Create an account now!' mod='ifthenpay'}</a><br />
@@ -68,9 +68,9 @@
             </li>
         </ul>
 		<div>
-            <img src="{$module_dir|escape:'html':'UTF-8'}views/img/multibanco_50.png" id="payment-logo" />
-            <img src="{$module_dir|escape:'html':'UTF-8'}views/img/mbway_50.png" id="payment-logo" />
-            <img src="{$module_dir|escape:'html':'UTF-8'}views/img/payshop.png" id="payment-logo" />
+            <img src="{$module_dir|escape:'html':'UTF-8'}views/img/multibanco_50.png"/>
+            <img src="{$module_dir|escape:'html':'UTF-8'}views/img/mbway_50.png"/>
+            <img src="{$module_dir|escape:'html':'UTF-8'}views/img/payshop.png"/>
         </div>
 	</div>
 </div>
@@ -82,7 +82,48 @@
 
 <!-- Tab panes -->
 <div class="tab-content">
-	<div class="tab-pane active" id="template_1">{$configForm}</div>
+	<div class="tab-pane active" id="template_1">
+        <div class="container-full">
+            <div class="row">
+                {if $isBackofficeKey}
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        {$configForm}
+                        <div class="panel resetIfthenpayAccountsPanel">
+                            <div class="panel-body text-center">
+                                <h2>{l s='You Add New Accounts to Your Contract?' mod='ifthenpay'}</h2>
+                                <div class="spinnerDivWithBtn">
+                                    <button type="button" id="resetIfthenpayAccount" class="btn btn-danger btn-lg btn-block">{l s='Reset Accounts' mod='ifthenpay'}</button>
+                                    {include file="./_partials/spinner.tpl"}
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <div class="panel updateModulePanel">
+                            <div class="panel-body text-center">
+                                {if $updateIfthenpayModuleAvailable}
+                                    <img src="{$updateSystemIcon}" alt="update system icon">
+                                    <h2>{l s='New update is available!' mod='ifthenpay'}</h2>
+                                    <div class="text-left bulletPoints">
+                                        {$upgradeModuleBulletPoints}
+                                    </div>
+                                    <a href="{$moduleUpgradeUrlDownload}" download id="downloadUpdateModuleIfthenpay" class="btn btn-danger btn-lg btn-block" target="_blank">{l s='Download Update Module' mod='ifthenpay'}</a>
+                                {else}
+                                    <img src="{$updatedModuleIcon}" alt="update system icon">
+                                    <h2>{l s='Your module is up to date!' mod='ifthenpay'}</h2>
+                                {/if}
+                            </div>
+                        </div>  
+                    </div>
+                {else}
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        {$configForm}
+                    </div>
+                {/if}
+            </div>
+        </div>
+    </div>
 	<div class="tab-pane" id="template_2">{$logTable}</div>
 </div>
 

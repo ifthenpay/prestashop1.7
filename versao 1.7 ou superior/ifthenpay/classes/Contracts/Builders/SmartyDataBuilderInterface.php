@@ -88,4 +88,40 @@ interface SmartyDataBuilderInterface extends DataBuilderInterface
     * @return SmartyDataBuilderInterface
     */
     public function setResendMbwayNotificationControllerUrl($value);
+    /**
+    * Set choose new payment method page controller url
+    *@param string $value 
+    * @return SmartyDataBuilderInterface
+    */
+    public function setChooseNewPaymentMethodControllerUrl($value);
+    /**
+    * Set mbway countdown in success page
+    *@param bool $value 
+    * @return SmartyDataBuilderInterface
+    */
+    public function setMbwayCountdownShow($value);
+    /**
+    * Set cancel order image in success page
+    *@param string $value 
+    * @return SmartyDataBuilderInterface
+    */
+    public function setCancelOrderImg($value);
+    /**
+    * Set confirm order image in success page
+    *@param string $value 
+    * @return SmartyDataBuilderInterface
+    */
+    public function setConfirmOrderImg($value);
+    /**
+    * Set spinner image
+    *@param string $value 
+    * @return SmartyDataBuilderInterface
+    */
+    public function setSpinnerImg($value);
+    /**
+    * Set order error image in success page
+    *@param string $value 
+    * @return SmartyDataBuilderInterface
+    */
+    public function setOrderErrorImg($value);
 }

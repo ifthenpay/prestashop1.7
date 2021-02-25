@@ -37,12 +37,8 @@ class DatabaseFactory
     *@param string $type
     * @return DbQuery
     */
-    public static function build($type)
+    public static function buildDbQuery()
     {
-        if ($type === 'dbQuery') {
-            return new \DbQuery();
-        } else {
-            throw new \Exception('Unknown Database class');
-        }
+        return new \DbQuery();
     }
 }

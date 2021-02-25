@@ -61,17 +61,18 @@
 						</ul>
 					{/if}
 					<div>
-						{if $paymentMethod === 'multibanco' || $paymentMethod === 'payshop'}
+						{if $paymentMethod == 'multibanco' || $paymentMethod == 'payshop'}
 							<a href="{$updateControllerUrl}" class="btn btn-primary">{l s='Update %s data' mod='ifthenpay' sprintf=[$paymentMethod|ucfirst]}</a>
 						{/if}
 						{if $idPedido && $telemovel}
 							<a href="{$resendControllerUrl}" class="btn btn-primary">{l s='Resend Payment Data' mod='ifthenpay' }</a>
 						{else}
-							<a id="resendPaymentBtn" href="{$resendControllerUrl}" class="btn btn-primary" style="display:none;">{l s='Resend Payment Data' mod='ifthenpay' }</a>
+							<a id="resendPaymentBtn" href="{$resendControllerUrl}" class="btn btn-primary">{l s='Resend Payment Data' mod='ifthenpay' }</a>
 						{/if}
-						{if $paymentMethod === 'multibanco' || $paymentMethod === 'payshop'}
+						{if $paymentMethod == 'multibanco' || $paymentMethod == 'payshop'}
 							<a href="{$rememberControllerUrl}" class="btn btn-primary">{l s='Remember Payment Details' mod='ifthenpay' }</a>
 						{/if}
+						<a id="chooseNewPaymentMethod" href="{$chooseNewPaymentMethodControllerUrl}" class="btn btn-primary">{l s='Choose new Payment Method' mod='ifthenpay'}</a>
 					</div>
 				</div>
 			</div>

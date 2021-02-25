@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Payments\Data;
 
 if (!defined('_PS_VERSION_')) {
@@ -35,19 +34,12 @@ use PrestaShop\Module\Ifthenpay\Contracts\Order\OrderDetailInterface;
 
 class MultibancoOrderDetail extends MultibancoBase implements OrderDetailInterface
 {
-    /**
-    * Set multibanco smarty variables for view
-    *@return void
-    */
     public function setSmartyVariables()
     {
-        $this->smartyDefaultData->setEntidade($this->paymentDataFromDb['entidade']);
-        $this->smartyDefaultData->setReferencia($this->paymentDataFromDb['referencia']);
+        $this->smartyDefaultData->setEntidade(!empty($this->paymentDataFromDb) ? $this->paymentDataFromDb['entidade'] : '');
+        $this->smartyDefaultData->setReferencia(!empty($this->paymentDataFromDb) ? $this->paymentDataFromDb['referencia'] : '');
     }
-    /**
-    * Get multibanco order detail data
-    *@return OrderDetailInterface
-    */
+
     public function getOrderDetail()
     {
         $this->setPaymentModel('multibanco');

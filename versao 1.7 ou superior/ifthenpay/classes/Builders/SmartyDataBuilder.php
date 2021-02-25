@@ -125,6 +125,42 @@ class SmartyDataBuilder extends DataBuilder implements SmartyDataBuilderInterfac
         return $this;
     }
 
+    public function setChooseNewPaymentMethodControllerUrl($value)
+    {
+        $this->data->chooseNewPaymentMethodControllerUrl = $value;
+        return $this;
+    }
+
+    public function setMbwayCountdownShow($value)
+    {
+        $this->data->mbwayCountdownShow = $value;
+        return $this;
+    }
+
+    public function setCancelOrderImg($value)
+    {
+        $this->data->cancelOrderImg = $value;
+        return $this;
+    }
+
+    public function setConfirmOrderImg($value)
+    {
+        $this->data->confirmOrderImg = $value;
+        return $this;
+    }
+
+    public function setSpinnerImg($value)
+    {
+        $this->data->spinnerUrl = $value;
+        return $this;
+    }
+
+    public function setOrderErrorImg($value)
+    {
+        $this->data->orderErrorImg = $value;
+        return $this;
+    }
+
     /**
     * Set message
     *@param string $value 

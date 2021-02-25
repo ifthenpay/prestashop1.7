@@ -39,7 +39,11 @@ class IfthenpayInstallerFactory
     *@param string $type, @param string $userPaymentMethods, @param Ifthenpay $ifthenpayModule
     * @return IfthenpayInstaller
     */
-    public static function build($type, $userPaymentMethods, $ifthenpayModule) {
+    public static function build(
+        $type,
+        $userPaymentMethods,
+        $ifthenpayModule
+    ) {
         if ($type === 'ifthenpayInstaller') {
             return new IfthenpayInstaller($userPaymentMethods, $ifthenpayModule);
         } else {

@@ -35,16 +35,15 @@ use PrestaShop\Module\Ifthenpay\Factory\Config\IfthenpayConfigFormFactory;
 class IfthenpayConfigForms
 {
     private $paymentMethod;
-    private $form;
     private $ifthenpayModule;
     /**
-    *@param string $paymentMethod, @param array $form, @param Ifthenpay $ifthenpayModule
+    *@param string $paymentMethod, @param Ifthenpay $ifthenpayModule, @param AdminIfthenpayPaymentMethodSetupController $ifthenpayController
     */
-    public function __construct($paymentMethod, $form, $ifthenpayModule)
+    public function __construct($paymentMethod, $ifthenpayModule, $ifthenpayController = null)
     {
         $this->paymentMethod = $paymentMethod;
-        $this->form = $form;
         $this->ifthenpayModule = $ifthenpayModule;
+        $this->ifthenpayController = $ifthenpayController;
     }
     /**
     * Get config form by payment method
@@ -54,8 +53,8 @@ class IfthenpayConfigForms
     {
         return IfthenpayConfigFormFactory::build(
             $this->paymentMethod,
-            $this->form,
-            $this->ifthenpayModule
+            $this->ifthenpayModule,
+            $this->ifthenpayController
         )->getForm();
     }
     /**
@@ -66,7 +65,6 @@ class IfthenpayConfigForms
     {
         IfthenpayConfigFormFactory::build(
             $this->paymentMethod,
-            $this->form,
             $this->ifthenpayModule
         )->processForm();
     }
@@ -78,20 +76,7 @@ class IfthenpayConfigForms
     {
         IfthenpayConfigFormFactory::build(
             $this->paymentMethod,
-            $this->form,
             $this->ifthenpayModule
         )->deleteConfigValues();
-    }
-    /**
-    * Set smarty variables by payment method
-    * @return void
-    */
-    public function setSmartyVariables()
-    {
-        IfthenpayConfigFormFactory::build(
-            $this->paymentMethod,
-            $this->form,
-            $this->ifthenpayModule
-        )->setSmartyVariables();
     }
 }

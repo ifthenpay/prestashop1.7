@@ -51,6 +51,11 @@ class IfthenpayPaymentReturn extends IfthenpayStrategy
                 _PS_MODULE_DIR_ . 'ifthenpay/views/img/' . $this->order->payment . '.png'
             )
         );
+        $this->smartyDefaultData->setOrderErrorImg(
+            \Media::getMediaPath(
+                _PS_MODULE_DIR_ . 'ifthenpay/views/svg/error.svg'
+            )
+        );
     }
     /**
     * Main method to get PaymentReturn data by payment method

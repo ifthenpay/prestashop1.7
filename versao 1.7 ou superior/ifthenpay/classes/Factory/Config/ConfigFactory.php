@@ -31,9 +31,12 @@ if (!defined('_PS_VERSION_')) {
 }
 
 use PrestaShop\Module\Ifthenpay\Config\IfthenpaySql;
+use PrestaShop\Module\Ifthenpay\Config\IfthenpayUpgrade;
 use PrestaShop\Module\Ifthenpay\Config\IfthenpayOrderStates;
 use PrestaShop\Module\Ifthenpay\Config\IfthenpayConfiguration;
 use PrestaShop\Module\Ifthenpay\Config\IfthenpayControllersTabs;
+use PrestaShop\Module\Ifthenpay\Payments\Data\MbwayCancelOrder;
+
 
 class ConfigFactory
 {
@@ -72,5 +75,23 @@ class ConfigFactory
     public static function buildIfthenpaySql($userPaymentMethods = null)
     {
         return new IfthenpaySql($userPaymentMethods);
+    }
+    /**
+    * Set IfthenpayUpgrade class
+    *@param Ifthenpay $ifthenpayModule
+    * @return IfthenpayUpgrade
+    */
+    public static function buildIfthenpayUpgrade($ifthenpayModule)
+    {
+        return new IfthenpayUpgrade($ifthenpayModule);
+    }
+
+    /**
+    * Set MbwayCancelOrder class
+    * @return MbwayCancelOrder
+    */
+    public static function buildCancelMbwayOrder()
+    {
+        return new MbwayCancelOrder();
     }
 }

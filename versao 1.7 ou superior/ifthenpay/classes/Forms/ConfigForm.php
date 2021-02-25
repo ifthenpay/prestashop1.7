@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Forms;
 
 if (!defined('_PS_VERSION_')) {
@@ -34,31 +33,124 @@ use PrestaShop\Module\Ifthenpay\Callback\Callback;
 use PrestaShop\Module\Ifthenpay\Factory\Builder\BuilderFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Payment\GatewayFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Callback\CallbackFactory;
+use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopFactory;
 
 abstract class ConfigForm
 {
     protected $paymentMethod;
     protected $form;
     protected $ifthenpayModule;
+    protected $ifthenpayController;
     protected $gatewayDataBuilder;
     private $ifthenpayGateway;
     protected $options;
-    /**
-    *@param array $defaultForm, @param Ifthenpay $ifthenpayModule
-    */
-    public function __construct($defaultForm, $ifthenpayModule)
+    protected $formFactory;
+
+    public function __construct($ifthenpayModule, $ifthenpayController = null)
     {
-        $this->form = $defaultForm;
+        //$this->form = $defaultForm;
         $this->ifthenpayModule = $ifthenpayModule;
+        $this->ifthenpayController = $ifthenpayController;
         $this->gatewayDataBuilder = BuilderFactory::build('gateway');
         $this->ifthenpayGateway = GatewayFactory::build('gateway');
         $this->ifthenpayGateway->setAccount((array) unserialize(\Configuration::get('IFTHENPAY_USER_ACCOUNT')));
         $this->options = [];
     }
+
+    protected function checkIfCallbackIsSet()
+    {
+        if (!\Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_URL_CALLBACK')
+            && !\Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_CHAVE_ANTI_PHISHING')
+        ) {
+            return false;
+        }
+        return true;
+    }
+
+    protected function generateHelperForm()
+    {
+        $helper = PrestashopFactory::buildHelperForm();
+        $helper->show_toolbar = false;
+        $helper->table = $this->ifthenpayController->table;
+        $helper->module = $this->ifthenpayModule;
+        $helper->identifier = 'id_module';
+        $helper->submit_action = 'submitIfthenpay' . \Tools::ucfirst($this->paymentMethod) . 'Config';
+        $helper->currentIndex = \AdminController::$currentIndex;
+        $helper->token = \Tools::getAdminTokenLite($this->ifthenpayController->controller_name);
+
+        $helper->default_form_language = \Context::getContext()->language->id;
+        $helper->allow_employee_form_lang = \Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG', 0);
+
+        $helper->tpl_vars = array(
+            'fields_value' => $this->getConfigFormValues(),
+            'languages' => \Context::getContext()->controller->getLanguages(),
+            'id_language' => \Context::getContext()->language->id,
+        );
+        \Context::getContext()->smarty->assign('form', $helper->generateForm(array($this->form)));
+    }
+   
+
     /**
-    * Add entidade/subentidade to config form when client request to add new entidade/subentidade
-    * @return void
-    */
+     * Set values for the inputs.
+     */
+    protected function getConfigFormValues()
+    {
+        return [
+            'IFTHENPAY_PAYMENT_METHOD' => $this->paymentMethod,
+            'IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod) => \Configuration::get('IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod), false)
+        ];
+    }
+
+    protected function setFormParent()
+    {
+       \Context::getContext()->smarty->assign('spinnerUrl', _MODULE_DIR_ . $this->ifthenpayModule->name . '/views/svg/oval.svg');
+        $this->form = [
+            'form' => [
+                'legend' => [
+                    'title' => \Tools::ucfirst($this->paymentMethod) . ' ' . $this->ifthenpayModule->l('Settings'),
+                    'icon' => 'icon-cogs',
+                ],
+                'input' => [
+                        [
+                            'type' => 'hidden',
+                            'name' => 'IFTHENPAY_PAYMENT_METHOD',
+                        ],
+                        [
+                            'type' => 'html',
+                            'html_content' => \Context::getContext()->smarty->fetch($this->ifthenpayModule->getLocalPath() . 'views/templates/admin/_partials/spinner.tpl'),
+                        ]
+                ],
+                'submit' => [
+                    'title' => $this->ifthenpayModule->l('Save'),
+                ],
+            ],
+        ];
+    }
+
+    protected function addActivateCallbackToForm()
+    {               
+        $this->form['form']['input'][] = [
+            'type' => 'switch',
+            'label' => $this->ifthenpayModule->l('Callback'),
+            'name' => 'IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod),
+            'desc' => $this->ifthenpayModule->l('Activate callback automatically. If sandbox mode is enabled, callback will not activate.'),
+            'is_bool' => true,
+            'values' => [
+                [
+                    'id' => 'active_on',
+                    'value' => true,
+                    'label' => $this->ifthenpayModule->l('Activate')
+                ],
+                [
+                    'id' => 'active_off',
+                    'value' => false,
+                    'label' => $this->ifthenpayModule->l('Disabled')
+                ]
+            ]   
+        ];
+        return $this->form;
+    }
+
     protected function addToOptions()
     {
         foreach ($this->ifthenpayGateway->getEntidadeSubEntidade($this->paymentMethod) as $key => $value) {
@@ -79,26 +171,17 @@ abstract class ConfigForm
             }
         }
     }
-    /**
-    * Set gateway builder backofficekey
-    * @return void
-    */
+
     protected function setGatewayBuilderData()
     {
         $this->gatewayDataBuilder->setBackofficeKey(\Configuration::get('IFTHENPAY_BACKOFFICE_KEY'));
     }
-    /**
-    * Get callback controller url
-    * @return string
-    */
+
     protected function getCallbackControllerUrl()
     {
         return \Context::getContext()->link->getModuleLink('ifthenpay', 'callback', array(), true);
     }
-    /**
-    * Set callback data
-    * @return Callback
-    */
+
     protected function getIfthenpayCallback()
     {
         return CallbackFactory::buildCallback($this->gatewayDataBuilder);
@@ -111,13 +194,16 @@ abstract class ConfigForm
     protected function deleteDefaultConfigValues()
     {
         \Configuration::deleteByName('IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod));
-        \Configuration::deleteByName('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($this->paymentMethod)); 
+        \Configuration::deleteByName('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($this->paymentMethod));
     }
 
     protected function setIfthenpayCallback()
     {
-        
-        $activateCallback = !\Configuration::get('IFTHENPAY_ACTIVATE_SANDBOX_MODE', false)  && 
+        \Context::getContext()->smarty->assign('displayCallbackTableInfo', true);
+        \Context::getContext()->smarty->assign('isCallbackActivated', 
+            \Configuration::get('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($this->paymentMethod)) ? true : false
+        );
+        $activateCallback = !\Configuration::get('IFTHENPAY_ACTIVATE_SANDBOX_MODE', false) && 
         \Configuration::get('IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod)) && 
         !\Configuration::get('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($this->paymentMethod)) ? true : false;
         $ifthenpayCallback = $this->getIfthenpayCallback();
@@ -130,7 +216,6 @@ abstract class ConfigForm
             \Configuration::updateValue('IFTHENPAY_' . strtoupper($this->paymentMethod) . '_CHAVE_ANTI_PHISHING', $ifthenpayCallback->getChaveAntiPhishing());
         }
     }
-
 
     abstract protected function setOptions();
     abstract public function getForm();

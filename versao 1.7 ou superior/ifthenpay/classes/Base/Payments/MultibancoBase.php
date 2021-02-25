@@ -74,7 +74,7 @@ class MultibancoBase extends PaymentBase
     */
     protected function setEmailVariables()
     {
-        $this->emailDefaultData['{mb_logo}'] = _PS_MODULE_DIR_ . 'ifthenpay/views/img/multibanco.png';
+        $this->emailDefaultData['{mb_logo}'] = _PS_BASE_URL_ . _MODULE_DIR_ . 'ifthenpay/views/img/multibanco.png';
         $this->emailDefaultData['{entidade}'] = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->entidade : $this->paymentDataFromDb['entidade'];
         $this->emailDefaultData['{referencia}'] = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->referencia : $this->paymentDataFromDb['referencia'];
     }

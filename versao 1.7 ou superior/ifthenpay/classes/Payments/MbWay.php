@@ -76,7 +76,7 @@ class MbWay extends Payment implements PaymentMethodInterface
     private function setReferencia()
     {
         $this->mbwayPedido = $this->webservice->postRequest(
-            'https://ifthenpay.com/mbwayws/IfthenPayMBW.asmx/SetPedidoJSON',
+            'https://mbway.ifthenpay.com/IfthenPayMBW.asmx/SetPedidoJSON',
             [
                     'MbWayKey' => $this->mbwayKey,
                     'canal' => '03',

@@ -49,6 +49,6 @@ class ResendController extends ModuleAdminController
             IfthenpayLogProcess::addLog('Error sending payment data - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $order->id);
             Utility::setPrestashopCookie('error', $this->l('Error sending payment data!'));
         }
-        Utility::redirectAdminOrder((string) $order->id);
+        Utility::redirectAdminOrder($order);
     }
 }

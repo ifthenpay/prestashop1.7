@@ -35,12 +35,17 @@ class IfthenpayConfigFormsFactory
 {
     /**
     * Set IfthepayConfigurationForms class
-    *@param string $type, @param string $paymentMethod, @param array $form, @param Ifthenpay $ifthenpayModule
+    *@param string $type, @param string $paymentMethod, @param Ifthenpay $ifthenpayModule, @param AdminIfthenpayPaymentMethodSetupController $ifthenpayController
     * @return IfthenpayConfigForms
     */
-    public static function build($type, $paymentMethod, $form, $ifthenpayModule) {
+    public static function build(
+        $type,
+        $paymentMethod,
+        $ifthenpayModule,
+        $ifthenpayController = null
+    ) {
         if ($type === 'ifthenpayConfigForms') {
-            return new IfthenpayConfigForms($paymentMethod, $form, $ifthenpayModule);
+            return new IfthenpayConfigForms($paymentMethod, $ifthenpayModule, $ifthenpayController);
         } else {
             throw new \Exception('Unknown config form class');
         }

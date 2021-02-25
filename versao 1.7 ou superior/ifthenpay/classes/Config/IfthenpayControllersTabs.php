@@ -44,7 +44,14 @@ class IfthenpayControllersTabs implements InstallerInterface
     */
     public function __construct($ifthenpayModule)
     {
-        $this->adminControllers = ['AdminIfthenpayPaymentMethodSetup', 'Update', 'Resend', 'Remember'];
+        $this->adminControllers = [
+            'AdminIfthenpayPaymentMethodSetup', 
+            'Update', 
+            'Resend', 
+            'Remember', 
+            'AdminIfthenpayChooseNewPaymentMethod', 
+            'AdminIfthenpayResetAccount',
+        ];
         $this->ifthenpayModule = $ifthenpayModule;
     }
 
@@ -86,7 +93,7 @@ class IfthenpayControllersTabs implements InstallerInterface
     */
     public function uninstall()
     {
-        $query = DatabaseFactory::build('dbQuery');
+        $query = DatabaseFactory::buildDbQuery();
         $query->select('*');
         $query->from('tab');
         $query->where('module = \''.pSQL($this->ifthenpayModule->name).'\'');

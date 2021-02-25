@@ -30,6 +30,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Base\Payments\MultibancoBase;
 use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminResendInterface;
 
@@ -45,6 +46,6 @@ class MultibancoAdminResend extends MultibancoBase implements AdminResendInterfa
         $this->setPaymentModel('multibanco');
         $this->getFromDatabaseById();
         $this->setEmailVariables();
-        $this->sendEmail('multibanco', $this->ifthenpayModule->l('Payment details for Multibanco'));
+        $this->sendEmail('multibanco', Utility::getMailTranslationString('multibanco', 'details'));
     }
 }

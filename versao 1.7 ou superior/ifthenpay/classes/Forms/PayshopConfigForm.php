@@ -54,28 +54,36 @@ class PayshopConfigForm extends ConfigForm
     */
     public function getForm()
     {
-        $this->setOptions();
-        $this->form['form']['input'][] = [
-            'type' => 'select',
-            'label' => $this->ifthenpayModule->l('Payshop key'),
-            'desc' => $this->ifthenpayModule->l('Choose Payshop key'),
-            'name' => 'IFTHENPAY_PAYSHOP_KEY',
-            'required' => true,
-            'options' => [
-                'query' => $this->options,
-                'id' => 'id',
-                'name' => 'name'
-            ]
-        ];
-        $this->form['form']['input'][] = [
-            'type' => 'text',
-            'label' => $this->ifthenpayModule->l('Validity'),
-            'name' => 'IFTHENPAY_PAYSHOP_VALIDADE',
-            'desc' => $this->ifthenpayModule->l('Choose the number of days, leave empty if you do not want validity'),
-            'size' => 2,
-            'required' => true
-        ];
-        return $this->form;
+        if (!$this->checkIfCallbackIsSet()
+        ) {
+            $this->setFormParent();
+            $this->addActivateCallbackToForm();
+            $this->setOptions();
+            $this->form['form']['input'][] = [
+                'type' => 'select',
+                'label' => $this->ifthenpayModule->l('Payshop key'),
+                'desc' => $this->ifthenpayModule->l('Choose Payshop key'),
+                'name' => 'IFTHENPAY_PAYSHOP_KEY',
+                'required' => true,
+                'options' => [
+                    'query' => $this->options,
+                    'id' => 'id',
+                    'name' => 'name'
+                ]
+            ];
+            $this->form['form']['input'][] = [
+                'type' => 'text',
+                'label' => $this->ifthenpayModule->l('Validity'),
+                'name' => 'IFTHENPAY_PAYSHOP_VALIDADE',
+                'desc' => $this->ifthenpayModule->l('Choose the number of days, leave empty if you do not want validity'),
+                'size' => 2,
+                'required' => true
+            ];
+            $this->generateHelperForm();
+        } else {
+            
+            $this->setSmartyVariables();
+        }
     }
     /**
     * Set payshop smarty variables for view
@@ -123,7 +131,6 @@ class PayshopConfigForm extends ConfigForm
     public function deleteConfigValues()
     {
         $this->deleteDefaultConfigValues();
-
         \Configuration::deleteByName('IFTHENPAY_PAYSHOP_KEY');
         \Configuration::deleteByName('IFTHENPAY_PAYSHOP_VALIDADE');
         \Configuration::deleteByName('IFTHENPAY_PAYSHOP_URL_CALLBACK');

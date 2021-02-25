@@ -30,6 +30,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Base\Payments\PayshopBase;
 use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminResendInterface;
 
@@ -45,6 +46,6 @@ class PayshopAdminResend extends PayshopBase implements AdminResendInterface
         $this->setPaymentModel('payshop');
         $this->getFromDatabaseById();
         $this->setEmailVariables();
-        $this->sendEmail('payshop', $this->ifthenpayModule->l('Payment details for Payshop'));
+        $this->sendEmail('payshop', Utility::getMailTranslationString('payshop', 'details'));
     }
 }

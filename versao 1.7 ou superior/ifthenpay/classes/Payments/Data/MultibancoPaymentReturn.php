@@ -30,6 +30,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Base\Payments\MultibancoBase;
 use PrestaShop\Module\Ifthenpay\Contracts\Payments\PaymentReturnInterface;
 
@@ -61,7 +62,7 @@ class MultibancoPaymentReturn extends MultibancoBase implements PaymentReturnInt
         $this->saveToDatabase();
         $this->setSmartyVariables();
         $this->setEmailVariables();
-        $this->sendEmail('multibanco', $this->ifthenpayModule->l('Payment details for Multibanco'));
+        $this->sendEmail('multibanco', Utility::getMailTranslationString('multibanco', 'details'));
         return $this;
     }
 }
