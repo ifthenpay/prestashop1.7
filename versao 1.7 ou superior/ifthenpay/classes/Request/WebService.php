@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Request;
 
 if (!defined('_PS_VERSION_')) {
@@ -42,27 +41,17 @@ class WebService
     {
         $this->client = RequestFactory::buildClient($headers);
     }
-    /**
-    * Get response from webservice
-    *@return Response
-    */
+
     public function getResponse()
     {
         return $this->response;
     }
-    /**
-    * Get Json response from webservice
-    *@return array
-    */
+
     public function getResponseJson()
     {
         return json_decode(json_encode(json_decode((string) $this->response->getBody())), true);
     }
-    /**
-    * Webservice post request
-    *@param string $url, @param array $data, @param bool $jsonContentType,
-    *@return Webservice
-    */
+
     public function postRequest($url, $data, $jsonContentType = false)
     {
         try {
@@ -76,11 +65,7 @@ class WebService
             throw $th;
         }
     }
-    /**
-    * Webservice get request
-    *@param string $url, @param array $data
-    *@return Webservice
-    */
+
     public function getRequest($url, $data = [])
     {
         try {

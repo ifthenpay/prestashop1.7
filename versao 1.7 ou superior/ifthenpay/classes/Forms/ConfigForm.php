@@ -23,6 +23,7 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
+
 namespace PrestaShop\Module\Ifthenpay\Forms;
 
 if (!defined('_PS_VERSION_')) {
@@ -48,7 +49,6 @@ abstract class ConfigForm
 
     public function __construct($ifthenpayModule, $ifthenpayController = null)
     {
-        //$this->form = $defaultForm;
         $this->ifthenpayModule = $ifthenpayModule;
         $this->ifthenpayController = $ifthenpayController;
         $this->gatewayDataBuilder = BuilderFactory::build('gateway');

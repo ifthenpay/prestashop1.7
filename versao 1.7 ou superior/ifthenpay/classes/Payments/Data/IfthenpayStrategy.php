@@ -23,16 +23,15 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Payments\Data;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Factory\Builder\BuilderFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
-use PrestaShop\Module\Ifthenpay\Utility\Utility;
 
 class IfthenpayStrategy
 {
@@ -43,9 +42,7 @@ class IfthenpayStrategy
     protected $paymentValueFormated;
     protected $ifthenpayModule;
 
-    /**
-    * @param Order $order, @param Ifthenpay $ifthenpayModule
-    */
+
     public function __construct($order, $ifthenpayModule)
     {
         $this->ifthenpayModule = $ifthenpayModule;
@@ -55,20 +52,14 @@ class IfthenpayStrategy
         $this->order = $order;
         $this->paymentValueFormated = Utility::getFormatedPrice($this->order);
     }
-    /**
-    * Set default payment default data
-    *@return void
-    */
+
     protected function setDefaultData()
     {
         $this->paymentDefaultData->setOrder($this->order);
         $this->paymentDefaultData->setPaymentMethod($this->order->payment);
         $this->paymentDefaultData->setCustomer(PrestashopModelFactory::buildCustomer((string) $this->order->id_customer));
     }
-    /**
-    * Set default email data
-    *@return void
-    */
+
     protected function setDefaultEmailData()
     {
         $data = $this->paymentDefaultData->getData();

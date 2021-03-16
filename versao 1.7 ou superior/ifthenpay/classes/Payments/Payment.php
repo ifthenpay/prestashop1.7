@@ -23,40 +23,31 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Payments;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Contracts\Models\PaymentModelInterface;
 use PrestaShop\Module\Ifthenpay\Factory\Builder\BuilderFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Request\RequestFactory;
 
 class Payment
 {
-
-
     protected $orderId;
     protected $valor;
     protected $dataBuilder;
     protected $webservice;
-    /**
-    * @param string $orderId, @param string $valor
-    *@return void
-    */
+
     public function __construct($orderId, $valor)
     {
         $this->orderId = $orderId;
-        $this->valor = $this->formatNumber($valor);
+        $this->valor = round(floatval($this->formatNumber($valor)), 2);
         $this->dataBuilder = BuilderFactory::build('default');
         $this->webservice = RequestFactory::buildWebservice();
     }
-    /**
-    * Format payment value for payment processing
-    *@param string $number
-    *@return string
-    */
+
     protected function formatNumber($number)
     {
         $verifySepDecimal = number_format(99, 2);
@@ -104,11 +95,7 @@ class Payment
 
         return $valorTmp;
     }
-    /**
-    * Check if payment exist in database
-    *@param string $orderId, @param PaymentModelInterface $paymentModel
-    *@return array|bool
-    */
+
     protected function checkIfPaymentExist($orderId, $paymentModel)
     {
         $paymentData = $paymentModel->getByOrderId($orderId);

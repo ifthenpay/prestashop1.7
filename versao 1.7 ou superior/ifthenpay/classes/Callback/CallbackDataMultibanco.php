@@ -35,11 +35,6 @@ use PrestaShop\Module\Ifthenpay\Contracts\Callback\CallbackDataInterface;
 
 class CallbackDataMultibanco implements CallbackDataInterface
 {
-    /**
-    * Get multibanci data by referencia
-    *@param array $request 
-    * @return array
-    */
     public function getData($request)
     {
         return IfthenpayModelFactory::build('multibanco')->getMultibancoByReferencia($request['referencia']);

@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Payments;
 
 if (!defined('_PS_VERSION_')) {
@@ -32,7 +31,6 @@ if (!defined('_PS_VERSION_')) {
 
 use PrestaShop\Module\Ifthenpay\Payments\Payment;
 use PrestaShop\Module\Ifthenpay\Builders\DataBuilder;
-use PrestaShop\Module\Ifthenpay\Builders\GatewayDataBuilder;
 use PrestaShop\Module\Ifthenpay\Contracts\Payments\PaymentMethodInterface;
 
 class MbWay extends Payment implements PaymentMethodInterface
@@ -40,39 +38,28 @@ class MbWay extends Payment implements PaymentMethodInterface
     private $mbwayKey;
     private $telemovel;
     private $mbwayPedido;
-    /**
-    * @param GatewayDataBuilder $data, @param string $orderId, @param $valor
-    */
+
     public function __construct($data, $orderId, $valor)
     {
         parent::__construct($orderId, $valor);
         $this->mbwayKey = $data->getData()->mbwayKey;
         $this->telemovel = $data->getData()->telemovel;
     }
-    /**
-    * Check if mbway payment value is valid
-    *@return void
-    */
+
     public function checkValue()
     {
         if ($this->valor < 0.10) {
             throw new \Exception('Mbway does not allow payments under 0.10€');
         }
     }
-    /**
-    * Check if mbway estado is valid
-    *@return void
-    */
+
     private function checkEstado()
     {
         if ($this->mbwayPedido['Estado'] !== '000') {
             throw new \Exception($this->mbwayPedido['MsgDescricao']);
         }
     }
-    /**
-    * Send request to ifthenpay webservice to process mbway payment
-    *@return void
-    */
+
     private function setReferencia()
     {
         $this->mbwayPedido = $this->webservice->postRequest(
@@ -88,10 +75,7 @@ class MbWay extends Payment implements PaymentMethodInterface
                 ]
         )->getResponseJson();
     }
-    /**
-    * Get mbway payment data
-    *@return DataBuilder
-    */
+
     private function getReferencia()
     {
         $this->setReferencia();
@@ -101,10 +85,7 @@ class MbWay extends Payment implements PaymentMethodInterface
         $this->dataBuilder->setTotalToPay((string)$this->valor);
         return $this->dataBuilder;
     }
-    /**
-    * Main method to execute mbway payment
-    *@return DataBuilder
-    */
+
     public function buy()
     {
         $this->checkValue();

@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Database;
 
 if (!defined('_PS_VERSION_')) {
@@ -32,11 +31,6 @@ if (!defined('_PS_VERSION_')) {
 
 class DatabaseFactory
 {
-    /**
-    * Set prestashop DbQuery class
-    *@param string $type
-    * @return DbQuery
-    */
     public static function buildDbQuery()
     {
         return new \DbQuery();

@@ -35,90 +35,48 @@ use PrestaShop\Module\Ifthenpay\Contracts\Builders\SmartyDataBuilderInterface;
 
 class SmartyDataBuilder extends DataBuilder implements SmartyDataBuilderInterface
 {
-
-
-    /**
-    * Set shop name
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setShopName($value)
     {
         $this->data->shopName = $value;
         return $this;
     }
 
-    /**
-    * Set payment logo
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setPaymentLogo($value)
     {
         $this->data->paymentLogo = $value;
         return $this;
     }
 
-    /**
-    * Set order id
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setOrderId($value)
     {
         $this->data->orderId = $value;
         return $this;
     }
 
-    /**
-    * Set order status
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setStatus($value)
     {
         $this->data->status = $value;
         return $this;
     }
 
-    /**
-    * Set admin update controller url
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setUpdateControllerUrl($value)
     {
         $this->data->updateControllerUrl = $value;
         return $this;
     }
 
-    /**
-    * Set admin resend controller url
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setResendControllerUrl($value)
     {
         $this->data->resendControllerUrl = $value;
         return $this;
     }
 
-    /**
-    * Set admin remember controller url
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setRememberControllerUrl($value)
     {
         $this->data->rememberControllerUrl = $value;
         return $this;
     }
 
-    /**
-    * Set order success page resend mbway notification controller url
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setResendMbwayNotificationControllerUrl($value)
     {
         $this->data->resendMbwayNotificationControllerUrl = $value;
@@ -161,11 +119,7 @@ class SmartyDataBuilder extends DataBuilder implements SmartyDataBuilderInterfac
         return $this;
     }
 
-    /**
-    * Set message
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
+
     public function setMessage($value)
     {
         $this->data->message = $value;

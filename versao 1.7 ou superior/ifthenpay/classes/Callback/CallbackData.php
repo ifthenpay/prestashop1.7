@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Callback;
 
 if (!defined('_PS_VERSION_')) {
@@ -36,19 +35,11 @@ class CallbackData
 {
     private $request;
 
-    /**
-    *@param array $request 
-    * @return SmartyDataBuilderInterface
-    */
     public function __construct($request)
     {
         $this->request = $request;
     }
 
-    /**
-    * Main method for build callback data 
-    * @return array
-    */
     public function execute()
     {
         return CallbackDataFactory::build($this->request['payment'])->getData($this->request);

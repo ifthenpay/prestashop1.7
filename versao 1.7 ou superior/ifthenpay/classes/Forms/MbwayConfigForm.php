@@ -36,10 +36,7 @@ use PrestaShop\Module\Ifthenpay\Forms\ConfigForm;
 class MbwayConfigForm extends ConfigForm
 {
     protected $paymentMethod = 'mbway';
-    /**
-    * Set config options for mbway
-    * @return void
-    */
+
     public function setOptions()
     {
         $this->options[] = [
@@ -48,10 +45,7 @@ class MbwayConfigForm extends ConfigForm
         ];
         $this->addToOptions();
     }
-    /**
-    * Get mbway config form
-    * @return array
-    */
+
     public function getForm()
     {
         if (!$this->checkIfCallbackIsSet()
@@ -95,10 +89,7 @@ class MbwayConfigForm extends ConfigForm
             $this->setSmartyVariables();
         }
     }
-    /**
-    * Set mbway smarty variables for view
-    * @return void
-    */
+
     public function setSmartyVariables()
     {
         $this->setGatewayBuilderData();
@@ -108,10 +99,7 @@ class MbwayConfigForm extends ConfigForm
         \Context::getContext()->smarty->assign('chaveAntiPhishing', \Configuration::get('IFTHENPAY_MBWAY_CHAVE_ANTI_PHISHING'));
         \Context::getContext()->smarty->assign('urlCallback', \Configuration::get('IFTHENPAY_MBWAY_URL_CALLBACK'));
     }
-    /**
-    * Set mbway gateway data
-    * @return void
-    */
+
     public function setGatewayBuilderData()
     {
         $getMbwayKeyFromRequest = \Tools::getValue('IFTHENPAY_MBWAY_KEY');
@@ -119,23 +107,18 @@ class MbwayConfigForm extends ConfigForm
         $this->gatewayDataBuilder->setEntidade(\Tools::strtoupper($this->paymentMethod));
         $this->gatewayDataBuilder->setSubEntidade($getMbwayKeyFromRequest ? $getMbwayKeyFromRequest : \Configuration::get('IFTHENPAY_MBWAY_KEY'));
     }
-    /**
-    * Process mbway config form
-    * @return void
-    */
+
     public function processForm()
     {
         $this->setGatewayBuilderData();
         \Configuration::updateValue('IFTHENPAY_MBWAY_KEY', $this->gatewayDataBuilder->getData()->subEntidade);
         \Configuration::updateValue('IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT', \Tools::getValue('IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT'));
+
         $this->setIfthenpayCallback();
 
         Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('Mbway key successfully updated.'));
     }
-    /**
-    * Delete mbway config values
-    * @return void
-    */
+
     public function deleteConfigValues()
     {
         $this->deleteDefaultConfigValues();

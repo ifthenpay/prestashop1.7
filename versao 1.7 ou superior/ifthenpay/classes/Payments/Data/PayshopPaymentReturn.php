@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Payments\Data;
 
 if (!defined('_PS_VERSION_')) {
@@ -37,10 +36,7 @@ use PrestaShop\Module\Ifthenpay\Contracts\Payments\PaymentReturnInterface;
 class PayshopPaymentReturn extends PayshopBase implements PaymentReturnInterface
 {
 
-    /**
-    * Set payshop smarty variables for view
-    *@return void
-    */
+
     public function setSmartyVariables()
     {
         $this->smartyDefaultData->setReferencia($this->paymentGatewayResultData->referencia);
@@ -48,10 +44,7 @@ class PayshopPaymentReturn extends PayshopBase implements PaymentReturnInterface
             $this->paymentGatewayResultData->validade !== '' ? (new \DateTime($this->paymentGatewayResultData->validade))->format('d-m-Y') : ''
         );
     }
-    /**
-    * Get payshop payment return data
-    *@return PaymentReturnInterface
-    */
+
     public function getPaymentReturn()
     {
         $this->setPaymentModel('payshop');

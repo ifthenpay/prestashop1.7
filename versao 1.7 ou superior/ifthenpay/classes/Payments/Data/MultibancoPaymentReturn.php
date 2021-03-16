@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Payments\Data;
 
 if (!defined('_PS_VERSION_')) {
@@ -36,19 +35,12 @@ use PrestaShop\Module\Ifthenpay\Contracts\Payments\PaymentReturnInterface;
 
 class MultibancoPaymentReturn extends MultibancoBase implements PaymentReturnInterface
 {
-    /**
-    * Set multibanco smarty variables for view
-    *@return void
-    */
     public function setSmartyVariables()
     {
         $this->smartyDefaultData->setEntidade($this->paymentGatewayResultData->entidade);
         $this->smartyDefaultData->setReferencia($this->paymentGatewayResultData->referencia);
     }
-    /**
-    * Get multibanco payment return data
-    *@return PaymentReturnInterface
-    */
+
     public function getPaymentReturn()
     {
         $this->setPaymentModel('multibanco');
@@ -61,7 +53,7 @@ class MultibancoPaymentReturn extends MultibancoBase implements PaymentReturnInt
         )->getData();
         $this->saveToDatabase();
         $this->setSmartyVariables();
-        $this->setEmailVariables();
+        $this->setEmailVariables(); 
         $this->sendEmail('multibanco', Utility::getMailTranslationString('multibanco', 'details'));
         return $this;
     }

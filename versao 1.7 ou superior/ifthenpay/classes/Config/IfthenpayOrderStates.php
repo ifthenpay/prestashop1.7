@@ -37,7 +37,7 @@ class IfthenpayOrderStates implements InstallerInterface
     private $ifthenpayStatusKeys;
     private $userPaymentMethods;
 
-    public function __construct(array $userPaymentMethods)
+    public function __construct($userPaymentMethods)
     {
         $this->userPaymentMethods = $userPaymentMethods;
         $this->ifthenpayStatusKeys = ['IFTHENPAY_{paymentMethod}_OS_WAITING', 'IFTHENPAY_{paymentMethod}_OS_CONFIRMED'];
@@ -94,6 +94,18 @@ class IfthenpayOrderStates implements InstallerInterface
 
     public function uninstall()
     {
+        /* @var $orderState OrderState */
+       /* $result = true;
+        $collection = PrestashopFactory::buildPrestaShopCollection('OrderState');
+        $collection->where('module_name', '=', 'ifthenpay');
+        $orderStates = $collection->getResults();
+
+        if ($orderStates !== false) {
+            foreach ($orderStates as $orderState) {
+                $result &= $orderState->delete();
+            }
+        }*/
+
         $query = new \DbQuery();
         $query->select('id_order_state');
         $query->from('order_state');

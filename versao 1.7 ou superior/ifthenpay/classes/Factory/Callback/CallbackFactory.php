@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Callback;
 
 if (!defined('_PS_VERSION_')) {
@@ -32,38 +31,28 @@ if (!defined('_PS_VERSION_')) {
 
 use PrestaShop\Module\Ifthenpay\Callback\Callback;
 use PrestaShop\Module\Ifthenpay\Callback\CallbackData;
+use PrestaShop\Module\Ifthenpay\Callback\CallbackStrategy;
 use PrestaShop\Module\Ifthenpay\Callback\CallbackValidate;
-use PrestaShop\Module\Ifthenpay\Builders\GatewayDataBuilder;
 
 class CallbackFactory
 {
-    /**
-    * Set Callback class
-    *@param GatewayDataBuilder $data  
-    * @return Callback
-    */
     public static function buildCallback($data)
     {
         return new Callback($data);
     }
 
-    /**
-    * Set CallbackData class
-    *@param array $request
-    * @return CallbackData
-    */
     public static function buildCalllbackData($request)
     {
         return new CallbackData($request);
     }
 
-    /**
-    * Set CallbackValidate class
-    *@param array $httpRequest, @param Order $order, @param string $configurationChaveAntiPhishing, @param array $paymentDataFromDb  
-    * @return CallbackValidate
-    */
     public static function buildCalllbackValidate($httpRequest, $order, $configurationChaveAntiPhishing, $paymentDataFromDb)
     {
         return new CallbackValidate($httpRequest, $order, $configurationChaveAntiPhishing, $paymentDataFromDb);
+    }
+
+    public static function buildCalllbackStrategy()
+    {
+        return new CallbackStrategy();
     }
 }

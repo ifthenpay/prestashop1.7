@@ -32,14 +32,6 @@ if (!defined('_PS_VERSION_')) {
 
 interface PaymentReturnInterface
 {
-    /**
-    * Set smarty variables for view 
-    * @return void
-    */
     public function setSmartyVariables();
-    /**
-    * Get payment return data 
-    * @return PaymentReturnInterface
-    */
     public function getPaymentReturn();
 }

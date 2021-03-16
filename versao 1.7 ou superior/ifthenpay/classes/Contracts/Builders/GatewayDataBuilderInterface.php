@@ -23,31 +23,18 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Contracts\Builders;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Contracts\Builders\DataBuilderInterface;
+
 interface GatewayDataBuilderInterface extends DataBuilderInterface
 {
-    /**
-    * Set multibanco sub entidade
-    *@param string $value 
-    * @return GatewayDataBuilderInterface
-    */
     public function setSubEntidade($value);
-    /**
-    * Set mbway key
-    *@param string $value 
-    * @return GatewayDataBuilderInterface
-    */
     public function setMbwayKey($value);
-    /**
-    * Set payshop key
-    *@param string $value 
-    * @return GatewayDataBuilderInterface
-    */
     public function setPayshopKey($value);
+    public function setCCardKey($value);
 }

@@ -34,20 +34,12 @@ use PrestaShop\Module\Ifthenpay\Base\PaymentBase;
 
 class MultibancoBase extends PaymentBase
 {
-    /**
-    * Set multibanco data for gateway 
-    * @return void
-    */
     protected function setGatewayBuilderData()
     {
         $this->gatewayBuilder->setEntidade(\Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE'));
         $this->gatewayBuilder->setSubEntidade(\Configuration::get('IFTHENPAY_MULTIBANCO_SUBENTIDADE'));
     }
 
-    /**
-    * Save multibanco payment in database 
-    * @return void
-    */
     protected function saveToDatabase()
     {
         $this->paymentModel->entidade = $this->paymentGatewayResultData->entidade;
@@ -57,10 +49,6 @@ class MultibancoBase extends PaymentBase
         $this->paymentModel->save();
     }
 
-    /**
-    * Update multibanco payment in database 
-    * @return void
-    */
     protected function updateDatabase()
     {
         $this->setPaymentModel('multibanco', $this->paymentDataFromDb['id_ifthenpay_multibanco']);
@@ -68,10 +56,6 @@ class MultibancoBase extends PaymentBase
         $this->paymentModel->update();
     }
 
-    /**
-    * Set email variables 
-    * @return void
-    */
     protected function setEmailVariables()
     {
         $this->emailDefaultData['{mb_logo}'] = _PS_BASE_URL_ . _MODULE_DIR_ . 'ifthenpay/views/img/multibanco.png';

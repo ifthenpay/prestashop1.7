@@ -71,6 +71,7 @@
             <img src="{$module_dir|escape:'html':'UTF-8'}views/img/multibanco_50.png"/>
             <img src="{$module_dir|escape:'html':'UTF-8'}views/img/mbway_50.png"/>
             <img src="{$module_dir|escape:'html':'UTF-8'}views/img/payshop.png"/>
+            <img src="{$module_dir|escape:'html':'UTF-8'}views/img/ccard_50.png"/>
         </div>
 	</div>
 </div>
@@ -88,16 +89,18 @@
                 {if $isBackofficeKey}
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         {$configForm}
-                        <div class="panel resetIfthenpayAccountsPanel">
-                            <div class="panel-body text-center">
-                                <h2>{l s='You Add New Accounts to Your Contract?' mod='ifthenpay'}</h2>
-                                <div class="spinnerDivWithBtn">
-                                    <button type="button" id="resetIfthenpayAccount" class="btn btn-danger btn-lg btn-block">{l s='Reset Accounts' mod='ifthenpay'}</button>
-                                    {include file="./_partials/spinner.tpl"}
+                        {if $isIfthenpayPaymentMethodsSaved}
+                            <div class="panel resetIfthenpayAccountsPanel">
+                                <div class="panel-body text-center">
+                                    <h2>{l s='You Add New Accounts to Your Contract?' mod='ifthenpay'}</h2>
+                                    <div class="spinnerDivWithBtn">
+                                        <button type="button" id="resetIfthenpayAccount" class="btn btn-danger btn-lg btn-block">{l s='Reset Accounts' mod='ifthenpay'}</button>
+                                        {include file="./_partials/spinner.tpl"}
+                                    </div>
+                                    
                                 </div>
-                                
                             </div>
-                        </div>
+                        {/if}
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div class="panel updateModulePanel">

@@ -23,6 +23,8 @@
 */
 {
     "compilerOptions": {
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "module": "commonjs",
         "lib": ["es2016", "dom", "es2017"],
         "target": "es5",
@@ -31,6 +33,7 @@
             "jquery",
             "bootstrap",
             "webpack-env",
+            "reflect-metadata"
         ],
         "noImplicitAny": false,
         "sourceMap": false,

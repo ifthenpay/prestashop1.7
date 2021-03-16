@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Contracts\Builders;
 
 if (!defined('_PS_VERSION_')) {
@@ -34,94 +33,19 @@ use PrestaShop\Module\Ifthenpay\Contracts\Builders\DataBuilderInterface;
 
 interface SmartyDataBuilderInterface extends DataBuilderInterface
 {
-    /**
-    * Set shop name
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setShopName($value);
-    /**
-    * Set payment logo
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setPaymentLogo($value);
-    /**
-    * Set order id
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setOrderId($value);
-    /**
-    * Set order status
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setStatus($value);
-    /**
-    * Set update controller url
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setUpdateControllerUrl($value);
-    /**
-    * Set resend controller url
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setResendControllerUrl($value);
-    /**
-    * Set remember controller url
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setRememberControllerUrl($value);
-    /**
-    * Set message
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setMessage($value);
-    /**
-    * Set order success page resend mbway notification controller url
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setResendMbwayNotificationControllerUrl($value);
-    /**
-    * Set choose new payment method page controller url
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setChooseNewPaymentMethodControllerUrl($value);
-    /**
-    * Set mbway countdown in success page
-    *@param bool $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setMbwayCountdownShow($value);
-    /**
-    * Set cancel order image in success page
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setCancelOrderImg($value);
-    /**
-    * Set confirm order image in success page
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setConfirmOrderImg($value);
-    /**
-    * Set spinner image
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setSpinnerImg($value);
-    /**
-    * Set order error image in success page
-    *@param string $value 
-    * @return SmartyDataBuilderInterface
-    */
     public function setOrderErrorImg($value);
 }

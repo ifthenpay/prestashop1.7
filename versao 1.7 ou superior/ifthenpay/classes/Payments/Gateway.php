@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Payments;
 
 if (!defined('_PS_VERSION_')) {
@@ -33,31 +32,49 @@ if (!defined('_PS_VERSION_')) {
 use PrestaShop\Module\Ifthenpay\Builders\DataBuilder;
 use PrestaShop\Module\Ifthenpay\Factory\Payment\PaymentFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Request\RequestFactory;
+use PrestaShop\Module\Ifthenpay\Builders\GatewayDataBuilder;
 
 class Gateway
 {
     private $webservice;
     private $account;
-    private $paymentMethods = ['multibanco', 'mbway', 'payshop', 'ifthenpay'];
+    private $paymentMethods = ['multibanco', 'mbway', 'payshop', 'ccard', 'ifthenpay'];
     private $previousModulePaymentMethods = ['pagamento por multibanco', 'pagamento por mbway', 'pagamento por payshop'];
+    private $aliasPaymentMethods = [
+        'multibanco' => [
+            'en' => 'Multibanco',
+            'pt' => 'Multibanco',
+        ],
+        'mbway' => [
+            'en' => 'MB WAY',
+            'pt' => 'MB WAY',
+        ],
+        'payshop' => [
+            'en' => 'Payshop',
+            'pt' => 'Payshop',
+        ],
+        'ccard' => [
+            'en' => 'Credit Card',
+            'pt' => 'Cartão de Crédito',
+        ],
+        
+    ];
 
     public function __construct()
     {
         $this->webservice = RequestFactory::buildWebservice();
     }
-    /**
-    * Get payment methods by type
-    *@return array
-    */
+
+    public function getAliasPaymentMethods($paymentMethod, $isoCodeLanguage)
+    {
+        return $this->aliasPaymentMethods[$paymentMethod][$isoCodeLanguage];
+    }
+
     public function getPaymentMethodsType()
     {
         return $this->paymentMethods;
     }
-    /**
-    * Check if is ifthenpay payment method
-    * @param string $paymentMethod
-    *@return bool
-    */
+
     public function checkIfthenpayPaymentMethod($paymentMethod)
     {
         if (in_array(strtolower($paymentMethod), $this->paymentMethods)) {
@@ -65,11 +82,7 @@ class Gateway
         }
         return false;
     }
-    /**
-    * Check if payment method is from ifthenpay previous modules
-    *@param string $paymentMethod
-    *@return string|bool
-    */
+
     public function checkIfPaymentMethodIsPreviousModule($paymentMethod)
     {
         $paymentMethodLowerCase = strtolower($paymentMethod);
@@ -78,11 +91,7 @@ class Gateway
         }
         return false;
     }
-    /**
-    * Authenticate ifthenpay client by backoffice key
-    *@param string $backofficeKey
-    *@return void
-    */
+
     public function authenticate($backofficeKey)
     {
             $authenticate = $this->webservice->postRequest(
@@ -99,27 +108,17 @@ class Gateway
             $this->account = $authenticate;
         }
     }
-    /**
-    * Get ifthenpay client account
-    *@return array
-    */
+
     public function getAccount()
     {
         return $this->account;
     }
-    /**
-    * Set ifthenpay client account
-    *@param array $account
-    *@return void
-    */
+
     public function setAccount($account)
     {
         $this->account = $account;
     }
-    /**
-    * Get ifthenpay client payment methods
-    *@return array
-    */
+
     public function getPaymentMethods()
     {
         $userPaymentMethods = [];
@@ -133,11 +132,7 @@ class Gateway
         }
         return array_unique($userPaymentMethods);
     }
-    /**
-    * Get ifthenpay client sub entidades by entidade
-    *@param string $entidade
-    *@return array
-    */
+
     public function getSubEntidadeInEntidade($entidade)
     {
         return array_filter(
@@ -147,11 +142,7 @@ class Gateway
             }
         );
     }
-    /**
-    * Get ifthenpay client entidade/subentidade by payment method
-    *@param string $paymentMethod
-    *@return array
-    */
+
     public function getEntidadeSubEntidade($paymentMethod)
     {
         $list = null;
@@ -173,11 +164,7 @@ class Gateway
         return $list;
     }
 
-    /**
-    * Main method to execute ifthenpay gateway payment
-    *@param string $paymentMethod, @param GatewayDataBuider $data, @param string $orderId, @param string $valor
-    *@return DataBuilder
-    */
+
     public function execute($paymentMethod, $data, $orderId, $valor)
     {
         $paymentMethod = PaymentFactory::build($paymentMethod, $data, $orderId, $valor, $this->webservice);

@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Payments\Data;
 
 if (!defined('_PS_VERSION_')) {
@@ -32,15 +31,11 @@ if (!defined('_PS_VERSION_')) {
 
 use PrestaShop\Module\Ifthenpay\Factory\Payment\PaymentReturnFactory;
 use PrestaShop\Module\Ifthenpay\Payments\Data\IfthenpayStrategy;
-use PrestaShop\Module\Ifthenpay\Contracts\Payments\PaymentReturnInterface;
 
 class IfthenpayPaymentReturn extends IfthenpayStrategy
 {
 
-    /**
-    * Set default smarty data variables for view
-    *@return void
-    */
+
     private function setDefaultSmartyData()
     {
         $this->smartyDefaultData->setShopName(\Context::getContext()->shop->name);
@@ -51,16 +46,8 @@ class IfthenpayPaymentReturn extends IfthenpayStrategy
                 _PS_MODULE_DIR_ . 'ifthenpay/views/img/' . $this->order->payment . '.png'
             )
         );
-        $this->smartyDefaultData->setOrderErrorImg(
-            \Media::getMediaPath(
-                _PS_MODULE_DIR_ . 'ifthenpay/views/svg/error.svg'
-            )
-        );
     }
-    /**
-    * Main method to get PaymentReturn data by payment method
-    *@return PaymentReturnInterface
-    */
+
     public function execute()
     {
         $this->setDefaultData();

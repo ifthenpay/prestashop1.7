@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory;
 
 if (!defined('_PS_VERSION_')) {
@@ -35,16 +34,10 @@ use PrestaShop\Module\Ifthenpay\Admin\IfthenpayAdminResend;
 use PrestaShop\Module\Ifthenpay\Admin\IfthenpayAdminUpdate;
 use PrestaShop\Module\Ifthenpay\Admin\IfthenpayOrderDetail;
 use PrestaShop\Module\Ifthenpay\Admin\IfthenpayAdminRemember;
-use PrestaShop\Module\Ifthenpay\Payments\Data\IfthenpayStrategy;
 use PrestaShop\Module\Ifthenpay\Payments\Data\IfthenpayPaymentReturn;
 
 class IfthenpayStrategyFactory
 {
-    /**
-    * Get strategy classes by type
-    *@param string $type, @param Order $order, @param Ifthenpay $ifthenpayModule, @param string $message
-    * @return IfthenpayStrategy
-    */
     public static function build($type, $order, $ifthenpayModule, $message = '')
     {
         switch ($type) {

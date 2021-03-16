@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Base;
 
 if (!defined('_PS_VERSION_')) {
@@ -32,7 +31,6 @@ if (!defined('_PS_VERSION_')) {
 
 use PrestaShop\Module\Ifthenpay\Factory\Builder\BuilderFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Payment\GatewayFactory;
-use PrestaShop\Module\Ifthenpay\Builders\SmartyDataBuilder;
 use PrestaShop\Module\Ifthenpay\Factory\Models\IfthenpayModelFactory;
 
 abstract class PaymentBase
@@ -47,10 +45,12 @@ abstract class PaymentBase
     protected $paymentDataFromDb;
     protected $ifthenpayModule;
 
-    /**
-    *@param Ifthenpay $ifthenpayModule, @param PaymentDataBuilder $paymentDefaultData, @param SmartyDataBuilder $smartyDefaultData, @param array $emailDefaultData
-    */
-    public function __construct($ifthenpayModule, $paymentDefaultData, $smartyDefaultData = null, $emailDefaultData = []) {
+    public function __construct(
+        $ifthenpayModule,
+        $paymentDefaultData,
+        $smartyDefaultData = null,
+        $emailDefaultData = []
+    ) {
         $this->gatewayBuilder = BuilderFactory::build('gateway');
         $this->paymentDefaultData = $paymentDefaultData->getData();
         $this->smartyDefaultData = $smartyDefaultData;
@@ -59,31 +59,17 @@ abstract class PaymentBase
         $this->ifthenpayModule = $ifthenpayModule;
     }
 
-    /**
-    * Set payment model
-    * @param string $type, @param string $id,   
-    * @return PaymentBase
-    */
     public function setPaymentModel($type, $id = null)
     {
         $this->paymentModel = IfthenpayModelFactory::build($type, $id);
         return $this;
     }
 
-    /**
-    * Get payment by id from database 
-    * @return void
-    */
     public function getFromDatabaseById()
     {
         $this->paymentDataFromDb = $this->paymentModel->getByOrderId($this->paymentDefaultData->order->id);
     }
 
-    /**
-    * Send email with payment data
-    *@param string $emailTemplate, @param string $emailSubject
-    * @return void
-    */
     protected function sendEmail($emailTemplate, $emailSubject)
     {
         \Mail::Send(
@@ -103,10 +89,6 @@ abstract class PaymentBase
         );
     }
 
-    /**
-    * Get smarty variables 
-    * @return SmartyDataBuilder
-    */
     public function getSmartyVariables()
     {
         return $this->smartyDefaultData;
@@ -118,8 +100,7 @@ abstract class PaymentBase
     abstract protected function setEmailVariables();
 
     /**
-     * Get payment data from database
-     * @return array
+     * Get the value of paymentDataFromDb
      */
     public function getPaymentDataFromDb()
     {

@@ -41,109 +41,95 @@ class DataBuilder implements DataBuilderInterface
         $this->data = new \stdClass;
     }
 
-    /**
-    * Set payment total to pay
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setTotalToPay($value)
     {
         $this->data->totalToPay = $value;
         return $this;
     }
 
-    /**
-    * Set payment method
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setPaymentMethod($value)
     {
         $this->data->paymentMethod = $value;
         return $this;
     }
 
-    /**
-    * Set multibanco entidade
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setEntidade($value)
     {
         $this->data->entidade = $value;
         return $this;
     }
 
-    /**
-    * Set multibanco/payshop referencia
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setReferencia($value)
     {
         $this->data->referencia = $value;
         return $this;
     }
 
-    /**
-    * Set mbway telemovel
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setTelemovel($value = null)
     {
         $this->data->telemovel = $value;
         return $this;
     }
 
-    /**
-    * Set payshop validade
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setValidade($value)
     {
         $this->data->validade = $value;
         return $this;
     }
 
-    /**
-    * Set mbway/payshop payment idPedido
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setIdPedido($value = null)
     {
         $this->data->idPedido = $value;
         return $this;
     }
 
-    /**
-    * Set backoffice key for callback activation
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setBackofficeKey($value)
     {
         $this->data->backofficeKey = $value;
         return $this;
     }
 
-    /**
-    * Convert to array
-    *@param string $value 
-    * @return array
-    */
+    public function setSuccessUrl($value)
+    {
+        $this->data->successUrl = $value;
+        return $this;
+    }
+
+    public function setErrorUrl($value)
+    {
+        $this->data->errorUrl = $value;
+        return $this;
+    }
+
+    public function setCancelUrl($value)
+    {
+        $this->data->cancelUrl = $value;
+        return $this;
+    }
+
+    public function setPaymentMessage($value)
+    {
+        $this->data->message = $value;
+        return $this;
+    }
+
+    public function setPaymentUrl($value)
+    {
+        $this->data->paymentUrl = $value;
+        return $this;
+    }
+
+    public function setPaymentStatus($value)
+    {
+        $this->data->status = $value;
+        return $this;
+    }
+
     public function toArray()
     {
         return json_decode(json_encode($this->data), true);
     }
 
-    /**
-    * Get data
-    *@param string $value 
-    * @return stdClass
-    */
     public function getData()
     {
         return $this->data;

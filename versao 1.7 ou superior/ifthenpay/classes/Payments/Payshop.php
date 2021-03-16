@@ -32,7 +32,6 @@ if (!defined('_PS_VERSION_')) {
 
 use PrestaShop\Module\Ifthenpay\Payments\Payment;
 use PrestaShop\Module\Ifthenpay\Builders\DataBuilder;
-use PrestaShop\Module\Ifthenpay\Builders\GatewayDataBuilder;
 use PrestaShop\Module\Ifthenpay\Contracts\Payments\PaymentMethodInterface;
 
 class Payshop extends Payment implements PaymentMethodInterface
@@ -40,20 +39,14 @@ class Payshop extends Payment implements PaymentMethodInterface
     private $payshopKey;
     protected $validade;
     private $payshopPedido;
-    /**
-    *@param GatewayDataBuilder $data, @param string $orderId, @param string $valor
-    */
+
     public function __construct($data, $orderId, $valor)
     {
         parent::__construct($orderId, $valor);
         $this->payshopKey = $data->getData()->payshopKey;
         $this->validade = $this->makeValidade($data->getData()->validade);
     }
-    /**
-    * Set payshop referencia validade
-    *@param string $validade
-    *@return string
-    */
+
     private function makeValidade($validade)
     {
 
@@ -63,30 +56,21 @@ class Payshop extends Payment implements PaymentMethodInterface
         return (new \DateTime(date("Ymd")))->modify('+' . $validade . 'day')
             ->format('Ymd');
     }
-    /**
-    * Check if payshop payment value is valid
-    *@return void
-    */
+
     public function checkValue()
     {
         if ($this->valor < 0) {
             throw new \Exception('Payshop does not allow payments of 0€');
         }
     }
-    /**
-    * Check if payshop estado is valid
-    *@return void
-    */
+
     private function checkEstado()
     {
         if ($this->payshopPedido['Code'] !== '0') {
             throw new \Exception($this->payshopPedido['Message']);
         }
     }
-    /**
-    * Send request to ifthenpay webservice to process payshop payment
-    *@return void
-    */
+
     private function setReferencia()
     {
         $this->payshopPedido = $this->webservice->postRequest(
@@ -100,10 +84,7 @@ class Payshop extends Payment implements PaymentMethodInterface
             true
         )->getResponseJson();
     }
-    /**
-    * Get payshop referencia data
-    *@return DataBuilder
-    */
+
     private function getReferencia()
     {
         $this->setReferencia();
@@ -115,10 +96,7 @@ class Payshop extends Payment implements PaymentMethodInterface
         $this->dataBuilder->setValidade($this->validade);
         return $this->dataBuilder;
     }
-    /**
-    * Main method to execute payshop payment
-    *@return DataBuilder
-    */
+
     public function buy()
     {
         $this->checkValue();

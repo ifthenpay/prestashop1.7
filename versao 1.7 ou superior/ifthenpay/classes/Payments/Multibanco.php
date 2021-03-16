@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Payments;
 
 if (!defined('_PS_VERSION_')) {
@@ -31,7 +30,6 @@ if (!defined('_PS_VERSION_')) {
 }
 
 use PrestaShop\Module\Ifthenpay\Builders\DataBuilder;
-use PrestaShop\Module\Ifthenpay\Builders\GatewayDataBuilder;
 use PrestaShop\Module\Ifthenpay\Payments\Payment as MasterPayment;
 use PrestaShop\Module\Ifthenpay\Contracts\Payments\PaymentMethodInterface;
 
@@ -40,29 +38,21 @@ class Multibanco extends MasterPayment implements PaymentMethodInterface
 
     private $entidade;
     private $subEntidade;
-    /**
-    * @param GatewayDataBuilder $data, @param string $orderId, @param string $valor
-    */
+
     public function __construct($data, $orderId, $valor)
     {
         parent::__construct($orderId, $valor);
         $this->entidade = $data->getData()->entidade;
         $this->subEntidade = $data->getData()->subEntidade;
     }
-    /**
-    * Check if multibanco payment is valid
-    *@return void
-    */
+
     public function checkValue()
     {
         if ($this->valor >= 1000000) {
             throw new \Exception('Invalid Multibanco value, above 999999€');
         }
     }
-    /**
-    * Calculate multibanco referencia
-    *@return string
-    */
+
     private function setReferencia()
     {
         
@@ -88,10 +78,7 @@ class Multibanco extends MasterPayment implements PaymentMethodInterface
         //referencia
         return $this->subEntidade.$seed.$chk_digits;
     }
-    /**
-    * Get multibanco payment data
-    *@return DataBuilder
-    */
+
     private function getReferencia()
     {
         $this->dataBuilder->setEntidade($this->entidade);
@@ -99,10 +86,7 @@ class Multibanco extends MasterPayment implements PaymentMethodInterface
         $this->dataBuilder->setTotalToPay((string)$this->valor);
         return $this->dataBuilder;
     }
-    /**
-    * Main method to execute multibanco payment
-    *@return DataBuilder
-    */
+
     public function buy()
     {
         $this->checkValue($this->valor);

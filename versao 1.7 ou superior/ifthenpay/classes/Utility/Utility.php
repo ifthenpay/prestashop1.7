@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Utility;
 
 use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
@@ -35,20 +34,13 @@ if (!defined('_PS_VERSION_')) {
 class Utility
 {
     private static $name = 'ifthenpay';
-    /**
-    * Redirect to ifthenpay module config page
-    *@return void
-    */
+
     public static function redirectIfthenpayConfigPage()
     {
         $token = \Tools::getAdminTokenLite('AdminModules');
         \Tools::redirectAdmin('index.php?controller=AdminModules&configure=' . self::$name . '&tab_module=payments_gateways&module_name=' . self::$name . '&token=' . $token);
     }
-    /**
-    * Redirect to admin page
-    *@param string $orderId
-    *@return void
-    */
+
     public static function redirectAdminOrder($order)
     {
         if (version_compare(_PS_VERSION_, '1.7.5', '<')) {
@@ -62,21 +54,14 @@ class Utility
                 ]));
         }
     }
-    /**
-    * Check if payment method is present in url
-    *@return void
-    */
+
     public static function checkPaymentMethodDefined()
     {
         if (!isset($_GET['paymentMethod'])) {
             self::redirectIfthenpayConfigPage();
         }
     }
-    /**
-    * Set coockie
-    *@param string $cookieName, @param $cookieValue
-    *@return void
-    */
+
     public static function setPrestashopCookie($cookieName, $cookieValue)
     {
         \Context::getContext()->cookie->__set($cookieName, $cookieValue);

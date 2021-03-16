@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Prestashop;
 
 if (!defined('_PS_VERSION_')) {
@@ -32,56 +31,31 @@ if (!defined('_PS_VERSION_')) {
 
 class PrestashopModelFactory
 {
-    /**
-    * Set prestashop Currency class
-    *@param string $id
-    * @return Currency
-    */
     public static function buildCurrency($id = null)
     {
         return new \Currency($id);
     }
-    /**
-    * Set prestashop Order class
-    *@param string $id
-    * @return Order
-    */
+
     public static function buildOrder($id = null)
     {
         return new \Order($id);
     }
-    /**
-    * Set prestashop OrderState class
-    *@param string $id
-    * @return OrderState
-    */
+
     public static function buildOrderState($id = null)
     {
         return new \OrderState($id);
     }
-    /**
-    * Set prestashop Tab class
-    *@param string $id
-    * @return Tab
-    */
+
     public static function buildTab($id = null)
     {
         return new \Tab($id);
     }
-    /**
-    * Set prestashop OrderHistory class
-    *@param string $id
-    * @return OrderHistory
-    */
+
     public static function buildOrderHistory($id = null)
     {
         return new \OrderHistory($id);
     }
-    /**
-    * Set prestashop Customer class
-    *@param string $id
-    * @return Customer
-    */
+
     public static function buildCustomer($id = null)
     {
         return new \Customer($id);

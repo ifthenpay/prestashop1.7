@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Models;
 
 if (!defined('_PS_VERSION_')) {
@@ -31,17 +30,13 @@ if (!defined('_PS_VERSION_')) {
 }
 
 use PrestaShop\Module\Ifthenpay\Models\IfthenpayLog;
+use PrestaShop\Module\Ifthenpay\Models\IfthenpayCCard;
 use PrestaShop\Module\Ifthenpay\Models\IfthenpayMbway;
-use PrestaShop\Module\Ifthenpay\Models\IfthenpayMultibanco;
 use PrestaShop\Module\Ifthenpay\Models\IfthenpayPayshop;
+use PrestaShop\Module\Ifthenpay\Models\IfthenpayMultibanco;
 
 class IfthenpayModelFactory
 {
-    /**
-    * Get model by payment method
-    *@param string $type, @param string $modelId
-    * @return ObjectModel
-    */
     public static function build($type, $modelId = null)
     {
         switch ($type) {
@@ -53,6 +48,8 @@ class IfthenpayModelFactory
                 return new IfthenpayPayshop($modelId);
             case 'log':
                 return new IfthenpayLog($modelId);
+            case 'ccard':
+                return new IfthenpayCCard($modelId);
             default:
                 throw new \Exception("Unknown Payment Model Class");
         }

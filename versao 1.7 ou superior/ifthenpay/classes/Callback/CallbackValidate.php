@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Callback;
 
 if (!defined('_PS_VERSION_')) {
@@ -38,10 +37,6 @@ class CallbackValidate
     private $configurationChaveAntiPhishing;
     private $paymentDataFromDb;
 
-    /**
-    *@param array $httpRequest, @param $order, @param string $configurationChaveAntiPhishing, @param array $paymentDataFromDb 
-    * @return array
-    */
     public function __construct($httpRequest, $order, $configurationChaveAntiPhishing, $paymentDataFromDb)
     {
         $this->httpRequest = $httpRequest;
@@ -50,10 +45,6 @@ class CallbackValidate
         $this->paymentDataFromDb = $paymentDataFromDb;
     }
 
-    /**
-    * Check if order exist 
-    * @return void
-    */
     private function validateOrder()
     {
         if (!$this->order) {
@@ -61,10 +52,6 @@ class CallbackValidate
         }
     }
 
-    /**
-    * Check if payment value in callback is equal to order value 
-    * @return void
-    */
     private function validateOrderValue()
     {
         $orderTotal = floatval($this->order->getOrdersTotalPaid());
@@ -74,10 +61,6 @@ class CallbackValidate
         }
     }
 
-    /**
-    * Check order status 
-    * @return void
-    */
     private function validateOrderStatus()
     {
         if ($this->paymentDataFromDb['status'] === 'paid') {
@@ -85,10 +68,6 @@ class CallbackValidate
         }
     }
 
-    /**
-    * Check if anti phishing key is valid 
-    * @return void/Exception
-    */
     private function validateChaveAntiPhishing()
     {
         if (!$this->httpRequest['chave']) {
@@ -100,10 +79,6 @@ class CallbackValidate
         }
     }
 
-    /**
-    * Main method to validate callback
-    * @return bool
-    */
     public function validate()
     {
         $this->validateChaveAntiPhishing();

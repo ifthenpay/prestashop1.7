@@ -36,10 +36,7 @@ use PrestaShop\Module\Ifthenpay\Payments\Data\IfthenpayStrategy;
 class IfthenpayAdminRemember extends IfthenpayStrategy
 {
 
-    /**
-    * Main method to execute admin remember payment
-    * @return void
-    */
+
     public function execute()
     {
         $this->setDefaultData();

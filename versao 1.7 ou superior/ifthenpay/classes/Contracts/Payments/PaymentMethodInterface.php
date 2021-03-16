@@ -23,23 +23,16 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Contracts\Payments;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Builders\DataBuilder;
+
 interface PaymentMethodInterface
 {
-    /**
-    * Check if payment value is valid 
-    * @return void
-    */
     public function checkValue();
-    /**
-    * Main method to execute ifthenpay payment 
-    * @return DataBuilder
-    */
     public function buy();
 }

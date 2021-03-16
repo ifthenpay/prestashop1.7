@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Config;
 
 if (!defined('_PS_VERSION_')) {
@@ -37,10 +36,6 @@ class IfthenpayConfiguration implements InstallerInterface
     private $configurationNames;
     private $userPaymentMethods;
 
-    /**
-    *@param array $userPaymentMethods 
-    * @return array
-    */
     public function __construct($userPaymentMethods)
     {
         $this->userPaymentMethods = $userPaymentMethods;
@@ -54,10 +49,6 @@ class IfthenpayConfiguration implements InstallerInterface
         ];
     }
 
-    /**
-    * delete values by payment method 
-    * @return void
-    */
     private function uninstallByPaymentMethod()
     {
         foreach ($this->userPaymentMethods as $paymentMethod) {
@@ -83,21 +74,19 @@ class IfthenpayConfiguration implements InstallerInterface
                         \Configuration::deleteByName('IFTHENPAY_PAYSHOP_KEY');
                         \Configuration::deleteByName('IFTHENPAY_PAYSHOP_VALIDADE');
                         break;
+                    case 'ccard':
+                        \Configuration::deleteByName('IFTHENPAY_CCARD_KEY');
+                        break;
                     default:
                 }
             }
         }
     }
-
     public function install()
     {
-        //void
+        //not need install
     }
 
-    /**
-    * Main mathod to uninstall ifthenpay module 
-    * @return void
-    */
     public function uninstall()
     {
         foreach ($this->configurationNames as $configurationName) {

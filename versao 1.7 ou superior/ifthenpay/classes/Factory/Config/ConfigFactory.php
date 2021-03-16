@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Config;
 
 if (!defined('_PS_VERSION_')) {
@@ -34,62 +33,36 @@ use PrestaShop\Module\Ifthenpay\Config\IfthenpaySql;
 use PrestaShop\Module\Ifthenpay\Config\IfthenpayUpgrade;
 use PrestaShop\Module\Ifthenpay\Config\IfthenpayOrderStates;
 use PrestaShop\Module\Ifthenpay\Config\IfthenpayConfiguration;
-use PrestaShop\Module\Ifthenpay\Config\IfthenpayControllersTabs;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MbwayCancelOrder;
-
+use PrestaShop\Module\Ifthenpay\Config\IfthenpayControllersTabs;
 
 class ConfigFactory
 {
-    /**
-    * Set IfthepayConfiguration class
-    *@param array $userPaymentMethods
-    * @return IfthenpayConfiguration
-    */
     public static function buildIfthenpayConfiguration($userPaymentMethods = null)
     {
         return new IfthenpayConfiguration($userPaymentMethods);
     }
-    /**
-    * Set IfthepayControllersTabs class
-    *@param Ifthenpay $ifthenpayModule
-    * @return IfthenpayControllersTabs
-    */
+
     public static function buildIfthenpayControllersTabs($ifthenpayModule = null)
     {
         return new IfthenpayControllersTabs($ifthenpayModule);
     }
-    /**
-    * Set IfthepayOrderStates class
-    *@param array $userPaymentMethods
-    * @return IfthenpayOrderStates
-    */
+
     public static function buildIfthenpayOrderStates($userPaymentMethods = null)
     {
         return new IfthenpayOrderStates($userPaymentMethods);
     }
-    /**
-    * Set IfthepaySql class
-    *@param array $userPaymentMethods
-    * @return IfthenpaySql
-    */
+
     public static function buildIfthenpaySql($userPaymentMethods = null)
     {
         return new IfthenpaySql($userPaymentMethods);
     }
-    /**
-    * Set IfthenpayUpgrade class
-    *@param Ifthenpay $ifthenpayModule
-    * @return IfthenpayUpgrade
-    */
+
     public static function buildIfthenpayUpgrade($ifthenpayModule)
     {
         return new IfthenpayUpgrade($ifthenpayModule);
     }
 
-    /**
-    * Set MbwayCancelOrder class
-    * @return MbwayCancelOrder
-    */
     public static function buildCancelMbwayOrder()
     {
         return new MbwayCancelOrder();

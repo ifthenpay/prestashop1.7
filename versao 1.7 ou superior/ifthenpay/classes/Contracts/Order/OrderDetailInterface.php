@@ -32,14 +32,6 @@ if (!defined('_PS_VERSION_')) {
 
 interface OrderDetailInterface
 {
-    /**
-    * Set smarty variables for view 
-    * @return void
-    */
     public function setSmartyVariables();
-    /**
-    * Get order detail 
-    * @return OrderDetailInterface
-    */
     public function getOrderDetail();
 }

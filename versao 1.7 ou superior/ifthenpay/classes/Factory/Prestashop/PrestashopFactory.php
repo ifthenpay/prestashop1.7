@@ -34,27 +34,17 @@ use PrestaShop\PrestaShop\Core\Payment\PaymentOption;
 
 class PrestashopFactory
 {
-    /**
-    * Set prestashop HelperForm class
-    * @return HelperForm
-    */
+
     public static function buildHelperForm()
     {
         return new \HelperForm();
     }
-    /**
-    * Set prestashop PaymentOption class
-    * @return PaymentOption
-    */
+
     public static function buildPaymentOption()
     {
         return new PaymentOption();
     }
-    /**
-    * Set prestashop collection class
-    *@param string $collectionName
-    * @return PrestaShopCollection
-    */
+
     public static function buildPrestaShopCollection($collectionName = null)
     {
         return new \PrestaShopCollection($collectionName);

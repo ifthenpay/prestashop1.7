@@ -23,14 +23,12 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Callback;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-use PrestaShop\Module\Ifthenpay\Builders\GatewayDataBuilder;
 use PrestaShop\Module\Ifthenpay\Factory\Request\RequestFactory;
 
 class Callback
@@ -45,16 +43,12 @@ class Callback
     private $subEntidade;
     private $paymentType;
 
-
     private $urlCallbackParameters = [
-        'multibanco' => '?payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&entidade=[ENTIDADE]&referencia=[REFERENCIA]&valor=[VALOR]',
-        'mbway' => '?payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&referencia=[REFERENCIA]&id_pedido=[ID_TRANSACAO]&valor=[VALOR]&estado=[ESTADO]',
-        'payshop' => '?payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&id_cliente=[ID_CLIENTE]&id_transacao=[ID_TRANSACAO]&referencia=[REFERENCIA]&valor=[VALOR]&estado=[ESTADO]',
+        'multibanco' => '?type=offline&payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&entidade=[ENTIDADE]&referencia=[REFERENCIA]&valor=[VALOR]',
+        'mbway' => '?type=offline&payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&referencia=[REFERENCIA]&id_pedido=[ID_TRANSACAO]&valor=[VALOR]&estado=[ESTADO]',
+        'payshop' => '?type=offline&payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&id_cliente=[ID_CLIENTE]&id_transacao=[ID_TRANSACAO]&referencia=[REFERENCIA]&valor=[VALOR]&estado=[ESTADO]',
     ];
 
-    /**
-    *@param GatewayDataBuilder $data 
-    */
     public function __construct($data)
     {
         $this->webservice = RequestFactory::buildWebservice();
@@ -63,29 +57,16 @@ class Callback
         $this->subEntidade = $data->getData()->subEntidade;
     }
 
-    /**
-    * Create chave anti phishing for callback
-    * @return void
-    */
     private function createAntiPhishing()
     {
         $this->chaveAntiPhishing = md5((string) rand());
     }
 
-    /**
-    * Create url for callback
-    *@param string $paymentType, @param string $moduleLink 
-    * @return void
-    */
     private function createUrlCallback($paymentType, $moduleLink)
     {
         $this->urlCallback = $moduleLink . str_replace('{paymentMethod}', $paymentType, $this->urlCallbackParameters[$paymentType]);
     }
 
-    /**
-    * Send post request to activate callback
-    * @return void
-    */
     private function activateCallback()
     {
         $request = $this->webservice->postRequest(
@@ -107,12 +88,7 @@ class Callback
         \Configuration::updateValue('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($this->paymentType), true);
     }
 
-    /**
-    * Main method to create callback data and activation
-    *@param string $paymentType, @param $moduleLink, @param bool $activateCallback 
-    * @return SmartyDataBuilderInterface
-    */
-    public function make($paymentType, $moduleLink, $activateCallback)
+    public function make($paymentType, $moduleLink, $activateCallback = false)
     {
         $this->paymentType = $paymentType;
         $this->createAntiPhishing();
@@ -123,18 +99,16 @@ class Callback
     }
 
     /**
-    * Get url callback 
-    * @return string
-    */
+     * Get the value of urlCallback
+     */
     public function getUrlCallback()
     {
         return $this->urlCallback;
     }
 
     /**
-    * Get chave anti phishing 
-    * @return string
-    */
+     * Get the value of chaveAntiPhishing
+     */
     public function getChaveAntiPhishing()
     {
         return $this->chaveAntiPhishing;

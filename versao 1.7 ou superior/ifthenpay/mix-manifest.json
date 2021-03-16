@@ -1,10 +1,13 @@
 {
-    "/views/js/ifthenpayPaymentMethodOrderBoOrderCreate.js": "/views/js/ifthenpayPaymentMethodOrderBoOrderCreate.js",
-    "/views/js/ifthenpayPaymentMethodSetup.js": "/views/js/ifthenpayPaymentMethodSetup.js",
+    "/views/js/adminAccountSettingsPage.js": "/views/js/adminAccountSettingsPage.js",
+    "/views/js/adminConfigPage.js": "/views/js/adminConfigPage.js",
     "/views/css/ifthenpayConfig.css": "/views/css/ifthenpayConfig.css",
     "/views/css/ifthenpayPaymentMethodSetup.css": "/views/css/ifthenpayPaymentMethodSetup.css",
     "/views/css/ifthenpayConfirmPage.css": "/views/css/ifthenpayConfirmPage.css",
     "/views/css/ifthenpayAdminOrder.css": "/views/css/ifthenpayAdminOrder.css",
     "/views/css/ifthenpayOrderDetail.css": "/views/css/ifthenpayOrderDetail.css",
-    "/views/js/setMbwayPhoneBoOrderCreate.js": "/views/js/setMbwayPhoneBoOrderCreate.js"
+    "/views/css/paymentOptions.css": "/views/css/paymentOptions.css",
+    "/views/js/adminOrderCreatePage.js": "/views/js/adminOrderCreatePage.js",
+    "/views/js/adminOrderDetailPage.js": "/views/js/adminOrderDetailPage.js",
+    "/views/js/mbwayCountdownConfirmPage.js": "/views/js/mbwayCountdownConfirmPage.js"
 }

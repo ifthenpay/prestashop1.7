@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Contracts\Builders;
 
 if (!defined('_PS_VERSION_')) {
@@ -32,16 +31,6 @@ if (!defined('_PS_VERSION_')) {
 
 interface PaymentDataBuilderInterface
 {
-    /**
-    * Set order
-    *@param Order $value 
-    * @return PaymentDataBuilderInterface
-    */
     public function setOrder($value);
-    /**
-    * Set customer
-    *@param Customer $value 
-    * @return PaymentDataBuilderInterface
-    */
     public function setCustomer($value);
 }

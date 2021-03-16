@@ -38,7 +38,11 @@ class IfthenpayUpgrade
 
 	public function __construct($ifthenpayModule)
 	{
-        $this->webservice = RequestFactory::buildWebservice();
+        $this->webservice = RequestFactory::buildWebservice(
+            [
+                'headers' => ['Accept' => 'application/vnd.github.v3+json']
+            ]
+        );
         $this->ifthenpayModule = $ifthenpayModule;
 	}
 
@@ -52,10 +56,7 @@ class IfthenpayUpgrade
 
     public function checkModuleUpgrade()
     {
-        $response = $this->webservice->getRequest('https://api.github.com/repos/ifthenpay/prestashop/releases/latest', [], [
-                'headers' => ['Accept' => 'application/vnd.github.v3+json']
-            ]
-        )->getResponseJson();
+        $response = $this->webservice->getRequest('https://api.github.com/repos/ifthenpay/prestashop/releases/latest')->getResponseJson();
         if (\Tools::version_compare(str_replace('v', '', $response['tag_name']), $this->ifthenpayModule->version, '>') && !$response["draft"] && !$response["prerelease"]) {
             return [
                 'upgrade' => true,

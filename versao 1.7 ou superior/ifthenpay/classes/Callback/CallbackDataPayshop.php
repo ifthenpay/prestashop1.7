@@ -24,6 +24,7 @@
  */
 
 
+
 namespace PrestaShop\Module\Ifthenpay\Callback;
 
 if (!defined('_PS_VERSION_')) {
@@ -35,11 +36,6 @@ use PrestaShop\Module\Ifthenpay\Contracts\Callback\CallbackDataInterface;
 
 class CallbackDataPayshop implements CallbackDataInterface
 {
-    /**
-    * Get payshop data by transaction id
-    *@param array $request 
-    * @return array
-    */
     public function getData($request)
     {
         return IfthenpayModelFactory::build('payshop')->getPayshopByIdTransacao($request['id_transacao']);

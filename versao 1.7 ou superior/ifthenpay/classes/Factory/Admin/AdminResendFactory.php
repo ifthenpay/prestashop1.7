@@ -23,27 +23,25 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Admin;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminResendInterface;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\MbwayAdminResend;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\PayshopAdminResend;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\MultibancoAdminResend;
 
 class AdminResendFactory
 {
-    /**
-    * Resend payment data by payment method
-    *@param string $type, @param PaymentDataBuilder $paymentDefaultData, @param Ifthenpay $ifthenpayModule, @param SmartyDataBuilder $smartyDefaultData,
-    *@param array $emailDefaultData  
-    * @return AdminResendInterface
-    */
-    public static function build($type, $paymentDefaultData, $ifthenpayModule, $smartyDefaultData = null, $emailDefaultData = null) {
+    public static function build(
+        $type,
+        $paymentDefaultData,
+        $ifthenpayModule,
+        $smartyDefaultData = null,
+        $emailDefaultData = null
+    ) {
         switch ($type) {
             case 'multibanco':
                 return new MultibancoAdminResend($ifthenpayModule, $paymentDefaultData, $smartyDefaultData, $emailDefaultData);

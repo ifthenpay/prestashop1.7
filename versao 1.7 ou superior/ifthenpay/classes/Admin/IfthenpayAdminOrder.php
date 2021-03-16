@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Admin;
 
 if (!defined('_PS_VERSION_')) {
@@ -33,38 +32,27 @@ if (!defined('_PS_VERSION_')) {
 use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Factory\Admin\AdminOrderFactory;
 use PrestaShop\Module\Ifthenpay\Payments\Data\IfthenpayStrategy;
-use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminOrderInterface;
 use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
 
 class IfthenpayAdminOrder extends IfthenpayStrategy
 {
     private $message;
-    /**
-    *@param Order $order, @param Ifthenpay $ifthenpayModule, @param string $message
-    */
+
     public function __construct($order, $ifthenpayModule, $message = '')
     {
         parent::__construct($order, $ifthenpayModule);
         $this->message = $message;
     }
 
-    /**
-    * get url parameters for admin controllers 
-    * @return string
-    */
     private function getControllersUrlParameters()
     {
         return '&paymentMethod=' . $this->order->payment . '&orderId=' . $this->order->id;
     }
 
-    /**
-    * Check if order was created in backoffice 
-    * @return void
-    */
     public function checkIfOrderBackofficeCreated()
     {
         if ($this->order->payment === 'Ifthenpay') {
-            $orderState = PrestashopModelFactory::buildOrderState($this->order->current_state);
+            $orderState = PrestashopModelFactory::buildOrderState((string)$this->order->current_state);
 
             if (strpos($orderState->name[1], \Tools::ucfirst('multibanco')) !== false) {
                 $this->paymentDefaultData->setPaymentMethod('multibanco');
@@ -92,10 +80,6 @@ class IfthenpayAdminOrder extends IfthenpayStrategy
         }
     }
 
-    /**
-    * Set default smarty variables 
-    * @return void
-    */
     private function setDefaultSmartyData()
     {
         $this->smartyDefaultData->setTotalToPay(
@@ -114,10 +98,6 @@ class IfthenpayAdminOrder extends IfthenpayStrategy
         $this->smartyDefaultData->setMessage($this->message);
     }
 
-    /**
-    * Main method to get admin order 
-    * @return AdminOrderInterface
-    */
     public function execute()
     {
         $this->checkIfOrderBackofficeCreated();

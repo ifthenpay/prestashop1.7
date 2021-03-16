@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Models;
 
 if (!defined('_PS_VERSION_')) {
@@ -72,19 +71,13 @@ class IfthenpayMbway extends \ObjectModel implements PaymentModelInterface
             ],
         ]
     ];
-    /**
-    *@param string $id_name_table, @param string $id_lang, @param string $id_shop
-    */
+
     public function __construct($id_name_table = null, $id_lang = null, $id_shop = null)
     {
         parent::__construct($id_name_table, $id_lang, $id_shop);
         \Shop::addTableAssociation(self::$definition['table'], array('type' => 'shop'));
     }
-    /**
-    * Get mbway payment by id
-    *@param string $orderId
-    *@return array
-    */
+
     public static function getByOrderId($orderId)
     {
         $query = DatabaseFactory::buildDbQuery();
@@ -98,28 +91,19 @@ class IfthenpayMbway extends \ObjectModel implements PaymentModelInterface
             return array();
         }
     }
-    /**
-    * Get mbway payment by transaction id
-    *@param string $idTransacao
-    *@return array
-    */
+
     public static function getMbwayByIdTransacao($idTransacao)
     {
         $rowOrder = \Db::getInstance()
             ->executeS('SELECT * FROM ' . _DB_PREFIX_  . self::$definition['table'] . ' WHERE (id_transacao = ' . '\'' . \pSQL($idTransacao) .  '\') ');
-
-        if (is_array($rowOrder)) {
+            
+        if (is_array($rowOrder) && !empty($rowOrder)) {
             return $rowOrder[0];
         } else {
             return array();
         }
     }
 
-    /**
-    * Get all pending mbway orders
-    *@param string $idTransacao
-    *@return array
-    */
     public static function getAllPendingOrders()
     {
         

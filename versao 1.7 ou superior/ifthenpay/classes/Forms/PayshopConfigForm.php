@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Forms;
 
 if (!defined('_PS_VERSION_')) {
@@ -36,10 +35,7 @@ use PrestaShop\Module\Ifthenpay\Forms\ConfigForm;
 class PayshopConfigForm extends ConfigForm
 {
     protected $paymentMethod = 'payshop';
-    /**
-    * Set payshop config form options
-    * @return void
-    */
+
     public function setOptions()
     {
         $this->options[] = [
@@ -48,10 +44,7 @@ class PayshopConfigForm extends ConfigForm
         ];
         $this->addToOptions();
     }
-    /**
-    * Get payshop config form
-    * @return array
-    */
+
     public function getForm()
     {
         if (!$this->checkIfCallbackIsSet()
@@ -85,10 +78,7 @@ class PayshopConfigForm extends ConfigForm
             $this->setSmartyVariables();
         }
     }
-    /**
-    * Set payshop smarty variables for view
-    * @return void
-    */
+
     public function setSmartyVariables()
     {
         $this->setGatewayBuilderData();
@@ -99,10 +89,7 @@ class PayshopConfigForm extends ConfigForm
         \Context::getContext()->smarty->assign('chaveAntiPhishing', \Configuration::get('IFTHENPAY_PAYSHOP_CHAVE_ANTI_PHISHING'));
         \Context::getContext()->smarty->assign('urlCallback', \Configuration::get('IFTHENPAY_PAYSHOP_URL_CALLBACK'));
     }
-    /**
-    * Set payshop gateway data
-    * @return void
-    */
+
     public function setGatewayBuilderData()
     {
         $getPayshopKeyFromRequest = \Tools::getValue('IFTHENPAY_PAYSHOP_KEY');
@@ -110,10 +97,7 @@ class PayshopConfigForm extends ConfigForm
         $this->gatewayDataBuilder->setEntidade(\Tools::strtoupper($this->paymentMethod));
         $this->gatewayDataBuilder->setSubEntidade($getPayshopKeyFromRequest ? $getPayshopKeyFromRequest : \Configuration::get('IFTHENPAY_PAYSHOP_KEY'));
     }
-    /**
-    * Process payshop config form
-    * @return void
-    */
+
     public function processForm()
     {
         $this->setGatewayBuilderData();
@@ -124,10 +108,7 @@ class PayshopConfigForm extends ConfigForm
 
         Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('Payshop key successfully updated.'));
     }
-    /**
-    * Delete payshop config values
-    * @return void
-    */
+
     public function deleteConfigValues()
     {
         $this->deleteDefaultConfigValues();

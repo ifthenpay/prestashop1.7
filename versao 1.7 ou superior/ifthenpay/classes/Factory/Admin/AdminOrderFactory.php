@@ -23,27 +23,25 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Admin;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-
 use PrestaShop\Module\Ifthenpay\Admin\Payments\MbwayAdminOrder;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\PayshopAdminOrder;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\MultibancoAdminOrder;
-use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminOrderInterface;
+use PrestaShop\Module\Ifthenpay\Admin\Payments\CCardAdminOrder;
 
 class AdminOrderFactory
 {
-    /**
-    * Get AdminOrder by payment method
-    *@param string $type, @param PaymentDataBuilder $paymentDefaultData, @param SmartyDataBuilder $smartyDefaultData, @param Ifthenpay $ifthenpayModule 
-    * @return AdminOrderInterface
-    */
-    public static function build($type, $paymentDefaultData, $smartyDefaultData, $ifthenpayModule) {
+    public static function build(
+        $type,
+        $paymentDefaultData,
+        $smartyDefaultData,
+        $ifthenpayModule
+    ) {
         switch ($type) {
             case 'multibanco':
                 return new MultibancoAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
@@ -51,6 +49,8 @@ class AdminOrderFactory
                 return new MbwayAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
             case 'payshop':
                 return new PayshopAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
+            case 'ccard':
+                return new CCardAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
             default:
                 throw new \Exception('Unknown Admin Order class');
         }

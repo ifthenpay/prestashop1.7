@@ -23,28 +23,25 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Payment;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-use PrestaShop\Module\Ifthenpay\Builders\SmartyDataBuilder;
-use PrestaShop\Module\Ifthenpay\Builders\PaymentDataBuilder;
+use PrestaShop\Module\Ifthenpay\Payments\Data\CCardOrderDetail;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MbwayOrderDetail;
 use PrestaShop\Module\Ifthenpay\Payments\Data\PayshopOrderDetail;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MultibancoOrderDetail;
-use PrestaShop\Module\Ifthenpay\Contracts\Order\OrderDetailInterface;
 
 class OrderDetailFactory
 {
-    /**
-    * Get order detail by payment method
-    *@param string $type, @param PaymentDataBuilder $paymentDefaultData, @param SmartyDataBuilder $smartyDefaultData, @param Ifthenpay $ifthenpayModule
-    * @return OrderDetailInterface
-    */
-    public static function build($type, $paymentDefaultData, $smartyDefaultData, $ifthenpayModule) {
+    public static function build(
+        $type,
+        $paymentDefaultData,
+        $smartyDefaultData,
+        $ifthenpayModule
+    ) {
         switch ($type) {
             case 'multibanco':
                 return new MultibancoOrderDetail($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
@@ -52,6 +49,8 @@ class OrderDetailFactory
                 return new MbwayOrderDetail($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
             case 'payshop':
                 return new PayshopOrderDetail($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
+            case 'ccard':
+                return new CCardOrderDetail($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
             default:
                 throw new \Exception('Unknown Order Detail Class');
         }

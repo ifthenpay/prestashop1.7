@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Forms;
 
 if (!defined('_PS_VERSION_')) {
@@ -36,19 +35,15 @@ class IfthenpayConfigForms
 {
     private $paymentMethod;
     private $ifthenpayModule;
-    /**
-    *@param string $paymentMethod, @param Ifthenpay $ifthenpayModule, @param AdminIfthenpayPaymentMethodSetupController $ifthenpayController
-    */
+    private $ifthenpayController;
+
     public function __construct($paymentMethod, $ifthenpayModule, $ifthenpayController = null)
     {
         $this->paymentMethod = $paymentMethod;
         $this->ifthenpayModule = $ifthenpayModule;
         $this->ifthenpayController = $ifthenpayController;
     }
-    /**
-    * Get config form by payment method
-    * @return array
-    */
+
     public function buildForm()
     {
         return IfthenpayConfigFormFactory::build(
@@ -57,10 +52,7 @@ class IfthenpayConfigForms
             $this->ifthenpayController
         )->getForm();
     }
-    /**
-    * Process form by payment method
-    * @return void
-    */
+
     public function processForm()
     {
         IfthenpayConfigFormFactory::build(
@@ -68,10 +60,7 @@ class IfthenpayConfigForms
             $this->ifthenpayModule
         )->processForm();
     }
-    /**
-    * Delet config form values by payment method
-    * @return void
-    */
+
     public function deleteConfigFormValues()
     {
         IfthenpayConfigFormFactory::build(

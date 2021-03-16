@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Config;
 
 if (!defined('_PS_VERSION_')) {
@@ -38,10 +37,8 @@ class IfthenpayInstaller
     private $ifthenpayOrderStates;
     private $ifthenpayControllersTab;
     private $ifthenpaySql;
+    private $ifthenpayModule;
 
-    /**
-    *@param string $userPaymentMethods, @param Ifthenpay $ifthenpayModule 
-    */
     public function __construct($userPaymentMethods, $ifthenpayModule)
     {
         $this->ifthenpayModule = $ifthenpayModule;
@@ -52,11 +49,6 @@ class IfthenpayInstaller
         $this->ifthenpayConfiguration =  ConfigFactory::buildIfthenpayConfiguration($this->userPaymentMethods);
     }
 
-    /**
-    * Main method to install/uninstall ifthenpay module
-    *@param string $type 
-    * @return void
-    */
     public function execute($type)
     {
         if (!$this->userPaymentMethods) {

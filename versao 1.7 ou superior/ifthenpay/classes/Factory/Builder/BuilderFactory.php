@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Builder;
 
 if (!defined('_PS_VERSION_')) {
@@ -38,11 +37,6 @@ use PrestaShop\Module\Ifthenpay\Contracts\Builders\DataBuilderInterface;
 
 class BuilderFactory
 {
-    /**
-    * Get builder data by type
-    *@param string $type  
-    * @return DataBuilderInterface
-    */
     public static function build($type)
     {
         switch ($type) {

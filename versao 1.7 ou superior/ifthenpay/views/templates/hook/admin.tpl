@@ -10,7 +10,7 @@
 					<img src="{$paymentLogo}">
 				</div>
 				<div class="paymentData">
-					{if $paymentMethod === 'multibanco'}
+					{if $paymentMethod == 'multibanco'}
 					<ul class="list-group">
 						<li class="list-group-item">
 							{l s='Entity:' mod='ifthenpay'}
@@ -25,7 +25,7 @@
 							<span class="badge">{$totalToPay}</span>
 						</li>
 					</ul>
-					{elseif $paymentMethod === 'mbway'}
+					{elseif $paymentMethod == 'mbway'}
 						<ul class="list-group">
 							<li class="list-group-item">
 								{l s='Phone:' mod='ifthenpay'}
@@ -40,7 +40,7 @@
 								<span class="badge">{$totalToPay}</span>
 							</li>
 						</ul>
-					{elseif $paymentMethod === 'payshop'}
+					{elseif $paymentMethod == 'payshop'}
 						<ul class="list-group">
 							<li class="list-group-item">
 								{l s='Reference:' mod='ifthenpay'}
@@ -59,17 +59,29 @@
 								<span class="badge">{$totalToPay}</span>
 							</li>
 						</ul>
+					{else}
+						<ul class="list-group">
+                            <li class="list-group-item">
+								{l s='IdRequest:' mod='ifthenpay'}
+								<span class="badge">{$idPedido}</span>
+							</li>
+							<li class="list-group-item">
+								{l s='Total to Pay:' mod='ifthenpay'}
+								<span class="badge">{$totalToPay}</span>
+							</li>
+						</ul>
 					{/if}
 					<div>
 						{if $paymentMethod == 'multibanco' || $paymentMethod == 'payshop'}
 							<a href="{$updateControllerUrl}" class="btn btn-primary">{l s='Update %s data' mod='ifthenpay' sprintf=[$paymentMethod|ucfirst]}</a>
 						{/if}
-						{if $idPedido && $telemovel}
+						{if $paymentMethod == 'mbway' && $idPedido && $telemovel}
 							<a href="{$resendControllerUrl}" class="btn btn-primary">{l s='Resend Payment Data' mod='ifthenpay' }</a>
-						{else}
+						{elseif $paymentMethod == 'mbway'}
 							<a id="resendPaymentBtn" href="{$resendControllerUrl}" class="btn btn-primary">{l s='Resend Payment Data' mod='ifthenpay' }</a>
 						{/if}
 						{if $paymentMethod == 'multibanco' || $paymentMethod == 'payshop'}
+							<a href="{$resendControllerUrl}" class="btn btn-primary">{l s='Resend Payment Data' mod='ifthenpay' }</a>
 							<a href="{$rememberControllerUrl}" class="btn btn-primary">{l s='Remember Payment Details' mod='ifthenpay' }</a>
 						{/if}
 						<a id="chooseNewPaymentMethod" href="{$chooseNewPaymentMethodControllerUrl}" class="btn btn-primary">{l s='Choose new Payment Method' mod='ifthenpay'}</a>

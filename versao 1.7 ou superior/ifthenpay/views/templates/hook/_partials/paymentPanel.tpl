@@ -57,6 +57,13 @@
                     <span class="badge">{$totalToPay}</span>
                 </li>
             </ul>
+        {else}
+            <ul class="list-group">
+                <li class="list-group-item">
+                    {l s='Total to Pay:' mod='ifthenpay'}
+                    <span class="badge">{$totalToPay}</span>
+                </li>
+            </ul>
         {/if}
     </div>
 </div>

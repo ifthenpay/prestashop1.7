@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Config;
 
 if (!defined('_PS_VERSION_')) {
@@ -39,9 +38,6 @@ class IfthenpayControllersTabs implements InstallerInterface
     private $adminControllers;
     private $ifthenpayModule;
 
-    /**
-    *@param Ifthenpay $ifthenpayModule 
-    */
     public function __construct($ifthenpayModule)
     {
         $this->adminControllers = [
@@ -52,13 +48,9 @@ class IfthenpayControllersTabs implements InstallerInterface
             'AdminIfthenpayChooseNewPaymentMethod', 
             'AdminIfthenpayResetAccount',
         ];
-        $this->ifthenpayModule = $ifthenpayModule;
+        $this->ifthenpayModule = $ifthenpayModule;                                                      
     }
 
-    /**
-    * Create tabs for admin controllers
-    * @return void
-    */
     public function install()
     {
         foreach ($this->adminControllers as $controller) {
@@ -76,21 +68,12 @@ class IfthenpayControllersTabs implements InstallerInterface
         }
     }
 
-    /**
-    * Method for install tab dynamic
-    *@param string $controllerType 
-    * @return void
-    */
     public function dynamicInstall($controllerType)
     {
         $this->adminControllers = [$controllerType];
         $this->install();
     }
 
-    /**
-    * Main method for uninstall controllers tabs
-    * @return void
-    */
     public function uninstall()
     {
         $query = DatabaseFactory::buildDbQuery();

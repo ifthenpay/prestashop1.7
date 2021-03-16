@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Config;
 
 if (!defined('_PS_VERSION_')) {
@@ -34,11 +33,6 @@ use PrestaShop\Module\Ifthenpay\Config\IfthenpayInstaller;
 
 class IfthenpayInstallerFactory
 {
-    /**
-    * Set IfthepayInstaller class
-    *@param string $type, @param string $userPaymentMethods, @param Ifthenpay $ifthenpayModule
-    * @return IfthenpayInstaller
-    */
     public static function build(
         $type,
         $userPaymentMethods,

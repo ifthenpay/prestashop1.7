@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Base\Payments;
 
 if (!defined('_PS_VERSION_')) {
@@ -34,20 +33,12 @@ use PrestaShop\Module\Ifthenpay\Base\PaymentBase;
 
 class PayshopBase extends PaymentBase
 {
-    /**
-    * Set payshop data for gateway 
-    * @return void
-    */
     protected function setGatewayBuilderData()
     {
         $this->gatewayBuilder->setPayshopKey(\Configuration::get('IFTHENPAY_PAYSHOP_KEY'));
         $this->gatewayBuilder->setValidade(\Configuration::get('IFTHENPAY_PAYSHOP_VALIDADE'));
     }
 
-    /**
-    * Save payshop payment in database 
-    * @return void
-    */
     protected function saveToDatabase()
     {
         $this->paymentModel->id_transacao = $this->paymentGatewayResultData->idPedido;
@@ -58,10 +49,6 @@ class PayshopBase extends PaymentBase
         $this->paymentModel->save();
     }
 
-    /**
-    * Update payshop payment in database 
-    * @return void
-    */
     protected function updateDatabase()
     {
         $this->setPaymentModel('payshop', $this->paymentDataFromDb['id_ifthenpay_payshop']);
@@ -70,10 +57,6 @@ class PayshopBase extends PaymentBase
         $this->paymentModel->update();
     }
 
-    /**
-    * Set email variables 
-    * @return void
-    */
     protected function setEmailVariables()
     {
         $this->emailDefaultData['{referencia}'] = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->referencia : $this->paymentDataFromDb['referencia'];

@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Models;
 
 if (!defined('_PS_VERSION_')) {
@@ -73,19 +72,13 @@ class IfthenpayMultibanco extends \ObjectModel implements PaymentModelInterface
             ],
         ]
     ];
-    /**
-    *@param string $id_name_table, @param string $id_lang, @param string $id_shop
-    */
+
     public function __construct($id_name_table = null, $id_lang = null, $id_shop = null)
     {
         parent::__construct($id_name_table, $id_lang, $id_shop);
         \Shop::addTableAssociation(self::$definition['table'], array('type' => 'shop'));
     }
-    /**
-    * Get multibanco payment by id
-    *@param string $orderId
-    *@return array
-    */
+
     public static function getByOrderId($orderId)
     {
         $query = DatabaseFactory::buildDbQuery();
@@ -99,11 +92,7 @@ class IfthenpayMultibanco extends \ObjectModel implements PaymentModelInterface
             return array();
         }
     }
-    /**
-    * Get multibanco payment by referencia
-    *@param string $referencia
-    *@return array
-    */
+
     public function getMultibancoByReferencia($referencia)
     {
         $rowOrder = \DB::getInstance()

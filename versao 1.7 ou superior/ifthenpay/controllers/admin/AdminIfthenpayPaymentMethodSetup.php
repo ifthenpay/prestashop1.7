@@ -87,6 +87,7 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
         $this->context->smarty->assign('content', $this->context->smarty->fetch($this->getTemplatePath() . '/paymentMethodSetup.tpl'));
     }
 
+
     public function postProcess()
     {
         parent::postProcess();

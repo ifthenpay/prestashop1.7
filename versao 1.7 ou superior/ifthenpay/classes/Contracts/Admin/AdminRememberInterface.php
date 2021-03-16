@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Contracts\Admin;
 
 if (!defined('_PS_VERSION_')) {
@@ -32,9 +31,5 @@ if (!defined('_PS_VERSION_')) {
 
 interface AdminRememberInterface
 {
-    /**
-    * Send remeber payment to client 
-    * @return void
-    */
     public function rememberPayment();
 }

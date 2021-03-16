@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Payment;
 
 if (!defined('_PS_VERSION_')) {
@@ -34,12 +33,9 @@ use PrestaShop\Module\Ifthenpay\Payments\Gateway;
 
 class GatewayFactory
 {
-    /**
-    * Set Gateway class
-    *@param string $type
-    * @return Gateway
-    */
-    public static function build($type) {
+    public static function build(
+        $type
+    ) {
         if ($type === 'gateway') {
             return new Gateway();
         } else {

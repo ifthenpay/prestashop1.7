@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Forms;
 
 if (!defined('_PS_VERSION_')) {
@@ -36,10 +35,7 @@ use PrestaShop\Module\Ifthenpay\Utility\Utility;
 class MultibancoConfigForm extends ConfigForm
 {
     protected $paymentMethod = 'multibanco';
-    /**
-    * Set multibanco config form options
-    * @return void
-    */
+
     public function setOptions()
     {
         $this->options[] = [
@@ -48,10 +44,7 @@ class MultibancoConfigForm extends ConfigForm
         ];
         $this->addToOptions();
     }
-    /**
-    * Get multibanco config form
-    * @return array
-    */
+
     public function getForm()
     {
         if (!$this->checkIfCallbackIsSet()
@@ -95,10 +88,7 @@ class MultibancoConfigForm extends ConfigForm
             $this->setSmartyVariables();
         }
     }
-    /**
-    * Set multibanco smarty variables for view
-    * @return void
-    */
+
     public function setSmartyVariables()
     {
         $this->setGatewayBuilderData();
@@ -109,10 +99,7 @@ class MultibancoConfigForm extends ConfigForm
         \Context::getContext()->smarty->assign('chaveAntiPhishing', \Configuration::get('IFTHENPAY_MULTIBANCO_CHAVE_ANTI_PHISHING'));
         \Context::getContext()->smarty->assign('urlCallback', \Configuration::get('IFTHENPAY_MULTIBANCO_URL_CALLBACK'));
     }
-    /**
-    * Set multibanco gateway data
-    * @return void
-    */
+
     public function setGatewayBuilderData()
     {
         $getEntidadeFromRequest = \Tools::getValue('IFTHENPAY_MULTIBANCO_ENTIDADE');
@@ -121,10 +108,7 @@ class MultibancoConfigForm extends ConfigForm
         $this->gatewayDataBuilder->setEntidade($getEntidadeFromRequest ? $getEntidadeFromRequest : \Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE'));
         $this->gatewayDataBuilder->setSubEntidade($getSubEntidadeFromRequest ? $getSubEntidadeFromRequest : \Configuration::get('IFTHENPAY_MULTIBANCO_SUBENTIDADE'));
     }
-    /**
-    * Process multibanco config form
-    * @return void
-    */
+
     public function processForm()
     {
         $this->setGatewayBuilderData();
@@ -135,10 +119,7 @@ class MultibancoConfigForm extends ConfigForm
 
         Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('Entity/SubEntity successfully updated.'));
     }
-    /**
-    * Delete multibanco config values
-    * @return void
-    */
+
     public function deleteConfigValues()
     {
         $this->deleteDefaultConfigValues();

@@ -23,27 +23,26 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Payment;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Payments\Data\CCardPaymentReturn;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MbwayPaymentReturn;
 use PrestaShop\Module\Ifthenpay\Payments\Data\PayshopPaymentReturn;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MultibancoPaymentReturn;
-use PrestaShop\Module\Ifthenpay\Contracts\Payments\PaymentReturnInterface;
 
 class PaymentReturnFactory
 {
-    /**
-    * Get payment return  by payment method
-    * @param string $type, @param PaymentDataBuilder $paymentDefaultData, @param SmartyDataBuilder $smartyDefaultData,  @param array $emailDefaultData, 
-    * @param Ifthenpay $ifthenpayModule
-    * @return PaymentReturnInterface
-    */
-    public static function build($type, $paymentDefaultData, $smartyDefaultData, $emailDefaultData, $ifthenpayModule) {
+    public static function build(
+        $type,
+        $paymentDefaultData,
+        $smartyDefaultData,
+        $emailDefaultData,
+        $ifthenpayModule
+    ) {
         switch ($type) {
             case 'multibanco':
                 return new MultibancoPaymentReturn(
@@ -61,6 +60,13 @@ class PaymentReturnFactory
                 );
             case 'payshop':
                 return new PayshopPaymentReturn(
+                    $ifthenpayModule,
+                    $paymentDefaultData,
+                    $smartyDefaultData,
+                    $emailDefaultData
+                );
+            case 'ccard':
+                return new CCardPaymentReturn(
                     $ifthenpayModule,
                     $paymentDefaultData,
                     $smartyDefaultData,

@@ -24,6 +24,7 @@
  */
 
 
+
 namespace PrestaShop\Module\Ifthenpay\Admin;
 
 if (!defined('_PS_VERSION_')) {
@@ -36,10 +37,7 @@ use PrestaShop\Module\Ifthenpay\Payments\Data\IfthenpayStrategy;
 class IfthenpayAdminUpdate extends IfthenpayStrategy
 {
 
-    /**
-    * Main method to execute admin update payment
-    * @return void
-    */
+
     public function execute()
     {
         $this->setDefaultData();

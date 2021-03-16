@@ -24,9 +24,11 @@
 
 const mix = require('laravel-mix');
 
-mix.ts('./_dev/js/ifthenpayPaymentMethodSetup.ts', 'views/js/ifthenpayPaymentMethodSetup.js')
-mix.ts('./_dev/js/ifthenpayPaymentMethodOrderBoOrderCreate.ts', 'views/js/ifthenpayPaymentMethodOrderBoOrderCreate.js')
-mix.ts('./_dev/js/setMbwayPhoneBoOrderCreate.ts', 'views/js/setMbwayPhoneBoOrderCreate.js')
+mix.ts('./_dev/js/adminConfigPage.ts', 'views/js/adminConfigPage.js')
+mix.ts('./_dev/js/adminOrderCreatePage.ts', 'views/js/adminOrderCreatePage.js')
+mix.ts('./_dev/js/adminOrderDetailPage.ts', 'views/js/adminOrderDetailPage.js')
+mix.ts('./_dev/js/mbwayCountdownConfirmPage.ts', 'views/js/mbwayCountdownConfirmPage.js')
+mix.ts('./_dev/js/adminAccountSettingsPage.ts', 'views/js/adminAccountSettingsPage.js')
     .webpackConfig({
         resolve: {
           extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
@@ -37,10 +39,13 @@ mix.ts('./_dev/js/setMbwayPhoneBoOrderCreate.ts', 'views/js/setMbwayPhoneBoOrder
     .sass('./_dev/scss/ifthenpayConfirmPage.scss', 'views/css/ifthenpayConfirmPage.css')
     .sass('./_dev/scss/ifthenpayAdminOrder.scss', 'views/css/ifthenpayAdminOrder.css')
     .sass('./_dev/scss/ifthenpayOrderDetail.scss', 'views/css/ifthenpayOrderDetail.css') 
+    .sass('./_dev/scss/paymentOptions.scss', 'views/css/paymentOptions.css')
     .options({
         processCssUrls: false
     });
-mix.babel(['views/js/ifthenpayPaymentMethodSetup.js'], 'views/js/ifthenpayPaymentMethodSetup.js');
-mix.babel(['views/js/ifthenpayPaymentMethodOrderBoOrderCreate.js'], 'views/js/ifthenpayPaymentMethodOrderBoOrderCreate.js');
-mix.babel(['views/js/setMbwayPhoneBoOrderCreate.js'], 'views/js/setMbwayPhoneBoOrderCreate.js');
+mix.babel(['views/js/adminConfigPage.js'], 'views/js/adminConfigPage.js');
+mix.babel(['views/js/adminOrderCreatePage.js'], 'views/js/adminOrderCreatePage.js');
+mix.babel(['views/js/adminOrderDetailPage.js'], 'views/js/adminOrderDetailPage.js')
+mix.babel(['views/js/mbwayCountdownConfirmPage.js'], 'views/js/mbwayCountdownConfirmPage.js')
+mix.babel(['views/js/adminAccountSettingsPage.js'], 'views/js/adminAccountSettingsPage.js')
 

@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Admin\Payments;
 
 if (!defined('_PS_VERSION_')) {
@@ -37,11 +36,6 @@ use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminOrderInterface;
 class MultibancoAdminOrder extends MultibancoBase implements AdminOrderInterface
 {
 
-    /**
-    * Set Smarty Variables for view
-    * @param bool $paymentInDatabase
-    * @return void
-    */
     public function setSmartyVariables($paymentInDatabase)
     {
         if ($paymentInDatabase) {
@@ -53,10 +47,6 @@ class MultibancoAdminOrder extends MultibancoBase implements AdminOrderInterface
         }
     }
 
-    /**
-    * Get multibanco Admin order 
-    * @return AdminOrderInterface
-    */
     public function getAdminOrder()
     {
         $this->setPaymentModel('multibanco');

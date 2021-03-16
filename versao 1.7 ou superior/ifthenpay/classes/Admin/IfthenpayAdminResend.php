@@ -36,10 +36,7 @@ use PrestaShop\Module\Ifthenpay\Payments\Data\IfthenpayStrategy;
 class IfthenpayAdminResend extends IfthenpayStrategy
 {
 
-    /**
-    * Main method to execute admin resend payment 
-    * @return void
-    */
+
     public function execute()
     {
         $this->setDefaultData();

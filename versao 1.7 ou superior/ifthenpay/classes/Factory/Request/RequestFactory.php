@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Request;
 
 if (!defined('_PS_VERSION_')) {
@@ -35,19 +34,12 @@ use PrestaShop\Module\Ifthenpay\Request\WebService;
 
 class RequestFactory
 {
-    /**
-    * Set ifthenpay WebService class
-    * @return WebService
-    */
-    public static function buildWebservice(array $headers = [])
+
+    public static function buildWebservice($headers = [])
     {
         return new Webservice($headers);
     }
 
-    /**
-    * Set guzzle client class
-    * @return Client
-    */
     public static function buildClient()
     {
         return new Client();

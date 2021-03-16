@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Contracts\Callback;
 
 if (!defined('_PS_VERSION_')) {
@@ -32,10 +31,5 @@ if (!defined('_PS_VERSION_')) {
 
 interface CallbackDataInterface
 {
-    /**
-    * Get callback data
-    *@param array $request 
-    * @return array
-    */
     public function getData($request);
 }

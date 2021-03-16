@@ -23,6 +23,7 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -49,7 +50,7 @@ class Ifthenpay extends PaymentModule
     {
         $this->name = 'ifthenpay';
         $this->tab = 'payments_gateways';
-        $this->version = '1.1.0';
+        $this->version = '1.2.0';
         $this->author = 'Ifthenpay';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -518,6 +519,7 @@ class Ifthenpay extends PaymentModule
             return;
         }
         $payments_options = [];
+        $ifthenpayGateway = GatewayFactory::build('gateway');
         foreach ((array) unserialize($this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']) as $paymentMethod) {
             if (Configuration::get('IFTHENPAY_' . Tools::strtoupper($paymentMethod))) {
                 $option = PrestashopFactory::buildPaymentOption();
@@ -545,7 +547,9 @@ class Ifthenpay extends PaymentModule
                         )
                     );
                 }
-                $option->setCallToActionText($this->l('Pay by ') . Tools::ucfirst($paymentMethod))
+                $option->setCallToActionText($this->l('Pay by ') . $ifthenpayGateway->getAliasPaymentMethods(
+                    $paymentMethod, $this->context->language->iso_code)
+                )
                     ->setLogo(Media::getMediaPath(
                         _PS_MODULE_DIR_ . $this->name . '/views/img/' . $paymentMethod . '_option.png'
                     ))
@@ -624,6 +628,11 @@ class Ifthenpay extends PaymentModule
                     $params['order']->id
                 );
                 $this->smarty->assign('status', 'failed');
+                $this->smarty->assign('orderErrorImg',
+                    \Media::getMediaPath(
+                        _PS_MODULE_DIR_ . 'ifthenpay/views/svg/error.svg'
+                    )
+                );
                 return $this->display(__FILE__, 'payment_return.tpl');
             }
             //return $this->fetch('module:ifthenpay/views/templates/hook/payment_return.tpl');

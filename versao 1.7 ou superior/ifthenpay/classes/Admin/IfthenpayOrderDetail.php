@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Admin;
 
 if (!defined('_PS_VERSION_')) {
@@ -32,15 +31,9 @@ if (!defined('_PS_VERSION_')) {
 
 use PrestaShop\Module\Ifthenpay\Payments\Data\IfthenpayStrategy;
 use PrestaShop\Module\Ifthenpay\Factory\Payment\OrderDetailFactory;
-use PrestaShop\Module\Ifthenpay\Contracts\Order\OrderDetailInterface;
 
 class IfthenpayOrderDetail extends IfthenpayStrategy
 {
-
-    /**
-    * Set default smarty variables for order detail 
-    * @return void
-    */
     private function setDefaultSmartyData()
     {
         $this->smartyDefaultData->setTotalToPay($this->paymentValueFormated);
@@ -52,10 +45,6 @@ class IfthenpayOrderDetail extends IfthenpayStrategy
         );
     }
 
-    /**
-    * Main method to display order detail 
-    * @return OrderDetailInterface
-    */
     public function execute()
     {
         $this->setDefaultData();

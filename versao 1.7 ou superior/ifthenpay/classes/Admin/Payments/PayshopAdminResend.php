@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Admin\Payments;
 
 if (!defined('_PS_VERSION_')) {
@@ -37,10 +36,7 @@ use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminResendInterface;
 class PayshopAdminResend extends PayshopBase implements AdminResendInterface
 {
 
-    /**
-    * Resend payshop payment to client 
-    * @return void
-    */
+
     public function resendPayment()
     {
         $this->setPaymentModel('payshop');

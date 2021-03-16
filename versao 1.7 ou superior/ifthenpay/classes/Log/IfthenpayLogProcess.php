@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Log;
 
 use PrestaShop\Module\Ifthenpay\Factory\Models\IfthenpayModelFactory;
@@ -37,11 +36,7 @@ class IfthenpayLogProcess
     const ERROR = 'error';
 
     const INFO = 'info';
-    /**
-    * Add log to logs database
-    *@param string $message, @param string $type, @param int $orderId
-    * @return void
-    */
+
     public static function addLog($message, $type, $orderId)
     {
         $log = IfthenpayModelFactory::build('log');

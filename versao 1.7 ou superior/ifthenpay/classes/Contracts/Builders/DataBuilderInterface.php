@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Contracts\Builders;
 
 if (!defined('_PS_VERSION_')) {
@@ -32,52 +31,18 @@ if (!defined('_PS_VERSION_')) {
 
 interface DataBuilderInterface
 {
-    /**
-    * Set payment total to pay
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setTotalToPay($value);
-    /**
-    * Set payment method
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setPaymentMethod($value);
-    /**
-    * Set multibanco entidade
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setEntidade($value);
-    /**
-    * Set multibanco/payshop referencia
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setReferencia($value);
-    /**
-    * Set mbway telemovel
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setTelemovel($value = null);
-    /**
-    * Set payshop validade
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setValidade($value);
-    /**
-    * Set mbway/payshop idPedido
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setIdPedido($value = null);
-    /**
-    * Set backoffice key for callback activation
-    *@param string $value 
-    * @return DataBuilderInterface
-    */
     public function setBackofficeKey($value);
+    public function setSuccessUrl($value);
+    public function setErrorUrl($value);
+    public function setCancelUrl($value);
+    public function setPaymentMessage($value);
+    public function setPaymentUrl($value);
+    public function setPaymentStatus($value);
 }

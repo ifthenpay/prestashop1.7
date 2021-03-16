@@ -23,13 +23,13 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Callback;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Callback\CallbackDataCCard;
 use PrestaShop\Module\Ifthenpay\Callback\CallbackDataMbway;
 use PrestaShop\Module\Ifthenpay\Callback\CallbackDataMultibanco;
 use PrestaShop\Module\Ifthenpay\Callback\CallbackDataPayshop;
@@ -37,11 +37,6 @@ use PrestaShop\Module\Ifthenpay\Contracts\Callback\CallbackDataInterface;
 
 class CallbackDataFactory
 {
-    /**
-    * Get callback data by payment method
-    *@param string $type  
-    * @return CallbackDataInterface
-    */
     public static function build($type)
     {
         switch ($type) {
@@ -51,6 +46,8 @@ class CallbackDataFactory
                 return new CallbackDataMbway();
             case 'payshop':
                 return new CallbackDataPayshop();
+            case 'ccard':
+                return new CallbackDataCCard();
             default:
                 throw new \Exception('Unknown Callback Data Class');
         }

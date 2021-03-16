@@ -35,10 +35,6 @@ use PrestaShop\Module\Ifthenpay\Contracts\Builders\PaymentDataBuilderInterface;
 
 class PaymentDataBuilder extends DataBuilder implements PaymentDataBuilderInterface
 {
-    /**
-    * Set order 
-    * @return PaymentDataBuilderInterface
-    */
     public function setOrder($value)
     {
         $this->data->order = $value;

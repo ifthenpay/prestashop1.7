@@ -23,25 +23,22 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Admin;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminUpdateInterface;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\PayshopAdminUpdate;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\MultibancoAdminUpdate;
 
 class AdminUpdateFactory
 {
-    /**
-    * Update payment data by payment method
-    *@param string $type, @param PaymentDataBuilder $paymentDefaultData, @param Ifthenpay $ifthenpayModule  
-    * @return AdminUpdateInterface
-    */
-    public static function build($type, $paymentDefaultData, $ifthenpayModule) {
+    public static function build(
+        $type,
+        $paymentDefaultData,
+        $ifthenpayModule
+    ) {
         switch ($type) {
             case 'multibanco':
                 return new MultibancoAdminUpdate($ifthenpayModule, $paymentDefaultData);

@@ -30,19 +30,18 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminRememberInterface;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\PayshopAdminRemember;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\MultibancoAdminRemember;
 
 class AdminRememberFactory
 {
-    /**
-    * Send remember payment to client by payment method
-    *@param string $type, @param PaymentDataBuilder $paymentDefaultData, @param Ifthenpay $ifthenpayModule, @param SmartyDataBuilder $smartyDefaultData, 
-    *@param array $emailDefaultData 
-    * @return AdminRememberInterface
-    */
-    public static function build($type, $paymentDefaultData, $ifthenpayModule, $smartyDefaultData = null, $emailDefaultData = null) {
+    public static function build(
+        $type,
+        $paymentDefaultData,
+        $ifthenpayModule,
+        $smartyDefaultData = null,
+        $emailDefaultData = null
+    ) {
         switch ($type) {
             case 'multibanco':
                 return new MultibancoAdminRemember($ifthenpayModule, $paymentDefaultData, $smartyDefaultData, $emailDefaultData);

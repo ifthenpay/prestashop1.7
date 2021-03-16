@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Config;
 
 if (!defined('_PS_VERSION_')) {
@@ -34,9 +33,8 @@ use PrestaShop\Module\Ifthenpay\Contracts\Config\InstallerInterface;
 
 class IfthenpaySql implements InstallerInterface
 {
-
-    private $userPaymentMethods;
     private $ifthenpayModule;
+    private $userPaymentMethods;
 
     private $ifthenpaySqlTables = [
         'multibanco' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_multibanco` (
@@ -67,6 +65,15 @@ class IfthenpaySql implements InstallerInterface
             PRIMARY KEY  (`id_ifthenpay_payshop`),
             INDEX `idTransacao` (`id_transacao`)
           ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
+          'ccard' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_ccard` (
+            `id_ifthenpay_ccard` int(10) unsigned NOT NULL auto_increment,
+            `requestId` varchar(50) NOT NULL,
+            `paymentUrl` varchar(250) NOT NULL,
+            `order_id` int(11) NOT NULL,
+            `status` varchar(50) NOT NULL,
+            PRIMARY KEY  (`id_ifthenpay_ccard`),
+            INDEX `requestId` (`requestId`)
+          ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
     ];
 
     private $storeSql = [
@@ -85,6 +92,11 @@ class IfthenpaySql implements InstallerInterface
             `id_shop` int(10) unsigned NOT NULL,
             PRIMARY KEY (`id_ifthenpay_payshop`, `id_shop`)
           ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
+          'ccard' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_ccard_shop` (
+            `id_ifthenpay_ccard` int(10) unsigned NOT NULL auto_increment,
+            `id_shop` int(10) unsigned NOT NULL,
+            PRIMARY KEY (`id_ifthenpay_ccard`, `id_shop`)
+          ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
     ];
 
     private $ifthenpaySqlLogTable = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_log` (
@@ -102,100 +114,69 @@ class IfthenpaySql implements InstallerInterface
         $this->ifthenpayStatusKeys = ['IFTHENPAY_{paymentMethod}_OS_WAITING', 'IFTHENPAY_{paymentMethod}_OS_CONFIRMED'];
     }
 
-    /**
-    * Create shop table for multistore
-    * @return void
-    */
     private function createShopSql()
     {
         foreach ($this->userPaymentMethods as $paymentMethod) {
             $sql = \Db::getInstance()->execute($this->storeSql[$paymentMethod]);
             if (!$sql) {
-                throw new \Exception($this->l('Error creating ifthenpay payment shop table!'));
+                throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay payment shop table!'));
             }
         }
     }
 
-    /**
-    * Create payment method table 
-    * @return void
-    */
     private function createIfthenpaySql()
     {
         foreach ($this->userPaymentMethods as $paymentMethod) {
                 $sql = \Db::getInstance()->execute($this->ifthenpaySqlTables[$paymentMethod]);
             if (!$sql) {
-                throw new \Exception($this->l('Error creating ifthenpay payment table!'));
+                throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay payment table!'));
             }
         }
     }
 
-    /**
-    * Create ifthenpay log table 
-    * @return void
-    */
     public function createIfthenpayLogSql()
     {
         $sql = \Db::getInstance()->execute($this->ifthenpaySqlLogTable);
         if (!$sql) {
-            throw new \Exception($this->l('Error creating ifthenpay log table!'));
+            throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay log table!'));
         }
     }
 
-    /**
-    * Delete payment method table 
-    * @return void
-    */
     private function deleteIfthenpaySql()
     {
         foreach ($this->userPaymentMethods as $paymentMethod) {
                 $sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_' . $paymentMethod);
             if (!$sql) {
-                throw new \Exception($this->l('Error deleting ifthenpay payment table!'));
+                throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay payment table!'));
             }
         }
     }
 
-    /**
-    * Delete shop table 
-    * @return void
-    */
     private function deleteShopSql()
     {
         foreach ($this->userPaymentMethods as $paymentMethod) {
                 $sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_' . $paymentMethod . '_shop');
             if (!$sql) {
-                throw new \Exception($this->l('Error deleting ifthenpay payment shop table!'));
+                throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay payment shop table!'));
             }
         }
     }
 
-    /**
-    * Delete ifthenpay log table 
-    * @return void
-    */
     private function deleteIfthenpayLogSql()
     {
         $sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_log');
         if (!$sql) {
-            throw new \Exception($this->l('Error deleting ifthenpay log table!'));
+            throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay log table!'));
         }
     }
 
-    /**
-    * Main method to create ifthenpay tables in database 
-    * @return void
-    */
+
     public function install()
     {
         $this->createIfthenpaySql();
         $this->createShopSql();
     }
 
-    /**
-    * Main method to delete ifthenpay tables
-    * @return void
-    */
     public function uninstall()
     {
         if ($this->userPaymentMethods) {
@@ -207,8 +188,7 @@ class IfthenpaySql implements InstallerInterface
 
     /**
      * Set the value of ifthenpayModule
-     * /**
-     * @param Ifthenpay $ifthenpayModule 
+     *
      * @return  self
      */ 
     public function setIfthenpayModule($ifthenpayModule)

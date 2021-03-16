@@ -23,25 +23,19 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Payment;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Payments\CCard;
 use PrestaShop\Module\Ifthenpay\Payments\MbWay;
 use PrestaShop\Module\Ifthenpay\Payments\Payshop;
 use PrestaShop\Module\Ifthenpay\Payments\Multibanco;
-use PrestaShop\Module\Ifthenpay\Contracts\Payments\PaymentMethodInterface;
 
 class PaymentFactory
 {
-    /**
-    * Get payment class by payment method
-    *@param string $paymentMethod, @param GatewayDataBuilder $data, @param String $orderId, @param string $valor
-    * @return PaymentMethodInterface
-    */
     public static function build($paymentMethod, $data, $orderId, $valor)
     {
         switch ($paymentMethod) {
@@ -51,6 +45,8 @@ class PaymentFactory
                 return new MbWay($data, $orderId, $valor);
             case 'payshop':
                 return new Payshop($data, $orderId, $valor);
+            case 'ccard':
+                return new CCard($data, $orderId, $valor);
             default:
                 throw new \Exception("Unknown Payment Class");
         }

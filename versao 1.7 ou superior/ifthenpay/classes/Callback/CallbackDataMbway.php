@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Callback;
 
 if (!defined('_PS_VERSION_')) {
@@ -35,11 +34,6 @@ use PrestaShop\Module\Ifthenpay\Contracts\Callback\CallbackDataInterface;
 
 class CallbackDataMbway implements CallbackDataInterface
 {
-    /**
-    * Get mbway data by transaction id
-    *@param array $request 
-    * @return array
-    */
     public function getData($request)
     {
         $mbwayModel = IfthenpayModelFactory::build('mbway');

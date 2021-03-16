@@ -7,7 +7,8 @@
     },
     "autoload": {
         "psr-4": {
-            "PrestaShop\\Module\\Ifthenpay\\": "classes/"
+            "PrestaShop\\Module\\Ifthenpay\\": "classes/",
+            "Test\\": "tests/"
         }
     },
     "config": {
@@ -21,6 +22,9 @@
         }
     ],
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.5"
+        "squizlabs/php_codesniffer": "^3.5",
+        "codeception/codeception": "^4.1",
+        "codeception/module-phpbrowser": "^1.0.0",
+        "codeception/module-asserts": "^1.0.0"
     }
 }

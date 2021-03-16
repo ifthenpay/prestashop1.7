@@ -37,15 +37,12 @@ use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminRememberInterface;
 class PayshopAdminRemember extends PayshopBase implements AdminRememberInterface
 {
 
-    /**
-    * Send payment remember to client 
-    * @return void
-    */
+
     public function rememberPayment()
     {
         $this->setPaymentModel('payshop');
         $this->getFromDatabaseById();
-        $this->setEmailVariables();
+        $this->setEmailVariables(); 
         $this->sendEmail('payshop_relembrar', Utility::getMailTranslationString('payshop'));
     }
 }

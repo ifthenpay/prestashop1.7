@@ -23,25 +23,19 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Factory\Config;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-use PrestaShop\Module\Ifthenpay\Forms\ConfigForm;
+use PrestaShop\Module\Ifthenpay\Forms\CCardConfigForm;
 use PrestaShop\Module\Ifthenpay\Forms\MbwayConfigForm;
 use PrestaShop\Module\Ifthenpay\Forms\PayshopConfigForm;
 use PrestaShop\Module\Ifthenpay\Forms\MultibancoConfigForm;
 
 class IfthenpayConfigFormFactory
 {
-    /**
-    * Get config form by payment method
-    *@param string $type, @param Ifthenpay $ifthenpayModule, @param AdminIfthenpayPaymentMethodSetupController $ifthenpayController
-    * @return ConfigForm
-    */
     public static function build(
         $type,
         $ifthenpayModule,
@@ -54,6 +48,8 @@ class IfthenpayConfigFormFactory
                 return new MbwayConfigForm($ifthenpayModule, $ifthenpayController);
             case 'payshop':
                 return new PayshopConfigForm($ifthenpayModule, $ifthenpayController);
+            case 'ccard':
+                return new CCardConfigForm($ifthenpayModule, $ifthenpayController);
             default:
                 throw new \Exception('Unknown Admin Config Form');
         }

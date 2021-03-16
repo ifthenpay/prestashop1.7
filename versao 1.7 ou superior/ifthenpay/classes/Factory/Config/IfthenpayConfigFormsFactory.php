@@ -33,11 +33,6 @@ use PrestaShop\Module\Ifthenpay\Forms\IfthenpayConfigForms;
 
 class IfthenpayConfigFormsFactory
 {
-    /**
-    * Set IfthepayConfigurationForms class
-    *@param string $type, @param string $paymentMethod, @param Ifthenpay $ifthenpayModule, @param AdminIfthenpayPaymentMethodSetupController $ifthenpayController
-    * @return IfthenpayConfigForms
-    */
     public static function build(
         $type,
         $paymentMethod,

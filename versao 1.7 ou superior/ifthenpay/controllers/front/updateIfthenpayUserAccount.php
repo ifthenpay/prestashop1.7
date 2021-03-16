@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -42,7 +41,7 @@ class IfthenpayUpdateIfthenpayUserAccountModuleFrontController extends ModuleFro
 
         $requestUserToken = $_GET['updateUserToken'];
 
-        if (!$requestUserToken && $requestUserToken !== Configuration::get('IFTHENPAY_UPDATE_USER_ACCOUNT_TOKEN')) {
+        if (!$requestUserToken || $requestUserToken !== Configuration::get('IFTHENPAY_UPDATE_USER_ACCOUNT_TOKEN')) {
             IfthenpayLogProcess::addLog('Authorization token is invalid', IfthenpayLogProcess::ERROR, 0);
             http_response_code(403);
             die('Not Authorized');

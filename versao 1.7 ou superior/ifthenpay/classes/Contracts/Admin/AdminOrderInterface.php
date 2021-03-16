@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Contracts\Admin;
 
 if (!defined('_PS_VERSION_')) {
@@ -32,16 +31,6 @@ if (!defined('_PS_VERSION_')) {
 
 interface AdminOrderInterface
 {
-    /**
-    * Set smarty variables for view
-    *@param bool $paymentInDatabase 
-    * @return void
-    */
     public function setSmartyVariables($paymentInDatabase);
-    
-    /**
-    * Get admin order
-    * @return AdminOrderInterface
-    */
     public function getAdminOrder();
 }
