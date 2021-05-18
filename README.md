@@ -14,6 +14,9 @@ This module will allow you to generate a request payment to the customer mobile 
 **Payshop** is one Portuguese payment method that allows the customer to pay by payshop reference.
 This module will allow you to generate a payment Reference that the customer can then use to pay for his order on the Payshop agent or CTT. This module uses one of the several gateways/services available in Portugal, IfthenPay.
 
+**Credit Card** 
+This module will allow you to generate a payment by Visa or Master card, that the customer can then use to pay for his order. This module uses one of the several gateways/services available in Portugal, IfthenPay.
+
 **Contract with Ifthenpay is required.**
 
 See more at [Ifthenpay](https://ifthenpay.com). 
