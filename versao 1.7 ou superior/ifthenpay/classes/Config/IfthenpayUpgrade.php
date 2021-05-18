@@ -23,6 +23,8 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
+declare(strict_types=1);
+
 namespace PrestaShop\Module\Ifthenpay\Config;
 
 use PrestaShop\Module\Ifthenpay\Factory\Request\RequestFactory;
@@ -36,38 +38,24 @@ class IfthenpayUpgrade
     private $webservice;
     private $ifthenpayModule;
 
-	public function __construct($ifthenpayModule)
+	public function __construct(\Ifthenpay $ifthenpayModule)
 	{
-        $this->webservice = RequestFactory::buildWebservice(
-            [
-                'headers' => ['Accept' => 'application/vnd.github.v3+json']
-            ]
-        );
+        $this->webservice = RequestFactory::buildWebservice();
         $this->ifthenpayModule = $ifthenpayModule;
 	}
 
-    private function convertTextToBulletPoints($txt)
+    public function checkModuleUpgrade(): array
     {
-        $txt = str_replace("*","<br><br> &#8226", str_replace("\r\n\r\n","",$txt));
-        $txt = str_replace("###","<br><br>###", $txt);
-        $txt = str_replace("### Features","<br><br><h3>Features</h3>", $txt);
-        return str_replace("### Bug fixes","<br><br><h3>Bug fixes</h3>", $txt);
-    }
-
-    public function checkModuleUpgrade()
-    {
-        $response = $this->webservice->getRequest('https://api.github.com/repos/ifthenpay/prestashop/releases/latest')->getResponseJson();
-        if (\Tools::version_compare(str_replace('v', '', $response['tag_name']), $this->ifthenpayModule->version, '>') && !$response["draft"] && !$response["prerelease"]) {
+        $response = $this->webservice->getRequest('https://ifthenpay.com/modulesUpgrade/prestashop/upgrade.json')->getResponseJson();
+        if (\Tools::version_compare($response['version'], $this->ifthenpayModule->version, '>')) {
             return [
                 'upgrade' => true,
-                'body' => $this->convertTextToBulletPoints($response['body']),
-                'download' => $response['assets'][0]['browser_download_url']
+                'body' => $response['description'],
+                'download' => $response['download']
             ];
         }
         return [
             'upgrade' => false,
         ];      
-    }
-    
-    
+    }   
 }
