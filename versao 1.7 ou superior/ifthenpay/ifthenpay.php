@@ -50,7 +50,7 @@ class Ifthenpay extends PaymentModule
     {
         $this->name = 'ifthenpay';
         $this->tab = 'payments_gateways';
-        $this->version = '1.2.0';
+        $this->version = '1.2.1';
         $this->author = 'Ifthenpay';
         $this->need_instance = 0;
         $this->bootstrap = true;
