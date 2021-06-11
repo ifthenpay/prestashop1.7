@@ -258,12 +258,14 @@ class Ifthenpay extends PaymentModule
                                 [
                                     'id' => 'active_on',
                                     'value' => true,
-                                    'label' => $this->l('Enabled')
+                                    'label' => $this->l('Enabled'),
+                                    'name' => ''
                                 ],
                                 [
                                     'id' => 'active_off',
                                     'value' => false,
-                                    'label' => $this->l('Disabled')
+                                    'label' => $this->l('Disabled'),
+                                    'name' => ''
                                 ]
                             ]   
                         ],
@@ -295,17 +297,20 @@ class Ifthenpay extends PaymentModule
                         [
                             'id' => 'active_on',
                             'value' => true,
-                            'label' => $this->l('Enabled')
+                            'label' => $this->l('Enabled'),
+                            'name' => ''
                         ],
                         [
                             'id' => 'active_off',
                             'value' => false,
-                            'label' => $this->l('Disabled')
+                            'label' => $this->l('Disabled'),
+                            'name' => ''
                         ]
                     ],
                 ];
                 $form['form']['input'][] = [
                     'type' => 'html',
+                    'name' => '',
                     'html_content' => $this->context->smarty->fetch(
                         $this->local_path . 'views/templates/admin/_partials/buttonPaymentManage.tpl'
                     ),
@@ -323,6 +328,7 @@ class Ifthenpay extends PaymentModule
                         );
                     $form['form']['input'][] = [
                         'type' => 'html',
+                        'name' => '',
                         'html_content' => $this->context->smarty->fetch(
                             $this->local_path . 'views/templates/admin/_partials/buttonAtivateNewAccount.tpl'
                         ),

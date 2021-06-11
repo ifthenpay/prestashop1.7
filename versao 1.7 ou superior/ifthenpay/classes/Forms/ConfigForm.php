@@ -217,9 +217,15 @@ abstract class ConfigForm
         }
     }
 
+    public function setSmartyVariables()
+    {
+        \Context::getContext()->smarty->assign('form', '');
+        \Context::getContext()->smarty->assign('spinnerUrl', _MODULE_DIR_ . $this->ifthenpayModule->name . '/views/svg/oval.svg');
+    }
+
+
     abstract protected function setOptions();
     abstract public function getForm();
     abstract public function processForm();
     abstract public function deleteConfigValues();
-    abstract public function setSmartyVariables();
 }

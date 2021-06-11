@@ -73,7 +73,8 @@ class CCardConfigForm extends ConfigForm
     public function setSmartyVariables()
     {
         $this->setGatewayBuilderData();
-        
+        parent::setSmartyVariables();
+        \Context::getContext()->smarty->assign('displayCallbackTableInfo', false);
         \Context::getContext()->smarty->assign('ccardKey', \Configuration::get('IFTHENPAY_CCARD_KEY'));
     }
 

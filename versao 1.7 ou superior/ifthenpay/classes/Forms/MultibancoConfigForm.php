@@ -93,7 +93,7 @@ class MultibancoConfigForm extends ConfigForm
     {
         $this->setGatewayBuilderData();
         $this->setIfthenpayCallback();
-        \Context::getContext()->smarty->assign('spinnerUrl', _MODULE_DIR_ . $this->ifthenpayModule->name . '/views/svg/oval.svg');
+        parent::setSmartyVariables();
         \Context::getContext()->smarty->assign('entidade', \Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE'));
         \Context::getContext()->smarty->assign('subEntidade', \Configuration::get('IFTHENPAY_MULTIBANCO_SUBENTIDADE'));
         \Context::getContext()->smarty->assign('chaveAntiPhishing', \Configuration::get('IFTHENPAY_MULTIBANCO_CHAVE_ANTI_PHISHING'));

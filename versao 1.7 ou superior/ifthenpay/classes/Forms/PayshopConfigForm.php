@@ -83,7 +83,7 @@ class PayshopConfigForm extends ConfigForm
     {
         $this->setGatewayBuilderData();
         $this->setIfthenpayCallback();
-
+        parent::setSmartyVariables();
         \Context::getContext()->smarty->assign('payshopKey', \Configuration::get('IFTHENPAY_PAYSHOP_KEY'));
         \Context::getContext()->smarty->assign('payshopValidade', \Configuration::get('IFTHENPAY_PAYSHOP_VALIDADE'));
         \Context::getContext()->smarty->assign('chaveAntiPhishing', \Configuration::get('IFTHENPAY_PAYSHOP_CHAVE_ANTI_PHISHING'));

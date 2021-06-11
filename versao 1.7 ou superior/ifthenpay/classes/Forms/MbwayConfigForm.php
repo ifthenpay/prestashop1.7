@@ -94,7 +94,7 @@ class MbwayConfigForm extends ConfigForm
     {
         $this->setGatewayBuilderData();
         $this->setIfthenpayCallback();
-
+        parent::setSmartyVariables();
         \Context::getContext()->smarty->assign('mbwayKey', \Configuration::get('IFTHENPAY_MBWAY_KEY'));
         \Context::getContext()->smarty->assign('chaveAntiPhishing', \Configuration::get('IFTHENPAY_MBWAY_CHAVE_ANTI_PHISHING'));
         \Context::getContext()->smarty->assign('urlCallback', \Configuration::get('IFTHENPAY_MBWAY_URL_CALLBACK'));
