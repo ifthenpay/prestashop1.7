@@ -117,6 +117,7 @@ abstract class ConfigForm
                         ],
                         [
                             'type' => 'html',
+                            'name' => 'name',
                             'html_content' => \Context::getContext()->smarty->fetch($this->ifthenpayModule->getLocalPath() . 'views/templates/admin/_partials/spinner.tpl'),
                         ]
                 ],

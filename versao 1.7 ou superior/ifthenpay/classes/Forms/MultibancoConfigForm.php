@@ -89,6 +89,14 @@ class MultibancoConfigForm extends ConfigForm
         }
     }
 
+    protected function getConfigFormValues()
+    {
+        return array_merge(parent::getConfigFormValues(), [
+            'IFTHENPAY_MULTIBANCO_ENTIDADE' => \Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE'),
+            'IFTHENPAY_MULTIBANCO_SUBENTIDADE' => \Configuration::get('IFTHENPAY_MULTIBANCO_SUBENTIDADE')
+        ]);
+    }
+
     public function setSmartyVariables()
     {
         $this->setGatewayBuilderData();

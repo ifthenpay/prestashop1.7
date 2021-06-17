@@ -90,6 +90,14 @@ class MbwayConfigForm extends ConfigForm
         }
     }
 
+    protected function getConfigFormValues()
+    {
+        return array_merge(parent::getConfigFormValues(), [
+            'IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT' => \Configuration::get('IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT'),
+            'IFTHENPAY_MBWAY_KEY' => \Configuration::get('IFTHENPAY_MBWAY_KEY')
+        ]);
+    }
+
     public function setSmartyVariables()
     {
         $this->setGatewayBuilderData();

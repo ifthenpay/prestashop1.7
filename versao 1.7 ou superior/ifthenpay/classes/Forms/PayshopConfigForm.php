@@ -79,6 +79,14 @@ class PayshopConfigForm extends ConfigForm
         }
     }
 
+    protected function getConfigFormValues()
+    {
+        return array_merge(parent::getConfigFormValues(), [
+            'IFTHENPAY_PAYSHOP_KEY' => \Configuration::get('IFTHENPAY_PAYSHOP_KEY'),
+            'IFTHENPAY_PAYSHOP_VALIDADE' => \Configuration::get('IFTHENPAY_PAYSHOP_VALIDADE')
+        ]);
+    }
+
     public function setSmartyVariables()
     {
         $this->setGatewayBuilderData();

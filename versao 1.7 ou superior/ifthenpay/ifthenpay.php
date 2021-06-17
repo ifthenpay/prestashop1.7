@@ -317,8 +317,7 @@ class Ifthenpay extends PaymentModule
                 ];
             }
             foreach (GatewayFactory::build('gateway')->getPaymentMethodsType() as $paymentMethodType) {
-                if (!Configuration::get('IFTHENPAY_ACTIVATE_NEW_' . Tools::strtoupper($paymentMethodType) .  '_ACCOUNT')
-                    && !in_array($paymentMethodType, $ifthenpayUserPaymentMethods)
+                if ($paymentMethodType !== 'ifthenpay' && !in_array($paymentMethodType, $ifthenpayUserPaymentMethods)
                 ) {
                         $this->context->smarty->assign('paymentMethod', $paymentMethodType);
                         $this->context->smarty->assign(

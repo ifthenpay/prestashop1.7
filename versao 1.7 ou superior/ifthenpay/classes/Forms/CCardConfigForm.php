@@ -70,6 +70,13 @@ class CCardConfigForm extends ConfigForm
         
     }
 
+    protected function getConfigFormValues()
+    {
+        return array_merge(parent::getConfigFormValues(), [
+            'IFTHENPAY_CCARD_KEY' => \Configuration::get('IFTHENPAY_CCARD_KEY')
+        ]);
+    }
+
     public function setSmartyVariables()
     {
         $this->setGatewayBuilderData();
