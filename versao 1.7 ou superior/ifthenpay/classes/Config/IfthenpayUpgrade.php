@@ -44,7 +44,7 @@ class IfthenpayUpgrade
         $this->ifthenpayModule = $ifthenpayModule;
 	}
 
-    public function checkModuleUpgrade(): array
+    public function checkModuleUpgrade()
     {
         $response = $this->webservice->getRequest('https://ifthenpay.com/modulesUpgrade/prestashop/upgrade.json')->getResponseJson();
         if (\Tools::version_compare($response['version'], $this->ifthenpayModule->version, '>')) {

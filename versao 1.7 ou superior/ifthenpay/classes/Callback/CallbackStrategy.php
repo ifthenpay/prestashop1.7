@@ -25,7 +25,7 @@
 
 namespace PrestaShop\Module\Ifthenpay\Callback;
 
-use PrestaShop\Module\Ifthenpay\Contracts\Callback\CallbackProcessInterface;
+use PrestaShop\Module\Ifthenpay\Log\IfthenpayLogProcess;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -38,8 +38,11 @@ class CallbackStrategy
     {
         if ($request['type'] === 'offline') {
             return (new CallbackOffline())->setPaymentMethod($request['payment'])->setRequest($request)->process();
-        } else {
+        } else if ($request['type'] === 'online') {
             return (new CallbackOnline())->setPaymentMethod($request['payment'])->setRequest($request)->process();
+        } else {
+            IfthenpayLogProcess::addLog('Callback payment type is not defined', IfthenpayLogProcess::INFO, 0);
+            throw new \Exception('Callback payment type is not defined');
         }
     }
 }
