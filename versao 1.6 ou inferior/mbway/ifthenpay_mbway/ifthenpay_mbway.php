@@ -16,7 +16,7 @@ class Ifthenpay_Mbway extends PaymentModule
   private $_html = '';
   private $_postErrors = array();
   
-  private $ifthenpay_mbway_url_api = 'https://www.ifthenpay.com/mbwayWS/IfthenPayMBW.asmx/SetPedidoJSON';
+  private $ifthenpay_mbway_url_api = 'https://mbway.ifthenpay.com/IfthenPayMBW.asmx/SetPedidoJSON';
 
   public function __construct()
   {
