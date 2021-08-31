@@ -70,11 +70,11 @@ class IfthenpayResendMbwayNotificationModuleFrontController extends ModuleFrontC
             $ifthenpayMbway->update();
             Utility::setPrestashopCookie('mbwayResendNotificationSent', true);
             IfthenpayLogProcess::addLog('MBWAY id_transacao updated with success', IfthenpayLogProcess::INFO, (int) $orderId);
-            $this->success[] = $this->l('Mbway notification successfully resent, confirm payment on your MBWAY app.');
+            $this->success[] = $this->module->l('Mbway notification successfully resent, confirm payment on your MBWAY app.', pathinfo(__FILE__)['filename']);
             $this->redirectWithNotifications($redirectLink);
         } catch (\Throwable $th) {
             IfthenpayLogProcess::addLog('Error resending mbway notification - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, (int) $orderId);
-            $this->errors[] = $this->l('Error sending mbway notification, please contact the store administrator.');
+            $this->errors[] = $this->module->l('Error sending mbway notification, please contact the store administrator.', pathinfo(__FILE__)['filename']);
             $this->redirectWithNotifications($redirectLink);
         }
     }

@@ -57,7 +57,7 @@ class CCardPaymentReturn extends CCardBase implements PaymentReturnInterface
         )->getData();
         $this->saveToDatabase();
         $this->setSmartyVariables();
-        \Tools::redirectAdmin($this->paymentGatewayResultData->paymentUrl);
+        \Tools::redirect($this->paymentGatewayResultData->paymentUrl);
         //return $this;
     }
 }

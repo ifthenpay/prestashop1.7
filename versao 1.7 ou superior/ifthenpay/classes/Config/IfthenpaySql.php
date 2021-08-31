@@ -68,7 +68,7 @@ class IfthenpaySql implements InstallerInterface
           'ccard' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_ccard` (
             `id_ifthenpay_ccard` int(10) unsigned NOT NULL auto_increment,
             `requestId` varchar(50) NOT NULL,
-            `paymentUrl` varchar(250) NOT NULL,
+            `paymentUrl` varchar(1000) NOT NULL,
             `order_id` int(11) NOT NULL,
             `status` varchar(50) NOT NULL,
             PRIMARY KEY  (`id_ifthenpay_ccard`),
@@ -167,6 +167,20 @@ class IfthenpaySql implements InstallerInterface
         $sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_log');
         if (!$sql) {
             throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay log table!'));
+        }
+    }
+
+    public function changeCcardTable(): void
+    {   
+        $sqlResult = \Db::getInstance()->executeS("SHOW TABLES LIKE " . "'" . _DB_PREFIX_ . "ifthenpay_ccard'")[0];
+        if (strtolower($sqlResult[array_key_first($sqlResult)]) == strtolower(_DB_PREFIX_ . 'ifthenpay_ccard')) {
+            $sqlExecute = \Db::getInstance()->executeS("SELECT COLUMN_NAME, DATA_TYPE, COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = " . "'" . _DB_PREFIX_ . "ifthenpay_ccard' AND COLUMN_NAME = 'paymentUrl'");
+            if ($sqlExecute[0]['COLUMN_TYPE'] === 'varchar(250)') {
+                $sqlExecute = \Db::getInstance()->execute('ALTER TABLE ' . _DB_PREFIX_ . 'ifthenpay_ccard  MODIFY paymentUrl varchar(1000)');
+                if (!$sqlExecute) {
+                    throw new \Exception($this->ifthenpayModule->l('Error changing ccard table!'));
+                }
+            } 
         }
     }
 

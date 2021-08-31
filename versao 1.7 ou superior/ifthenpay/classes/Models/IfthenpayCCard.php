@@ -57,7 +57,7 @@ class IfthenpayCCard extends \ObjectModel implements PaymentModelInterface
                 'type' => self::TYPE_STRING,
                 'required' => true,
                 'validate' => 'isString',
-                'size' => 250,
+                'size' => 1000,
             ],
             'order_id' => [
                 'type' => self::TYPE_INT,

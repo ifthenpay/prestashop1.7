@@ -51,7 +51,7 @@ class IfthenpayValidationModuleFrontController extends ModuleFrontController
         }
 
         if (!$authorized) {
-            die($this->l('This payment method is not available.'));
+            die($this->module->l('This payment method is not available.', pathinfo(__FILE__)['filename']));
         }
 
         $isAuthorized = $this->isAuthorized($paymentOption);
@@ -59,7 +59,7 @@ class IfthenpayValidationModuleFrontController extends ModuleFrontController
         if ($isAuthorized !== true) {
             IfthenpayLogProcess::addLog('Validate order, payment not authorized - ' . $isAuthorized, IfthenpayLogProcess::ERROR, 0);
             $this->errors[] = Tools::displayError($isAuthorized);
-            $this->redirectWithNotifications($this->getCurrentURL());
+            $this->redirectWithNotifications('index.php?controller=order&step=3');
         } else {
             $customer = PrestashopModelFactory::buildCustomer((string) $cart->id_customer);
 
@@ -105,10 +105,10 @@ class IfthenpayValidationModuleFrontController extends ModuleFrontController
         if ($paymentOption === 'mbway') {
             $mbwayPhone = Tools::getValue("ifthenpayMbwayPhone");
             if (!$mbwayPhone) {
-                return $this->l('Mbway phone is required.');
+                return $this->module->l('Mbway phone is required.', pathinfo(__FILE__)['filename']);
             }
             if (strlen($mbwayPhone) < 9) {
-                return $this->l('Mbway phone is not valid.');
+                return $this->module->l('Mbway phone is not valid.', pathinfo(__FILE__)['filename']);
             }
             Configuration::updateValue('IFTHENPAY_MBWAY_PHONE_' . $this->context->cart->id, $mbwayPhone);
         }
