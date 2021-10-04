@@ -174,7 +174,7 @@ class IfthenpaySql implements InstallerInterface
     {   
         $sqlResult = \Db::getInstance()->executeS("SHOW TABLES LIKE " . "'" . _DB_PREFIX_ . "ifthenpay_ccard'");
         $sqlResult = !empty($sqlResult) ? $sqlResult[0] : null;
-        if ($sqlResult && strtolower($sqlResult[array_key_first($sqlResult)]) == strtolower(_DB_PREFIX_ . 'ifthenpay_ccard')) {
+        if ($sqlResult && strtolower($sqlResult[array_keys($sqlResult)[0]]) == strtolower(_DB_PREFIX_ . 'ifthenpay_ccard')) {
             $sqlExecute = \Db::getInstance()->executeS("SELECT COLUMN_NAME, DATA_TYPE, COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = " . "'" . _DB_PREFIX_ . "ifthenpay_ccard' AND COLUMN_NAME = 'paymentUrl'");
             if ($sqlExecute[0]['COLUMN_TYPE'] === 'varchar(250)') {
                 $sqlExecute = \Db::getInstance()->execute('ALTER TABLE ' . _DB_PREFIX_ . 'ifthenpay_ccard  MODIFY paymentUrl varchar(1000)');
