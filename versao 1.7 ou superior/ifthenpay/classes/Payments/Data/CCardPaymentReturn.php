@@ -29,6 +29,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Base\Payments\CCardBase;
 use PrestaShop\Module\Ifthenpay\Contracts\Payments\PaymentReturnInterface;
 
@@ -53,7 +54,7 @@ class CCardPaymentReturn extends CCardBase implements PaymentReturnInterface
             $this->paymentDefaultData->paymentMethod,
             $this->gatewayBuilder,
             strval($this->paymentDefaultData->order->id),
-            strval($this->paymentDefaultData->order->getOrdersTotalPaid())
+            strval(Utility::convertPriceToEuros($this->paymentDefaultData->order))
         )->getData();
         $this->saveToDatabase();
         $this->setSmartyVariables();

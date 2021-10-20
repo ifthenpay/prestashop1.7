@@ -55,10 +55,7 @@ class MbwayOrderDetail extends MbwayBase implements OrderDetailInterface
                 )
             );
             $this->setOrderIcons();
-            if (!\Context::getContext()->cookie->__isset('mbwayResendNotificationSent') && \Context::getContext()->cookie->__isset('mbwayCountdownShow')) {
-                \Context::getContext()->cookie->__unset('mbwayCountdownShow');
-                $this->smartyDefaultData->setMbwayCountdownShow(false);
-            } else {
+            if (\Context::getContext()->cookie->__isset('mbwayResendNotificationSent')) {
                 Utility::setPrestashopCookie('mbwayCountdownShow', true);
                 $this->smartyDefaultData->setMbwayCountdownShow(true);
                 \Context::getContext()->cookie->__unset('mbwayResendNotificationSent');

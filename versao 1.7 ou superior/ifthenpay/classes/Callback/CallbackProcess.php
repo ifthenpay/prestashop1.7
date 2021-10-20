@@ -91,6 +91,14 @@ class CallbackProcess
         IfthenpayLogProcess::addLog('Callback payment status updated with success', IfthenpayLogProcess::INFO, $this->order->id);
     }
 
+    protected function changePrestashopOrderStatus($statusId)
+    {
+        $new_history = PrestashopModelFactory::buildOrderHistory();
+        $new_history->id_order = (int) $this->order->id;
+        $new_history->changeIdOrderState((int) $statusId, (int) $this->order->id);
+        $new_history->addWithemail(true);
+    }
+
     /**
      * Set the value of request
      *
@@ -101,7 +109,5 @@ class CallbackProcess
         $this->request = $request;
 
         return $this;
-    }
-
-    
+    }   
 }

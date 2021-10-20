@@ -56,14 +56,14 @@ class AdminIfthenpayChooseNewPaymentMethodController extends ModuleAdminControll
                     $new_history->changeIdOrderState((int) \Configuration::get('IFTHENPAY_' . Tools::strtoupper($order->payment) . '_OS_WAITING'), (int) $order->id);
                     $new_history->addWithemail(true);
                     IfthenpayLogProcess::addLog('Payment method changed with success', IfthenpayLogProcess::INFO, $order->id);
-                    Utility::setPrestashopCookie('success', $this->l('Payment method changed with success!'));
+                    Utility::setPrestashopCookie('success', $this->module->l('Payment method changed with success!'));
                 }
                 Utility::redirectAdminOrder($order);
             }
             
         } catch (Exception $th) {
             IfthenpayLogProcess::addLog('Error change payment method - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $order->id);
-            Utility::setPrestashopCookie('error', $this->l('Error changing payment method!'));
+            Utility::setPrestashopCookie('error', $this->module->l('Error changing payment method!'));
             Utility::redirectAdminOrder($order);
         }
         

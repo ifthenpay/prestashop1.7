@@ -24,12 +24,10 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Callback;
 
 use PrestaShop\Module\Ifthenpay\Log\IfthenpayLogProcess;
 use PrestaShop\Module\Ifthenpay\Factory\Callback\CallbackFactory;
-use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
 use PrestaShop\Module\Ifthenpay\Contracts\Callback\CallbackProcessInterface;
 
 if (!defined('_PS_VERSION_')) {
@@ -53,10 +51,7 @@ class CallbackOffline extends CallbackProcess implements CallbackProcessInterfac
                 ->validate();
                 IfthenpayLogProcess::addLog('Callback validated with success', IfthenpayLogProcess::INFO, $this->order->id);
                 $this->changeIfthenpayPaymentStatus('paid');
-                $new_history = PrestashopModelFactory::buildOrderHistory();
-                $new_history->id_order = (int) $this->order->id;
-                $new_history->changeIdOrderState((int) \Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_OS_CONFIRMED'), (int) $this->order->id);
-                $new_history->addWithemail(true);
+                $this->changePrestashopOrderStatus(\Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_OS_CONFIRMED'));
                 IfthenpayLogProcess::addLog('Callback order status change with success', IfthenpayLogProcess::INFO, $this->order->id);
                 http_response_code(200);
                 die('ok');           

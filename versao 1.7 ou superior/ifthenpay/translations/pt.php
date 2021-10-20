@@ -3,7 +3,7 @@
 global $_MODULE;
 $_MODULE = array();
 $_MODULE['<{ifthenpay}prestashop>ifthenpay_8352726ecb643b87981f3a29edf62c7c'] = 'Ifthenpay';
-$_MODULE['<{ifthenpay}prestashop>ifthenpay_6de686d3d30a5eb78c3b0c59e7de08b4'] = 'Permite pagamentos por referência Multibanco, MB WAY e Payshop.';
+$_MODULE['<{ifthenpay}prestashop>ifthenpay_8846c32bf73c9c623957df25025fc1ff'] = 'Permite pagamentos por Referência Multibanco, MB WAY, Payshop e Cartão de Crédito';
 $_MODULE['<{ifthenpay}prestashop>ifthenpay_af08e679684591339274cb4a411521c1'] = 'Tem a certeza que quer desinstalar o módulo?';
 $_MODULE['<{ifthenpay}prestashop>ifthenpay_b8cdb7064e545651b5671a49643f5d69'] = 'A configuração do módulo apenas está disponível em contexto de loja. Selecione a loja no dropdown na parte superior do ecrã';
 $_MODULE['<{ifthenpay}prestashop>ifthenpay_b8ad19212d42bb8431efa7ba0df285c3'] = 'A configuração do módulo apenas está disponível em contexto de loja. Selecione a loja no dropdown na parte superior do ecrã';
@@ -20,10 +20,13 @@ $_MODULE['<{ifthenpay}prestashop>ifthenpay_68b694e3fa9e145d0062587526875551'] = 
 $_MODULE['<{ifthenpay}prestashop>ifthenpay_61fb4576f3e45f8fbea20a5117c543ac'] = ' Erro ao salvar métodos de pagamento!';
 $_MODULE['<{ifthenpay}prestashop>ifthenpay_d22e8bf6263dfeb9e56945a2075b6b34'] = 'Pagamento por ';
 $_MODULE['<{ifthenpay}prestashop>ifthenpay_7fd935169c162d84067a6f82ba800bdd'] = 'Detalhe da ordem de pagamento apenas está disponível em contexto de loja. Selecione a loja no seletor suspenso na parte superior da tela';
+$_MODULE['<{ifthenpay}prestashop>callbackonline_db26e10564e958809d798e8048fcbc0a'] = 'Token de segurança inválido';
 $_MODULE['<{ifthenpay}prestashop>callbackonline_472c0114336642a097060b6a5bfa12e3'] = 'Pagamento por cartão de crédito não é válido';
 $_MODULE['<{ifthenpay}prestashop>callbackonline_adddde0c1bdb0420ff41f8ba83f269b1'] = 'Pagamento por cartão de crédito feito com sucesso';
 $_MODULE['<{ifthenpay}prestashop>callbackonline_b96ebf4b77dba05b5872c827d914182c'] = 'Pagamento por cartão de crédito cancelado';
 $_MODULE['<{ifthenpay}prestashop>callbackonline_53c56d17ac9eb2f1c03207070ca9bff6'] = 'Erro a processar pagamento por cartão de crédito';
+$_MODULE['<{ifthenpay}prestashop>callbackonline_f6d7f246dd9c17814278463273bb0ce8'] = 'A encomenda já foi cancelada pelo cliente';
+$_MODULE['<{ifthenpay}prestashop>callbackonline_0cfa95d3cafb01fd3bee0e611d15b4d4'] = 'Encomenda já foi paga';
 $_MODULE['<{ifthenpay}prestashop>ifthenpaycontrollerstabs_517caf47ad7616b63f2785ba515cb0c7'] = 'Configuração Pagamento';
 $_MODULE['<{ifthenpay}prestashop>ifthenpaysql_b466eee08a9b34db749d4805d50e95d8'] = ' Erro ao criar a tabela shop do método de pagamento!';
 $_MODULE['<{ifthenpay}prestashop>ifthenpaysql_e6d755c2053083d4b5d444bfe4bf521c'] = ' Erro ao criar a tabela ifthenpay!';
@@ -31,6 +34,7 @@ $_MODULE['<{ifthenpay}prestashop>ifthenpaysql_9f4240a0926b09586510034ae430f688']
 $_MODULE['<{ifthenpay}prestashop>ifthenpaysql_3a950843ef852fcb407c0a67b0af7ad6'] = ' Erro ao apagar a tabela ifthenpay!';
 $_MODULE['<{ifthenpay}prestashop>ifthenpaysql_e90b4a11ba5f7f995071874b39f9aca1'] = 'Erro ao apagar a tabela shop do método de pagamento!';
 $_MODULE['<{ifthenpay}prestashop>ifthenpaysql_6551f6471a15db60c3d34707cdb69311'] = 'Erro ao apagar a tabela ifthenpay log!';
+$_MODULE['<{ifthenpay}prestashop>ifthenpaysql_6811ac5bbedb33fcd7b0b4f54d7d320a'] = 'Erro ao alterar a tabela ccard!';
 $_MODULE['<{ifthenpay}prestashop>ccardconfigform_e6885a9d3fa0a1a7d4106c46ba2f9fe5'] = 'Escolha a CCard key';
 $_MODULE['<{ifthenpay}prestashop>ccardconfigform_ac1d5c290d4b2176a26575ea5dc3c655'] = 'CCard key';
 $_MODULE['<{ifthenpay}prestashop>ccardconfigform_682101a2ce0eaac646448d8fb95fcbf5'] = 'CCard key atualizada com sucesso';
@@ -158,9 +162,6 @@ $_MODULE['<{ifthenpay}prestashop>payment_return_068e634617b5022453cdce24a248ba58
 $_MODULE['<{ifthenpay}prestashop>payment_return_a4c5d66927259be619ca153d2f978747'] = 'Utilize os dados abaixo para pagar a sua encomenda.';
 $_MODULE['<{ifthenpay}prestashop>payment_return_1027d26ef95b50a3a7b3b20149faad73'] = 'Confirme o pagamento na sua app MB WAY';
 $_MODULE['<{ifthenpay}prestashop>payment_return_92e93013fedfdeb1dc0551e2a37326ff'] = 'Se não confirmar o pagamento em 5 minutos, a notificação de pagamento irá expirar.';
-$_MODULE['<{ifthenpay}prestashop>payment_return_492801b333b68604e87dc6989cd748c8'] = 'Notificação do MB WAY Expirou!';
-$_MODULE['<{ifthenpay}prestashop>payment_return_2a50425d0a2f4edbc35f92710c3350e9'] = 'A notificação expirou, pois ultrapassou o tempo limite de pagamento.';
-$_MODULE['<{ifthenpay}prestashop>payment_return_573d1f02e097ebb823ef455972666db4'] = 'Clique em reenviar notificação para ser reenviada nova notificação de pagamento.';
 $_MODULE['<{ifthenpay}prestashop>payment_return_c76d2f1677920c7d9a486b248c37fa4e'] = 'Encomenda Paga!';
 $_MODULE['<{ifthenpay}prestashop>payment_return_aa42c675bcc05ef5802470acc7cd2571'] = 'Pagamento Confirmado, a encomenda será enviada.';
 $_MODULE['<{ifthenpay}prestashop>payment_return_6e258b5921db58d0dce10d0158670402'] = 'Um email foi enviado com esta informação';
@@ -168,7 +169,7 @@ $_MODULE['<{ifthenpay}prestashop>payment_return_665d6603bda5b07a85fdd9ef1b7dae53
 $_MODULE['<{ifthenpay}prestashop>payment_return_ca7e41a658753c87973936d7ce2429a8'] = 'Se você tiver perguntas, comentários ou preocupações, entre em contacto com a nossa';
 $_MODULE['<{ifthenpay}prestashop>payment_return_cd430c2eb4b87fb3b49320bd21af074e'] = 'equipa especializada de suporte ao cliente.';
 $_MODULE['<{ifthenpay}prestashop>payment_return_c6701602de1528fd79d5eff3e8eb1edd'] = 'Ocorreu um erro!';
-$_MODULE['<{ifthenpay}prestashop>payment_return_ad98acd8e935047689c5fc3da23fc851'] = 'Ocorreu um erro ao processar o seu pedido, entre em contato com nosso';
+$_MODULE['<{ifthenpay}prestashop>payment_return_e6f0ef027eb6eefe9214d6125bea4972'] = 'Ocorreu um erro ao processar o seu pagamento, por favor contacte a nossa';
 $_MODULE['<{ifthenpay}prestashop>paymentpanel_f990493af3321939ca512f8f2cace108'] = 'Pagamento por %s';
 $_MODULE['<{ifthenpay}prestashop>paymentpanel_58e5f5c34a9ee652fc603ccefb1fceec'] = 'Entidade:';
 $_MODULE['<{ifthenpay}prestashop>paymentpanel_3dd42bfc8345e82c43b4a40a3426ec49'] = 'Referência:';

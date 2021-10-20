@@ -92,7 +92,26 @@ class Utility
             return \Context::getContext()->language->iso_code === 'pt' ? 'Dados de pagamento ' . ucfirst($paymentType) : 'Payment details for ' . ucfirst($paymentType);
         } else {
             return \Context::getContext()->language->iso_code === 'pt' ? 'Pagamento em falta...' : 'Payment missing...';
+        } 
+    }
+
+    public static function convertPriceToEuros($order)
+    {
+        $actualCurrency = PrestashopModelFactory::buildCurrency((string) $order->id_currency);
+        $ammount = $order->getOrdersTotalPaid();
+        //convert ammount to euros if currency is no euros
+        if ($actualCurrency->iso_code !== 'EUR') {
+            return \Tools::convertPriceFull(
+                $order->getOrdersTotalPaid(), 
+                $actualCurrency,
+                PrestashopModelFactory::buildCurrency((string) \Currency::getIdByIsoCode('EUR'))
+            );            
         }
-        
+        return $ammount;
+    }
+
+    public static function getClassName($class)
+    {
+        return substr(strrchr(get_class($class), '\\'), 1);
     }
 }

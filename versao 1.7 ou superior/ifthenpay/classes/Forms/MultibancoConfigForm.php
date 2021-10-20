@@ -39,8 +39,8 @@ class MultibancoConfigForm extends ConfigForm
     public function setOptions()
     {
         $this->options[] = [
-            'id' => $this->ifthenpayModule->l('Choose Entity'),
-            'name' => $this->ifthenpayModule->l('Choose Entity')
+            'id' => $this->ifthenpayModule->l('Choose Entity', Utility::getClassName($this)),
+            'name' => $this->ifthenpayModule->l('Choose Entity', Utility::getClassName($this))
         ];
         $this->addToOptions();
     }
@@ -54,8 +54,8 @@ class MultibancoConfigForm extends ConfigForm
             $this->setOptions();
             $this->form['form']['input'][] = [
                 'type' => 'select',
-                'label' => $this->ifthenpayModule->l('Entity'),
-                'desc' => $this->ifthenpayModule->l('Choose Entity'),
+                'label' => $this->ifthenpayModule->l('Entity', Utility::getClassName($this)),
+                'desc' => $this->ifthenpayModule->l('Choose Entity', Utility::getClassName($this)),
                 'name' => 'IFTHENPAY_MULTIBANCO_ENTIDADE',
                 'id' => 'ifthenpayMultibancoEntidade',
                 'required' => true,
@@ -67,16 +67,16 @@ class MultibancoConfigForm extends ConfigForm
             ];
             $this->form['form']['input'][] = [
                 'type' => 'select',
-                'label' => $this->ifthenpayModule->l('SubEntity'),
-                'desc' => $this->ifthenpayModule->l('Choose SubEntity'),
+                'label' => $this->ifthenpayModule->l('SubEntity', Utility::getClassName($this)),
+                'desc' => $this->ifthenpayModule->l('Choose SubEntity', Utility::getClassName($this)),
                 'name' => 'IFTHENPAY_MULTIBANCO_SUBENTIDADE',
                 'id' => 'ifthenpayMultibancoSubentidade',
                 'required' => true,
                 'options' => [
                     'query' => [
                         [
-                        'id' => $this->ifthenpayModule->l('Choose Entity'),
-                        'name' => $this->ifthenpayModule->l('Choose Entity')
+                        'id' => $this->ifthenpayModule->l('Choose Entity', Utility::getClassName($this)),
+                        'name' => $this->ifthenpayModule->l('Choose Entity', Utility::getClassName($this))
                         ],
                     ],
                     'id' => 'id',
@@ -125,7 +125,7 @@ class MultibancoConfigForm extends ConfigForm
 
         $this->setIfthenpayCallback();
 
-        Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('Entity/SubEntity successfully updated.'));
+        Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('Entity/SubEntity successfully updated.', Utility::getClassName($this)));
     }
 
     public function deleteConfigValues()

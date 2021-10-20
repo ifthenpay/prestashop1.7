@@ -51,7 +51,7 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
     {
         $this->page_header_toolbar_btn['return'] = array(
             'href' => $this->context->link->getAdminLink('AdminModules') . '&configure=' . $this->module->name,
-            'desc' => $this->l('Back'),
+            'desc' => $this->module->l('Back'),
             'icon' => 'process-icon-back'
         );
         parent::initPageHeaderToolbar();
@@ -86,7 +86,6 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
 
         $this->context->smarty->assign('content', $this->context->smarty->fetch($this->getTemplatePath() . '/paymentMethodSetup.tpl'));
     }
-
 
     public function postProcess()
     {

@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Forms;
 
 if (!defined('_PS_VERSION_')) {
@@ -40,8 +39,8 @@ class MbwayConfigForm extends ConfigForm
     public function setOptions()
     {
         $this->options[] = [
-            'id' => $this->ifthenpayModule->l('Choose Mbway key'),
-            'name' => $this->ifthenpayModule->l('Choose Mbway key')
+            'id' => $this->ifthenpayModule->l('Choose Mbway key', Utility::getClassName($this)),
+            'name' => $this->ifthenpayModule->l('Choose Mbway key', Utility::getClassName($this))
         ];
         $this->addToOptions();
     }
@@ -55,7 +54,7 @@ class MbwayConfigForm extends ConfigForm
             $this->setOptions();
             $this->form['form']['input'][] = [
                 'type' => 'switch',
-                'label' => $this->ifthenpayModule->l('Cancel MB WAY Order'),
+                'label' => $this->ifthenpayModule->l('Cancel MB WAY Order', Utility::getClassName($this)),
                 'name' => 'IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT',
                 'desc' => $this->ifthenpayModule->l('Cancel MB WAY order after notification expire. This will only work, if the callback is activated.'),
                 'is_bool' => true,
@@ -63,19 +62,19 @@ class MbwayConfigForm extends ConfigForm
                     [
                         'id' => 'active_on',
                         'value' => true,
-                        'label' => $this->ifthenpayModule->l('Activate')
+                        'label' => $this->ifthenpayModule->l('Activate', Utility::getClassName($this))
                     ],
                     [
                         'id' => 'active_off',
                         'value' => false,
-                        'label' => $this->ifthenpayModule->l('Disabled')
+                        'label' => $this->ifthenpayModule->l('Disabled', Utility::getClassName($this))
                     ]
                 ]   
             ];
             $this->form['form']['input'][] = [
                 'type' => 'select',
-                'label' => $this->ifthenpayModule->l('Mbway key'),
-                'desc' => $this->ifthenpayModule->l('Choose Mbway key'),
+                'label' => $this->ifthenpayModule->l('Mbway key', Utility::getClassName($this)),
+                'desc' => $this->ifthenpayModule->l('Choose Mbway key', Utility::getClassName($this)),
                 'name' => 'IFTHENPAY_MBWAY_KEY',
                 'required' => true,
                 'options' => [
@@ -124,7 +123,7 @@ class MbwayConfigForm extends ConfigForm
 
         $this->setIfthenpayCallback();
 
-        Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('Mbway key successfully updated.'));
+        Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('Mbway key successfully updated.', Utility::getClassName($this)));
     }
 
     public function deleteConfigValues()

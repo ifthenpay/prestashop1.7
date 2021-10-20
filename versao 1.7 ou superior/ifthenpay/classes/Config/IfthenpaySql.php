@@ -29,6 +29,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Contracts\Config\InstallerInterface;
 
 class IfthenpaySql implements InstallerInterface
@@ -108,7 +109,7 @@ class IfthenpaySql implements InstallerInterface
         PRIMARY KEY  (`id_ifthenpay_log`)
         ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
 
-    public function __construct(array $userPaymentMethods = null)
+    public function __construct($userPaymentMethods = null)
     {
         $this->userPaymentMethods = $userPaymentMethods;
         $this->ifthenpayStatusKeys = ['IFTHENPAY_{paymentMethod}_OS_WAITING', 'IFTHENPAY_{paymentMethod}_OS_CONFIRMED'];
@@ -119,7 +120,7 @@ class IfthenpaySql implements InstallerInterface
         foreach ($this->userPaymentMethods as $paymentMethod) {
             $sql = \Db::getInstance()->execute($this->storeSql[$paymentMethod]);
             if (!$sql) {
-                throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay payment shop table!'));
+                throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay payment shop table!', Utility::getClassName($this)));
             }
         }
     }
@@ -129,7 +130,7 @@ class IfthenpaySql implements InstallerInterface
         foreach ($this->userPaymentMethods as $paymentMethod) {
                 $sql = \Db::getInstance()->execute($this->ifthenpaySqlTables[$paymentMethod]);
             if (!$sql) {
-                throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay payment table!'));
+                throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay payment table!', Utility::getClassName($this)));
             }
         }
     }
@@ -138,7 +139,7 @@ class IfthenpaySql implements InstallerInterface
     {
         $sql = \Db::getInstance()->execute($this->ifthenpaySqlLogTable);
         if (!$sql) {
-            throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay log table!'));
+            throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay log table!', Utility::getClassName($this)));
         }
     }
 
@@ -147,7 +148,7 @@ class IfthenpaySql implements InstallerInterface
         foreach ($this->userPaymentMethods as $paymentMethod) {
                 $sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_' . $paymentMethod);
             if (!$sql) {
-                throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay payment table!'));
+                throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay payment table!', Utility::getClassName($this)));
             }
         }
     }
@@ -157,7 +158,7 @@ class IfthenpaySql implements InstallerInterface
         foreach ($this->userPaymentMethods as $paymentMethod) {
                 $sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_' . $paymentMethod . '_shop');
             if (!$sql) {
-                throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay payment shop table!'));
+                throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay payment shop table!', Utility::getClassName($this)));
             }
         }
     }
@@ -166,20 +167,19 @@ class IfthenpaySql implements InstallerInterface
     {
         $sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_log');
         if (!$sql) {
-            throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay log table!'));
+            throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay log table!', Utility::getClassName($this)));
         }
     }
 
-    public function changeCcardTable(): void
+    public function changeCcardTable()
     {   
-        $sqlResult = \Db::getInstance()->executeS("SHOW TABLES LIKE " . "'" . _DB_PREFIX_ . "ifthenpay_ccard'");
-        $sqlResult = !empty($sqlResult) ? $sqlResult[0] : null;
+        $sqlResult = \Db::getInstance()->executeS("SHOW TABLES LIKE " . "'" . _DB_PREFIX_ . "ifthenpay_ccard'")[0];
         if ($sqlResult && strtolower($sqlResult[array_keys($sqlResult)[0]]) == strtolower(_DB_PREFIX_ . 'ifthenpay_ccard')) {
             $sqlExecute = \Db::getInstance()->executeS("SELECT COLUMN_NAME, DATA_TYPE, COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = " . "'" . _DB_PREFIX_ . "ifthenpay_ccard' AND COLUMN_NAME = 'paymentUrl'");
             if ($sqlExecute[0]['COLUMN_TYPE'] === 'varchar(250)') {
                 $sqlExecute = \Db::getInstance()->execute('ALTER TABLE ' . _DB_PREFIX_ . 'ifthenpay_ccard  MODIFY paymentUrl varchar(1000)');
                 if (!$sqlExecute) {
-                    throw new \Exception($this->ifthenpayModule->l('Error changing ccard table!'));
+                    throw new \Exception($this->ifthenpayModule->l('Error changing ccard table!', Utility::getClassName($this)));
                 }
             } 
         }

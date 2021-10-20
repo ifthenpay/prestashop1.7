@@ -17,16 +17,6 @@
 			<p>{l s='If you do not confirm payment in 5 minutes, the payment notification will expire.' mod='ifthenpay'}</p>
 		</div>
 	</div>
-	<div id="cancelMbwayOrder" class="panel" style="display:none;">
-		<div class="panel-heading">
-		<img src="{$cancelOrderImg}" alt="cancel order icon">
-		</div>
-		<div class="panel-body">
-			<h3>{l s='MB WAY Notification Expired!' mod='ifthenpay'}</h3>
-			<p>{l s='Your notification expired, because exceed the time limit of payment.' mod='ifthenpay'}</p>
-			<p>{l s='Click on resend notification, to resend new payment notification.' mod='ifthenpay'}</p>
-		</div>
-	</div>
 	<div id="confirmMbwayOrder" class="panel" style="display:none;">
 		<div class="panel-heading">
 		<img src="{$confirmOrderImg}" alt="confirm order icon">
@@ -51,7 +41,7 @@
 		</div>
 		<div class="panel-body">
 			<h3>{l s='Something went wrong!' mod='ifthenpay'}</h3>
-			<p>{l s='There was an error processing your request, please contact our' mod='ifthenpay'} 
+			<p>{l s='There was an error processing your payment, please contact our' mod='ifthenpay'} 
 			<a href="{$link->getPageLink('contact', true)|escape:'html':'UTF-8'}">{l s='expert customer support team.' mod='ifthenpay'}</a></p>
 		</div>
 	</div>

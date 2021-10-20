@@ -23,14 +23,13 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Forms;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-use PrestaShop\Module\Ifthenpay\Callback\Callback;
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Factory\Builder\BuilderFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Payment\GatewayFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Callback\CallbackFactory;
@@ -97,7 +96,7 @@ abstract class ConfigForm
     {
         return [
             'IFTHENPAY_PAYMENT_METHOD' => $this->paymentMethod,
-            'IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod) => \Configuration::get('IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod), false)
+            'IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod) => \Configuration::get('IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod), false),
         ];
     }
 
@@ -107,7 +106,7 @@ abstract class ConfigForm
         $this->form = [
             'form' => [
                 'legend' => [
-                    'title' => \Tools::ucfirst($this->paymentMethod) . ' ' . $this->ifthenpayModule->l('Settings'),
+                    'title' => \Tools::ucfirst($this->paymentMethod) . ' ' . $this->ifthenpayModule->l('Settings', Utility::getClassName($this)),
                     'icon' => 'icon-cogs',
                 ],
                 'input' => [
@@ -122,7 +121,7 @@ abstract class ConfigForm
                         ]
                 ],
                 'submit' => [
-                    'title' => $this->ifthenpayModule->l('Save'),
+                    'title' => $this->ifthenpayModule->l('Save', Utility::getClassName($this)),
                 ],
             ],
         ];
@@ -132,20 +131,20 @@ abstract class ConfigForm
     {               
         $this->form['form']['input'][] = [
             'type' => 'switch',
-            'label' => $this->ifthenpayModule->l('Callback'),
+            'label' => $this->ifthenpayModule->l('Callback', Utility::getClassName($this)),
             'name' => 'IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod),
-            'desc' => $this->ifthenpayModule->l('Activate callback automatically. If sandbox mode is enabled, callback will not activate.'),
+            'desc' => $this->ifthenpayModule->l('Activate callback automatically. If sandbox mode is enabled, callback will not activate.', Utility::getClassName($this)),
             'is_bool' => true,
             'values' => [
                 [
                     'id' => 'active_on',
                     'value' => true,
-                    'label' => $this->ifthenpayModule->l('Activate')
+                    'label' => $this->ifthenpayModule->l('Activate', Utility::getClassName($this))
                 ],
                 [
                     'id' => 'active_off',
                     'value' => false,
-                    'label' => $this->ifthenpayModule->l('Disabled')
+                    'label' => $this->ifthenpayModule->l('Disabled', Utility::getClassName($this))
                 ]
             ]   
         ];
@@ -223,7 +222,6 @@ abstract class ConfigForm
         \Context::getContext()->smarty->assign('form', '');
         \Context::getContext()->smarty->assign('spinnerUrl', _MODULE_DIR_ . $this->ifthenpayModule->name . '/views/svg/oval.svg');
     }
-
 
     abstract protected function setOptions();
     abstract public function getForm();

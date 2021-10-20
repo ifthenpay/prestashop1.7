@@ -29,6 +29,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Factory\Database\DatabaseFactory;
 use PrestaShop\Module\Ifthenpay\Contracts\Config\InstallerInterface;
 use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
@@ -56,7 +57,7 @@ class IfthenpayControllersTabs implements InstallerInterface
         foreach ($this->adminControllers as $controller) {
             $tab = PrestashopModelFactory::buildTab();
             foreach (\Language::getLanguages() as $lang) {
-                $tab->name[$lang['id_lang']] = $this->ifthenpayModule->l('Payment Setup');
+                $tab->name[$lang['id_lang']] = $this->ifthenpayModule->l('Payment Setup', Utility::getClassName($this));
             }
             $tab->class_name = $controller;
             $tab->id_parent = -1;
@@ -68,7 +69,7 @@ class IfthenpayControllersTabs implements InstallerInterface
         }
     }
 
-    public function dynamicInstall($controllerType)
+    public function dynamicInstall(string $controllerType)
     {
         $this->adminControllers = [$controllerType];
         $this->install();

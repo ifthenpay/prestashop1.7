@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 namespace PrestaShop\Module\Ifthenpay\Forms;
 
 if (!defined('_PS_VERSION_')) {
@@ -40,8 +39,8 @@ class CCardConfigForm extends ConfigForm
     public function setOptions()
     {
         $this->options[] = [
-            'id' => $this->ifthenpayModule->l('Choose CCard key'),
-            'name' => $this->ifthenpayModule->l('Choose CCard key')
+            'id' => $this->ifthenpayModule->l('Choose CCard key', Utility::getClassName($this)),
+            'name' => $this->ifthenpayModule->l('Choose CCard key', Utility::getClassName($this))
         ];
         $this->addToOptions();
     }
@@ -53,8 +52,8 @@ class CCardConfigForm extends ConfigForm
             $this->setOptions();
             $this->form['form']['input'][] = [
                 'type' => 'select',
-                'label' => $this->ifthenpayModule->l('CCard key'),
-                'desc' => $this->ifthenpayModule->l('Choose CCard key'),
+                'label' => $this->ifthenpayModule->l('CCard key', Utility::getClassName($this)),
+                'desc' => $this->ifthenpayModule->l('Choose CCard key', Utility::getClassName($this)),
                 'name' => 'IFTHENPAY_CCARD_KEY',
                 'required' => true,
                 'options' => [
@@ -98,7 +97,7 @@ class CCardConfigForm extends ConfigForm
         $this->setGatewayBuilderData();
         \Configuration::updateValue('IFTHENPAY_CCARD_KEY', $this->gatewayDataBuilder->getData()->subEntidade);
 
-        Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('CCard key successfully updated.'));
+        Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('CCard key successfully updated.', Utility::getClassName($this)));
     }
 
     public function deleteConfigValues()

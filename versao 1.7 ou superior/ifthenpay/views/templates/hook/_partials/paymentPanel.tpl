@@ -39,7 +39,7 @@
             {if $resendMbwayNotificationControllerUrl != ''}
                 <div>
                     <h5>{l s='Not receive MBway notification?' mod='ifthenpay'}</h5>
-                    <a class="btn btn-primary" href="{$resendMbwayNotificationControllerUrl}">{l s='Resend MBway notification' mod='ifthenpay'}</a>
+                    <a class="btn btn-primary mbwayResendNotificationLink" href="{$resendMbwayNotificationControllerUrl}">{l s='Resend MBway notification' mod='ifthenpay'}</a>
                 </div>
             {/if}
         {elseif $paymentMethod == 'payshop'}

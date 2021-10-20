@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -44,10 +43,10 @@ class ResendController extends ModuleAdminController
             }
             IfthenpayStrategyFactory::build('ifthenpayAdminResend', $order, $this->module)->execute();
             IfthenpayLogProcess::addLog('Payment data sent with success', IfthenpayLogProcess::INFO, $order->id);
-            Utility::setPrestashopCookie('success', $this->l('Payment data sent with success!'));
+            Utility::setPrestashopCookie('success', $this->module->l('Payment data sent with success!'));
         } catch (Exception $th) {
             IfthenpayLogProcess::addLog('Error sending payment data - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $order->id);
-            Utility::setPrestashopCookie('error', $this->l('Error sending payment data!'));
+            Utility::setPrestashopCookie('error', $this->module->l('Error sending payment data!'));
         }
         Utility::redirectAdminOrder($order);
     }

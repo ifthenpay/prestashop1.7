@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -50,7 +49,7 @@ class Ifthenpay extends PaymentModule
     {
         $this->name = 'ifthenpay';
         $this->tab = 'payments_gateways';
-        $this->version = '1.2.3';
+        $this->version = '1.2.4';
         $this->author = 'Ifthenpay';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -73,12 +72,10 @@ class Ifthenpay extends PaymentModule
         parent::__construct();
 
         $this->displayName = $this->l('Ifthenpay');
-        $this->description = $this->l('Allows payments by Multibanco reference, MB WAY and Payshop.');
-
+        $this->description = $this->l('Allows payments by Multibanco reference, MB WAY, Payshop and Credit Card.');
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall ifthenpay module?');
-
-        $this->limited_currencies = array('EUR');
-
+        $this->currencies = true;
+        $this->currencies_mode = 'checkbox';
         $this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
         $this->ifthenpayConfig = Configuration::getMultiple(
             [
@@ -527,51 +524,54 @@ class Ifthenpay extends PaymentModule
         $payments_options = [];
         $ifthenpayGateway = GatewayFactory::build('gateway');
         foreach ((array) unserialize($this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']) as $paymentMethod) {
-            if (Configuration::get('IFTHENPAY_' . Tools::strtoupper($paymentMethod))) {
-                $option = PrestashopFactory::buildPaymentOption();
-                if ($paymentMethod === 'mbway') {
-                    $this->context->smarty->assign('mbwaySvg', Media::getMediaPath(
-                            _PS_MODULE_DIR_ . $this->name . '/views/svg/mbway.svg' 
-                        )
-                    );
-                    $this->context->smarty->assign(
-                        [
-                        'action' => $this->context->link->getModuleLink(
-                            $this->name,
-                            'validation',
+            if (PrestashopModelFactory::buildCurrency($params['cart']->id_currency)->iso_code === 'EUR' || $paymentMethod === 'ccard') {
+                if (Configuration::get('IFTHENPAY_' . Tools::strtoupper($paymentMethod))) {
+                    $option = PrestashopFactory::buildPaymentOption();
+                    if ($paymentMethod === 'mbway') {
+                        $this->context->smarty->assign('mbwaySvg', Media::getMediaPath(
+                                _PS_MODULE_DIR_ . $this->name . '/views/svg/mbway.svg' 
+                            )
+                        );
+                        $this->context->smarty->assign(
                             [
-                            'paymentOption' => $paymentMethod,
-                            ],
-                            true
-                        ),
-                        ]
-                    );
-                    $option->setForm(
-                        $this->context->smarty->fetch(
-                            $this->local_path .
-                            'views/templates/front/mbwayPhone.tpl'
-                        )
-                    );
-                }
-                $option->setCallToActionText($this->l('Pay by ') . $ifthenpayGateway->getAliasPaymentMethods(
-                    $paymentMethod, $this->context->language->iso_code)
-                )
-                    ->setLogo(Media::getMediaPath(
-                        _PS_MODULE_DIR_ . $this->name . '/views/img/' . $paymentMethod . '_option.png'
-                    ))
-                    ->setAction(
-                        $this->context->link->getModuleLink(
-                            $this->name,
-                            'validation',
-                            [
-                            'paymentOption' => $paymentMethod,
-                            ],
-                            true
-                        )
+                            'action' => $this->context->link->getModuleLink(
+                                $this->name,
+                                'validation',
+                                [
+                                'paymentOption' => $paymentMethod,
+                                ],
+                                true
+                            ),
+                            ]
+                        );
+                        $option->setForm(
+                            $this->context->smarty->fetch(
+                                $this->local_path .
+                                'views/templates/front/mbwayPhone.tpl'
+                            )
+                        );
+                    }
+                    $option->setCallToActionText($this->l('Pay by ') . $ifthenpayGateway->getAliasPaymentMethods(
+                        $paymentMethod, $this->context->language->iso_code)
                     )
-                    ->setModuleName($this->name);
-                $payments_options[] = $option;
+                        ->setLogo(Media::getMediaPath(
+                            _PS_MODULE_DIR_ . $this->name . '/views/img/' . $paymentMethod . '_option.png'
+                        ))
+                        ->setAction(
+                            $this->context->link->getModuleLink(
+                                $this->name,
+                                'validation',
+                                [
+                                'paymentOption' => $paymentMethod,
+                                ],
+                                true
+                            )
+                        )
+                        ->setModuleName($this->name);
+                    $payments_options[] = $option;
+                }
             }
+            
         }
         return $payments_options;
     }
@@ -586,13 +586,18 @@ class Ifthenpay extends PaymentModule
             Configuration::get('IFTHENPAY_' . Tools::strtoupper($params['order']->payment) . '_OS_WAITING'),
             Configuration::get('IFTHENPAY_' . Tools::strtoupper($params['order']->payment) . '_OS_CONFIRMED'),
             Configuration::get('PS_OS_OUTOFSTOCK'),
-            Configuration::get('PS_OS_OUTOFSTOCK_UNPAID')
+            Configuration::get('PS_OS_OUTOFSTOCK_UNPAID'),
+            Configuration::get('PS_OS_OUTOFSTOCK_PAID'),
+            Configuration::get('PS_OS_ERROR')
         ];
 
         if (GatewayFactory::build('gateway')->checkIfthenpayPaymentMethod($params['order']->payment)
             && in_array($params['order']->getCurrentState(), $states)
         ) {
             try {
+                if ($params['order']->getCurrentState() === Configuration::get('PS_OS_ERROR')) {
+                    throw new Exception('Error processing payment');
+                }
                 $paymentData = IfthenpayModelFactory::build($params['order']->payment)
                     ->getByOrderId((string) $params['order']->id);
                 if (empty($paymentData)) {
@@ -772,10 +777,9 @@ class Ifthenpay extends PaymentModule
         return $this->display(__FILE__, 'history.tpl');
     }
 
-    public function hookActionFrontControllerSetMedia($params)
+    private function executeCssScripts($type)
     {
-        if ($this->context->controller->php_self === 'order-confirmation') {
-            
+        if ($type === 'orderConfirmation') {
             Media::addJsDef(
                 [
                     'cancelMbwayOrderControllerUrl' => $this->context->link->getModuleLink('ifthenpay', 'cancelMbwayOrder', []),
@@ -791,19 +795,38 @@ class Ifthenpay extends PaymentModule
                 'modules/'. $this->name . '/views/css/ifthenpayConfirmPage.css'
             );
         }
-
-        if ($this->context->controller->php_self === 'orderdetail' || $this->context->controller->php_self === 'order-detail') {
+        if ($type === 'orderdetail') {
             $this->context->controller->registerStylesheet(
                 'module-ifthenpay-orderDetail',
                 'modules/'. $this->name . '/views/css/ifthenpayOrderDetail.css'
             );
         }
-
-        if ($this->context->controller->php_self === 'order') {
+        if ($type === 'order') {
             $this->context->controller->registerStylesheet(
                 'module-ifthenpay-orderPaymentOption',
                 'modules/'. $this->name . '/views/css/paymentOptions.css'
             );
+        }
+    }
+
+    public function hookActionFrontControllerSetMedia($params)
+    {
+        if ($this->context->controller->php_self) {
+            if ($this->context->controller->php_self === 'order-confirmation') {
+                $this->executeCssScripts('orderConfirmation');
+            }
+    
+            if ($this->context->controller->php_self === 'orderdetail' || $this->context->controller->php_self === 'order-detail') {
+                $this->executeCssScripts('orderDetail');
+            }
+    
+            if ($this->context->controller->php_self === 'order') {
+                $this->executeCssScripts('order');
+            }
+        } else {
+            $this->executeCssScripts('orderConfirmation');
+            $this->executeCssScripts('orderDetail');
+            $this->executeCssScripts('order');
         }
     }
 

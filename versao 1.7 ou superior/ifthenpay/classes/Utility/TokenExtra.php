@@ -23,37 +23,16 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-namespace PrestaShop\Module\Ifthenpay\Config;
-
-use PrestaShop\Module\Ifthenpay\Factory\Request\RequestFactory;
+namespace PrestaShop\Module\Ifthenpay\Utility;
 
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class IfthenpayUpgrade
-{
-    private $webservice;
-    private $ifthenpayModule;
+class TokenExtra {
 
-	public function __construct(\Ifthenpay $ifthenpayModule)
-	{
-        $this->webservice = RequestFactory::buildWebservice();
-        $this->ifthenpayModule = $ifthenpayModule;
-	}
-
-    public function checkModuleUpgrade()
+    public static function encript($input, $secret) 
     {
-        $response = $this->webservice->getRequest('https://ifthenpay.com/modulesUpgrade/prestashop/upgrade.json')->getResponseJson();
-        if (\Tools::version_compare($response['version'], $this->ifthenpayModule->version, '>')) {
-            return [
-                'upgrade' => true,
-                'body' => $response['description'],
-                'download' => $response['download']
-            ];
-        }
-        return [
-            'upgrade' => false,
-        ];      
-    }   
+        return hash_hmac('sha256', $input, $secret);
+    }
 }

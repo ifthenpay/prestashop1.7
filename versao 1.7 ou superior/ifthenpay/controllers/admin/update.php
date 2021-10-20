@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -44,10 +43,10 @@ class UpdateController extends ModuleAdminController
             $order = PrestashopModelFactory::buildOrder(Tools::getValue('orderId'));
             IfthenpayStrategyFactory::build('ifthenpayAdminUpdate', $order, $this->module)->execute();
             IfthenpayLogProcess::addLog('Payment Data update with success', IfthenpayLogProcess::INFO, $order->id);
-            Utility::setPrestashopCookie('success', $this->l('Payment Data update with success!'));
+            Utility::setPrestashopCookie('success', $this->module->l('Payment Data update with success!'));
         } catch (Exception $th) {
             IfthenpayLogProcess::addLog('Error updating payment data - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $order->id);
-            Utility::setPrestashopCookie('error', $this->l('Error updating payment data!'));
+            Utility::setPrestashopCookie('error', $this->module->l('Error updating payment data!'));
         }
         Utility::redirectAdminOrder($order);
     }

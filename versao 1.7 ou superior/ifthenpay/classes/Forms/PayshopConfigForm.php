@@ -39,8 +39,8 @@ class PayshopConfigForm extends ConfigForm
     public function setOptions()
     {
         $this->options[] = [
-            'id' => $this->ifthenpayModule->l('Choose Payshop key'),
-            'name' => $this->ifthenpayModule->l('Choose Payshop key')
+            'id' => $this->ifthenpayModule->l('Choose Payshop key', Utility::getClassName($this)),
+            'name' => $this->ifthenpayModule->l('Choose Payshop key', Utility::getClassName($this))
         ];
         $this->addToOptions();
     }
@@ -54,8 +54,8 @@ class PayshopConfigForm extends ConfigForm
             $this->setOptions();
             $this->form['form']['input'][] = [
                 'type' => 'select',
-                'label' => $this->ifthenpayModule->l('Payshop key'),
-                'desc' => $this->ifthenpayModule->l('Choose Payshop key'),
+                'label' => $this->ifthenpayModule->l('Payshop key', Utility::getClassName($this)),
+                'desc' => $this->ifthenpayModule->l('Choose Payshop key', Utility::getClassName($this)),
                 'name' => 'IFTHENPAY_PAYSHOP_KEY',
                 'required' => true,
                 'options' => [
@@ -66,9 +66,9 @@ class PayshopConfigForm extends ConfigForm
             ];
             $this->form['form']['input'][] = [
                 'type' => 'text',
-                'label' => $this->ifthenpayModule->l('Validity'),
+                'label' => $this->ifthenpayModule->l('Validity', Utility::getClassName($this)),
                 'name' => 'IFTHENPAY_PAYSHOP_VALIDADE',
-                'desc' => $this->ifthenpayModule->l('Choose the number of days, leave empty if you do not want validity'),
+                'desc' => $this->ifthenpayModule->l('Choose the number of days, leave empty if you do not want validity', Utility::getClassName($this)),
                 'size' => 2,
                 'required' => true
             ];
@@ -114,7 +114,7 @@ class PayshopConfigForm extends ConfigForm
 
         $this->setIfthenpayCallback();
 
-        Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('Payshop key successfully updated.'));
+        Utility::setPrestashopCookie('success', $this->ifthenpayModule->l('Payshop key successfully updated.', Utility::getClassName($this)));
     }
 
     public function deleteConfigValues()

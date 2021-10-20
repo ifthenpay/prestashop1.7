@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -45,10 +44,10 @@ class RememberController extends ModuleAdminController
 
             IfthenpayStrategyFactory::build('ifthenpayAdminRemember', $order, $this->module)->execute();
             IfthenpayLogProcess::addLog('Remember notification sent with success', IfthenpayLogProcess::INFO, $order->id);
-            Utility::setPrestashopCookie('success', $this->l('Remember notification sent with success!'));
+            Utility::setPrestashopCookie('success', $this->module->l('Remember notification sent with success!'));
         } catch (Exception $th) {
             IfthenpayLogProcess::addLog('Error sent remember notification - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $order->id);
-            Utility::setPrestashopCookie('error', $this->l('Error sent remember notification!'));
+            Utility::setPrestashopCookie('error', $this->module->l('Error sent remember notification!'));
         }
         Utility::redirectAdminOrder($order);
     }
