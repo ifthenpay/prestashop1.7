@@ -149,7 +149,6 @@ class Ifthenpay extends PaymentModule
                 )
             );
         } else {
-            ConfigFactory::buildIfthenpaySql()->changeCcardTable();
             $formMessages = '';
             if ($this->context->cookie->__isset('success')) {
                 $formMessages = $this->displayConfirmation($this->context->cookie->__get('success'));
