@@ -176,7 +176,7 @@ class IfthenpaySql implements InstallerInterface
         $sqlResult = \Db::getInstance()->executeS("SHOW TABLES LIKE " . "'" . _DB_PREFIX_ . "ifthenpay_ccard'")[0];
         if ($sqlResult && strtolower($sqlResult[array_keys($sqlResult)[0]]) == strtolower(_DB_PREFIX_ . 'ifthenpay_ccard')) {
             $sqlExecute = \Db::getInstance()->executeS("SELECT COLUMN_NAME, DATA_TYPE, COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = " . "'" . _DB_PREFIX_ . "ifthenpay_ccard' AND COLUMN_NAME = 'paymentUrl'");
-            if ($sqlExecute[0]['COLUMN_TYPE'] === 'varchar(250)') {
+            if ($sqlExecute[0]['COLUMN_TYPE'] === 'varchar(1000)') {
                 $sqlExecute = \Db::getInstance()->execute('ALTER TABLE ' . _DB_PREFIX_ . 'ifthenpay_ccard  MODIFY paymentUrl varchar(1500)');
                 if (!$sqlExecute) {
                     throw new \Exception($this->ifthenpayModule->l('Error changing ccard table!', Utility::getClassName($this)));
