@@ -85,7 +85,6 @@ class CCard extends Payment implements PaymentMethodInterface
         $this->checkEstado();
         
         $this->dataBuilder->setPaymentMessage($this->ccardPedido['Message']);
-        $this->dataBuilder->setPaymentUrl($this->ccardPedido['PaymentUrl']);
         $this->dataBuilder->setIdPedido($this->ccardPedido['RequestId']);
         $this->dataBuilder->setPaymentStatus($this->ccardPedido['Status']);
 
