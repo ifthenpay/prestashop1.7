@@ -637,6 +637,10 @@ class Ifthenpay extends PaymentModule
                     IfthenpayLogProcess::ERROR,
                     $params['order']->id
                 );
+                $new_history = PrestashopModelFactory::buildOrderHistory();
+                $new_history->id_order = (int) $params['order']->id;
+                $new_history->changeIdOrderState((int) Configuration::get('PS_OS_ERROR'), (int) $params['order']->id);
+                $new_history->addWithemail(true);
                 $this->smarty->assign('status', 'failed');
                 $this->smarty->assign('orderErrorImg',
                     \Media::getMediaPath(
