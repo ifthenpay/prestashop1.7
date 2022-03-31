@@ -86,6 +86,11 @@ class CallbackProcess
     protected function changeIfthenpayPaymentStatus($status)
     {
         $ifthenpayModel = IfthenpayModelFactory::build($this->paymentMethod, $this->paymentData['id_ifthenpay_' . $this->paymentMethod]);
+
+        //WORKAROUND: odd behaviour from prestashop model object, it loses the requestId of the order for Ccard, so there is a need to set it in the next two lines
+        if($this->paymentMethod == 'ccard' && isset($this->paymentData['requestId'])){
+            $ifthenpayModel->requestId = $this->paymentData['requestId'];		
+        }
         $ifthenpayModel->status = $status;
         $ifthenpayModel->update();
         IfthenpayLogProcess::addLog('Callback payment status updated with success', IfthenpayLogProcess::INFO, $this->order->id);
