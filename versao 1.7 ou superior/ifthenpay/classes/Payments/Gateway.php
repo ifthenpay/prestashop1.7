@@ -42,18 +42,22 @@ class Gateway
     private $previousModulePaymentMethods = ['pagamento por multibanco', 'pagamento por mbway', 'pagamento por payshop'];
     private $aliasPaymentMethods = [
         'multibanco' => [
-            'en' => 'Multibanco',
+            'gb' => 'ATM',
+            'en' => 'ATM',
             'pt' => 'Multibanco',
         ],
         'mbway' => [
+            'gb' => 'MB WAY',
             'en' => 'MB WAY',
             'pt' => 'MB WAY',
         ],
         'payshop' => [
+            'gb' => 'Payshop',
             'en' => 'Payshop',
             'pt' => 'Payshop',
         ],
         'ccard' => [
+            'gb' => 'Credit Card',
             'en' => 'Credit Card',
             'pt' => 'Cartão de Crédito',
         ],
