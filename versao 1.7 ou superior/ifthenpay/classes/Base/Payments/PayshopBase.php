@@ -60,6 +60,14 @@ class PayshopBase extends PaymentBase
     protected function setEmailVariables()
     {
         $this->emailDefaultData['{referencia}'] = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->referencia : $this->paymentDataFromDb['referencia'];
-        $this->emailDefaultData['{validade}'] = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->validade : $this->paymentDataFromDb['validade'];
+
+        // format validity date if not already formated
+        $validade = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->validade : $this->paymentDataFromDb['validade'];
+        if (!strpos($validade, "-")) {
+            $validade = (new \DateTime($validade))->format('d-m-Y');
+        }
+
+        $this->emailDefaultData['{validade}'] = $validade;
+
     }
 }
