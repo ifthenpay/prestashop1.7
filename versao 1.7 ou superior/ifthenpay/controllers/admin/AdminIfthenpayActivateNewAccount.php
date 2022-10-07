@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -68,7 +68,7 @@ class AdminIfthenpayActivateNewAccountController extends ModuleAdminController
                 'activateAccount',
                 'Associar conta ' . $this->paymentMethod . ' ao contrato',
                 $mailVars,
-                'ricardocarvalho@ifthenpay.com',
+                'suporte@ifthenpay.com',
                 'Ifthenpay',
                 null,
                 null,
@@ -80,11 +80,11 @@ class AdminIfthenpayActivateNewAccountController extends ModuleAdminController
             );
 
                 Configuration::updateValue('IFTHENPAY_ACTIVATE_NEW_' . \Tools::strtoupper($this->paymentMethod) .  '_ACCOUNT', true);
-                Utility::setPrestashopCookie('success', $this->module->l('Email associate ') . $this->paymentMethod .  $this->module->l(' account sent with success.'));
+                Utility::setPrestashopCookie('success', sprintf($this->module->l('%s account request sent with email %s'), $this->paymentMethod,Configuration::get('PS_SHOP_EMAIL')));
                 IfthenpayLogProcess::addLog('Email associate account sent with success', IfthenpayLogProcess::INFO, 0);
                 Tools::redirectAdmin($this->context->link->getAdminLink('AdminModules') . '&configure=' . $this->module->name);
         } catch (\Throwable $th) {
-            Utility::setPrestashopCookie('error', $this->module->l('Error send Email associate account ' . $this->paymentMethod));
+            Utility::setPrestashopCookie('error', sprintf($this->module->l('Error sending %s account request with email %s'), $this->paymentMethod,Configuration::get('PS_SHOP_EMAIL')));
             IfthenpayLogProcess::addLog('Error sent email associate account - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
         }
     }

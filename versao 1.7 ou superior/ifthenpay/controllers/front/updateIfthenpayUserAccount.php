@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -51,7 +51,7 @@ class IfthenpayUpdateIfthenpayUserAccountModuleFrontController extends ModuleFro
             $backofficeKey = Configuration::get('IFTHENPAY_BACKOFFICE_KEY');
 
             if (!$backofficeKey) {
-                IfthenpayLogProcess::addLog('Backoffice key not exist on database', IfthenpayLogProcess::ERROR, 0);
+                IfthenpayLogProcess::addLog('Backoffice key does not exist on database', IfthenpayLogProcess::ERROR, 0);
                 die('Backoffice key is required!');
             }
 
@@ -66,7 +66,7 @@ class IfthenpayUpdateIfthenpayUserAccountModuleFrontController extends ModuleFro
             http_response_code(200);
             die('User Account updated with success!');
         } catch (\Throwable $th) {
-            IfthenpayLogProcess::addLog('Error updating ifthenpay user account with success - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
+            IfthenpayLogProcess::addLog('Error updating ifthenpay user account - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
             http_response_code(400);
             die($th->getMessage());
         }

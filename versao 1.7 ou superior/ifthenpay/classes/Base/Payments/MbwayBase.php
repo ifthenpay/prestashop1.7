@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -37,17 +37,32 @@ class MbwayBase extends PaymentBase
     {
         $this->smartyDefaultData->setCancelOrderImg(
             \Media::getMediaPath(
-                _PS_MODULE_DIR_ . 'ifthenpay/views/svg/cancelOrder.svg'
+                _PS_MODULE_DIR_ . 'ifthenpay/views/img/cancelOrder.svg'
             )
         );
         $this->smartyDefaultData->setConfirmOrderImg(
             \Media::getMediaPath(
-                _PS_MODULE_DIR_ . 'ifthenpay/views/svg/mbwayOrderConfirm.svg'
+                _PS_MODULE_DIR_ . 'ifthenpay/views/img/mbwayOrderConfirm.png'
+            )
+        );
+        $this->smartyDefaultData->setRefusedOrderImg(
+            \Media::getMediaPath(
+                _PS_MODULE_DIR_ . 'ifthenpay/views/img/mbwayOrderRefused.png'
+            )
+        );
+        $this->smartyDefaultData->setErrorOrderImg(
+            \Media::getMediaPath(
+                _PS_MODULE_DIR_ . 'ifthenpay/views/img/error.png'
+            )
+        );
+        $this->smartyDefaultData->setTimeoutImg(
+            \Media::getMediaPath(
+                _PS_MODULE_DIR_ . 'ifthenpay/views/img/timeout.png'
             )
         );
         $this->smartyDefaultData->setSpinnerImg(
             \Media::getMediaPath(
-                _PS_MODULE_DIR_ . 'ifthenpay/views/svg/oval.svg'
+                _PS_MODULE_DIR_ . 'ifthenpay/views/img/oval.svg'
             )
         );
     }

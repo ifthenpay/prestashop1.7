@@ -1,6 +1,7 @@
 <?php
+
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -19,7 +20,7 @@
  * needs please refer to http://www.prestashop.com for more information.
  *
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
@@ -27,7 +28,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-require_once dirname(__FILE__) .'/vendor/autoload.php';
+require_once dirname(__FILE__) . '/vendor/autoload.php';
 
 use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Log\IfthenpayLogProcess;
@@ -49,7 +50,7 @@ class Ifthenpay extends PaymentModule
     {
         $this->name = 'ifthenpay';
         $this->tab = 'payments_gateways';
-        $this->version = '1.2.5';
+        $this->version = '1.3.0';
         $this->author = 'Ifthenpay';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -66,7 +67,7 @@ class Ifthenpay extends PaymentModule
             'updateIfthenpayUserAccount',
             'adminIfthenpayChooseNewPaymentMethod',
             'cancelMbwayOrder',
-            'adminIfthenpayResetAccount',
+            'adminIfthenpayResetAccount'
         ];
 
         parent::__construct();
@@ -79,8 +80,8 @@ class Ifthenpay extends PaymentModule
         $this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
         $this->ifthenpayConfig = Configuration::getMultiple(
             [
-            'IFTHENPAY_USER_PAYMENT_METHODS',
-            'IFTHENPAY_BACKOFFICE_KEY'
+                'IFTHENPAY_USER_PAYMENT_METHODS',
+                'IFTHENPAY_BACKOFFICE_KEY'
             ]
         );
     }
@@ -99,13 +100,15 @@ class Ifthenpay extends PaymentModule
         if (Shop::isFeatureActive()) {
             Shop::setContext(Shop::CONTEXT_ALL);
         }
-        if (!parent::install() || !$this->registerHook('payment') || !$this->registerHook('paymentOptions') ||
-        !$this->registerHook('paymentReturn') || !$this->registerHook('displayAdminOrder') ||
-        !$this->registerHook('displayOrderDetail') || !$this->registerHook('header') ||
-        !$this->registerHook('actionAdminControllerSetMedia') || !$this->registerHook('actionFrontControllerSetMedia') || !$this->registerHook('displayBackOfficeHeader')
+        if (
+            !parent::install() || !$this->registerHook('payment') || !$this->registerHook('paymentOptions') ||
+            !$this->registerHook('paymentReturn') || !$this->registerHook('displayAdminOrder') ||
+            !$this->registerHook('displayOrderDetail') || !$this->registerHook('header') ||
+            !$this->registerHook('actionAdminControllerSetMedia') || !$this->registerHook('actionFrontControllerSetMedia') || !$this->registerHook('displayBackOfficeHeader')
         ) {
             return false;
         }
+
         try {
             ConfigFactory::buildIfthenpaySql()->createIfthenpayLogSql();
             return true;
@@ -119,15 +122,14 @@ class Ifthenpay extends PaymentModule
         try {
             if (Shop::isFeatureActive() && Shop::getContext() !== Shop::CONTEXT_SHOP) {
                 $this->_errors[] = $this->l(
-                    'Module configuration is only available for Shop Context Store.
-                Please select the shop in the drop-down selector at the top of your screen'
+                    'Module configuration is only available for Shop Context Store. Please select the shop in the drop-down selector at the top of your screen'
                 );
                 return false;
             }
             IfthenpayInstallerFactory::build(
                 'ifthenpayInstaller',
                 $this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS'] ?
-                $this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS'] : '',
+                    $this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS'] : '',
                 $this
             )->execute('uninstall');
         } catch (\Throwable $th) {
@@ -138,14 +140,14 @@ class Ifthenpay extends PaymentModule
 
     /**
      * Load the configuration form
+     * this is the first configuration page, where it shows all four payment methods and update status
      */
     public function getContent()
     {
         if (Shop::isFeatureActive() && Shop::getContext() !== Shop::CONTEXT_SHOP) {
             return $this->displayError(
                 $this->l(
-                    'Module configuration is only available for Shop Context Store.
-            Please select the shop in the drop-down selector at the top of your screen'
+                    'Module configuration is only available for Shop Context Store. Please select the shop in the drop-down selector at the top of your screen'
                 )
             );
         } else {
@@ -153,11 +155,13 @@ class Ifthenpay extends PaymentModule
             if ($this->context->cookie->__isset('success')) {
                 $formMessages = $this->displayConfirmation($this->context->cookie->__get('success'));
                 $this->context->cookie->__unset('success');
+                $this->context->cookie->write();
             }
 
             if ($this->context->cookie->__isset('error')) {
                 $formMessages = $this->displayError($this->context->cookie->__get('error'));
                 $this->context->cookie->__unset('error');
+                $this->context->cookie->write();
             }
 
             if ((bool)Tools::isSubmit('submitIfthenpayModule')) {
@@ -169,31 +173,25 @@ class Ifthenpay extends PaymentModule
             $this->context->smarty->assign('module_dir', $this->_path);
             $this->context->smarty->assign('isoCode', $this->context->language->iso_code);
             $this->context->smarty->assign('configForm', $this->renderForm());
+            $this->context->smarty->assign('logPagination', $this->renderPagination());
             $this->context->smarty->assign('logTable', $this->renderTableList());
             $this->context->smarty->assign('isBackofficeKey', $this->ifthenpayConfig['IFTHENPAY_BACKOFFICE_KEY'] ? true : false);
             $this->context->smarty->assign('isIfthenpayPaymentMethodsSaved', Configuration::get('IFTHENPAY_PAYMENT_METHODS_SAVED') ? true : false);
             $this->context->smarty->assign('updateIfthenpayModuleAvailable', $needUpgrade['upgrade'] ? true : false);
             $this->context->smarty->assign('upgradeModuleBulletPoints', $needUpgrade['upgrade'] ? $needUpgrade['body'] : '');
             $this->context->smarty->assign('moduleUpgradeUrlDownload', $needUpgrade['upgrade'] ? $needUpgrade['download'] : '');
-            $this->context->smarty->assign('spinnerUrl', Media::getMediaPath(
-                    _PS_MODULE_DIR_ . 'ifthenpay/views/svg/oval.svg'
-                )
-            );
-            $this->context->smarty->assign('updateSystemIcon', Media::getMediaPath(
-                    _PS_MODULE_DIR_ . 'ifthenpay/views/svg/system-update.svg'
-                )
-            );
-            $this->context->smarty->assign('updatedModuleIcon', Media::getMediaPath(
-                    _PS_MODULE_DIR_ . 'ifthenpay/views/svg/updated.svg'
-                )
-            );
+            $this->context->smarty->assign('spinnerUrl', Media::getMediaPath(_PS_MODULE_DIR_ . 'ifthenpay/views/img/oval.svg'));
+            $this->context->smarty->assign('updateSystemIcon', Media::getMediaPath(_PS_MODULE_DIR_ . 'ifthenpay/views/img/system-update.png'));
+            $this->context->smarty->assign('updatedModuleIcon', Media::getMediaPath(_PS_MODULE_DIR_ . 'ifthenpay/views/img/updated.png'));
+            $this->context->smarty->assign('ifthenpayVersion', $this->version);
 
-            return $formMessages . $this->context->smarty->fetch($this->local_path.'views/templates/admin/config.tpl');
+            return $formMessages . $this->context->smarty->fetch($this->local_path . 'views/templates/admin/config.tpl');
         }
     }
 
     /**
      * Create the form that will be displayed in the configuration of your module.
+     * this is the first configuration page, where it shows all four payment methods and update status
      */
     protected function renderForm()
     {
@@ -208,7 +206,7 @@ class Ifthenpay extends PaymentModule
         $helper->identifier = $this->identifier;
         $helper->submit_action = 'submitIfthenpayModule';
         $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false)
-            .'&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name;
+            . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
 
         $helper->tpl_vars = array(
@@ -221,15 +219,21 @@ class Ifthenpay extends PaymentModule
     }
     /**
      * Create the structure of your form.
+     * this is the first configuration page, where it shows all four payment methods and update status
      */
     protected function getConfigForm()
     {
+        $form = [];
+
+        // if there is no backoffice key in database...ask for one
         if (!$this->ifthenpayConfig['IFTHENPAY_BACKOFFICE_KEY']) {
-            return [
+
+            $form = [
                 'form' => [
                     'input' => [
                         [
                             'type' => 'text',
+                            'id' => 'backoffice_key',
                             'label' => $this->l('Backoffice key'),
                             'name' => 'IFTHENPAY_BACKOFFICE_KEY',
                             'size' => 19,
@@ -237,106 +241,131 @@ class Ifthenpay extends PaymentModule
                         ]
                     ],
                     'submit' => [
-                        'title' => $this->l('Save'),
+                        'title' => $this->l('Save')
                     ]
                 ],
             ];
-        } else {
-            $form = [
-                'form' => [
-                    'input' => [
-                        [
-                            'type' => 'switch',
-                            'label' => $this->l('Sandbox Mode'),
-                            'name' => 'IFTHENPAY_ACTIVATE_SANDBOX_MODE',
-                            'desc' => $this->l('Activate sandbox mode, to test the module without activating the callback.'),
-                            'is_bool' => true,
-                            'values' => [
-                                [
-                                    'id' => 'active_on',
-                                    'value' => true,
-                                    'label' => $this->l('Enabled'),
-                                    'name' => ''
-                                ],
-                                [
-                                    'id' => 'active_off',
-                                    'value' => false,
-                                    'label' => $this->l('Disabled'),
-                                    'name' => ''
-                                ]
-                            ]   
-                        ],
-                    ],
-                    'submit' => [
-                        'title' => $this->l('Save'),
-                    ],
-                ],
-            ];
-            $ifthenpayUserPaymentMethods = (array) unserialize(
-                $this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']
-            );
-            foreach ($ifthenpayUserPaymentMethods as $paymentMethod) {
-                $this->context->smarty->assign(
-                    'isActive',
-                    (bool) Configuration::get('IFTHENPAY_' . Tools::strtoupper($paymentMethod)) ? true : false
-                );
-                $this->context->smarty->assign(
-                    'paymentMethodSetupLink',
-                    $this->context->link->getAdminLink('AdminIfthenpayPaymentMethodSetup')
-                    . "&paymentMethod=$paymentMethod"
-                );
-                $form['form']['input'][] = [
-                    'type' => 'switch',
-                    'label' => $this->l(Tools::ucfirst($paymentMethod)),
-                    'name' => 'IFTHENPAY_' . Tools::strtoupper($paymentMethod),
-                    'is_bool' => true,
-                    'values' => [
-                        [
-                            'id' => 'active_on',
-                            'value' => true,
-                            'label' => $this->l('Enabled'),
-                            'name' => ''
-                        ],
-                        [
-                            'id' => 'active_off',
-                            'value' => false,
-                            'label' => $this->l('Disabled'),
-                            'name' => ''
+
+            return $form;
+        }
+
+        // if already has backoffice key then show config for available payment methods
+
+
+        $form = [
+            'form' => [
+                'input' => [
+                    [
+                        'type' => 'switch',
+                        'label' => $this->l('Sandbox Mode'),
+                        'name' => 'IFTHENPAY_ACTIVATE_SANDBOX_MODE',
+                        'desc' => $this->l('Activate sandbox mode, to test the module without activating the callback.'),
+                        'is_bool' => true,
+                        'values' => [
+                            [
+                                'id' => 'active_on',
+                                'value' => true,
+                                'label' => $this->l('Enabled'),
+                                'name' => ''
+                            ],
+                            [
+                                'id' => 'active_off',
+                                'value' => false,
+                                'label' => $this->l('Disabled'),
+                                'name' => ''
+                            ]
                         ]
                     ],
-                ];
+                ],
+                'submit' => [
+                    'title' => $this->l('Save')
+                ],
+            ],
+        ];
+
+        // get available payment methods
+        $ifthenpayUserPaymentMethods = (array) unserialize(
+            $this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']
+        );
+
+        // TODO: one may set the displayed order of the payment methods in the admin config page, but currently there does not seem to be necessary
+        foreach ($ifthenpayUserPaymentMethods as $paymentMethod) {
+            $this->context->smarty->assign(
+                'isActive',
+                (bool) Configuration::get('IFTHENPAY_' . Tools::strtoupper($paymentMethod)) ? true : false
+            );
+            $this->context->smarty->assign(
+                'paymentMethodSetupLink',
+                $this->context->link->getAdminLink('AdminIfthenpayPaymentMethodSetup')
+                    . "&paymentMethod=$paymentMethod"
+            );
+
+            $form['form']['input'][] = [
+                'type' => 'html',
+                'name' => '',
+                'html_content' => '<img style="margin-top: 20px;" src="' . \Media::getMediaPath(_PS_MODULE_DIR_ . 'ifthenpay/views/img/' . $paymentMethod . '.png') . '" title="' . $paymentMethod . '">'
+            ];
+
+
+            $form['form']['input'][] = [
+                'type' => 'switch',
+                'class' => 'myclass',
+                'label' => $this->l('Status'),
+                'desc' => $this->l('Display this payment method on checkout.'),
+                'name' => 'IFTHENPAY_' . Tools::strtoupper($paymentMethod),
+                'is_bool' => true,
+                'values' => [
+                    [
+                        'id' => 'active_on',
+                        'value' => true,
+                        'label' => $this->l('Enabled'),
+                        'name' => ''
+                    ],
+                    [
+                        'id' => 'active_off',
+                        'value' => false,
+                        'label' => $this->l('Disabled'),
+                        'name' => ''
+                    ]
+                ],
+            ];
+            $form['form']['input'][] = [
+                'type' => 'html',
+                'name' => '',
+                'html_content' => $this->context->smarty->fetch(
+                    $this->local_path . 'views/templates/admin/_partials/buttonPaymentManage.tpl'
+                ),
+            ];
+        }
+
+
+        foreach (GatewayFactory::build('gateway')->getPaymentMethodsType() as $paymentMethodType) {
+            if (
+                $paymentMethodType !== 'ifthenpay' && !in_array($paymentMethodType, $ifthenpayUserPaymentMethods)
+            ) {
+                $this->context->smarty->assign('paymentMethod', $paymentMethodType);
+                $this->context->smarty->assign(
+                    'ativateNewAccountLink',
+                    $this->context->link->getAdminLink('AdminIfthenpayActivateNewAccount')
+                        . "&paymentMethod=$paymentMethodType"
+                );
                 $form['form']['input'][] = [
                     'type' => 'html',
                     'name' => '',
                     'html_content' => $this->context->smarty->fetch(
-                        $this->local_path . 'views/templates/admin/_partials/buttonPaymentManage.tpl'
+                        $this->local_path . 'views/templates/admin/_partials/buttonAtivateNewAccount.tpl'
                     ),
                 ];
             }
-            foreach (GatewayFactory::build('gateway')->getPaymentMethodsType() as $paymentMethodType) {
-                if ($paymentMethodType !== 'ifthenpay' && !in_array($paymentMethodType, $ifthenpayUserPaymentMethods)
-                ) {
-                        $this->context->smarty->assign('paymentMethod', $paymentMethodType);
-                        $this->context->smarty->assign(
-                            'ativateNewAccountLink',
-                            $this->context->link->getAdminLink('AdminIfthenpayActivateNewAccount')
-                            . "&paymentMethod=$paymentMethodType"
-                        );
-                    $form['form']['input'][] = [
-                        'type' => 'html',
-                        'name' => '',
-                        'html_content' => $this->context->smarty->fetch(
-                            $this->local_path . 'views/templates/admin/_partials/buttonAtivateNewAccount.tpl'
-                        ),
-                    ];
-                }
-            }
-            return $form;
         }
+
+
+        return $form;
     }
 
     /**
      * Set values for the inputs.
+     * this is the first configuration page, where it shows all four payment methods and update status
      */
     protected function getConfigFormValues()
     {
@@ -349,18 +378,31 @@ class Ifthenpay extends PaymentModule
             foreach ((array) unserialize($this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']) as $paymentMethod) {
                 $formValues['IFTHENPAY_' . Tools::strtoupper($paymentMethod)] = Configuration::get(
                     'IFTHENPAY_' .
-                    Tools::strtoupper($paymentMethod)
+                        Tools::strtoupper($paymentMethod)
                 );
             }
         }
         return $formValues;
     }
 
+
+    public function renderPagination()
+    {
+        $query = DatabaseFactory::buildDbQuery();
+        $query->select('count(*)');
+        $query->from('ifthenpay_log');
+        $result = \Db::getInstance()->getValue($query);
+
+        $html = Utility::numberToPagination($result, 1);
+
+        return $html;
+    }
+
     public function renderTableList()
     {
         $query = DatabaseFactory::buildDbQuery();
         $query->from('ifthenpay_log');
-        $query->orderBy('created DESC LIMIT 300');
+        $query->orderBy('created DESC LIMIT 50');
         $content = \Db::getInstance()->executeS($query);
 
         $fields_list = array(
@@ -398,6 +440,7 @@ class Ifthenpay extends PaymentModule
         $helper->table = 'ifthenpay_log';
         $helper->token = Tools::getAdminTokenLite('AdminModules');
         $helper->currentIndex = AdminController::$currentIndex . '&configure=' . $this->name;
+        $helper->no_link = true;
 
         return $helper->generateList($content, $fields_list);
     }
@@ -408,13 +451,14 @@ class Ifthenpay extends PaymentModule
     protected function postProcess()
     {
         Configuration::updateValue(
-            'IFTHENPAY_ACTIVATE_SANDBOX_MODE', Tools::getValue('IFTHENPAY_ACTIVATE_SANDBOX_MODE')
+            'IFTHENPAY_ACTIVATE_SANDBOX_MODE',
+            Tools::getValue('IFTHENPAY_ACTIVATE_SANDBOX_MODE')
         );
         if (!$this->ifthenpayConfig['IFTHENPAY_BACKOFFICE_KEY']) {
             return $this->postProcessBackofficeKey();
         } else {
             return $this->postProcessActivatePaymentMethods();
-        }        
+        }
     }
 
     private function postProcessBackofficeKey()
@@ -444,8 +488,15 @@ class Ifthenpay extends PaymentModule
                 )
             );
             ConfigFactory::buildIfthenpayControllersTabs($this)->dynamicInstall('AdminIfthenpayActivateNewAccount');
+
+            IfthenpayInstallerFactory::build(
+                'ifthenpayInstaller',
+                Configuration::get('IFTHENPAY_USER_PAYMENT_METHODS'),
+                $this
+            )->execute('install');
+
             Utility::setPrestashopCookie('success', $this->l('Backoffice key was saved with success!'));
-            IfthenpayLogProcess::addLog('backoffice key saved with success.', IfthenpayLogProcess::INFO, 0);
+            IfthenpayLogProcess::addLog('Backoffice key saved with success. - ' . $backofficeKey, IfthenpayLogProcess::INFO, 0);
             Utility::redirectIfthenpayConfigPage();
         } catch (\Throwable $th) {
             IfthenpayLogProcess::addLog(
@@ -463,12 +514,6 @@ class Ifthenpay extends PaymentModule
         $ifthenpayUserPaymentMethods = (array) unserialize($this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']);
 
         try {
-            IfthenpayInstallerFactory::build(
-                'ifthenpayInstaller',
-                $this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS'],
-                $this
-            )->execute('install');
-
             foreach ($ifthenpayUserPaymentMethods as $paymentMethod) {
                 Configuration::updateValue(
                     'IFTHENPAY_' . Tools::strtoupper($paymentMethod),
@@ -480,12 +525,7 @@ class Ifthenpay extends PaymentModule
             Utility::setPrestashopCookie('success', $this->l('Payment methods saved with success!'));
             Utility::redirectIfthenpayConfigPage();
         } catch (\Throwable $th) {
-            IfthenpayLogProcess::addLog(
-                'Error saving payment methods - ' .
-                $th->getMessage(),
-                IfthenpayLogProcess::ERROR,
-                0
-            );
+            IfthenpayLogProcess::addLog('Error saving payment methods - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
             Utility::setPrestashopCookie('error', $this->l('Error saving Payment methods!'));
             Utility::redirectIfthenpayConfigPage();
         }
@@ -505,6 +545,23 @@ class Ifthenpay extends PaymentModule
         return false;
     }
 
+    private function getOrderedPaymentMethods()
+    {
+        $paymentMethods = [];
+
+        foreach ((array) unserialize($this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']) as $paymentMethod) {
+
+            $order = \Configuration::get('IFTHENPAY_'. strtoupper($paymentMethod) .'_ORDER');
+            $order = $order ? (int) $order : 9999;
+            $paymentMethods[$paymentMethod] = $order;
+        }
+
+        // order by value
+        asort($paymentMethods, 1);
+
+        return array_keys($paymentMethods);
+    }
+
     /**
      * Return payment options available for PS 1.7+
      *
@@ -514,6 +571,7 @@ class Ifthenpay extends PaymentModule
      */
     public function hookPaymentOptions($params)
     {
+
         if (!$this->active) {
             return;
         }
@@ -522,36 +580,51 @@ class Ifthenpay extends PaymentModule
         }
         $payments_options = [];
         $ifthenpayGateway = GatewayFactory::build('gateway');
-        foreach ((array) unserialize($this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']) as $paymentMethod) {
+
+
+        $orderedPaymentMethods = $this->getOrderedPaymentMethods();
+
+
+        foreach ($orderedPaymentMethods as $paymentMethod) {
+
             if (PrestashopModelFactory::buildCurrency($params['cart']->id_currency)->iso_code === 'EUR' || $paymentMethod === 'ccard') {
-                if (Configuration::get('IFTHENPAY_' . Tools::strtoupper($paymentMethod))) {
+
+                if (Configuration::get('IFTHENPAY_' . Tools::strtoupper($paymentMethod)) && $this->isValid($params, $paymentMethod)) {
+
+
+
                     $option = PrestashopFactory::buildPaymentOption();
                     if ($paymentMethod === 'mbway') {
-                        $this->context->smarty->assign('mbwaySvg', Media::getMediaPath(
-                                _PS_MODULE_DIR_ . $this->name . '/views/svg/mbway.svg' 
+                        $this->context->smarty->assign(
+                            'mbwaySvg',
+                            Media::getMediaPath(
+                                _PS_MODULE_DIR_ . $this->name . '/views/img/mbway.svg'
                             )
                         );
                         $this->context->smarty->assign(
                             [
-                            'action' => $this->context->link->getModuleLink(
-                                $this->name,
-                                'validation',
-                                [
-                                'paymentOption' => $paymentMethod,
-                                ],
-                                true
-                            ),
+                                'action' => $this->context->link->getModuleLink(
+                                    $this->name,
+                                    'validation',
+                                    [
+                                        'paymentOption' => $paymentMethod,
+                                    ],
+                                    true
+                                ),
                             ]
                         );
                         $option->setForm(
                             $this->context->smarty->fetch(
                                 $this->local_path .
-                                'views/templates/front/mbwayPhone.tpl'
+                                    'views/templates/front/mbwayPhone.tpl'
                             )
                         );
                     }
-                    $option->setCallToActionText($this->l('Pay by ') . $ifthenpayGateway->getAliasPaymentMethods(
-                        $paymentMethod, $this->context->language->iso_code)
+                    $option->setCallToActionText(
+                        $this->l('Pay by ') . $ifthenpayGateway->getAliasPaymentMethods(
+                            $paymentMethod,
+                            $this->context->language->iso_code
+                        )
                     )
                         ->setLogo(Media::getMediaPath(
                             _PS_MODULE_DIR_ . $this->name . '/views/img/' . $paymentMethod . '_option.png'
@@ -561,7 +634,7 @@ class Ifthenpay extends PaymentModule
                                 $this->name,
                                 'validation',
                                 [
-                                'paymentOption' => $paymentMethod,
+                                    'paymentOption' => $paymentMethod,
                                 ],
                                 true
                             )
@@ -570,10 +643,139 @@ class Ifthenpay extends PaymentModule
                     $payments_options[] = $option;
                 }
             }
-            
         }
         return $payments_options;
     }
+
+    /**
+     * verifies if payment method can be displayed for this order
+     * uses the verifications for country, and max and min values
+     *
+     * @param [type] $params (order parameters)
+     * @param [type] $paymentMethod payment method to be tested/verified
+     * @return boolean
+     */
+    public function isValid($params, $paymentMethod)
+    {
+        if (!$this->isPayMethodConfigured($paymentMethod)) {
+            return false;
+        }
+
+        if (!$this->isCountryValid($params, $paymentMethod)) {
+            return false;
+        }
+
+        if (!$this->isBelowMaxValue($params, $paymentMethod)) {
+            return false;
+        }
+
+        if (!$this->isAboveMinValue($params, $paymentMethod)) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+    /**
+     * Verifies if payment method can be displayed for this order according to the key or entity/subentity config
+     *
+     * @param [type] $params
+     * @param [type] $paymentMethod
+     * @return boolean
+     */
+    private function isPayMethodConfigured($paymentMethod)
+    {
+        switch ($paymentMethod) {
+            case 'multibanco':
+                if (
+                    \Configuration::get('IFTHENPAY_' . strtoupper($paymentMethod) . '_ENTIDADE') &&
+                    \Configuration::get('IFTHENPAY_' . strtoupper($paymentMethod) . '_SUBENTIDADE')
+                ) {
+                    return true;
+                }
+                break;
+            case 'mbway':
+            case 'ccard':
+            case 'payshop':
+                if (\Configuration::get('IFTHENPAY_' . strtoupper($paymentMethod) . '_KEY')) {
+                    return true;
+                }
+                break;
+
+            default:
+                return false;
+                break;
+        }
+        return false;
+    }
+
+    /**
+     * Verifies if payment method can be displayed for this order according to the country config
+     *
+     * @param [type] $params
+     * @param [type] $paymentMethod
+     * @return boolean
+     */
+    private function isCountryValid($params, $paymentMethod)
+    {
+        $allowedCountries = json_decode(Configuration::get('IFTHENPAY_' . Tools::strtoupper($paymentMethod) . '_COUNTRIES'));
+
+        if (!$allowedCountries) {
+            return true;
+        }
+
+        $addressCode = $params['cart']->id_address_invoice;
+        $query = DatabaseFactory::buildDbQuery();
+        $query->select('id_country');
+        $query->from('address');
+        $query->where('id_address = ' . $addressCode);
+        $addressCountry = \Db::getInstance()->getValue($query);
+
+        return in_array($addressCountry, $allowedCountries);
+    }
+
+
+
+    /**
+     * Verifies if payment method can be displayed for this order according to the max order value config
+     *
+     * @param [type] $params
+     * @param [type] $paymentMethod
+     * @return boolean
+     */
+    private function isBelowMaxValue($params, $paymentMethod)
+    {
+        $orderValue = $params['cart']->getOrderTotal();
+        $maxValue = Configuration::get('IFTHENPAY_' . Tools::strtoupper($paymentMethod) . '_MAXIMUM');
+        if ($maxValue != '') {
+
+            return $orderValue < floatval($maxValue);
+        }
+        return true;  // if it got here it means this value is empty so there is no max value
+    }
+
+
+
+    /**
+     * Verifies if payment method can be displayed for this order according to the min order value config
+     *
+     * @param [type] $params
+     * @param [type] $paymentMethod
+     * @return boolean
+     */
+    private function isAboveMinValue($params, $paymentMethod)
+    {
+        $orderValue = $params['cart']->getOrderTotal();
+        $minValue = floatval(Configuration::get('IFTHENPAY_' . Tools::strtoupper($paymentMethod) . '_MINIMUM'));
+
+        return $orderValue > $minValue;
+    }
+
+
+
+
 
     public function hookPaymentReturn($params)
     {
@@ -590,7 +792,8 @@ class Ifthenpay extends PaymentModule
             Configuration::get('PS_OS_ERROR')
         ];
 
-        if (GatewayFactory::build('gateway')->checkIfthenpayPaymentMethod($params['order']->payment)
+        if (
+            GatewayFactory::build('gateway')->checkIfthenpayPaymentMethod($params['order']->payment)
             && in_array($params['order']->getCurrentState(), $states)
         ) {
             try {
@@ -605,11 +808,7 @@ class Ifthenpay extends PaymentModule
                         $params['order'],
                         $this
                     )->execute();
-                    IfthenpayLogProcess::addLog(
-                        'Payment processed with success (paymentReturn).',
-                        IfthenpayLogProcess::INFO,
-                        $params['order']->id
-                    );
+                    IfthenpayLogProcess::addLog('Payment processed with success (hookPaymentReturn/ifthenpayPaymentReturn).', IfthenpayLogProcess::INFO, $params['order']->id);
                     $this->smarty->assign($ifthenpayPaymentReturn->getSmartyVariables()->setStatus('ok')->toArray());
                 } else {
                     $ifthenpayOrderDetail = IfthenpayStrategyFactory::build(
@@ -617,11 +816,7 @@ class Ifthenpay extends PaymentModule
                         $params['order'],
                         $this
                     )->execute();
-                    IfthenpayLogProcess::addLog(
-                        'Order detail successfully withdrawn (displayOrderDetail).',
-                        IfthenpayLogProcess::INFO,
-                        $params['order']->id
-                    );
+                    IfthenpayLogProcess::addLog('Order detail successfully withdrawn (hookPaymentReturn/ifthenpayOrderDetail).', IfthenpayLogProcess::INFO, $params['order']->id);
                     $this->smarty->assign(
                         $ifthenpayOrderDetail->getSmartyVariables()
                             ->setStatus('ok')
@@ -632,19 +827,16 @@ class Ifthenpay extends PaymentModule
                     );
                 }
             } catch (\Throwable $th) {
-                IfthenpayLogProcess::addLog(
-                    'Error processing payment (paymentReturn) - ' . $th->getMessage(),
-                    IfthenpayLogProcess::ERROR,
-                    $params['order']->id
-                );
+                IfthenpayLogProcess::addLog('Error processing payment (hookPaymentReturn) - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $params['order']->id);
                 $new_history = PrestashopModelFactory::buildOrderHistory();
                 $new_history->id_order = (int) $params['order']->id;
                 $new_history->changeIdOrderState((int) Configuration::get('PS_OS_ERROR'), (int) $params['order']->id);
                 $new_history->addWithemail(true);
                 $this->smarty->assign('status', 'failed');
-                $this->smarty->assign('orderErrorImg',
+                $this->smarty->assign(
+                    'errorOrderImg',
                     \Media::getMediaPath(
-                        _PS_MODULE_DIR_ . 'ifthenpay/views/svg/error.svg'
+                        _PS_MODULE_DIR_ . 'ifthenpay/views/img/error.png'
                     )
                 );
                 return $this->display(__FILE__, 'payment_return.tpl');
@@ -671,7 +863,8 @@ class Ifthenpay extends PaymentModule
             $order->save();
         }
 
-        if ($ifthenpayGateway->checkIfthenpayPaymentMethod($order->payment)
+        if (
+            $ifthenpayGateway->checkIfthenpayPaymentMethod($order->payment)
             || $order->payment === Tools::ucfirst($this->name)
         ) {
             if (Shop::isFeatureActive() && Shop::getContext() !== Shop::CONTEXT_SHOP) {
@@ -686,36 +879,32 @@ class Ifthenpay extends PaymentModule
             if ($this->context->cookie->__isset('success')) {
                 $message = $this->displayConfirmation($this->context->cookie->__get('success'));
                 $this->context->cookie->__unset('success');
+                $this->context->cookie->write();
             }
 
             if ($this->context->cookie->__isset('error')) {
                 $message = $this->displayError($this->context->cookie->__get('error'));
                 $this->context->cookie->__unset('error');
+                $this->context->cookie->write();
             }
 
             try {
+
                 $ifthenpayAdminOrder = IfthenpayStrategyFactory::build(
                     'ifthenpayAdminOrder',
                     $order,
                     $this,
                     $message
                 )->execute();
-                IfthenpayLogProcess::addLog(
-                    'Payment order successfully withdrawn (displayAdminOrder).',
-                    IfthenpayLogProcess::INFO,
-                    $params['id_order']
-                );
-            } catch (\Throwable $th) {
-                    IfthenpayLogProcess::addLog(
-                        'Error withdrawing payment order (displayAdminOrder) - ' . $th->getMessage(),
-                        IfthenpayLogProcess::ERROR,
-                        $params['id_order']
-                    );
-                    throw $th;
-            }
                 $this->smarty->assign($ifthenpayAdminOrder->getSmartyVariables()->toArray());
-                //return $this->fetch('module:ifthenpay/views/templates/hook/admin.tpl');
+
+                // commented out since it would quickly add records to table unnecessarily
+                // IfthenpayLogProcess::addLog('Payment order successfully withdrawn (hookdisplayAdminOrder).', IfthenpayLogProcess::INFO, $params['id_order']);
                 return $this->display(__FILE__, 'admin.tpl');
+            } catch (\Throwable $th) {
+                IfthenpayLogProcess::addLog('Error getting admin order payment details (hookdisplayAdminOrder) possible assignment of payment method that is not yet saved - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $params['id_order']);
+                return $this->displayError($this->l('An error occurred while getting payment method information, check logs for more details'));
+            }
         }
     }
 
@@ -730,21 +919,43 @@ class Ifthenpay extends PaymentModule
             $this->context->controller->addCSS($this->_path . 'views/css/ifthenpayConfig.css');
             Media::addJsDef(
                 [
-                    'controllerUrl' => $this->context->link->getAdminLink('AdminIfthenpayResetAccount')
+                    'controllerUrl' => $this->context->link->getAdminLink('AdminIfthenpayResetAccount'),
+                    'controllerLogUrl' => $this->context->link->getAdminLink('AdminIfthenpayResetAccount', 'test', '1')
                 ]
             );
-        } elseif (Tools::getValue('controller') === 'AdminOrders' &&
-        $this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']) {
+        } elseif (
+            Tools::getValue('controller') === 'AdminOrders' &&
+            $this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']
+        ) {
             $this->context->controller->addJS($this->_path . 'views/js/adminOrderCreatePage.js');
             $this->context->controller->addJS($this->_path . 'views/js/adminOrderDetailPage.js');
             $this->context->controller->addCSS($this->_path . 'views/css/ifthenpayAdminOrder.css');
             Media::addJsDef(
                 [
-                    'ifthenpayUserPaymentMethods' => (array) unserialize($this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']),
-                    'mbwaySvg' => $this->_path . 'views/svg/mbway.svg'
+                    'ifthenpayUserPaymentMethods' => $this->getAtivePaymentMethods(),
+                    'msgPhoneNumberInvalid' => $this->l('Inputted Phone Number is not valid!'),
+                    'payMethodRequired' => $this->l('New Payment Method is Required!'),
+                    'strCancel' => $this->l('Cancel'),
+                    'strChangeMethod' => $this->l('Change Payment Method'),
+                    'strMbwayNumber' => $this->l('MB WAY Phone Number')
                 ]
             );
         }
+    }
+
+    private function getAtivePaymentMethods(){
+        $pmArray = (array) unserialize($this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']);
+
+        $activePmArray = [];
+        foreach ($pmArray as $pm) {
+
+            
+                if (Configuration::get('IFTHENPAY_' . strtoupper($pm))) {
+                
+                $activePmArray [] = $pm;
+            }
+        }
+        return $activePmArray;
     }
 
     public function hookDisplayOrderDetail($params)
@@ -761,23 +972,18 @@ class Ifthenpay extends PaymentModule
                     $order,
                     $this
                 )->execute();
-                IfthenpayLogProcess::addLog(
-                    'Order detail successfully withdrawn (displayOrderDetail).',
-                    IfthenpayLogProcess::INFO,
-                    $params['order']->id
-                );
+
                 $this->smarty->assign($ifthenpayOrderDetail->getSmartyVariables()->toArray());
+                // commented out since it would quickly add records to table unnecessarily
+                // IfthenpayLogProcess::addLog('Order detail successfully withdrawn (displayOrderDetail).', IfthenpayLogProcess::INFO, $params['order']->id);
+
+                return $this->display(__FILE__, 'history.tpl');
             }
         } catch (\Throwable $th) {
-            IfthenpayLogProcess::addLog(
-                'Error withdrawing order detail (displayOrderDetail) - ' . $th->getMessage(),
-                IfthenpayLogProcess::ERROR,
-                $params['order']->id
-            );
-            throw $th;
+            IfthenpayLogProcess::addLog('Error getting order payment details in front-end/order-history (hookDisplayOrderDetail) - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $params['order']->id);
+
+            return $this->displayError($this->l('An error occurred while getting order details.'));
         }
-        //return $this->fetch('module:ifthenpay/views/templates/hook/history.tpl');
-        return $this->display(__FILE__, 'history.tpl');
     }
 
     private function executeCssScripts($type)
@@ -786,28 +992,28 @@ class Ifthenpay extends PaymentModule
             Media::addJsDef(
                 [
                     'cancelMbwayOrderControllerUrl' => $this->context->link->getModuleLink('ifthenpay', 'cancelMbwayOrder', []),
-                    
+
                 ]
             );
             $this->context->controller->registerJavascript(
                 'module-ifthenpay-mbwayCountdown',
-                'modules/'. $this->name . '/views/js/mbwayCountdownConfirmPage.js'
+                'modules/' . $this->name . '/views/js/mbwayCountdownConfirmPage.js'
             );
             $this->context->controller->registerStylesheet(
                 'module-ifthenpay-confirmPage',
-                'modules/'. $this->name . '/views/css/ifthenpayConfirmPage.css'
+                'modules/' . $this->name . '/views/css/ifthenpayConfirmPage.css'
             );
         }
         if ($type === 'orderdetail') {
             $this->context->controller->registerStylesheet(
                 'module-ifthenpay-orderDetail',
-                'modules/'. $this->name . '/views/css/ifthenpayOrderDetail.css'
+                'modules/' . $this->name . '/views/css/ifthenpayOrderDetail.css'
             );
         }
         if ($type === 'order') {
             $this->context->controller->registerStylesheet(
                 'module-ifthenpay-orderPaymentOption',
-                'modules/'. $this->name . '/views/css/paymentOptions.css'
+                'modules/' . $this->name . '/views/css/paymentOptions.css'
             );
         }
     }
@@ -818,11 +1024,11 @@ class Ifthenpay extends PaymentModule
             if ($this->context->controller->php_self === 'order-confirmation') {
                 $this->executeCssScripts('orderConfirmation');
             }
-    
+
             if ($this->context->controller->php_self === 'orderdetail' || $this->context->controller->php_self === 'order-detail') {
                 $this->executeCssScripts('orderDetail');
             }
-    
+
             if ($this->context->controller->php_self === 'order') {
                 $this->executeCssScripts('order');
             }
@@ -835,7 +1041,7 @@ class Ifthenpay extends PaymentModule
 
     public function hookDisplayBackOfficeHeader($params)
     {
-        if(($this->context->controller->php_self === 'AdminOrders' || Tools::getValue('controller') === 'AdminOrders') && strpos($_SERVER['REQUEST_URI'], 'view') === false) {
+        if (($this->context->controller->php_self === 'AdminOrders' || Tools::getValue('controller') === 'AdminOrders') && strpos($_SERVER['REQUEST_URI'], 'view') === false) {
             ConfigFactory::buildCancelMbwayOrder()->cancelOrder();
         }
     }

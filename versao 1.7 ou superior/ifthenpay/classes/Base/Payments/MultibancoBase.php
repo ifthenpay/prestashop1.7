@@ -1,6 +1,7 @@
 <?php
+
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +19,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -38,6 +39,9 @@ class MultibancoBase extends PaymentBase
     {
         $this->gatewayBuilder->setEntidade(\Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE'));
         $this->gatewayBuilder->setSubEntidade(\Configuration::get('IFTHENPAY_MULTIBANCO_SUBENTIDADE'));
+        if (\Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE') == 'MB' || \Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE') == 'mb') {
+            $this->gatewayBuilder->setValidade(\Configuration::get('IFTHENPAY_MULTIBANCO_VALIDADE'));
+        }
     }
 
     protected function saveToDatabase()
@@ -45,6 +49,8 @@ class MultibancoBase extends PaymentBase
         $this->paymentModel->entidade = $this->paymentGatewayResultData->entidade;
         $this->paymentModel->referencia = $this->paymentGatewayResultData->referencia;
         $this->paymentModel->order_id = $this->paymentDefaultData->order->id;
+        $this->paymentModel->request_id = isset($this->paymentGatewayResultData->idPedido) ? $this->paymentGatewayResultData->idPedido : null;
+        $this->paymentModel->validade = isset($this->paymentGatewayResultData->validade) ? $this->paymentGatewayResultData->validade : null;
         $this->paymentModel->status = 'pending';
         $this->paymentModel->save();
     }

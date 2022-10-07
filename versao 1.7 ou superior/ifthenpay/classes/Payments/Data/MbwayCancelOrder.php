@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -34,6 +34,11 @@ if (!defined('_PS_VERSION_')) {
 
 class MbwayCancelOrder
 {
+    /**
+     * cancels mbway order if no payment has been received 30 minutes after order confirmation "date_add"
+     *
+     * @return void
+     */
     public function cancelOrder()
     {
         if (\Configuration::get('IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT')) {
@@ -42,6 +47,7 @@ class MbwayCancelOrder
             foreach ($mbwayOrders as $mbwayOrder) {
                 $minutes_to_add = 30;
                 $time = new \DateTime($mbwayOrder['date_add']);
+                //TODO: this formating might be wrong, can give more than 30 minutes if in different timezone
                 $time->add(new \DateInterval('PT' . $minutes_to_add . 'M'));
                 $today = new \DateTime(date("Y-m-d G:i"));
 
@@ -56,5 +62,3 @@ class MbwayCancelOrder
         
     }
 }
-
-

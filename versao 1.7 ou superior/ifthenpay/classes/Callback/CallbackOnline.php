@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -42,7 +42,7 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
     private function redirectUser($type, $ifthenpayModule, $redirectUrl, $message)
     {
         if ($type === 'success') {
-            \Context::getContext()->controller->success[] = $ifthenpayModule->l($message, Utility::getClassName($this));
+            \Context::getContext()->controller->success[] = $ifthenpayModule->l($message, pathinfo(__FILE__)['filename']);
         } else {
             \Context::getContext()->controller->errors[] = $ifthenpayModule->l($message,  Utility::getClassName($this));
         }

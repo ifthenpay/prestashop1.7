@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -42,11 +42,11 @@ class UpdateController extends ModuleAdminController
         try {
             $order = PrestashopModelFactory::buildOrder(Tools::getValue('orderId'));
             IfthenpayStrategyFactory::build('ifthenpayAdminUpdate', $order, $this->module)->execute();
-            IfthenpayLogProcess::addLog('Payment Data update with success', IfthenpayLogProcess::INFO, $order->id);
-            Utility::setPrestashopCookie('success', $this->module->l('Payment Data update with success!'));
+            IfthenpayLogProcess::addLog('Payment Data updated with success', IfthenpayLogProcess::INFO, $order->id);
+            Utility::setPrestashopCookie('success', $this->module->l('Payment Data updated with success!', pathinfo(__FILE__)['filename']));
         } catch (Exception $th) {
             IfthenpayLogProcess::addLog('Error updating payment data - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $order->id);
-            Utility::setPrestashopCookie('error', $this->module->l('Error updating payment data!'));
+            Utility::setPrestashopCookie('error', $this->module->l('Error updating payment data!', pathinfo(__FILE__)['filename']));
         }
         Utility::redirectAdminOrder($order);
     }

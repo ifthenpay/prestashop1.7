@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -84,7 +84,8 @@ class IfthenpayValidationModuleFrontController extends ModuleFrontController
                     false,
                     $customer->secure_key
                 );
-                IfthenpayLogProcess::addLog('Order validated with success', IfthenpayLogProcess::INFO, 0);
+                // unnecessary log, uncomment for testing
+                // IfthenpayLogProcess::addLog('Order validated with success', IfthenpayLogProcess::INFO, 0);
                 Tools::redirect(
                     'index.php?controller=order-confirmation&id_cart='.(int)$cart->id.'&id_module=' . (int)$this->module->id . '&id_order=' .
                     $this->module->currentOrder . '&key=' .$customer->secure_key . '&paymentOption=' . $paymentOption
@@ -96,6 +97,12 @@ class IfthenpayValidationModuleFrontController extends ModuleFrontController
         }
     }
 
+    /**
+     * Only validates mbway
+     *
+     * @param [type] $paymentOption
+     * @return boolean
+     */
     private function isAuthorized($paymentOption)
     {
         if (!Configuration::get('IFTHENPAY_' . strtoupper($paymentOption))) {
@@ -105,10 +112,10 @@ class IfthenpayValidationModuleFrontController extends ModuleFrontController
         if ($paymentOption === 'mbway') {
             $mbwayPhone = Tools::getValue("ifthenpayMbwayPhone");
             if (!$mbwayPhone) {
-                return $this->module->l('Mbway phone is required.', pathinfo(__FILE__)['filename']);
+                return $this->module->l('MB WAY phone is required.', pathinfo(__FILE__)['filename']);
             }
             if (strlen($mbwayPhone) < 9) {
-                return $this->module->l('Mbway phone is not valid.', pathinfo(__FILE__)['filename']);
+                return $this->module->l('MB WAY phone is not valid.', pathinfo(__FILE__)['filename']);
             }
             Configuration::updateValue('IFTHENPAY_MBWAY_PHONE_' . $this->context->cart->id, $mbwayPhone);
         }

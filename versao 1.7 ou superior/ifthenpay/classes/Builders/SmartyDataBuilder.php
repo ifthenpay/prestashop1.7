@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -107,15 +107,27 @@ class SmartyDataBuilder extends DataBuilder implements SmartyDataBuilderInterfac
         return $this;
     }
 
-    public function setSpinnerImg($value)
+    public function setRefusedOrderImg($value)
     {
-        $this->data->spinnerUrl = $value;
+        $this->data->refusedOrderImg = $value;
         return $this;
     }
 
-    public function setOrderErrorImg($value)
+    public function setErrorOrderImg($value)
     {
-        $this->data->orderErrorImg = $value;
+        $this->data->errorOrderImg = $value;
+        return $this;
+    }
+
+    public function setTimeoutImg($value)
+    {
+        $this->data->timeoutImg = $value;
+        return $this;
+    }
+
+    public function setSpinnerImg($value)
+    {
+        $this->data->spinnerUrl = $value;
         return $this;
     }
 

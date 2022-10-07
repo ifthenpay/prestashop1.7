@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -42,6 +42,8 @@ class IfthenpaySql implements InstallerInterface
             `id_ifthenpay_multibanco` int(10) unsigned NOT NULL auto_increment,
             `entidade` varchar(5) NOT NULL,
             `referencia` varchar(9) NOT NULL,
+            `validade` varchar(16),
+            `request_id` varchar(50),
             `order_id` int(11) NOT NULL,
             `status` varchar(50) NOT NULL,
             PRIMARY KEY  (`id_ifthenpay_multibanco`),
@@ -119,7 +121,7 @@ class IfthenpaySql implements InstallerInterface
         foreach ($this->userPaymentMethods as $paymentMethod) {
             $sql = \Db::getInstance()->execute($this->storeSql[$paymentMethod]);
             if (!$sql) {
-                throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay payment shop table!', Utility::getClassName($this)));
+                throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay payment shop table!', pathinfo(__FILE__)['filename']));
             }
         }
     }
@@ -129,7 +131,7 @@ class IfthenpaySql implements InstallerInterface
         foreach ($this->userPaymentMethods as $paymentMethod) {
                 $sql = \Db::getInstance()->execute($this->ifthenpaySqlTables[$paymentMethod]);
             if (!$sql) {
-                throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay payment table!', Utility::getClassName($this)));
+                throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay payment table!', pathinfo(__FILE__)['filename']));
             }
         }
     }
@@ -138,7 +140,7 @@ class IfthenpaySql implements InstallerInterface
     {
         $sql = \Db::getInstance()->execute($this->ifthenpaySqlLogTable);
         if (!$sql) {
-            throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay log table!', Utility::getClassName($this)));
+            throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay log table!', pathinfo(__FILE__)['filename']));
         }
     }
 
@@ -147,7 +149,7 @@ class IfthenpaySql implements InstallerInterface
         foreach ($this->userPaymentMethods as $paymentMethod) {
                 $sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_' . $paymentMethod);
             if (!$sql) {
-                throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay payment table!', Utility::getClassName($this)));
+                throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay payment table!', pathinfo(__FILE__)['filename']));
             }
         }
     }
@@ -157,7 +159,7 @@ class IfthenpaySql implements InstallerInterface
         foreach ($this->userPaymentMethods as $paymentMethod) {
                 $sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_' . $paymentMethod . '_shop');
             if (!$sql) {
-                throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay payment shop table!', Utility::getClassName($this)));
+                throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay payment shop table!', pathinfo(__FILE__)['filename']));
             }
         }
     }
@@ -166,7 +168,7 @@ class IfthenpaySql implements InstallerInterface
     {
         $sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_log');
         if (!$sql) {
-            throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay log table!', Utility::getClassName($this)));
+            throw new \Exception($this->ifthenpayModule->l('Error deleting ifthenpay log table!', pathinfo(__FILE__)['filename']));
         }
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -47,7 +47,7 @@ class IfthenpayControllersTabs implements InstallerInterface
             'Resend', 
             'Remember', 
             'AdminIfthenpayChooseNewPaymentMethod', 
-            'AdminIfthenpayResetAccount',
+            'AdminIfthenpayResetAccount'
         ];
         $this->ifthenpayModule = $ifthenpayModule;                                                      
     }
@@ -57,7 +57,7 @@ class IfthenpayControllersTabs implements InstallerInterface
         foreach ($this->adminControllers as $controller) {
             $tab = PrestashopModelFactory::buildTab();
             foreach (\Language::getLanguages() as $lang) {
-                $tab->name[$lang['id_lang']] = $this->ifthenpayModule->l('Payment Setup', Utility::getClassName($this));
+                $tab->name[$lang['id_lang']] = $this->ifthenpayModule->l('Payment Setup', pathinfo(__FILE__)['filename']);
             }
             $tab->class_name = $controller;
             $tab->id_parent = -1;

@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -51,7 +51,8 @@ class Utility
                 \Context::getContext()->link->getAdminLink('AdminOrders', true, [], [
                     'vieworder' => 1,
                     'id_order' => (int) $order->id,
-                ]));
+                ])
+            );
         }
     }
 
@@ -68,21 +69,29 @@ class Utility
         \Context::getContext()->cookie->write();
     }
 
+    public static function unsetPrestashopCookie($cookieName)
+    {
+        \Context::getContext()->cookie->__unset($cookieName);
+        \Context::getContext()->cookie->write();
+    }
+
     /**
-    * Get formated price
-    *@param Order $order
-    *@return string
-    */
+     * Get formated price
+     *@param Order $order
+     *@return string
+     */
     public static function getFormatedPrice($order)
     {
         $price = $order->getOrdersTotalPaid();
         if (version_compare(_PS_VERSION_, '1.7.6', '<')) {
             return \Tools::displayPrice(
-                $price, 
-                PrestashopModelFactory::buildCurrency((string) $order->id_currency), false);
+                $price,
+                PrestashopModelFactory::buildCurrency((string) $order->id_currency),
+                false
+            );
         } else {
             return \Context::getContext()->currentLocale
-            ->formatPrice($price, \Context::getContext()->currency->iso_code);
+                ->formatPrice($price, \Context::getContext()->currency->iso_code);
         }
     }
 
@@ -92,7 +101,7 @@ class Utility
             return \Context::getContext()->language->iso_code === 'pt' ? 'Dados de pagamento ' . ucfirst($paymentType) : 'Payment details for ' . ucfirst($paymentType);
         } else {
             return \Context::getContext()->language->iso_code === 'pt' ? 'Pagamento em falta...' : 'Payment missing...';
-        } 
+        }
     }
 
     public static function convertPriceToEuros($order)
@@ -102,10 +111,10 @@ class Utility
         //convert ammount to euros if currency is no euros
         if ($actualCurrency->iso_code !== 'EUR') {
             return \Tools::convertPriceFull(
-                $order->getOrdersTotalPaid(), 
+                $order->getOrdersTotalPaid(),
                 $actualCurrency,
                 PrestashopModelFactory::buildCurrency((string) \Currency::getIdByIsoCode('EUR'))
-            );            
+            );
         }
         return $ammount;
     }
@@ -113,5 +122,51 @@ class Utility
     public static function getClassName($class)
     {
         return substr(strrchr(get_class($class), '\\'), 1);
+    }
+
+    public static function numberToPagination($rows, $page)
+    {
+        $range = 50;
+        $pages = ceil($rows / $range);
+
+
+        $html = '';
+        if ($pages) {
+            $htmlList = '';
+
+            for ($i = 1; $i <= $pages; $i++) {
+
+                $isActive = $i == $page ? 'active' : '';
+
+                if ($i == 1 || 
+                    $i == $pages || 
+                    ($i > $page - 3 && $i <= $page + 2)
+                    ) {
+                    $htmlList .= '
+                    <li class="page-item">
+                        <button type="button" class="btn btn-outline-primary btn_paginator '. $isActive .'">' . $i . '</button>
+                    </li>
+                    ';
+                }
+
+                if (($i == $pages - 1 && $pages > $page + 2) ||
+                    ($i == 2 && $page > 3)) {
+                    $htmlList .= '
+                    <li class="page-item if_dots">
+                    ...
+                    </li>';
+                }
+            }
+
+            $html = '
+            <nav aria-label="Log navigation" class="pagination_container">
+                <ul class="if_paginator">
+                    ' . $htmlList . '
+                </ul>
+            </nav>
+            ';
+        }
+
+        return $html;
     }
 }

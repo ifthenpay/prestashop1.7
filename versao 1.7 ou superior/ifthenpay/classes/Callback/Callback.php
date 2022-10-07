@@ -1,6 +1,7 @@
 <?php
+
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +19,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -72,11 +73,11 @@ class Callback
         $request = $this->webservice->postRequest(
             $this->activateEndpoint,
             [
-            'chave' => $this->backofficeKey,
-            'entidade' => $this->entidade,
-            'subentidade' => $this->subEntidade,
-            'apKey' => $this->chaveAntiPhishing,
-            'urlCb' => $this->urlCallback,
+                'chave' => $this->backofficeKey,
+                'entidade' => $this->entidade,
+                'subentidade' => $this->subEntidade,
+                'apKey' => $this->chaveAntiPhishing,
+                'urlCb' => $this->urlCallback,
             ],
             true
         );
@@ -85,7 +86,6 @@ class Callback
         if (!$response->getStatusCode() === 200 && !$response->getReasonPhrase()) {
             throw new \Exception("Error Activating Callback");
         }
-        \Configuration::updateValue('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($this->paymentType), true);
     }
 
     public function make($paymentType, $moduleLink, $activateCallback = false)

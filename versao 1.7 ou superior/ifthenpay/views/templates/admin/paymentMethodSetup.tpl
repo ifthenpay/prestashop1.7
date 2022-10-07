@@ -1,5 +1,5 @@
 {*
-* 2007-2020 PrestaShop
+* 2007-2022 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,123 +18,86 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author    PrestaShop SA <contact@prestashop.com>
-*  @copyright 2007-2020 PrestaShop SA
+*  @copyright 2007-2022 PrestaShop SA
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
-<!-- Nav tabs -->
-<ul class="nav nav-tabs" role="tablist">
-	<li class="active"><a href="#template_1" role="tab" data-toggle="tab">{l s='General Configuration Settings' mod='ifthenpay'}</a></li>
-	<li><a href="#template_2" role="tab" data-toggle="tab">Restrictions</a></li>
-</ul>
 
-<!-- Tab panes -->
-<div class="tab-content">
-	<div class="tab-pane active" id="template_1">
-        <div class="panel">
-            <div class="panel-header header-paymentMethod">
-                <img src="{$module_dir|escape:'html':'UTF-8'}/views/img/{$paymentMethod}.png"/>
-            </div>
-            <div class="panel-body body-paymentMethod">
-                {if $paymentMethod === 'mbway'} 
-                    <p>{l s='This module allows secure payment by %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}.</p>
-                    <p>{l s='If the customer chooses to pay by %s, the order status will be placed in "Wait for payment by %s"' mod='ifthenpay' sprintf=[$paymentMethod|capitalize, $paymentMethod|capitalize]}.<p>
-                    <p>{l s='When payment is made, the order status will change to "Payment confirmed by %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}."</p>
-                {elseif $paymentMethod === 'ccard'}
-                    <p>{l s='This module allows secure payment by credit card' mod='ifthenpay'}.</p>
-                    <p>{l s='If the customer chooses to pay by credit card, the order status will be placed in "Wait for payment by credit card"' mod='ifthenpay'}.<p>
-                    <p>{l s='When payment is made, the order status will change to "Payment confirmed by credit card' mod='ifthenpay'}."</p>
-                {else}
-                    <p>{l s='This module allows secure payment by Reference %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}.</p>
-                    <p>{l s='If the customer chooses to pay by %s reference, the order status will be placed in "Wait for payment by %s"' mod='ifthenpay' sprintf=[$paymentMethod|capitalize, $paymentMethod|capitalize]}.<p>
-                    <p>{l s='When payment is made, the order status will change to "Payment confirmed by %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}."</p>
-                {/if}
-            </div>
-        </div>
-        {if $form}
-            {$form}   
+
+
+
+<!-- Panes -->
+{* info panel start *}
+<div class="panel">
+    <div class="panel-heading">
+        <i class="icon-info"></i>
+        {l s='%s payment method' mod='ifthenpay' sprintf=[$paymentMethod|ucfirst]}
+    </div>
+
+    <div class="panel-header header-paymentMethod">
+        <img src="{$module_dir|escape:'html':'UTF-8'}/views/img/{$paymentMethod}.png" />
+    </div>
+    <div class="panel-body body-paymentMethod">
+        {if $paymentMethod === 'mbway'}
+            <p>{l s='This module allows secure payment by %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}.</p>
+            <p>{l s='If the customer chooses to pay by %s, the order status will be placed in "Wait for payment by %s"' mod='ifthenpay' sprintf=[$paymentMethod|capitalize, $paymentMethod|capitalize]}.</p>
+            <p>{l s='When payment is made, the order status will change to "Payment confirmed by %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}."</p>
+
+        {elseif $paymentMethod === 'ccard'}
+            <p>{l s='This module allows secure payment by credit card' mod='ifthenpay'}.</p>
+            <p>{l s='If the customer chooses to pay by credit card, the order status will be placed in "Wait for payment by credit card"' mod='ifthenpay'}.</p>
+            <p>{l s='When payment is made, the order status will change to "Payment confirmed by credit card' mod='ifthenpay'}."</p>
+            <p>{l s='This method does not make use of the callback function to change order state, this is handled internally. To test credit card payed orders you must use a test card which you can request from Ifthenpay' mod='ifthenpay'}.</p>
+
         {else}
-            <div class="container-full">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="panel">
-                            <div class="panel-heading">
-                                <i class="icon-cogs"></i>
-                                {l s='%s Account Settings' mod='ifthenpay' sprintf=[$paymentMethod]}
-                            </div>
-                            <div class="panel-body">
-                                <ul class="list-group">
-                                {if $paymentMethod eq 'multibanco'}
-                                    <li class="list-group-item">
-                                        {l s='Entity' mod='ifthenpay'}
-                                        <span class="badge">{$entidade}</span>
-                                    </li>
-                                    <li class="list-group-item">
-                                        {l s='SubEntity' mod='ifthenpay'}
-                                        <span class="badge">{$subEntidade}</span>
-                                    </li>
-                                {elseif $paymentMethod eq 'mbway'}
-                                    <li class="list-group-item">
-                                        {l s='Mbway key' mod='ifthenpay'}
-                                        <span class="badge">{$mbwayKey}</span>
-                                    </li>
-                                {elseif $paymentMethod eq 'payshop'}
-                                    <li class="list-group-item">
-                                        {l s='Payshop key' mod='ifthenpay'}
-                                        <span class="badge">{$payshopKey}</span>
-                                    </li>
-                                    <li class="list-group-item">
-                                        {l s='Deadline' mod='ifthenpay'}
-                                        <span class="badge">{$payshopValidade}</span>
-                                    </li>
-                                {else}
-                                     <li class="list-group-item">
-                                        {l s='CCard key' mod='ifthenpay'}
-                                        <span class="badge">{$ccardKey}</span>
-                                    </li>
-                                {/if}
-                                </ul>
-                            </div>
-                            <div class="chooseNewEntidadeDiv">
-                                    <button class="btn btn-primary" id="chooseNewEntidade">{l s='Choose New Entity/SubEntity' mod='ifthenpay'}</button>
-                                    {include file="./_partials/spinner.tpl"}
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                        <div class="col-md-8">
-                            {if $displayCallbackTableInfo}
-                                <div class="panel">
-                                    <div class="panel-heading">
-                                        <i class="icon-cogs"></i>
-                                        {l s='Callback Settings' mod='ifthenpay'}
-                                    </div>
-                                    <div class="panel-body">
-                                        {if $isCallbackActivated}
-                                            <span class="label label-success">{l s='Callback is activated' mod='ifthenpay'}</span>
-                                        {else}
-                                            <span class="label label-danger">{l s='Callback not activated' mod='ifthenpay'}</span>
-                                        {/if}
-                                        <ul class="list-group callback-list-group">
-                                            <li class="list-group-item">
-                                                {l s='Anti-Phishing key' mod='ifthenpay'}
-                                                <span class="badge">{$chaveAntiPhishing}</span>
-                                            </li>
-                                            <li class="list-group-item callback-list">
-                                                {l s='Callback Url' mod='ifthenpay'}
-                                                <span id="callbackUrl" class="badge" style="display:none;">{$urlCallback}</span> 
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            {/if}
-                        </div>
-                    
-                </div>
-            </div>
+            <p>{l s='This module allows secure payment by Reference %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}.</p>
+            <p>{l s='If the customer chooses to pay by %s reference, the order status will be placed in "Wait for payment by %s"' mod='ifthenpay' sprintf=[$paymentMethod|capitalize, $paymentMethod|capitalize]}.</p>
+            <p>{l s='When payment is made, the order status will change to "Payment confirmed by %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}."</p>
         {/if}
     </div>
 </div>
+{* info panel end *}
 
+{* specific payment method settings panel start *}
+    {$form}
+{* specific payment method settings panel end *}
+
+{* callback panel start *}
+{if $displayCallbackTableInfo}
+    <div class="panel">
+        <div class="panel-heading">
+            <i class="icon-rotate-left"></i>
+            {l s='Callback' mod='ifthenpay'}
+        </div>
+        <div class="panel-body">
+            {if $isCallbackActivated}
+                <span class="label label-success">{l s='Callback is activated' mod='ifthenpay'}</span>
+            {else}
+                <span class="label label-danger">{l s='Callback not activated' mod='ifthenpay'}</span>
+            {/if}
+            {if $isCallbackActivated && $isSandboxMode}
+                <span class="label label-warning">{l s='Sandbox Mode is enabled' mod='ifthenpay'}</span>
+            {/if}
+            <div class="list-group callback-list-group">
+                <div class="col-sm-12 list-group-item">
+                    <div class="col-md-3 col-sm-12">
+                        {l s='Anti-Phishing key' mod='ifthenpay'}
+                    </div>
+                    <div class="col-md-9 col-sm-12 text-right">
+                        <span class="badge">{$chaveAntiPhishing}</span>
+                    </div>
+                </div>
+                <div class="col-sm-12 list-group-item">
+                    <div class="col-md-3 col-sm-12">
+                        {l s='Callback Url' mod='ifthenpay'}
+                    </div>
+                    <div class="col-md-9 col-sm-12">
+                        <span id="callbackUrl" class="badge">{$urlCallback}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{/if}
+{* callback panel end *}
 

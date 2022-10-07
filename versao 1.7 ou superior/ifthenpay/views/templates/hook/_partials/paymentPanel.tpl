@@ -1,3 +1,28 @@
+{*
+* 2007-2022 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author    PrestaShop SA <contact@prestashop.com>
+*  @copyright 2007-2022 PrestaShop SA
+*  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*}
+
 <div class="panel-heading">
 	<h5>{l s='Pay by %s' mod='ifthenpay' sprintf=[$paymentMethod]}</h5>
 </div>
@@ -10,58 +35,67 @@
             <ul class="list-group">
                 <li class="list-group-item">
                     {l s='Entity:' mod='ifthenpay'}
-                    <span class="badge">{$entidade}</span>
+                    <span>{$entidade}</span>
                 </li>
                 <li class="list-group-item">
                     {l s='Reference:' mod='ifthenpay'}
-                    <span class="badge">{$referencia}</span>
+                    <span>{$referencia}</span>
                 </li>
                 <li class="list-group-item">
-                    {l s='Total to pay:' mod='ifthenpay'}
-                    <span class="badge">{$totalToPay}</span>
+                    {l s='Total to Pay:' mod='ifthenpay'}
+                    <span>{$totalToPay}</span>
                 </li>
+                {if $validade != ''}
+                    <li class="list-group-item">
+                    {l s='Deadline:' mod='ifthenpay'}
+                    <span>{$validade}</span>
+                </li>
+                {/if}
+
+
+
             </ul>
         {elseif $paymentMethod == 'mbway'}
             <ul class="list-group">
                 <li class="list-group-item">
                     {l s='Phone:' mod='ifthenpay'}
-                    <span class="badge">{$telemovel}</span>
+                    <span>{$telemovel}</span>
                 </li>
                 <li class="list-group-item">
                     {l s='Order:' mod='ifthenpay'}
-                    <span class="badge">{$orderId}</span>
+                    <span>{$orderId}</span>
                 </li>
                 <li class="list-group-item">
                     {l s='Total to Pay:' mod='ifthenpay'}
-                    <span class="badge">{$totalToPay}</span>
+                    <span>{$totalToPay}</span>
                 </li>
             </ul>
             {if $resendMbwayNotificationControllerUrl != ''}
                 <div>
-                    <h5>{l s='Not receive MBway notification?' mod='ifthenpay'}</h5>
-                    <a class="btn btn-primary mbwayResendNotificationLink" href="{$resendMbwayNotificationControllerUrl}">{l s='Resend MBway notification' mod='ifthenpay'}</a>
+                    <h5>{l s='Did not receive MB WAY notification?' mod='ifthenpay'}</h5>
+                    <a class="btn btn-primary mbwayResendNotificationLink" href="{$resendMbwayNotificationControllerUrl}">{l s='Resend MB WAY notification' mod='ifthenpay'}</a>
                 </div>
             {/if}
         {elseif $paymentMethod == 'payshop'}
             <ul class="list-group">
                 <li class="list-group-item">
                     {l s='Reference:' mod='ifthenpay'}
-                    <span class="badge">{$referencia}</span>
+                    <span>{$referencia}</span>
                 </li>
                 <li class="list-group-item">
                     {l s='Deadline:' mod='ifthenpay'}
-                    <span class="badge">{$validade}</span>
+                    <span>{$validade}</span>
                 </li>
                 <li class="list-group-item">
                     {l s='Total to Pay:' mod='ifthenpay'}
-                    <span class="badge">{$totalToPay}</span>
+                    <span>{$totalToPay}</span>
                 </li>
             </ul>
         {else}
             <ul class="list-group">
                 <li class="list-group-item">
                     {l s='Total to Pay:' mod='ifthenpay'}
-                    <span class="badge">{$totalToPay}</span>
+                    <span>{$totalToPay}</span>
                 </li>
             </ul>
         {/if}

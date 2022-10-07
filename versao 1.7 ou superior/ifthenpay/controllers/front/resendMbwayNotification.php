@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -62,19 +62,18 @@ class IfthenpayResendMbwayNotificationModuleFrontController extends ModuleFrontC
                 strval($orderId),
                 strval($totalToPay)
             )->getData();
-            IfthenpayLogProcess::addLog('Resend MB WAY notification with success', IfthenpayLogProcess::INFO, (int) $orderId);
             $ifthenpayMbway = IfthenpayModelFactory::build('mbway');
             $mbwayDB = $ifthenpayMbway->getByOrderId($orderId);
             $ifthenpayMbway = IfthenpayModelFactory::build('mbway', $mbwayDB['id_ifthenpay_mbway']);
             $ifthenpayMbway->id_transacao = $gatewayResult->idPedido;
             $ifthenpayMbway->update();
             Utility::setPrestashopCookie('mbwayResendNotificationSent', true);
-            IfthenpayLogProcess::addLog('MBWAY id_transacao updated with success', IfthenpayLogProcess::INFO, (int) $orderId);
-            $this->success[] = $this->module->l('Mbway notification successfully resent, confirm payment on your MBWAY app.', pathinfo(__FILE__)['filename']);
+            IfthenpayLogProcess::addLog('Resend MB WAY notification (front-end) with success', IfthenpayLogProcess::INFO, (int) $orderId);
+            $this->success[] = $this->module->l('MB WAY notification successfully resent, confirm payment on your MB WAY app.', pathinfo(__FILE__)['filename']);
             $this->redirectWithNotifications($redirectLink);
         } catch (\Throwable $th) {
-            IfthenpayLogProcess::addLog('Error resending mbway notification - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, (int) $orderId);
-            $this->errors[] = $this->module->l('Error sending mbway notification, please contact the store administrator.', pathinfo(__FILE__)['filename']);
+            IfthenpayLogProcess::addLog('Error resending mbway notification (front-end) - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, (int) $orderId);
+            $this->errors[] = $this->module->l('Error sending MB WAY notification, please contact the store administrator.', pathinfo(__FILE__)['filename']);
             $this->redirectWithNotifications($redirectLink);
         }
     }

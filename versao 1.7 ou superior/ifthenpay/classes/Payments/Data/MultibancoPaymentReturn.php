@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -39,6 +39,7 @@ class MultibancoPaymentReturn extends MultibancoBase implements PaymentReturnInt
     {
         $this->smartyDefaultData->setEntidade($this->paymentGatewayResultData->entidade);
         $this->smartyDefaultData->setReferencia($this->paymentGatewayResultData->referencia);
+        $this->smartyDefaultData->setValidade(isset($this->paymentGatewayResultData->validade) ? $this->paymentGatewayResultData->validade : '');
     }
 
     public function getPaymentReturn()

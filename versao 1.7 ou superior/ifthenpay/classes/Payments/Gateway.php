@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -42,24 +42,33 @@ class Gateway
     private $previousModulePaymentMethods = ['pagamento por multibanco', 'pagamento por mbway', 'pagamento por payshop'];
     private $aliasPaymentMethods = [
         'multibanco' => [
-            'gb' => 'ATM',
-            'en' => 'ATM',
+            'gb' => 'Multibanco',
+            'en' => 'Multibanco',
             'pt' => 'Multibanco',
+            'es' => 'Cajero automático',
+            'de' => 'Geldautomat'
         ],
         'mbway' => [
             'gb' => 'MB WAY',
             'en' => 'MB WAY',
             'pt' => 'MB WAY',
+            'es' => 'MB WAY',
+            'de' => 'MB WAY'
         ],
         'payshop' => [
             'gb' => 'Payshop',
             'en' => 'Payshop',
             'pt' => 'Payshop',
+            'es' => 'Payshop',
+            'de' => 'Payshop'
         ],
         'ccard' => [
             'gb' => 'Credit Card',
             'en' => 'Credit Card',
             'pt' => 'Cartão de Crédito',
+            'es' => 'Tarjeta de crédito',
+            'de' => 'Kreditkarte'
+            
         ],
         
     ];
@@ -71,7 +80,7 @@ class Gateway
 
     public function getAliasPaymentMethods($paymentMethod, $isoCodeLanguage)
     {
-        return $this->aliasPaymentMethods[$paymentMethod][$isoCodeLanguage];
+        return $this->aliasPaymentMethods[$paymentMethod][$isoCodeLanguage] ?? $this->aliasPaymentMethods[$paymentMethod]['pt'];
     }
 
     public function getPaymentMethodsType()
@@ -130,7 +139,7 @@ class Gateway
         foreach ($this->account as $account) {
             if (in_array(strtolower($account['Entidade']), $this->paymentMethods)) {
                 $userPaymentMethods[] = strtolower($account['Entidade']);
-            } elseif (is_numeric($account['Entidade'])) {
+            } elseif (is_numeric($account['Entidade']) || $account['Entidade'] == 'MB') {
                 $userPaymentMethods[] = $this->paymentMethods[0];
             }
         }
@@ -154,7 +163,7 @@ class Gateway
             $list = array_filter(
                 array_column($this->account, 'Entidade'),
                 function ($value) {
-                    return is_numeric($value);
+                    return is_numeric($value) || $value === 'MB' || $value === 'mb';
                 }
             );
         } else {

@@ -1,6 +1,7 @@
 <?php
+
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +19,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -28,6 +29,7 @@ namespace PrestaShop\Module\Ifthenpay\Payments;
 use PrestaShop\Module\Ifthenpay\Builders\DataBuilder;
 use PrestaShop\Module\Ifthenpay\Builders\GatewayDataBuilder;
 use PrestaShop\Module\Ifthenpay\Contracts\Payments\PaymentMethodInterface;
+use PrestaShop\PrestaShop\Adapter\Entity\Language;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -65,6 +67,12 @@ class CCard extends Payment implements PaymentMethodInterface
 
     private function setReferencia()
     {
+        $context = \Context::getContext();
+        $langId = $context->cookie->id_lang;
+        $langObj = \Language::getLanguage((int) $langId);
+        $langIsoCode = isset($langObj['iso_code']) ? $langObj['iso_code'] : 'en';
+
+
         $this->ccardPedido = $this->webservice->postRequest(
             'https://ifthenpay.com/api/creditcard/init/' . $this->ccardKey,
             [
@@ -73,7 +81,7 @@ class CCard extends Payment implements PaymentMethodInterface
                 "successUrl" => $this->successUrl,
                 "errorUrl" => $this->errorUrl,
                 "cancelUrl" => $this->cancelUrl,
-                "language" => "pt"
+                "language" => $langIsoCode
             ],
             true
         )->getResponseJson();
@@ -81,9 +89,10 @@ class CCard extends Payment implements PaymentMethodInterface
 
     private function getReferencia()
     {
+
         $this->setReferencia();
         $this->checkEstado();
-        
+
         $this->dataBuilder->setPaymentMessage($this->ccardPedido['Message']);
         $this->dataBuilder->setPaymentUrl($this->ccardPedido['PaymentUrl']);
         $this->dataBuilder->setIdPedido($this->ccardPedido['RequestId']);

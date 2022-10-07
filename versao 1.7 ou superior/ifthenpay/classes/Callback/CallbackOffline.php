@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -19,7 +19,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -49,10 +49,10 @@ class CallbackOffline extends CallbackProcess implements CallbackProcessInterfac
                 $this->setOrder();
                 CallbackFactory::buildCalllbackValidate($_GET, $this->order, \Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_CHAVE_ANTI_PHISHING'), $this->paymentData)
                 ->validate();
-                IfthenpayLogProcess::addLog('Callback validated with success', IfthenpayLogProcess::INFO, $this->order->id);
+                IfthenpayLogProcess::addLog('Callback received and validated with success for payment method ' . $this->paymentMethod, IfthenpayLogProcess::INFO, $this->order->id);
                 $this->changeIfthenpayPaymentStatus('paid');
                 $this->changePrestashopOrderStatus(\Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_OS_CONFIRMED'));
-                IfthenpayLogProcess::addLog('Callback order status change with success', IfthenpayLogProcess::INFO, $this->order->id);
+                IfthenpayLogProcess::addLog('Order status change with success to paid (after receiving callback)', IfthenpayLogProcess::INFO, $this->order->id);
                 http_response_code(200);
                 die('ok');           
             } catch (\Throwable $th) {

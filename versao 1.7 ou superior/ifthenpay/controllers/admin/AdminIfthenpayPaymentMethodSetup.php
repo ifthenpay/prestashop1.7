@@ -1,6 +1,7 @@
 <?php
+
 /**
- * 2007-2020 Ifthenpay Lda
+ * 2007-2022 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -18,7 +19,7 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- * @copyright 2007-2020 Ifthenpay Lda
+ * @copyright 2007-2022 Ifthenpay Lda
  * @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
@@ -78,10 +79,11 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
         $this->context->smarty->assign('paymentMethod', $this->paymentMethod);
         $this->context->smarty->assign('module_dir', _MODULE_DIR_ . $this->module->name);
 
+        // prevents configuration without backoffice key
         if (!Configuration::get('IFTHENPAY_BACKOFFICE_KEY')) {
             Utility::redirectIfthenpayConfigPage();
         }
-        
+
         IfthenpayConfigFormsFactory::build('ifthenpayConfigForms', $this->paymentMethod, $this->module, $this)->buildForm();
 
         $this->context->smarty->assign('content', $this->context->smarty->fetch($this->getTemplatePath() . '/paymentMethodSetup.tpl'));
@@ -94,17 +96,11 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
 
         if ($this->paymentMethod && Tools::isSubmit('submitIfthenpay' . Tools::ucfirst($this->paymentMethod) . 'Config')) {
             try {
-                $activateCallbackFor = Tools::getValue('IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod));
-                if ($activateCallbackFor) {
-                    Configuration::updateValue(
-                        'IFTHENPAY_CALLBACK_ACTIVATE_FOR_' . strtoupper($this->paymentMethod), $activateCallbackFor
-                    );
-                }
                 IfthenpayConfigFormsFactory::build('ifthenpayConfigForms', $this->paymentMethod, $this->module)->processForm();
-                IfthenpayLogProcess::addLog(Tools::ucfirst($this->paymentMethod) . ' Form Data saved with success.', IfthenpayLogProcess::INFO, 0);
+                IfthenpayLogProcess::addLog(Tools::ucfirst($this->paymentMethod) . ' configuration saved with success.', IfthenpayLogProcess::INFO, 0);
             } catch (\Throwable $th) {
-                IfthenpayLogProcess::addLog('Error saving ' . Tools::ucfirst($this->paymentMethod) . ' Form Data - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
-                Utility::setPrestashopCookie('error', $this->module->l('Error saving ') . Tools::ucfirst($this->paymentMethod) .  $this->module->l(' data.'));
+                IfthenpayLogProcess::addLog('Error saving ' . Tools::ucfirst($this->paymentMethod) . ' configuration - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
+                Utility::setPrestashopCookie('error', sprintf($this->module->l('Error saving %s data.'), Tools::ucfirst($this->paymentMethod)));
             }
             Tools::redirectAdmin(
                 $this->context->link->getAdminLink(
@@ -138,37 +134,12 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
         try {
             $this->ifthenpayGateway->setAccount((array) unserialize(Configuration::get('IFTHENPAY_USER_ACCOUNT')));
             $subEntidades = json_encode($this->ifthenpayGateway->getSubEntidadeInEntidade(Tools::getValue('entidade')));
-            IfthenpayLogProcess::addLog('SubEntidades withdrawn with success', IfthenpayLogProcess::INFO, 0);
+            // this log is unnecessary
+            // IfthenpayLogProcess::addLog('SubEntidades withdrawn with success', IfthenpayLogProcess::INFO, 0);
             die($subEntidades);
         } catch (\Throwable $th) {
-            IfthenpayLogProcess::addLog('Error withdrawn subEntidades - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
+            IfthenpayLogProcess::addLog('Error getting subEntidades by ajax request - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
             die($th->getMessage());
-        }
-    }
-
-    public function ajaxProcessChooseNewEntidade()
-    {
-        $this->paymentMethod = Tools::getValue('paymentMethod');
-        try {
-            IfthenpayConfigFormsFactory::build('ifthenpayConfigForms', $this->paymentMethod, $this->module)->deleteConfigFormValues();
-            IfthenpayLogProcess::addLog('Choose new Entidade executed with success', IfthenpayLogProcess::INFO, 0);
-            die(
-                json_encode(
-                    $this->context->link->getAdminLink(
-                        'AdminIfthenpayPaymentMethodSetup',
-                        true,
-                        [],
-                        [
-                        'paymentMethod' => $this->paymentMethod
-                        ]
-                    )
-                )
-            );
-        } catch (\Throwable $th) {
-            IfthenpayLogProcess::addLog('Error choosing new entidade - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
-            die(
-                json_encode($th->getMessage())
-            );
         }
     }
 }
