@@ -36,12 +36,12 @@
             <div class="col-sm-6">
                 <h2>{l s='Need help?' mod='ifthenpay'}</h2>
                 <a href="https://helpdesk.ifthenpay.com/pt-PT/support/home" target="_blank"
-                    class="btn btn-default" id="">{l s='Go to Supporte!' mod='ifthenpay'}</a><br />
+                    class="btn btn-default" id="">{l s='Go to Support!' mod='ifthenpay'}</a><br />
             </div>
             <div class="col-sm-6">
                 <h2>{l s='Already have an account?' mod='ifthenpay'}</h2>
                 <a href="https://www.ifthenpay.com/downloads/ifmb/contratomb.pdf" target="_blank"
-                    class="btn btn-default" id="">{l s='Create an account now!' mod='ifthenpay'}</a><br />
+                    class="btn btn-default" id="">{l s='Request an account now!' mod='ifthenpay'}</a><br />
             </div>
         </div>
 
