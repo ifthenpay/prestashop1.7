@@ -26,6 +26,7 @@ Read this in ![Português](https://github.com/ifthenpay/prestashop/raw/assets/ve
 [5. Other](#Other)
   * [Support](#Support)
   * [Request account](#Request-account)
+  * [Request additional account](Request-additional-account)
   * [Logs](#Logs)
   * [Reset Configuration](#Reset-Configuration)
   * [Updates](#Updates)
@@ -146,6 +147,8 @@ The following takes Multibanco as example, but the process is the same for the r
 </br>
 
 ## Multibanco with Dynamic References
+
+Multibanco with Dynamic References payment method generates references by request, and is used if you wish to add a deadline with limited number of days to your order payment.
 
 * Configure Multibanco with Dynamic References:
 1. Select "MB" from the Entity field, this entity will only be available for selection if you contracted an account for Multibanco with Dynamic References;
@@ -286,6 +289,15 @@ At Prestashop order details, Ifthenpay's module only allows you to choose betwee
 * If you still do not have an Ifthenpay account, you may request one by filling the membership contract pdf file that you can download by clicking the "Request an account!" button, and send it along with requested documentation to the email ifthenpay@ifthenpay.com
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/request_account.png)
 </br>
+
+
+## Request additional account
+
+If you already have an Ifthenpay account, but don't have a payment method unlocked, you can make an automatic request to Ifthenpay;
+
+* At Modules/Ifthenpay/Configure, there will be a "REQUEST ... ACCOUNT CREATION" button for every payment method that you have yet to unlock. Click the button for the payment method you require. After Ifthenpay's team have added your payment method, the list of payment methods available on your module will be updated with the new one. 
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/request_account_creation.png)
+
 
 ## Logs
 
