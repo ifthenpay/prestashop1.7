@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -51,10 +52,15 @@ class AdminIfthenpayActivateNewAccountController extends ModuleAdminController
 
         Configuration::updateValue('IFTHENPAY_UPDATE_USER_ACCOUNT_TOKEN', $updateUserToken);
 
+        $psVersion = _PS_VERSION_ ?? '';
+
         $mailVars = [
             '{paymentMethod}' => $this->paymentMethod,
             '{backofficeKey}' => Configuration::get('IFTHENPAY_BACKOFFICE_KEY'),
             '{customerEmail}' => Configuration::get('PS_SHOP_EMAIL'),
+            '{storeName}' => Configuration::get('PS_SHOP_NAME'),
+            '{ecommercePlatform}' => "Prestashop " . $psVersion,
+
             '{updateUserAccountUrl}' => $this->context->link->getModuleLink(
                 'ifthenpay',
                 'updateIfthenpayUserAccount',
@@ -79,12 +85,14 @@ class AdminIfthenpayActivateNewAccountController extends ModuleAdminController
                 null
             );
 
-                Configuration::updateValue('IFTHENPAY_ACTIVATE_NEW_' . \Tools::strtoupper($this->paymentMethod) .  '_ACCOUNT', true);
-                Utility::setPrestashopCookie('success', sprintf($this->module->l('%s account request sent with email %s'), $this->paymentMethod,Configuration::get('PS_SHOP_EMAIL')));
-                IfthenpayLogProcess::addLog('Email associate account sent with success', IfthenpayLogProcess::INFO, 0);
-                Tools::redirectAdmin($this->context->link->getAdminLink('AdminModules') . '&configure=' . $this->module->name);
+            $config = str_replace(" ", "_", $this->paymentMethod);
+
+            Configuration::updateValue('IFTHENPAY_ACTIVATE_NEW_' . \Tools::strtoupper($config) .  '_ACCOUNT', true);
+            Utility::setPrestashopCookie('success', sprintf($this->module->l('%s account request sent with email %s'), $this->paymentMethod, Configuration::get('PS_SHOP_EMAIL')));
+            IfthenpayLogProcess::addLog('Email associate account sent with success', IfthenpayLogProcess::INFO, 0);
+            Tools::redirectAdmin($this->context->link->getAdminLink('AdminModules') . '&configure=' . $this->module->name);
         } catch (\Throwable $th) {
-            Utility::setPrestashopCookie('error', sprintf($this->module->l('Error sending %s account request with email %s'), $this->paymentMethod,Configuration::get('PS_SHOP_EMAIL')));
+            Utility::setPrestashopCookie('error', sprintf($this->module->l('Error sending %s account request with email %s'), $this->paymentMethod, Configuration::get('PS_SHOP_EMAIL')));
             IfthenpayLogProcess::addLog('Error sent email associate account - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
         }
     }

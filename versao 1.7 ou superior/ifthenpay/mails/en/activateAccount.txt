@@ -4,6 +4,16 @@ Chave de acesso ao backoffice: {backofficeKey}
 
 Email Cliente: {customerEmail}
 
-Atualizar Conta Cliente: {updateUserAccountUrl}
+Método a ativar: {paymentMethod}
+
+Loja online: {storeName}
+
+Plataforma ecommerce: {ecommercePlatform}
+
+Atualizar Conta Cliente: {updateUserAccountUrl}	
+
+Ao clicar em "Atualizar", a conta ou contas que criou passaram a estar disponíveis no backoffice do cliente. 
+
+Pedido gerado automáticamente pelo módulo Ifthenpay
 
 Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail=utm_campaign=footer_1-7)

@@ -338,6 +338,30 @@ class Ifthenpay extends PaymentModule
             ];
         }
 
+        // check for mb dynamic references and if not create "request" button
+
+        $accounts = unserialize(Configuration::get('IFTHENPAY_USER_ACCOUNT'));
+
+        if ($accounts) {
+            foreach ($accounts as $account) {
+                if ($account && !(in_array('mb', $account, true) || in_array('MB', $account, true))) {
+
+                    $this->context->smarty->assign('paymentMethod', $this->l('Multibanco Dynamic References'));
+                    $this->context->smarty->assign(
+                        'ativateNewAccountLink',
+                        $this->context->link->getAdminLink('AdminIfthenpayActivateNewAccount')
+                            . "&paymentMethod=Multibanco dinamica"
+                    );
+                    $form['form']['input'][] = [
+                        'type' => 'html',
+                        'name' => '',
+                        'html_content' => $this->context->smarty->fetch(
+                            $this->local_path . 'views/templates/admin/_partials/buttonAtivateNewAccount.tpl'
+                        ),
+                    ];
+                }
+            }
+        }
 
         foreach (GatewayFactory::build('gateway')->getPaymentMethodsType() as $paymentMethodType) {
             if (
@@ -551,7 +575,7 @@ class Ifthenpay extends PaymentModule
 
         foreach ((array) unserialize($this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']) as $paymentMethod) {
 
-            $order = \Configuration::get('IFTHENPAY_'. strtoupper($paymentMethod) .'_ORDER');
+            $order = \Configuration::get('IFTHENPAY_' . strtoupper($paymentMethod) . '_ORDER');
             $order = $order ? (int) $order : 9999;
             $paymentMethods[$paymentMethod] = $order;
         }
@@ -943,16 +967,17 @@ class Ifthenpay extends PaymentModule
         }
     }
 
-    private function getAtivePaymentMethods(){
+    private function getAtivePaymentMethods()
+    {
         $pmArray = (array) unserialize($this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']);
 
         $activePmArray = [];
         foreach ($pmArray as $pm) {
 
-            
-                if (Configuration::get('IFTHENPAY_' . strtoupper($pm))) {
-                
-                $activePmArray [] = $pm;
+
+            if (Configuration::get('IFTHENPAY_' . strtoupper($pm))) {
+
+                $activePmArray[] = $pm;
             }
         }
         return $activePmArray;
