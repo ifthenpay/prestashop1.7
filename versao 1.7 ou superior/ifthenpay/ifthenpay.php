@@ -343,23 +343,28 @@ class Ifthenpay extends PaymentModule
         $accounts = unserialize(Configuration::get('IFTHENPAY_USER_ACCOUNT'));
 
         if ($accounts) {
+            $hasDynMultibanco = false;
             foreach ($accounts as $account) {
-                if ($account && !(in_array('mb', $account, true) || in_array('MB', $account, true))) {
+                if (($account && (in_array('mb', $account, true) || in_array('MB', $account, true)))) {
 
-                    $this->context->smarty->assign('paymentMethod', $this->l('Multibanco Dynamic References'));
-                    $this->context->smarty->assign(
-                        'ativateNewAccountLink',
-                        $this->context->link->getAdminLink('AdminIfthenpayActivateNewAccount')
-                            . "&paymentMethod=Multibanco dinamica"
-                    );
-                    $form['form']['input'][] = [
-                        'type' => 'html',
-                        'name' => '',
-                        'html_content' => $this->context->smarty->fetch(
-                            $this->local_path . 'views/templates/admin/_partials/buttonAtivateNewAccount.tpl'
-                        ),
-                    ];
+                    $hasDynMultibanco = true;
                 }
+            }
+
+            if (!$hasDynMultibanco) {
+                $this->context->smarty->assign('paymentMethod', $this->l('Multibanco Dynamic References'));
+                $this->context->smarty->assign(
+                    'ativateNewAccountLink',
+                    $this->context->link->getAdminLink('AdminIfthenpayActivateNewAccount')
+                        . "&paymentMethod=Multibanco dinamica"
+                );
+                $form['form']['input'][] = [
+                    'type' => 'html',
+                    'name' => '',
+                    'html_content' => $this->context->smarty->fetch(
+                        $this->local_path . 'views/templates/admin/_partials/buttonAtivateNewAccount.tpl'
+                    ),
+                ];
             }
         }
 
@@ -944,7 +949,6 @@ class Ifthenpay extends PaymentModule
             Media::addJsDef(
                 [
                     'controllerUrl' => $this->context->link->getAdminLink('AdminIfthenpayResetAccount'),
-                    'controllerLogUrl' => $this->context->link->getAdminLink('AdminIfthenpayResetAccount', 'test', '1')
                 ]
             );
         } elseif (
