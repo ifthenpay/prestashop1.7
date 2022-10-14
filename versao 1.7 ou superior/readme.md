@@ -1,32 +1,33 @@
 # Ifthenpay Prestashop 1.7 payment module
 
-Read this in ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pt.png) [Português](readme.pt.md), and ![Inglês](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/en.png) [Inglês](readme.md)
+Read this in ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pt.png) [Portuguese](readme.pt.md), and ![Inglês](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/en.png) [English](readme.md)
 
 [1. Introduction](#Introduction)
 
 [2. Compatibility](#Compatibility)
 
-[2. Installation](#Installation)
+[3. Installation](#Installation)
 
-[3. Configuration](#Configuration)
+[4. Configuration](#Configuration)
   * [Backoffice Key](#Backoffice-Key)
+  * [Enable Payment Method](#Enable-Payment-Method)
   * [Multibanco](#Multibanco)
   * [Multibanco with Dynamic References](#Multibanco-with-Dynamic-References)
   * [MB WAY](#MB-WAY)
   * [Credit Card](#Credit-Card)
   * [Payshop](#Payshop)
 
-[4. Edit payment details](#Edit-payment-details)
+[5. Edit payment details](#Edit-payment-details)
   * [Update Payment Data](#Update-Payment-Data)
   * [Resend Payment Data](#Resend-Payment-Data)
   * [Remember Payment Data](#Remember-Payment-Data)
   * [Choose Payment Method](#Choose-Payment-Method)
   
 
-[5. Other](#Other)
+[6. Other](#Other)
   * [Support](#Support)
   * [Request account](#Request-account)
-  * [Request additional account](Request-additional-account)
+  * [Request additional account](#Request-additional-account)
   * [Logs](#Logs)
   * [Reset Configuration](#Reset-Configuration)
   * [Updates](#Updates)
@@ -34,11 +35,11 @@ Read this in ![Português](https://github.com/ifthenpay/prestashop/raw/assets/ve
   * [Callback](#Callback)
 
 
-[6. Customer usage experience](#Customer-usage-experience)
-  * [Paying order with Multibanco](Paying-order-with-Multibanco)
-  * [Paying order with Payshop](Paying-order-with-Payshop)
-  * [Paying order with MB WAY](Paying-order-with-MB-WAY)
-  * [Paying order with Credit Card](Paying-order-with-Credit-Card)
+[7. Customer usage experience](#Customer-usage-experience)
+  * [Paying order with Multibanco](#Paying-order-with-Multibanco)
+  * [Paying order with Payshop](P#aying-order-with-Payshop)
+  * [Paying order with MB WAY](#Paying-order-with-MB-WAY)
+  * [Paying order with Credit Card](#Paying-order-with-Credit-Card)
 
 
 # Introduction
@@ -66,16 +67,17 @@ See more at [Ifthenpay](https://ifthenpay.com).
 
 # Compatibility
 
-Follow the table below to verify Ifthenpay gateway plugin compatibility with your online store.
+Follow the table below to verify Ifthenpay's module compatibility with your online store.
 |                  | Prestashop 1.6 | Prestashop 1.7 [1.7.0 - 1.7.8] |
 |------------------|----------------|--------------------------------|
 | Ifthenpay v1.3.0 | Not compatible | Compatible                     |
+| Ifthenpay v1.3.1 | Not compatible | Compatible                     |
 
 # Installation
 
-You may install the module for the first time on you Prestashop platform or just update it;
+You may install the module for the first time on you Prestashop platform or just update it.
 
-* To install it for the first time , go the module's [Github](https://github.com/ifthenpay/prestashop) page and click the the latest release;
+* To install it for the first time, go the module's [Github](https://github.com/ifthenpay/prestashop) page and click the the latest release;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/release.png)
 </br>
 
@@ -95,7 +97,7 @@ You may install the module for the first time on you Prestashop platform or just
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/click_upload_module.png)
 </br>
 
-* Drag the installer zip on to  "Upload a module" box;
+* Drag the installer zip on to "Upload a module" box;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/drag_upload_module.png)
 </br>
 
@@ -117,7 +119,7 @@ You may install the module for the first time on you Prestashop platform or just
 ## Enable Payment Method
 The following takes Multibanco as example, but the process is the same for the remaining payment methods
 
-* To enable a payment method follow the steps:
+* To enable a payment method, follow the steps:
 1. (optional) Switch on this option if you are testing the payment methods, this will prevent the callback activation;
 2. Enable the payment method by switching the "Status" to Enabled;
 3. Click "Save" button;
@@ -126,23 +128,23 @@ The following takes Multibanco as example, but the process is the same for the r
 
 ## Multibanco
 
-* To configure Multibanco payment method click the "Manage" button for Multibanco;
+* To configure Multibanco payment method click the "MANAGE" button for Multibanco;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/manage_multibanco.png)
 </br>
 
 * Configure Multibanco payment method:
 1. Activate Callback, by selecting this option the order state will update when a payment is received;
-2. Select an Entity. Can only select from the Entities associated with your Backoffice key;
-3. Select a SubEntity. Can only select from the SubEntities associated with Entity previously selected;
+2. Select an Entity. Can only select from the Entities associated with your Backoffice Key;
+3. Select a Sub Entity. Can only select from the Sub Entities associated with Entity previously selected;
 4. (optional) Input minimum order value to only display this payment method for orders above it;
 5. (optional) Input maximum order value to only display this payment method for orders below it;
 6. (optional) Select one or more countries to only display this payment method for orders with that shipping country, leave empty to allow all;
-7. (optional) Input an Integer number to order this payment method in the checkout page. Smallest takes first place.
+7. (optional) Input an Integer number to order this payment method in the checkout page. Smallest takes first place;
 8. Click "Save" button;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/config_multibanco.png)
 </br>
 
-* If you set the "Callback" to activate, it's state will be updated below with the generated Anti-Phishing key and Callback Url;
+* If you previously set the "Callback" to activate, after saving, it's state will be updated below with the generated Anti-Phishing key and Callback Url;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/multibanco_callback_activated.png)
 </br>
 
@@ -152,7 +154,7 @@ Multibanco with Dynamic References payment method generates references by reques
 
 * Configure Multibanco with Dynamic References:
 1. Select "MB" from the Entity field, this entity will only be available for selection if you contracted an account for Multibanco with Dynamic References;
-2. Select a SubEntity.
+2. Select a Sub Entity.
 3. (optional) Select number of days for deadline.
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/config_multibanco_dynamic.png)
 </br>
@@ -161,14 +163,14 @@ Multibanco with Dynamic References payment method generates references by reques
 
 ## MB WAY
 
-* In Modules/Ifthenpay/Configure, click the "Manage" button for MB WAY;
+* Click the "Manage" button for MB WAY;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/manage_mbway.png)
 </br>
 
 * Configure MB WAY payment method:
 1. Activate Callback, by selecting this option the order state will update when a payment is received;
 2. Activate Cancel MB WAY Order, by selecting this option, you will cancel any MB WAY orders that are still unpaid 30 min after confirmation;
-3. MB WAY Countdown, set to "Activate" by default, this option determines whether the MB WAY 5 minute countdown is displayed or not after confirming order;
+3. MB WAY Countdown, set to "Activate" by default, this option determines whether the MB WAY 5 minutes countdown is displayed or not after confirming order;
 4. Select a MB WAY key. Can only select from the MB WAY keys associated with your Backoffice key; 
 5. (optional) Input minimum order value to only display this payment method for orders above it;
 6. (optional) Input maximum order value to only display this payment method for orders below it;
@@ -187,31 +189,31 @@ Multibanco with Dynamic References payment method generates references by reques
 
 ## Credit Card
 
-* In Modules/Ifthenpay/Configure, click the "Manage" button for Credit Card;
+* In Modules/Ifthenpay/Configure, click the "MANAGE" button for Credit Card;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/manage_ccard.png)
 </br>
 
-* Configure Credit Card (also refered to as Ccard) payment method:
-4. Select a CCard key. Can only select from the CCard keys associated with your Backoffice key; 
-5. (optional) Input minimum order value to only display this payment method for orders above it;
-6. (optional) Input maximum order value to only display this payment method for orders below it;
-7. (optional) Select one or more countries to only display this payment method for orders with that shipping country, leave empty to allow all;
-8. (optional) Input an Integer number to order this payment method in the checkout page. Smallest takes first place.
-9. Click "Save" button;
+* Configure Credit Card (also referred to as Ccard) payment method:
+1. Select a CCard key. Can only select from the CCard keys associated with your Backoffice key; 
+2. (optional) Input minimum order value to only display this payment method for orders above it;
+3. (optional) Input maximum order value to only display this payment method for orders below it;
+4. (optional) Select one or more countries to only display this payment method for orders with that shipping country, leave empty to allow all;
+5. (optional) Input an Integer number to order this payment method in the checkout page. Smallest takes first place.
+6. Click "Save" button;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/config_ccard.png)
 </br>
 
 
 ## Payshop
 
-* In Modules/Ifthenpay/Configure, click the "Manage" button for Payshop;
+* In Modules/Ifthenpay/Configure, click the "MANAGE" button for Payshop;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/manage_payshop.png)
 </br>
 
 * Configure Payshop payment method:
 1. Activate Callback, by selecting this option the order state will update when a payment is received;
 2. Select a Payshop key. Can only select from the Payshop keys associated with your Backoffice key;
-3. Input a Deadline for payment, from 1 to 99 days or leave empty if you do not want it to expire;
+3. (optional) Input a Deadline for payment, from 1 to 99 days or leave empty if you do not want it to expire;
 4. (optional) Input minimum order value to only display this payment method for order above it;
 5. (optional) Input maximum order value to only display this payment method for order below it;
 6. (optional) Select one or more countries to only display this payment method for orders with that shipping country, leave empty to allow all;
@@ -228,11 +230,11 @@ Multibanco with Dynamic References payment method generates references by reques
 
 
 # Edit payment details
-
+**Important Notice:** It is not possible to change to or update the Credit Card payment method.
 At Prestashop order details, you can edit the order payment method and payment data.
 An use case for this would be a customer ordered 2 units of a product, but decided to only get one, so the customer contacts the store admin and requests that change.
 The store admin edits the product quantity and at the bottom of the page clicks the "Update Multibanco/MB WAY/Payshop Data" button and next clicks the "Resend Payment Data".
-Multibanco payment method is used to explain the following procedures. The procedures are the same for all methods with the exception of MB WAY that does require a phone number.
+Multibanco payment method is used to explain the following procedures. The procedures are the same for all methods apart from MB WAY that does require a phone number.
 
 ## Update Payment Data
 
@@ -243,7 +245,7 @@ Multibanco payment method is used to explain the following procedures. The proce
 
 ## Resend Payment Data
 
-  * After updating the payment data you must resend the payment details to this order's customer by clicking the "Resend Payment Data" button;
+  * After updating the payment data, you must resend the payment details to this order's customer by clicking the "Resend Payment Data" button;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/resend_payment_data.png)
 </br>
   
@@ -256,7 +258,7 @@ Multibanco payment method is used to explain the following procedures. The proce
 
 ## Choose Payment Method
 
-At Prestashop order details, Ifthenpay's module only allows you to choose between Multibanco, MB WAY, and Payshop. It is not possible to change into Ccard payment method.
+Choose a different payment method:
 
   * Start the process by clicking the "Choose new Payment Method" button;
   ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/choose_payment_method.png)
@@ -280,7 +282,7 @@ At Prestashop order details, Ifthenpay's module only allows you to choose betwee
 
 ## Support
 
-* In Modules/Ifthenpay/Configure click the "Go to Support!" button to be redirected to the Ifthenpay's helpdesk page;
+* In Modules/Ifthenpay/Configure click the "Go to Support!" button to be redirected to the Ifthenpay helpdesk page;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/support.png)
 </br>
 
@@ -351,6 +353,7 @@ The Sandbox Mode is used in order to prevent the Callback activation and the com
 </br>
 
 # Customer usage experience
+The following action are described from the perspective of the consumer.
 
 ## Paying order with Multibanco
 
@@ -407,7 +410,7 @@ The Sandbox Mode is used in order to prevent the Callback activation and the com
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/mbway_payment_error.png)
 </br>
 
-* if you ran out of time, you can resend a MB WAY notification by clicking "RESEND MB WAY NOTIFICATION;
+* if you ran out of time, you can resend a MB WAY notification by clicking "RESEND MB WAY NOTIFICATION";
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/mbway_payment_notification_resend.png)
 </br>
 
@@ -424,7 +427,7 @@ The Sandbox Mode is used in order to prevent the Callback activation and the com
 1. Input Card Number;
 2. Input Expiry Date;
 3. Input CVV/CVC;
-4 Input Name;
+4. Input Name;
 5. Click "PAY" button;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/ccard_payment.png)
 </br>
