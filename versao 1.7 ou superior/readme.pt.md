@@ -359,6 +359,7 @@ O Modo Sandbox é usado para impedir a ativação do Callback e a comunicação 
 Para reparar esta situação, substitua a pasta "js" pela pasta "js_uglyfied".
 1. Altere o nome da pasta "js" para "js_minimized".
 2. Altere o nome da pasta "js_uglyfied" para "js".
+
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/ccc_fix.png)
 </br>
 
