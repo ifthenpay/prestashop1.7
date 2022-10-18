@@ -359,6 +359,7 @@ The Sandbox Mode is used in order to prevent the Callback activation and the com
 To fix this issue, replace the "js" folder with "js_uglyfied" folder.
 1. Rename "js" folder to "js_minimized".
 2. Rename "js_uglyfied" folder to "js".
+
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/ccc_fix.png)
 </br>
 
