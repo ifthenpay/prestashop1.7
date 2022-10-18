@@ -33,11 +33,12 @@ Read this in ![Português](https://github.com/ifthenpay/prestashop/raw/assets/ve
   * [Updates](#Updates)
   * [Sandbox Mode](#Sandbox-Mode)
   * [Callback](#Callback)
+  * [Known bug and fixes](#Known-bug-and-fixes)
 
 
 [7. Customer usage experience](#Customer-usage-experience)
   * [Paying order with Multibanco](#Paying-order-with-Multibanco)
-  * [Paying order with Payshop](P#aying-order-with-Payshop)
+  * [Paying order with Payshop](#Paying-order-with-Payshop)
   * [Paying order with MB WAY](#Paying-order-with-MB-WAY)
   * [Paying order with Credit Card](#Paying-order-with-Credit-Card)
 
@@ -352,6 +353,16 @@ The Sandbox Mode is used in order to prevent the Callback activation and the com
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/callback_status_sandbox.png)
 </br>
 
+## Known bug and fixes
+
+* In some versions of Prestashop, enabling the ccc (Combine, Compress and Cache) for javascript, will result in minimization errors.
+To fix this issue, replace the "js" folder with "js_uglyfied" folder.
+1. Rename "js" folder to "js_minimized".
+2. Rename "js_uglyfied" folder to "js".
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/ccc_fix.png)
+</br>
+
+
 # Customer usage experience
 The following action are described from the perspective of the consumer.
 
@@ -435,4 +446,3 @@ The following action are described from the perspective of the consumer.
 * After paying you will be redirected back to the store;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/ccard_payment_return.png)
 </br>
-
