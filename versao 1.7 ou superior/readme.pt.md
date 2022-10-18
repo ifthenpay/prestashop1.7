@@ -32,6 +32,7 @@ Ler em ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version1
   * [Atualizações](#Atualizações)
   * [Modo Sandbox](#Modo-Sandbox)
   * [Callback](#Callback)
+  * [Bugs conhecidos e soluções](#Bugs-conhecidos-e-soluções)
 
 
 [7. Experiência do Utilizador Consumidor](#Experiência-do-Utilizador-Consumidor)
@@ -351,6 +352,16 @@ O Modo Sandbox é usado para impedir a ativação do Callback e a comunicação 
 3. Callback ativo e Modo Sandbox ativo (a encomenda não muda de estado quando recebe o pagamento);
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/callback_status_sandbox.png)
 </br>
+
+## Bugs conhecidos e soluções
+
+* Em algumas versões do prestashop, habilitar o ccc (Combinar, Comprimir e Cache) para javascript, resultará em erros de minimização.
+Para reparar esta situação, substitua a pasta "js" pela pasta "js_uglyfied".
+1. Altere o nome da pasta "js" para "js_minimized".
+2. Altere o nome da pasta "js_uglyfied" para "js".
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/ccc_fix.png)
+</br>
+
 
 # Experiência do Utilizador Consumidor
 As ações seguintes são descritas da perspetiva do cliente consumidor.
