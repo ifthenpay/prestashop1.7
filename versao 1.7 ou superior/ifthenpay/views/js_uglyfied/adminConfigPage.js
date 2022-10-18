@@ -344,20 +344,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
 
     function dom_alignSpinnerWithInput() {
-      var domMbSubEnt = document.getElementById('ifthenpayMultibancoSubentidade');
-      domMbSubEnt.style["float"] = 'left';
       var domSpinner = document.getElementById('appSpinner');
-      domSpinner.style["float"] = 'left';
-      domSpinner.style.margin = '0';
-      domSpinner.style.paddingLeft = '10px';
-      domSpinner.closest('.col-lg-8').classList.remove('col-lg-8', 'col-lg-offset-3');
-      var domHelpBlockParent = domMbSubEnt.closest('.form-group');
-      var domHelpBlock = domHelpBlockParent.querySelector('.col-lg-8 .help-block');
 
-      if (domHelpBlock != null) {
-        var clearbothDiv = document.createElement("div");
-        clearbothDiv.classList.add('clearboth');
-        domHelpBlock.before(clearbothDiv);
+      if (domSpinner.closest('.col-lg-8')) {
+        var domMbSubEnt = document.getElementById('ifthenpayMultibancoSubentidade');
+        domMbSubEnt.style["float"] = 'left';
+        domSpinner.style["float"] = 'left';
+        domSpinner.style.margin = '0';
+        domSpinner.style.paddingLeft = '10px';
+        domSpinner.closest('.col-lg-8').classList.remove('col-lg-8', 'col-lg-offset-3');
+        var domHelpBlockParent = domMbSubEnt.closest('.form-group');
+        var domHelpBlock = domHelpBlockParent.querySelector('.col-lg-8 .help-block');
+
+        if (domHelpBlock != null) {
+          var clearbothDiv = document.createElement("div");
+          clearbothDiv.classList.add('clearboth');
+          domHelpBlock.before(clearbothDiv);
+        }
       }
     }
     /**
