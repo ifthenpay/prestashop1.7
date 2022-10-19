@@ -71,6 +71,7 @@ Use a tabela abaixo para verificar a compatibilidade do módulo Ifthenpay com a 
 |------------------|----------------|--------------------------------|
 | Ifthenpay v1.3.0 | Não compatível | Compatível                     |
 | Ifthenpay v1.3.1 | Não compatível | Compatível                     |
+| Ifthenpay v1.3.2 | Não compatível | Compatível                     |
 
 # Instalação
 
