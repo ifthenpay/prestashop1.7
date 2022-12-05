@@ -363,30 +363,26 @@ O Modo Sandbox é usado para impedir a ativação do Callback e a comunicação 
 
 Em cada página de configuração de um método de pagamento (excepto Cartão de Crédito), pode testar a funcionalidade do Callback clicando no botão "Testar Callback". Esta ação irá simular um pagamento bem-sucedido para uma encomenda na sua loja, alterando o estado da mesma. Necessita que o Callback esteja ativo.
 
-* Multibanco:
-Use os dados seguintes (1) e (2) dos detalhes de pagamento de encomenda:
+**Multibanco:** Use os dados seguintes (1) e (2) dos detalhes de pagamento de encomenda:
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/multibanco_callback_data.png)
 </br>
 
 para preencher o formulário de Testar Callback e clicar no botão "Testar Callback" (3):
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/multibanco_callback_test.png)
 </br>
-
-* MB WAY:
-
-Use os dados seguintes (1) dos detalhes de encomenda e, (2) e (3) dos detalhes de pagamento de encomenda:
-![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/mbway_callback_data1.png)
 </br>
 
-![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/mbway_callback_data2.png)
+**MB WAY:** Use os dados seguintes (1) e (2) dos detalhes de pagamento de encomenda:
+
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/mbway_callback_data.png)
 </br>
 
-para preencher o formulário de Testar Callback e clicar no botão "Testar Callback" (4):
+para preencher o formulário de Testar Callback e clicar no botão "Testar Callback" (3):
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/mbway_callback_test.png)
 </br>
+</br>
 
-* Payshop:
-Use os dados seguintes (1) e (2) dos detalhes de pagamento de encomenda:
+**Payshop:** Use os dados seguintes (1) e (2) dos detalhes de pagamento de encomenda:
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/payshop_callback_data.png)
 </br>
 
