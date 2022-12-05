@@ -20,3 +20,5 @@ This module will allow you to generate a payment by Visa or Master card, that th
 **Contract with Ifthenpay is required.**
 
 See more at [Ifthenpay](https://ifthenpay.com). 
+
+Further information on Ifthenpay's module instalation and usage can be found on the [readme](https://github.com/ifthenpay/prestashop/blob/main/versao%201.7%20ou%20superior/readme.md) in the folder "versao 1.7 ou superior"
