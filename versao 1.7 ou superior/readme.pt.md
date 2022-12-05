@@ -32,6 +32,7 @@ Ler em ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version1
   * [Atualizações](#Atualizações)
   * [Modo Sandbox](#Modo-Sandbox)
   * [Callback](#Callback)
+  * [Testar Callback](#Testar-Callback)
   * [Bugs conhecidos e soluções](#Bugs-conhecidos-e-soluções)
 
 
@@ -72,6 +73,7 @@ Use a tabela abaixo para verificar a compatibilidade do módulo Ifthenpay com a 
 | Ifthenpay v1.3.0 | Não compatível | Compatível                     |
 | Ifthenpay v1.3.1 | Não compatível | Compatível                     |
 | Ifthenpay v1.3.2 | Não compatível | Compatível                     |
+| Ifthenpay v1.3.3 | Não compatível | Compatível                     |
 
 # Instalação
 
@@ -156,6 +158,7 @@ O método de pagamento Multibanco com Referências Dinâmicas, gera referências
 1. No campo Entidade, selecionar "MB", esta entidade só estará disponível para seleção se tiver efetuado contrato para criação de conta Multibanco com Referências Dinâmicas;
 2. Selecionar uma Sub-Entidade.
 3. (opcional) Selecionar o número de dias de validade.
+4. (opcional) Ativar Cancelar Encomenda Multibanco. Ao selecionar esta opção, encomendas Multibanco que ainda não receberam pagamento antes da Validade terminar serão canceladas;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/config_multibanco_dynamic.png)
 </br>
 
@@ -169,7 +172,7 @@ O método de pagamento Multibanco com Referências Dinâmicas, gera referências
 
 * Configurar método de pagamento MB WAY:
 1. Ativar Callback. Ao selecionar esta opção, o estado da encomenda será atualizado quando o pagamento for recebido;
-2. Ativar Cancelar Encomenda MB WAY. Ao selecionar esta opção, encomendas MB WAY que ainda não receberam pagamento serão canceladas 30 minutos após a confirmação no checkout;
+2. (opcional) Ativar Cancelar Encomenda MB WAY. Ao selecionar esta opção, encomendas MB WAY que ainda não receberam pagamento serão canceladas 30 minutos após a confirmação no checkout;
 3. Contador MB WAY, está ativo por defeito. Esta opção determina se o contador MB WAY de 5 minutos é ou não exibido após a confirmação da encomenda;  
 4. Selecionar uma Chave MB WAY. Apenas pode selecionar uma das Chaves MB WAY associadas à Chave Backoffice;
 5. (opcional) Inserir valor mínimo de encomenda. Apenas exibe este método de pagamento para encomendas com valor superior ao valor inserido;
@@ -195,11 +198,12 @@ O método de pagamento Multibanco com Referências Dinâmicas, gera referências
 
 * Configurar método de pagamento Cartão de Crédito:
 1. Selecionar uma Chave CCard. Apenas pode selecionar uma das Chaves CCard associadas à Chave Backoffice;
-2. (opcional) Inserir valor mínimo de encomenda. Apenas exibe este método de pagamento para encomendas com valor superior ao valor inserido;
-3. (opcional) Inserir valor máximo de encomenda. Apenas exibe este método de pagamento para encomendas com valor inferior ao valor inserido;
-4. (opcional) Selecione um ou mais países. Apenas exibe este método de pagamento para encomendas com destino de envio dentro dos países selecionados, deixar vazio para permitir todos os países;
-5. (opcional) Inserir um número de sequência. Ordena os métodos de pagamento na página de checkout de forma ascendente. Número mais baixo toma o primeiro lugar;
-6. Clicar no botão "Salvar";
+2. (opcional) Ativar Cancelar Encomenda Ccard. Ao selecionar esta opção, encomendas Ccard que ainda não receberam pagamento serão canceladas 30 minutos após a confirmação no checkout;
+3. (opcional) Inserir valor mínimo de encomenda. Apenas exibe este método de pagamento para encomendas com valor superior ao valor inserido;
+4. (opcional) Inserir valor máximo de encomenda. Apenas exibe este método de pagamento para encomendas com valor inferior ao valor inserido;
+5. (opcional) Selecione um ou mais países. Apenas exibe este método de pagamento para encomendas com destino de envio dentro dos países selecionados, deixar vazio para permitir todos os países;
+6. (opcional) Inserir um número de sequência. Ordena os métodos de pagamento na página de checkout de forma ascendente. Número mais baixo toma o primeiro lugar;
+7. Clicar no botão "Salvar";
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/config_ccard.png)
 </br>
 
@@ -214,11 +218,12 @@ O método de pagamento Multibanco com Referências Dinâmicas, gera referências
 1. Ativar Callback. Ao selecionar esta opção, o estado da encomenda será atualizado quando o pagamento for recebido;
 2. Selecionar uma Chave Payshop. Apenas pode selecionar uma das Chaves Payshop associadas à Chave Backoffice;
 3. (opcional) Inserir Validade para o pagamento. De 1 a 99 dias, deixe vazio não pretender que expire; 
-4. (opcional) Inserir valor mínimo de encomenda. Apenas exibe este método de pagamento para encomendas com valor superior ao valor inserido;
-5. (opcional) Inserir valor máximo de encomenda. Apenas exibe este método de pagamento para encomendas com valor inferior ao valor inserido;
-6. (opcional) Selecione um ou mais países. Apenas exibe este método de pagamento para encomendas com destino de envio dentro dos países selecionados, deixar vazio para permitir todos os países;
-7. (opcional) Inserir um número de sequência. Ordena os métodos de pagamento na página de checkout de forma ascendente. Número mais baixo toma o primeiro lugar;
-8. Clicar no botão "Salvar";
+4. (optional) Ativar Cancelar Encomenda Payshop. Ao selecionar esta opção, encomendas Payshop que ainda não receberam pagamento após a Validade serão canceladas;
+5. (opcional) Inserir valor mínimo de encomenda. Apenas exibe este método de pagamento para encomendas com valor superior ao valor inserido;
+6. (opcional) Inserir valor máximo de encomenda. Apenas exibe este método de pagamento para encomendas com valor inferior ao valor inserido;
+7. (opcional) Selecione um ou mais países. Apenas exibe este método de pagamento para encomendas com destino de envio dentro dos países selecionados, deixar vazio para permitir todos os países;
+8. (opcional) Inserir um número de sequência. Ordena os métodos de pagamento na página de checkout de forma ascendente. Número mais baixo toma o primeiro lugar;
+9. Clicar no botão "Salvar";
 
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/config_payshop.png)
 </br>
@@ -354,6 +359,40 @@ O Modo Sandbox é usado para impedir a ativação do Callback e a comunicação 
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/callback_status_sandbox.png)
 </br>
 
+## Testar Callback
+
+Em cada página de configuração de um método de pagamento (excepto Cartão de Crédito), pode testar a funcionalidade do Callback clicando no botão "Testar Callback". Esta ação irá simular um pagamento bem-sucedido para uma encomenda na sua loja, alterando o estado da mesma. Necessita que o Callback esteja ativo.
+
+* Multibanco:
+Use os dados seguintes (1) e (2) dos detalhes de pagamento de encomenda:
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/multibanco_callback_data.png)
+</br>
+
+para preencher o formulário de Testar Callback e clicar no botão "Testar Callback" (3):
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/multibanco_callback_test.png)
+</br>
+
+* MB WAY:
+
+Use os dados seguintes (1) dos detalhes de encomenda e, (2) e (3) dos detalhes de pagamento de encomenda:
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/mbway_callback_data1.png)
+</br>
+
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/mbway_callback_data2.png)
+</br>
+
+para preencher o formulário de Testar Callback e clicar no botão "Testar Callback" (4):
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/mbway_callback_test.png)
+</br>
+
+* Payshop:
+Use os dados seguintes (1) e (2) dos detalhes de pagamento de encomenda:
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/payshop_callback_data.png)
+</br>
+
+para preencher o formulário de Testar Callback e clicar no botão "Testar Callback" (3):
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/payshop_callback_test.png)
+</br>
 ## Bugs conhecidos e soluções
 
 * Em algumas versões do prestashop, habilitar o ccc (Combinar, Comprimir e Cache) para javascript, resultará em erros de minimização.
