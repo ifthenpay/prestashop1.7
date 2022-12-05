@@ -363,29 +363,27 @@ The Sandbox Mode is used in order to prevent the Callback activation and the com
 
 In each payment method config page (except Ccard), you can test the Callback functionality by clicking the "Test Callback" button. This will simulate a successful payment for a order in your store, and will change its status. Requires Callback to be activated;
 
-* Multibanco:
-Use the following data (1) and (2) from order payment details:
+**Multibanco:** Use the following data (1) and (2) from order payment details:
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/multibanco_callback_data.png)
 </br>
 
 to fill the Test Callback form and click the "Test Callback" button (3):
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/multibanco_callback_test.png)
 </br>
-
-* MB WAY:
-Use the following data (1) from from order details and, (2) and (3) from order payment details:
-![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/mbway_callback_data1.png)
 </br>
 
-![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/mbway_callback_data2.png)
+**MB WAY:** Use the following data (1) and (2) from order payment details:
+
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/mbway_callback_data.png)
 </br>
 
-to fill the Test Callback form and click the "Test Callback" button (4):
+to fill the Test Callback form and click the "Test Callback" button (3):
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/mbway_callback_test.png)
 </br>
+</br>
 
-* Payshop:
-Use the following data (1) and (2) from order payment details:
+**Payshop:** Use the following data (1) and (2) from order payment details:
+
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/payshop_callback_data.png)
 </br>
 
