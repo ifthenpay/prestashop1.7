@@ -33,6 +33,7 @@ Read this in ![Português](https://github.com/ifthenpay/prestashop/raw/assets/ve
   * [Updates](#Updates)
   * [Sandbox Mode](#Sandbox-Mode)
   * [Callback](#Callback)
+  * [Test Callback](#Test-Callback)
   * [Known bug and fixes](#Known-bug-and-fixes)
 
 
@@ -74,6 +75,7 @@ Follow the table below to verify Ifthenpay's module compatibility with your onli
 | Ifthenpay v1.3.0 | Not compatible | Compatible                     |
 | Ifthenpay v1.3.1 | Not compatible | Compatible                     |
 | Ifthenpay v1.3.2 | Not compatible | Compatible                     |
+| Ifthenpay v1.3.3 | Not compatible | Compatible                     |
 
 # Installation
 
@@ -158,6 +160,7 @@ Multibanco with Dynamic References payment method generates references by reques
 1. Select "MB" from the Entity field, this entity will only be available for selection if you contracted an account for Multibanco with Dynamic References;
 2. Select a Sub Entity.
 3. (optional) Select number of days for deadline.
+4. (optional) Activate Cancel Multibanco Order, by selecting this option, Multibanco orders that are still unpaid after the deadline will have status changed to "Cancelled";
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/config_multibanco_dynamic.png)
 </br>
 
@@ -171,7 +174,7 @@ Multibanco with Dynamic References payment method generates references by reques
 
 * Configure MB WAY payment method:
 1. Activate Callback, by selecting this option the order state will update when a payment is received;
-2. Activate Cancel MB WAY Order, by selecting this option, you will cancel any MB WAY orders that are still unpaid 30 min after confirmation;
+2. (optional) Activate Cancel MB WAY Order, by selecting this option, MB WAY orders that are still unpaid 30 min after confirmation, will have status changed to "Cancelled";
 3. MB WAY Countdown, set to "Activate" by default, this option determines whether the MB WAY 5 minutes countdown is displayed or not after confirming order;
 4. Select a MB WAY key. Can only select from the MB WAY keys associated with your Backoffice key; 
 5. (optional) Input minimum order value to only display this payment method for orders above it;
@@ -197,11 +200,12 @@ Multibanco with Dynamic References payment method generates references by reques
 
 * Configure Credit Card (also referred to as Ccard) payment method:
 1. Select a CCard key. Can only select from the CCard keys associated with your Backoffice key; 
-2. (optional) Input minimum order value to only display this payment method for orders above it;
-3. (optional) Input maximum order value to only display this payment method for orders below it;
-4. (optional) Select one or more countries to only display this payment method for orders with that shipping country, leave empty to allow all;
-5. (optional) Input an Integer number to order this payment method in the checkout page. Smallest takes first place.
-6. Click "Save" button;
+2. (optional) Activate Cancel Credit Card Order, by selecting this option, Credit Card orders that are still unpaid 30 min after confirmation, will have status changed to "Cancelled";
+3. (optional) Input minimum order value to only display this payment method for orders above it;
+4. (optional) Input maximum order value to only display this payment method for orders below it;
+5. (optional) Select one or more countries to only display this payment method for orders with that shipping country, leave empty to allow all;
+6. (optional) Input an Integer number to order this payment method in the checkout page. Smallest takes first place.
+7. Click "Save" button;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/config_ccard.png)
 </br>
 
@@ -216,11 +220,12 @@ Multibanco with Dynamic References payment method generates references by reques
 1. Activate Callback, by selecting this option the order state will update when a payment is received;
 2. Select a Payshop key. Can only select from the Payshop keys associated with your Backoffice key;
 3. (optional) Input a Deadline for payment, from 1 to 99 days or leave empty if you do not want it to expire;
-4. (optional) Input minimum order value to only display this payment method for order above it;
-5. (optional) Input maximum order value to only display this payment method for order below it;
-6. (optional) Select one or more countries to only display this payment method for orders with that shipping country, leave empty to allow all;
-7. (optional) Input an Integer number to order this payment method in the checkout page. Smallest takes first place.
-8. Click "Save" button;
+4. (optional) Activate Cancel Payshop Order, by selecting this option, Payshop orders that are still unpaid after the deadline will have status changed to "Cancelled";
+5. (optional) Input minimum order value to only display this payment method for order above it;
+6. (optional) Input maximum order value to only display this payment method for order below it;
+7. (optional) Select one or more countries to only display this payment method for orders with that shipping country, leave empty to allow all;
+8. (optional) Input an Integer number to order this payment method in the checkout page. Smallest takes first place.
+9. Click "Save" button;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/config_payshop.png)
 </br>
 
@@ -353,6 +358,41 @@ The Sandbox Mode is used in order to prevent the Callback activation and the com
 3. Callback Activated & Sandbox Mode enabled (order will not change state upon receiving payment);
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/callback_status_sandbox.png)
 </br>
+
+## Test Callback
+
+In each payment method config page (except Ccard), you can test the Callback functionality by clicking the "Test Callback" button. This will simulate a successful payment for a order in your store, and will change its status. Requires Callback to be activated;
+
+* Multibanco:
+Use the following data (1) and (2) from order payment details:
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/multibanco_callback_data.png)
+</br>
+
+to fill the Test Callback form and click the "Test Callback" button (3):
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/multibanco_callback_test.png)
+</br>
+
+* MB WAY:
+Use the following data (1) from from order details and, (2) and (3) from order payment details:
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/mbway_callback_data1.png)
+</br>
+
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/mbway_callback_data2.png)
+</br>
+
+to fill the Test Callback form and click the "Test Callback" button (4):
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/mbway_callback_test.png)
+</br>
+
+* Payshop:
+Use the following data (1) and (2) from order payment details:
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/payshop_callback_data.png)
+</br>
+
+to fill the Test Callback form and click the "Test Callback" button (3):
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/payshop_callback_test.png)
+</br>
+
 
 ## Known bug and fixes
 
