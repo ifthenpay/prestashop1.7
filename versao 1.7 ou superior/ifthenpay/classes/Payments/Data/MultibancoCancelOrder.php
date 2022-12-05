@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -28,21 +29,25 @@ namespace PrestaShop\Module\Ifthenpay\Payments\Data;
 use PrestaShop\Module\Ifthenpay\Factory\Models\IfthenpayModelFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
 
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class MbwayCancelOrder
+class MultibancoCancelOrder
 {
     /**
-     * cancels mbway order if no payment has been received 30 minutes after order confirmation "date_add"
+     * cancels multibanco order if no payment has been received 30 minutes after order confirmation "date_add"
      *
      * @return void
      */
     public function cancelOrder()
     {
-        if (\Configuration::get('IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT')) {
-            $mbwayOrders = IfthenpayModelFactory::build('mbway')->getAllPendingOrders();
+        if (
+            \Configuration::get('IFTHENPAY_MULTIBANCO_CANCEL_ORDER_AFTER_TIMEOUT')
+            && (\Configuration::get('IFTHENPAY_MULTIBANCO_VALIDADE') && \Configuration::get('IFTHENPAY_MULTIBANCO_VALIDADE') != '' && \Configuration::get('IFTHENPAY_MULTIBANCO_VALIDADE') != null && \Configuration::get('IFTHENPAY_MULTIBANCO_VALIDADE') != '999999')
+        ) {
+            $multibancoOrders = IfthenpayModelFactory::build('multibanco')->getAllPendingOrdersWithDeadline();
 
             $timezone = \Configuration::get('PS_TIMEZONE');
             if (!$timezone) {
@@ -50,20 +55,21 @@ class MbwayCancelOrder
             }
             date_default_timezone_set($timezone);
 
-            foreach ($mbwayOrders as $mbwayOrder) {
-                $minutes_to_add = 30;
-                $time = new \DateTime($mbwayOrder['date_add']);
-                $time->add(new \DateInterval('PT' . $minutes_to_add . 'M'));
-                $today = new \DateTime(date("Y-m-d G:i"));
+            foreach ($multibancoOrders as $multibancoOrder) {
 
-                if ($time < $today) {
-                    $new_history = PrestashopModelFactory::buildOrderHistory();
-                    $new_history->id_order = (int) $mbwayOrder['id_order'];
-                    $new_history->changeIdOrderState((int) \Configuration::get('PS_OS_CANCELED'), (int) $mbwayOrder['id_order']);
-                    $new_history->addWithemail(true);
+                if (isset($multibancoOrder['validade']) && $multibancoOrder['validade'] != '' && $multibancoOrder['validade'] != null) {
+
+                    $deadlineDate = (\DateTime::createFromFormat('d-m-Y', $multibancoOrder['validade']))->format('d-m-Y');
+                    $today = (new \DateTime(date("d-m-Y")))->format('d-m-Y');
+
+                    if ($deadlineDate < $today) {
+                        $new_history = PrestashopModelFactory::buildOrderHistory();
+                        $new_history->id_order = (int) $multibancoOrder['id_order'];
+                        $new_history->changeIdOrderState((int) \Configuration::get('PS_OS_CANCELED'), (int) $multibancoOrder['id_order']);
+                        $new_history->addWithemail(true);
+                    }
                 }
             }
         }
-        
     }
 }

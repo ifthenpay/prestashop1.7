@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -32,17 +33,17 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class MbwayCancelOrder
+class CcardCancelOrder
 {
     /**
-     * cancels mbway order if no payment has been received 30 minutes after order confirmation "date_add"
+     * cancels Ccard order if no payment has been received 30 minutes after order confirmation "date_add"
      *
      * @return void
      */
     public function cancelOrder()
     {
-        if (\Configuration::get('IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT')) {
-            $mbwayOrders = IfthenpayModelFactory::build('mbway')->getAllPendingOrders();
+        if (\Configuration::get('IFTHENPAY_CCARD_CANCEL_ORDER_AFTER_TIMEOUT')) {
+            $ccardOrders = IfthenpayModelFactory::build('ccard')->getAllPendingOrders();
 
             $timezone = \Configuration::get('PS_TIMEZONE');
             if (!$timezone) {
@@ -50,20 +51,19 @@ class MbwayCancelOrder
             }
             date_default_timezone_set($timezone);
 
-            foreach ($mbwayOrders as $mbwayOrder) {
+            foreach ($ccardOrders as $ccardOrder) {
                 $minutes_to_add = 30;
-                $time = new \DateTime($mbwayOrder['date_add']);
+                $time = new \DateTime($ccardOrder['date_add']);
                 $time->add(new \DateInterval('PT' . $minutes_to_add . 'M'));
                 $today = new \DateTime(date("Y-m-d G:i"));
 
                 if ($time < $today) {
                     $new_history = PrestashopModelFactory::buildOrderHistory();
-                    $new_history->id_order = (int) $mbwayOrder['id_order'];
-                    $new_history->changeIdOrderState((int) \Configuration::get('PS_OS_CANCELED'), (int) $mbwayOrder['id_order']);
+                    $new_history->id_order = (int) $ccardOrder['id_order'];
+                    $new_history->changeIdOrderState((int) \Configuration::get('PS_OS_CANCELED'), (int) $ccardOrder['id_order']);
                     $new_history->addWithemail(true);
                 }
             }
         }
-        
     }
 }

@@ -50,7 +50,7 @@ class Ifthenpay extends PaymentModule
     {
         $this->name = 'ifthenpay';
         $this->tab = 'payments_gateways';
-        $this->version = '1.3.2';
+        $this->version = '1.3.3';
         $this->author = 'Ifthenpay';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -517,6 +517,7 @@ class Ifthenpay extends PaymentModule
                 )
             );
             ConfigFactory::buildIfthenpayControllersTabs($this)->dynamicInstall('AdminIfthenpayActivateNewAccount');
+     
 
             IfthenpayInstallerFactory::build(
                 'ifthenpayInstaller',
@@ -943,9 +944,12 @@ class Ifthenpay extends PaymentModule
      */
     public function hookActionAdminControllerSetMedia()
     {
+        $versioning = '_' . str_replace('.', '_', $this->version);
+
         if (Tools::getValue('controller') === 'AdminModules' && Tools::getValue('configure') === $this->name) {
-            $this->context->controller->addJS($this->_path . 'views/js/adminAccountSettingsPage.js');
-            $this->context->controller->addCSS($this->_path . 'views/css/ifthenpayConfig.css');
+
+            $this->context->controller->addJS($this->_path . 'views/js/adminAccountSettingsPage' . $versioning . '.js');
+            $this->context->controller->addCSS($this->_path . 'views/css/ifthenpayConfig' . $versioning . '.css');
             Media::addJsDef(
                 [
                     'controllerUrl' => $this->context->link->getAdminLink('AdminIfthenpayResetAccount'),
@@ -955,9 +959,9 @@ class Ifthenpay extends PaymentModule
             Tools::getValue('controller') === 'AdminOrders' &&
             $this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']
         ) {
-            $this->context->controller->addJS($this->_path . 'views/js/adminOrderCreatePage.js');
-            $this->context->controller->addJS($this->_path . 'views/js/adminOrderDetailPage.js');
-            $this->context->controller->addCSS($this->_path . 'views/css/ifthenpayAdminOrder.css');
+            $this->context->controller->addJS($this->_path . 'views/js/adminOrderCreatePage' . $versioning . '.js');
+            $this->context->controller->addJS($this->_path . 'views/js/adminOrderDetailPage' . $versioning . '.js');
+            $this->context->controller->addCSS($this->_path . 'views/css/ifthenpayAdminOrder' . $versioning . '.css');
             Media::addJsDef(
                 [
                     'ifthenpayUserPaymentMethods' => $this->getAtivePaymentMethods(),
@@ -1017,6 +1021,8 @@ class Ifthenpay extends PaymentModule
 
     private function executeCssScripts($type)
     {
+        $versioning = '_' . str_replace('.', '_', $this->version);
+
         if ($type === 'orderConfirmation') {
             Media::addJsDef(
                 [
@@ -1026,23 +1032,23 @@ class Ifthenpay extends PaymentModule
             );
             $this->context->controller->registerJavascript(
                 'module-ifthenpay-mbwayCountdown',
-                'modules/' . $this->name . '/views/js/mbwayCountdownConfirmPage.js'
+                'modules/' . $this->name . '/views/js/mbwayCountdownConfirmPage' . $versioning . '.js'
             );
             $this->context->controller->registerStylesheet(
                 'module-ifthenpay-confirmPage',
-                'modules/' . $this->name . '/views/css/ifthenpayConfirmPage.css'
+                'modules/' . $this->name . '/views/css/ifthenpayConfirmPage' . $versioning . '.css'
             );
         }
         if ($type === 'orderdetail') {
             $this->context->controller->registerStylesheet(
                 'module-ifthenpay-orderDetail',
-                'modules/' . $this->name . '/views/css/ifthenpayOrderDetail.css'
+                'modules/' . $this->name . '/views/css/ifthenpayOrderDetail' . $versioning . '.css'
             );
         }
         if ($type === 'order') {
             $this->context->controller->registerStylesheet(
                 'module-ifthenpay-orderPaymentOption',
-                'modules/' . $this->name . '/views/css/paymentOptions.css'
+                'modules/' . $this->name . '/views/css/paymentOptions' . $versioning . '.css'
             );
         }
     }
@@ -1072,6 +1078,9 @@ class Ifthenpay extends PaymentModule
     {
         if (($this->context->controller->php_self === 'AdminOrders' || Tools::getValue('controller') === 'AdminOrders') && strpos($_SERVER['REQUEST_URI'], 'view') === false) {
             ConfigFactory::buildCancelMbwayOrder()->cancelOrder();
+            ConfigFactory::buildCancelCcardOrder()->cancelOrder();
+            ConfigFactory::buildCancelPayshopOrder()->cancelOrder();
+            ConfigFactory::buildCancelMultibancoOrder()->cancelOrder();
         }
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -138,19 +139,21 @@ class Utility
 
                 $isActive = $i == $page ? 'active' : '';
 
-                if ($i == 1 || 
-                    $i == $pages || 
+                if (
+                    $i == 1 ||
+                    $i == $pages ||
                     ($i > $page - 3 && $i <= $page + 2)
-                    ) {
+                ) {
                     $htmlList .= '
                     <li class="page-item">
-                        <button type="button" class="btn btn-outline-primary btn_paginator '. $isActive .'">' . $i . '</button>
+                        <button type="button" class="btn btn-outline-primary btn_paginator ' . $isActive . '">' . $i . '</button>
                     </li>
                     ';
                 }
 
                 if (($i == $pages - 1 && $pages > $page + 2) ||
-                    ($i == 2 && $page > 3)) {
+                    ($i == 2 && $page > 3)
+                ) {
                     $htmlList .= '
                     <li class="page-item if_dots">
                     ...
@@ -168,5 +171,41 @@ class Utility
         }
 
         return $html;
+    }
+
+    /**
+     * get a new array with the keys specified in the $keys array
+     * @param array $inputArray
+     * @param array $keys
+     * @return array
+     */
+    public static function extractArrayWithKeys($inputArray, $keys): array
+    {
+        $outputArray = array();
+        foreach ($keys as $key) {
+            if (array_key_exists($key, $inputArray)) {
+                $outputArray[$key] = $inputArray[$key];
+            }
+        }
+        return $outputArray;
+    }
+
+
+    /**
+     * Convert assoc array data to string
+     *@param Order $order
+     *@return string
+     */
+    public static function dataToString($data)
+    {
+        $strData = '{';
+        if (is_array($data)) {
+            foreach ($data as $key => $value) {
+                $strData .= $key . ' => ' . $value . ', ';
+            }
+        }
+
+        $strData .= '}';
+        return $strData;
     }
 }

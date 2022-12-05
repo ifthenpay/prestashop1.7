@@ -48,7 +48,9 @@ class AdminIfthenpayActivateNewAccountController extends ModuleAdminController
 
         parent::initContent();
 
-        $updateUserToken = md5((string) rand());
+        $storedToken = Configuration::get('IFTHENPAY_UPDATE_USER_ACCOUNT_TOKEN');
+        $updateUserToken = $storedToken ? $storedToken : md5((string) rand());
+
 
         Configuration::updateValue('IFTHENPAY_UPDATE_USER_ACCOUNT_TOKEN', $updateUserToken);
 

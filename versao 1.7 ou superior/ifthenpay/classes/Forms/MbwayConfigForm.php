@@ -60,7 +60,7 @@ class MbwayConfigForm extends ConfigForm
             'type' => 'switch',
             'label' => $this->ifthenpayModule->l('Cancel MB WAY Order', pathinfo(__FILE__)['filename']),
             'name' => 'IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT',
-            'desc' => $this->ifthenpayModule->l('Cancel MB WAY order thirty minutes after order confirmation. This is triggered when admin visits the order list page and will only work if the callback is activated.'),
+            'desc' => $this->ifthenpayModule->l('Cancel order if not payed within 30 minutes after confirmation. This is triggered when admin visits the order list page and will only work if the callback is activated.'),
             'is_bool' => true,
             'values' => [
                 [

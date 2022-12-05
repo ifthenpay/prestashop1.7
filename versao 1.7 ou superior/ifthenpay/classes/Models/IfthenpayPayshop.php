@@ -108,4 +108,19 @@ class IfthenpayPayshop extends \ObjectModel implements PaymentModelInterface
             return array();
         }
     }
+
+    public static function getAllPendingOrdersWithDeadline()
+    {
+        $rowOrder = \Db::getInstance()
+            ->executeS('SELECT * FROM `' . _DB_PREFIX_ . 'orders`' 
+            . ' INNER JOIN `' . _DB_PREFIX_ . 'ifthenpay_payshop` ON `' . _DB_PREFIX_ . 'orders`.`id_order` = `' . _DB_PREFIX_ . 'ifthenpay_payshop`.`order_id`'
+            . ' WHERE `current_state` = ' . \Configuration::get('IFTHENPAY_PAYSHOP_OS_WAITING') . ' AND `payment` = "payshop"');
+
+        if (is_array($rowOrder)) {
+            return $rowOrder;
+        } else {
+            return array();
+        }
+    }
+
 }

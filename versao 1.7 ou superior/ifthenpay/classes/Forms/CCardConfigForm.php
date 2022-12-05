@@ -40,39 +40,6 @@ class CCardConfigForm extends ConfigForm
     protected $options = []; // array of entity options for GUI select
 
 
-
-    /**
-     * Translation workaround
-     * this is used to generate translations while in this class, because even setting the second argument (file)
-     * in the $this->translate('translatable', file), it still stores it to ... for example configform when used there.
-     *
-     * @return array
-     */
-    protected function tl()
-    {
-        $f = Utility::getClassName($this);
-        $trans = [
-            'Settings' => $this->ifthenpayModule->l('Settings', $f),
-            'Save' => $this->ifthenpayModule->l('Save', $f),
-            'Callback' => $this->ifthenpayModule->l('Callback', $f),
-            'CallbackDesc' => $this->ifthenpayModule->l('Activate callback automatically. If sandbox mode is enabled, callback will not activate.', $f),
-            'Activate' => $this->ifthenpayModule->l('Activate', $f),
-            'Disabled' => $this->ifthenpayModule->l('Disabled', $f),
-            'Minimum' => $this->ifthenpayModule->l('Minimum Order Value', $f),
-            'MinimumDesc' => $this->ifthenpayModule->l('Only display this payment method for orders with total value greater than inserted value.', $f),
-            'Maximum' => $this->ifthenpayModule->l('Maximum Order Value', $f),
-            'MaximumDesc' => $this->ifthenpayModule->l('Only display this payment method for orders with total value less than inserted value.', $f),
-            'Order' => $this->ifthenpayModule->l('Order', $f),
-            'OrderDesc' => $this->ifthenpayModule->l('Order payment methods at checkout page. Order is ascending for example, (Multibanco: 1, MB WAY: 4, CCARD: 2) will result in  (Multibanco, CCARD, MB WAY). This option only affects this module\'s payment methods', $f),
-            'CountryRestrictions' => $this->ifthenpayModule->l('Country restrictions', $f),
-            'CountryRestrictionsDesc' => $this->ifthenpayModule->l('Display this payment method for selected countries, or leave empty to allow all countries. Use CTRL keyboard key and mouse click to toggle selection.', $f)
-        ];
-
-        return $trans;
-    }
-
-
-
     /**
      * "gets" the form into object... it sets the form that will display in the payment method configuration
      *
@@ -83,7 +50,7 @@ class CCardConfigForm extends ConfigForm
         // assign template variables
         $this->setSmartyVariables();
 
-        $this->setFormParent($this->tl());
+        $this->setFormParent();
         $this->setEntityOptions();
 
         $this->form['form']['input'][] = [
@@ -99,10 +66,31 @@ class CCardConfigForm extends ConfigForm
             ]
         ];
 
+        // cancel after timer of 30 minutes
+        $this->form['form']['input'][] = [
+            'type' => 'switch',
+            'label' => $this->ifthenpayModule->l('Cancel CCard Order', pathinfo(__FILE__)['filename']),
+            'name' => 'IFTHENPAY_CCARD_CANCEL_ORDER_AFTER_TIMEOUT',
+            'desc' => $this->ifthenpayModule->l('Cancel order if not payed within 30 minutes after confirmation. This is triggered when admin visits the order list page.'),
+            'is_bool' => true,
+            'values' => [
+                [
+                    'id' => 'active_on',
+                    'value' => true,
+                    'label' => $this->ifthenpayModule->l('Activate', pathinfo(__FILE__)['filename'])
+                ],
+                [
+                    'id' => 'active_off',
+                    'value' => false,
+                    'label' => $this->ifthenpayModule->l('Disabled', pathinfo(__FILE__)['filename'])
+                ]
+            ]
+        ];
+
         // add min max and country form elements
-        $this->addMinMaxFieldsToForm($this->tl());
-        $this->addCountriesFieldToForm($this->tl());
-        $this->addOrderByNumberFieldsToForm($this->tl());
+        $this->addMinMaxFieldsToForm();
+        $this->addCountriesFieldToForm();
+        $this->addOrderByNumberFieldsToForm();
 
         // generate form
         $this->generateHelperForm();
@@ -111,7 +99,8 @@ class CCardConfigForm extends ConfigForm
     protected function getConfigFormValues()
     {
         return array_merge(parent::getCommonConfigFormValues(), [
-            'IFTHENPAY_CCARD_KEY' => \Configuration::get('IFTHENPAY_CCARD_KEY')
+            'IFTHENPAY_CCARD_KEY' => \Configuration::get('IFTHENPAY_CCARD_KEY'),
+            'IFTHENPAY_CCARD_CANCEL_ORDER_AFTER_TIMEOUT' => \Configuration::get('IFTHENPAY_CCARD_CANCEL_ORDER_AFTER_TIMEOUT'),
         ]);
     }
 
@@ -143,6 +132,9 @@ class CCardConfigForm extends ConfigForm
 
             // save specific values
             \Configuration::updateValue('IFTHENPAY_CCARD_KEY', $this->gatewayDataBuilder->getData()->subEntidade);
+
+            \Configuration::updateValue('IFTHENPAY_CCARD_CANCEL_ORDER_AFTER_TIMEOUT', \Tools::getValue('IFTHENPAY_CCARD_CANCEL_ORDER_AFTER_TIMEOUT'));
+
 
             $this->updatePayMethodCommonValues();
 
@@ -179,5 +171,6 @@ class CCardConfigForm extends ConfigForm
     {
         $this->deleteCommonConfigValues();
         \Configuration::deleteByName('IFTHENPAY_CCARD_KEY');
+        \Configuration::deleteByName('IFTHENPAY_CCARD_CANCEL_ORDER_AFTER_TIMEOUT');
     }
 }

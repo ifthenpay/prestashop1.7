@@ -34,6 +34,9 @@ use PrestaShop\Module\Ifthenpay\Config\IfthenpayUpgrade;
 use PrestaShop\Module\Ifthenpay\Config\IfthenpayOrderStates;
 use PrestaShop\Module\Ifthenpay\Config\IfthenpayConfiguration;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MbwayCancelOrder;
+use PrestaShop\Module\Ifthenpay\Payments\Data\CcardCancelOrder;
+use PrestaShop\Module\Ifthenpay\Payments\Data\PayshopCancelOrder;
+use PrestaShop\Module\Ifthenpay\Payments\Data\MultibancoCancelOrder;
 use PrestaShop\Module\Ifthenpay\Config\IfthenpayControllersTabs;
 
 class ConfigFactory
@@ -66,5 +69,20 @@ class ConfigFactory
     public static function buildCancelMbwayOrder()
     {
         return new MbwayCancelOrder();
+    }
+
+    public static function buildCancelCcardOrder()
+    {
+        return new CcardCancelOrder();
+    }
+
+    public static function buildCancelPayshopOrder()
+    {
+        return new PayshopCancelOrder();
+    }
+
+    public static function buildCancelMultibancoOrder()
+    {
+        return new MultibancoCancelOrder();
     }
 }

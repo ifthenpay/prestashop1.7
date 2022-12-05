@@ -68,6 +68,27 @@ class PayshopConfigForm extends ConfigForm
             'desc' => $this->ifthenpayModule->l('Choose the number of days (from 1 to 99), leave empty if you do not want expiration.', pathinfo(__FILE__)['filename'])
         ];
 
+        // cancel after deadline
+        $this->form['form']['input'][] = [
+            'type' => 'switch',
+            'label' => $this->ifthenpayModule->l('Cancel Payshop Order', pathinfo(__FILE__)['filename']),
+            'name' => 'IFTHENPAY_PAYSHOP_CANCEL_ORDER_AFTER_TIMEOUT',
+            'desc' => $this->ifthenpayModule->l('Cancel order if not payed before end of Deadline. Requires Deadline to be set. This is triggered when admin visits the order list page.', pathinfo(__FILE__)['filename']),
+            'is_bool' => true,
+            'values' => [
+                [
+                    'id' => 'active_on',
+                    'value' => true,
+                    'label' => $this->ifthenpayModule->l('Activate', pathinfo(__FILE__)['filename'])
+                ],
+                [
+                    'id' => 'active_off',
+                    'value' => false,
+                    'label' => $this->ifthenpayModule->l('Disabled', pathinfo(__FILE__)['filename'])
+                ]
+            ]
+        ];
+
         // add min max and country form elements
         $this->addMinMaxFieldsToForm();
         $this->addCountriesFieldToForm();
@@ -83,7 +104,8 @@ class PayshopConfigForm extends ConfigForm
     {
         return array_merge(parent::getCommonConfigFormValues(), [
             'IFTHENPAY_PAYSHOP_KEY' => \Configuration::get('IFTHENPAY_PAYSHOP_KEY'),
-            'IFTHENPAY_PAYSHOP_VALIDADE' => \Configuration::get('IFTHENPAY_PAYSHOP_VALIDADE')
+            'IFTHENPAY_PAYSHOP_VALIDADE' => \Configuration::get('IFTHENPAY_PAYSHOP_VALIDADE'),
+            'IFTHENPAY_PAYSHOP_CANCEL_ORDER_AFTER_TIMEOUT' => \Configuration::get('IFTHENPAY_PAYSHOP_CANCEL_ORDER_AFTER_TIMEOUT')
         ]);
     }
 
@@ -121,6 +143,9 @@ class PayshopConfigForm extends ConfigForm
             // save specific values
             \Configuration::updateValue('IFTHENPAY_PAYSHOP_KEY', $this->gatewayDataBuilder->getData()->subEntidade);
             \Configuration::updateValue('IFTHENPAY_PAYSHOP_VALIDADE', \Tools::getValue('IFTHENPAY_PAYSHOP_VALIDADE'));
+
+            \Configuration::updateValue('IFTHENPAY_PAYSHOP_CANCEL_ORDER_AFTER_TIMEOUT', \Tools::getValue('IFTHENPAY_PAYSHOP_CANCEL_ORDER_AFTER_TIMEOUT'));
+
 
             $this->setIfthenpayCallback();
 
@@ -166,5 +191,6 @@ class PayshopConfigForm extends ConfigForm
         \Configuration::deleteByName('IFTHENPAY_PAYSHOP_VALIDADE');
         \Configuration::deleteByName('IFTHENPAY_PAYSHOP_URL_CALLBACK');
         \Configuration::deleteByName('IFTHENPAY_PAYSHOP_CHAVE_ANTI_PHISHING');
+        \Configuration::deleteByName('IFTHENPAY_PAYSHOP_CANCEL_ORDER_AFTER_TIMEOUT');
     }
 }

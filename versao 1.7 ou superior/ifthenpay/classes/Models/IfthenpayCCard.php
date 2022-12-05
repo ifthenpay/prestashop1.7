@@ -97,4 +97,17 @@ class IfthenpayCCard extends \ObjectModel implements PaymentModelInterface
             return array();
         }
     }
+
+    public static function getAllPendingOrders()
+    {
+        
+        $rowOrder = \Db::getInstance()
+            ->executeS('SELECT * FROM `' . _DB_PREFIX_ . 'orders`' . ' WHERE `current_state` = ' . \Configuration::get('IFTHENPAY_CCARD_OS_WAITING') . ' AND `payment` = "ccard"');
+
+        if (is_array($rowOrder)) {
+            return $rowOrder;
+        } else {
+            return array();
+        }
+    }
 }

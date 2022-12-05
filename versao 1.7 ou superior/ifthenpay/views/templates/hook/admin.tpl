@@ -46,6 +46,12 @@
 								{l s='Reference:' mod='ifthenpay'}
 								<span class="badge">{$referencia}</span>
 							</li>
+							{if $validade != ''}
+								<li class="list-group-item">
+									{l s='Deadline:' mod='ifthenpay'}
+									<span class="badge">{$validade}</span>
+								</li>
+							{/if}
 							<li class="list-group-item">
 								{l s='Total to Pay:' mod='ifthenpay'}
 								<span class="badge">{$totalToPay}</span>
@@ -72,11 +78,13 @@
 									{l s='Reference:' mod='ifthenpay'}
 									<span class="badge">{$referencia}</span>
 								</li>
+								{if $validade != ''}
+									<li class="list-group-item">
+										{l s='Deadline:' mod='ifthenpay'}
+										<span class="badge">{$validade}</span>
+									</li>
+								{/if}
 								<li class="list-group-item">
-									{l s='Deadline:' mod='ifthenpay'}
-									<span class="badge">{$validade}</span>
-								</li>
-															<li class="list-group-item">
 									{l s='IdRequest:' mod='ifthenpay'}
 									<span class="badge">{$idPedido}</span>
 								</li>

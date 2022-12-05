@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -37,8 +38,8 @@ class PayshopOrderDetail extends PayshopBase implements OrderDetailInterface
     public function setSmartyVariables()
     {
         $this->smartyDefaultData->setReferencia(!empty($this->paymentDataFromDb) ? $this->paymentDataFromDb['referencia'] : '');
-        $this->smartyDefaultData->setValidade(!empty($this->paymentDataFromDb) ? 
-            (new \DateTime($this->paymentDataFromDb['validade']))->format('d-m-Y') : ''
+        $this->smartyDefaultData->setValidade((!empty($this->paymentDataFromDb) && isset($this->paymentDataFromDb['validade']) && $this->paymentDataFromDb['validade'] != '') ?
+                (new \DateTime($this->paymentDataFromDb['validade']))->format('d-m-Y') : ''
         );
         $this->smartyDefaultData->setIdPedido(!empty($this->paymentDataFromDb) ? $this->paymentDataFromDb['id_transacao'] : '');
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -41,9 +42,17 @@ class MultibancoAdminOrder extends MultibancoBase implements AdminOrderInterface
         if ($paymentInDatabase) {
             $this->smartyDefaultData->setEntidade($this->paymentDataFromDb['entidade']);
             $this->smartyDefaultData->setReferencia($this->paymentDataFromDb['referencia']);
+            $this->smartyDefaultData->setValidade(
+                (isset($this->paymentDataFromDb['validade']) && $this->paymentDataFromDb['validade'] != '') ?
+                    (new \DateTime($this->paymentDataFromDb['validade']))->format('d-m-Y') : ''
+            );
         } else {
             $this->smartyDefaultData->setEntidade($this->paymentGatewayResultData->entidade);
             $this->smartyDefaultData->setReferencia($this->paymentGatewayResultData->referencia);
+            $this->smartyDefaultData->setValidade(
+                (isset($this->paymentDataFromDb['validade']) && $this->paymentDataFromDb['validade'] != '') ?
+                    (new \DateTime($this->paymentGatewayResultData->validade))->format('d-m-Y') : ''
+            );
         }
     }
 

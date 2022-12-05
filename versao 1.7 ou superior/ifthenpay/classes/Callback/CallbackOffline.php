@@ -39,23 +39,51 @@ class CallbackOffline extends CallbackProcess implements CallbackProcessInterfac
     public function process()
     {
         $this->request['payment'] = $this->paymentMethod;
-        
+
         $this->setPaymentData();
-        
+
         if (empty($this->paymentData)) {
             $this->executePaymentNotFound();
         } else {
             try {
                 $this->setOrder();
                 CallbackFactory::buildCalllbackValidate($_GET, $this->order, \Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_CHAVE_ANTI_PHISHING'), $this->paymentData)
-                ->validate();
+                    ->validate();
                 IfthenpayLogProcess::addLog('Callback received and validated with success for payment method ' . $this->paymentMethod, IfthenpayLogProcess::INFO, $this->order->id);
                 $this->changeIfthenpayPaymentStatus('paid');
                 $this->changePrestashopOrderStatus(\Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_OS_CONFIRMED'));
                 IfthenpayLogProcess::addLog('Order status change with success to paid (after receiving callback)', IfthenpayLogProcess::INFO, $this->order->id);
+
+                if (isset($_GET['test']) && $_GET['test'] === 'true') {
+                    http_response_code(200);
+
+                    $ifthenpayModule = \Module::getInstanceByName('ifthenpay');
+
+                    $response = [
+                        'status' => 'success',
+                        'message' => $ifthenpayModule->l('Callback received and validated with success for payment method ', pathinfo(__FILE__)['filename']) . $this->paymentMethod
+                    ];
+
+
+                    die(json_encode($response));
+                }
+
                 http_response_code(200);
-                die('ok');           
+                die('ok');
             } catch (\Throwable $th) {
+
+                if (isset($_GET['test']) && $_GET['test'] === 'true') {
+                    http_response_code(200);
+
+                    $response = [
+                        'status' => 'warning',
+                        'message' => $th->getMessage(),
+                    ];
+
+
+                    die(json_encode($response));
+                }
+
                 IfthenpayLogProcess::addLog('Error processing callback - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $this->order->id);
                 http_response_code(400);
                 die($th->getMessage());

@@ -24,7 +24,7 @@
 *}
 
 <div class="panel-heading">
-	<h5>{l s='Pay by %s' mod='ifthenpay' sprintf=[$paymentMethod]}</h5>
+    <h5>{l s='Pay by %s' mod='ifthenpay' sprintf=[$paymentMethod]}</h5>
 </div>
 <div class="panel-body">
     <div class="paymentLogo">
@@ -32,72 +32,93 @@
     </div>
     <div class="paymentData">
         {if $paymentMethod == 'multibanco'}
-            <ul class="list-group">
-                <li class="list-group-item">
-                    {l s='Entity:' mod='ifthenpay'}
-                    <span>{$entidade}</span>
-                </li>
-                <li class="list-group-item">
-                    {l s='Reference:' mod='ifthenpay'}
-                    <span>{$referencia}</span>
-                </li>
-                <li class="list-group-item">
-                    {l s='Total to Pay:' mod='ifthenpay'}
-                    <span>{$totalToPay}</span>
-                </li>
-                {if $validade != ''}
-                    <li class="list-group-item">
-                    {l s='Deadline:' mod='ifthenpay'}
-                    <span>{$validade}</span>
-                </li>
-                {/if}
 
 
+            {* a table with 2 columns and three rows *}
 
-            </ul>
+            <table class="table if_table">
+                <tbody>
+                    <tr>
+                        <td class="if_td_desc">{l s='Entity:' mod='ifthenpay'}</td>
+                        <td class="if_td_value">{$entidade}</td>
+                    </tr>
+                    <tr>
+                        <td class="if_td_desc">{l s='Reference:' mod='ifthenpay'}</td>
+                        <td class="if_td_value">{$referencia}</td>
+                    </tr>
+                    <tr>
+                        <td class="if_td_desc">{l s='Total to Pay:' mod='ifthenpay'}</td>
+                        <td class="if_td_value">{$totalToPay}</td>
+                    </tr>
+                    {if $validade != ''}
+                        <tr>
+                            <td class="if_td_desc">{l s='Deadline:' mod='ifthenpay'}</td>
+                            <td class="if_td_value">{$validade}</td>
+                        </tr>
+                    {/if}
+                </tbody>
+            </table>
+            <p class="ifthenpay_info">{l s='Processed by ifthenpay' mod='ifthenpay'}</p>
+
+
         {elseif $paymentMethod == 'mbway'}
-            <ul class="list-group">
-                <li class="list-group-item">
-                    {l s='Phone:' mod='ifthenpay'}
-                    <span>{$telemovel}</span>
-                </li>
-                <li class="list-group-item">
-                    {l s='Order:' mod='ifthenpay'}
-                    <span>{$orderId}</span>
-                </li>
-                <li class="list-group-item">
-                    {l s='Total to Pay:' mod='ifthenpay'}
-                    <span>{$totalToPay}</span>
-                </li>
-            </ul>
+
+            <table class="table if_table">
+                <tbody>
+                    <tr>
+                        <td class="if_td_desc">{l s='Phone:' mod='ifthenpay'}</td>
+                        <td class="if_td_value">{$telemovel}</td>
+                    </tr>
+                    <tr>
+                        <td class="if_td_desc">{l s='Order:' mod='ifthenpay'}</td>
+                        <td class="if_td_value">{$orderId}</td>
+                    </tr>
+                    <tr>
+                        <td class="if_td_desc">{l s='Total to Pay:' mod='ifthenpay'}</td>
+                        <td class="if_td_value">{$totalToPay}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
             {if $resendMbwayNotificationControllerUrl != ''}
                 <div>
                     <h5>{l s='Did not receive MB WAY notification?' mod='ifthenpay'}</h5>
-                    <a class="btn btn-primary mbwayResendNotificationLink" href="{$resendMbwayNotificationControllerUrl}">{l s='Resend MB WAY notification' mod='ifthenpay'}</a>
+                    <a class="btn btn-primary mbwayResendNotificationLink"
+                        href="{$resendMbwayNotificationControllerUrl}">{l s='Resend MB WAY notification' mod='ifthenpay'}</a>
                 </div>
             {/if}
         {elseif $paymentMethod == 'payshop'}
-            <ul class="list-group">
-                <li class="list-group-item">
-                    {l s='Reference:' mod='ifthenpay'}
-                    <span>{$referencia}</span>
-                </li>
-                <li class="list-group-item">
-                    {l s='Deadline:' mod='ifthenpay'}
-                    <span>{$validade}</span>
-                </li>
-                <li class="list-group-item">
-                    {l s='Total to Pay:' mod='ifthenpay'}
-                    <span>{$totalToPay}</span>
-                </li>
-            </ul>
+
+            <table class="table if_table">
+                <tbody>
+                    <tr>
+                        <td class="if_td_desc">{l s='Reference:' mod='ifthenpay'}</td>
+                        <td class="if_td_value">{$referencia}</td>
+                    </tr>
+                    {if $validade != ''}
+                        <tr>
+                            <td class="if_td_desc">{l s='Deadline:' mod='ifthenpay'}</td>
+                            <td class="if_td_value">{$validade}</td>
+                        </tr>
+                    {/if}
+                    <tr>
+                        <td class="if_td_desc">{l s='Total to Pay:' mod='ifthenpay'}</td>
+                        <td class="if_td_value">{$totalToPay}</td>
+                    </tr>
+                </tbody>
+            </table>
+
         {else}
-            <ul class="list-group">
-                <li class="list-group-item">
-                    {l s='Total to Pay:' mod='ifthenpay'}
-                    <span>{$totalToPay}</span>
-                </li>
-            </ul>
+
+            <table class="table if_table">
+                <tbody>
+                    <tr>
+                        <td class="if_td_desc">{l s='Total to Pay:' mod='ifthenpay'}</td>
+                        <td class="if_td_value">{$totalToPay}</td>
+                    </tr>
+                </tbody>
+            </table>
         {/if}
     </div>
 </div>

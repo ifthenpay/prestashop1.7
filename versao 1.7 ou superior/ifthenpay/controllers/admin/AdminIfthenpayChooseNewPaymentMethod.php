@@ -52,6 +52,7 @@ class AdminIfthenpayChooseNewPaymentMethodController extends ModuleAdminControll
                 if ($ifthenpayGateway->checkIfthenpayPaymentMethod($order->payment)) {
                     $paymentMethod = Tools::getValue('newPaymentMethod');
                     $ifthenpayModel = IfthenpayModelFactory::build($order->payment);
+                    //(old)
                     $data = $ifthenpayModel->getByOrderId((string)$order->id);
                     IfthenpayModelFactory::build($order->payment, $data['id_ifthenpay_' . $order->payment])->delete();
                     $order->payment = $paymentMethod;
@@ -66,7 +67,7 @@ class AdminIfthenpayChooseNewPaymentMethodController extends ModuleAdminControll
                     $new_history->id_order = (int) $order->id;
                     $new_history->changeIdOrderState((int) \Configuration::get('IFTHENPAY_' . Tools::strtoupper($order->payment) . '_OS_WAITING'), (int) $order->id);
                     $new_history->addWithemail(true);
-                    IfthenpayLogProcess::addLog('Payment method changed with success to ' . $paymentMethod, IfthenpayLogProcess::INFO, $order->id);
+                    IfthenpayLogProcess::addLog('Payment method changed with success from [old] ' . Utility::dataToString($data) .' to [new] ' . $paymentMethod, IfthenpayLogProcess::INFO, $order->id);
 
                     Utility::setPrestashopCookie('success', $this->module->l('Payment method changed with success!', pathinfo(__FILE__)['filename']));
                 }

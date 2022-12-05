@@ -61,7 +61,6 @@ class IfthenpayUpdateIfthenpayUserAccountModuleFrontController extends ModuleFro
             IfthenpayLogProcess::addLog('Backoffice key authenticated with success', IfthenpayLogProcess::INFO, 0);
             Configuration::updateValue('IFTHENPAY_USER_PAYMENT_METHODS', serialize($ifthenpayGateway->getPaymentMethods()));
             Configuration::updateValue('IFTHENPAY_USER_ACCOUNT', serialize($ifthenpayGateway->getAccount()));
-            Configuration::deleteByName('IFTHENPAY_UPDATE_USER_ACCOUNT_TOKEN');
             IfthenpayLogProcess::addLog('Ifthenpay user account updated with success', IfthenpayLogProcess::INFO, 0);
             http_response_code(200);
             die('User Account updated with success!');

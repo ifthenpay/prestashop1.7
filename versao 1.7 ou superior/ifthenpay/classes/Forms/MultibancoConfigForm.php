@@ -98,6 +98,27 @@ class MultibancoConfigForm extends ConfigForm
             ]
         ];
 
+        // cancel after timer of 30 minutes
+        $this->form['form']['input'][] = [
+            'type' => 'switch',
+            'label' => $this->ifthenpayModule->l('Cancel Multibanco Order', pathinfo(__FILE__)['filename']),
+            'name' => 'IFTHENPAY_MULTIBANCO_CANCEL_ORDER_AFTER_TIMEOUT',
+            'desc' => $this->ifthenpayModule->l('Cancel order if not payed before end of Deadline. Requires Deadline to be set. This is triggered when admin visits the order list page.', pathinfo(__FILE__)['filename']),
+            'is_bool' => true,
+            'values' => [
+                [
+                    'id' => 'active_on',
+                    'value' => true,
+                    'label' => $this->ifthenpayModule->l('Activate', pathinfo(__FILE__)['filename'])
+                ],
+                [
+                    'id' => 'active_off',
+                    'value' => false,
+                    'label' => $this->ifthenpayModule->l('Disabled', pathinfo(__FILE__)['filename'])
+                ]
+            ]
+        ];
+
         // add min max and country form elements
         $this->addMinMaxFieldsToForm();
         $this->addCountriesFieldToForm();
@@ -116,6 +137,8 @@ class MultibancoConfigForm extends ConfigForm
             'IFTHENPAY_MULTIBANCO_ENTIDADE' => \Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE'),
             'IFTHENPAY_MULTIBANCO_SUBENTIDADE' => \Configuration::get('IFTHENPAY_MULTIBANCO_SUBENTIDADE'),
             'IFTHENPAY_MULTIBANCO_VALIDADE' => $validade,
+            'IFTHENPAY_MULTIBANCO_CANCEL_ORDER_AFTER_TIMEOUT' => \Configuration::get('IFTHENPAY_MULTIBANCO_CANCEL_ORDER_AFTER_TIMEOUT')
+
         ]);
     }
 
@@ -160,8 +183,11 @@ class MultibancoConfigForm extends ConfigForm
 
             if ($this->gatewayDataBuilder->getData()->entidade == 'MB' || $this->gatewayDataBuilder->getData()->entidade == 'mb') {
                 \Configuration::updateValue('IFTHENPAY_MULTIBANCO_VALIDADE', $this->gatewayDataBuilder->getData()->validade);
+                \Configuration::updateValue('IFTHENPAY_MULTIBANCO_CANCEL_ORDER_AFTER_TIMEOUT', \Tools::getValue('IFTHENPAY_MULTIBANCO_CANCEL_ORDER_AFTER_TIMEOUT'));
+            }else {
+                \Configuration::updateValue('IFTHENPAY_MULTIBANCO_VALIDADE', '');
+                \Configuration::updateValue('IFTHENPAY_MULTIBANCO_CANCEL_ORDER_AFTER_TIMEOUT', '');
             }
-
             $this->setIfthenpayCallback();
 
             $this->updatePayMethodCommonValues();
@@ -207,6 +233,8 @@ class MultibancoConfigForm extends ConfigForm
         \Configuration::deleteByName('IFTHENPAY_MULTIBANCO_VALIDADE');
         \Configuration::deleteByName('IFTHENPAY_MULTIBANCO_URL_CALLBACK');
         \Configuration::deleteByName('IFTHENPAY_MULTIBANCO_CHAVE_ANTI_PHISHING');
+        \Configuration::deleteByName('IFTHENPAY_MULTIBANCO_CANCEL_ORDER_AFTER_TIMEOUT');
+
     }
 
 

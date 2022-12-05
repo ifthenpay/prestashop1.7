@@ -40,26 +40,88 @@
     <div class="panel-body body-paymentMethod">
         {if $paymentMethod === 'mbway'}
             <p>{l s='This module allows secure payment by %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}.</p>
-            <p>{l s='If the customer chooses to pay by %s, the order status will be placed in "Wait for payment by %s"' mod='ifthenpay' sprintf=[$paymentMethod|capitalize, $paymentMethod|capitalize]}.</p>
-            <p>{l s='When payment is made, the order status will change to "Payment confirmed by %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}."</p>
+            <p>{l s='If the customer chooses to pay by %s, the order status will be placed in "Wait for payment by %s"' mod='ifthenpay' sprintf=[$paymentMethod|capitalize, $paymentMethod|capitalize]}.
+            </p>
+        <p>{l s='When payment is made, the order status will change to "Payment confirmed by %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}."
+            </p>
+
+
+
+
+
+
 
         {elseif $paymentMethod === 'ccard'}
-            <p>{l s='This module allows secure payment by credit card' mod='ifthenpay'}.</p>
-            <p>{l s='If the customer chooses to pay by credit card, the order status will be placed in "Wait for payment by credit card"' mod='ifthenpay'}.</p>
-            <p>{l s='When payment is made, the order status will change to "Payment confirmed by credit card' mod='ifthenpay'}."</p>
-            <p>{l s='This method does not make use of the callback function to change order state, this is handled internally. To test credit card payed orders you must use a test card which you can request from Ifthenpay' mod='ifthenpay'}.</p>
+            <p>
+
+
+
+
+
+            {l s='This module allows secure payment by credit card' mod='ifthenpay'}.</p>
+            <p>
+
+
+
+
+
+            {l s='If the customer chooses to pay by credit card, the order status will be placed in "Wait for payment by credit card"' mod='ifthenpay'}.
+            </p>
+            <p>
+
+
+
+
+
+            {l s='When payment is made, the order status will change to "Payment confirmed by credit card' mod='ifthenpay'}."
+            </p>
+            <p>
+
+
+
+
+
+            {l s='This method does not make use of the callback function to change order state, this is handled internally. To test credit card payed orders you must use a test card which you can request from Ifthenpay' mod='ifthenpay'}.
+            </p>
+
+
+
+
+
+
 
         {else}
-            <p>{l s='This module allows secure payment by Reference %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}.</p>
-            <p>{l s='If the customer chooses to pay by %s reference, the order status will be placed in "Wait for payment by %s"' mod='ifthenpay' sprintf=[$paymentMethod|capitalize, $paymentMethod|capitalize]}.</p>
-            <p>{l s='When payment is made, the order status will change to "Payment confirmed by %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}."</p>
+            <p>
+
+
+
+
+
+            {l s='This module allows secure payment by Reference %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}.
+            </p>
+            <p>
+
+
+
+
+
+            {l s='If the customer chooses to pay by %s reference, the order status will be placed in "Wait for payment by %s"' mod='ifthenpay' sprintf=[$paymentMethod|capitalize, $paymentMethod|capitalize]}.
+            </p>
+            <p>
+
+
+
+
+
+            {l s='When payment is made, the order status will change to "Payment confirmed by %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}."
+            </p>
         {/if}
     </div>
 </div>
 {* info panel end *}
 
 {* specific payment method settings panel start *}
-    {$form}
+{$form}
 {* specific payment method settings panel end *}
 
 {* callback panel start *}
@@ -98,6 +160,73 @@
             </div>
         </div>
     </div>
+
+
+    <div class="panel">
+        <div class="panel-heading">
+            <i class="icon-rotate-left"></i>
+            {l s='Test Callback' mod='ifthenpay'}
+        </div>
+        <div id="callback_result" class="bootstrap"></div>
+
+        <div class="panel-body form-horizontal">
+            <div class="form-wrapper" style="max-width: 83.33333%; margin: auto; padding: 14px 0;">
+
+
+                {if $paymentMethod === 'multibanco'}
+
+                    <div class="form-group" style="display: block;">
+                        <label class="control-label col-lg-4">{l s='Reference' mod='ifthenpay'}</label>
+                        <div class="col-lg-8">
+                            <input type="text" id="reference" name="reference" class="form-control" />
+                        </div>
+                    </div>
+
+                {elseif $paymentMethod === 'mbway'}
+
+                    <div class="form-group" style="display: block;">
+                        <label class="control-label col-lg-4">{l s='MB WAY Transaction ID' mod='ifthenpay'}</label>
+                        <div class="col-lg-8">
+                            <input type="text" id="mbway_transaction_id" name="mbway_transaction_id" class="form-control" />
+                            <p class="help-block">{l s='Can be found as "MB WAY Request ID" in the SELL/Orders/Orders by selecting the order you wish to test and scrolling down to order payment details' mod='ifthenpay'}</p>
+
+                        </div>
+                    </div>
+
+                {elseif $paymentMethod === 'payshop'}
+
+                    <div class="form-group" style="display: block;">
+                        <label class="control-label col-lg-4">{l s='Payshop Transaction ID' mod='ifthenpay'}</label>
+                        <div class="col-lg-8">
+                            <input type="text" id="payshop_transaction_id" name="payshop_transaction_id" class="form-control" />
+                            <p class="help-block">{l s='Can be found as "IdRequest" in the SELL/Orders/Orders by selecting the order you wish to test and scrolling down to order payment details' mod='ifthenpay'}</p>
+                        </div>
+                    </div>
+
+                {/if}
+
+
+                <div class="form-group" style="display: block;">
+                    <label class="control-label col-lg-4">{l s='Amount' mod='ifthenpay'}</label>
+                    <div class="col-lg-8">
+                        <input type="text" id="amount" name="amount" class="form-control" />
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="panel-footer">
+            <button type="button" id="testCallback" class="btn btn-default pull-right">
+                <i class="process-icon-refresh"></i>
+                {l s='Test Callback' mod='ifthenpay'}
+            </button>
+        </div>
+
+
+    </div>
+
+
 {/if}
 {* callback panel end *}
-

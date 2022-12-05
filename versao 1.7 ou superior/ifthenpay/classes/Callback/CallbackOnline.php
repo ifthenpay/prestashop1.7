@@ -87,12 +87,26 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
                     } else if($paymentStatus === 'cancel') {
                         $this->changeIfthenpayPaymentStatus('cancel');
                         $this->changePrestashopOrderStatus(\Configuration::get('PS_OS_CANCELED'));
+                        $msg = isset($this->$this->request['error']) 
+                        ? ' id:' . $this->request['id'] . ' amount:' . $this->request['amount'] .  ' requestId:' . $this->request['requestId'] . 'error: ' . json_encode($this->request['error']) 
+                        : 'error data not found';
+
                         IfthenpayLogProcess::addLog('Payment by credit card canceled by the client', IfthenpayLogProcess::INFO, $this->order->id);
                         $this->redirectUser('cancel', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Payment by credit card canceled',  Utility::getClassName($this)));
                     } else {
                         $this->changeIfthenpayPaymentStatus('error');
                         $this->changePrestashopOrderStatus(\Configuration::get('PS_OS_ERROR'));
-                        IfthenpayLogProcess::addLog('Error processing credit card payment', IfthenpayLogProcess::INFO, $this->order->id);
+                        
+                        // prepare error message
+                        $errorMsg = '{}';
+                        if (isset($this->request['error'])) {
+                            $errorData = Utility::extractArrayWithKeys($this->request, ['error', 'id', 'amount', 'requestId']);
+                            $errorMsg = Utility::dataToString($errorData);
+                        }
+                        $errorMsg = $errorMsg === '{}' ? 'error data not found' : $errorMsg;
+
+
+                        IfthenpayLogProcess::addLog('Error processing credit card payment - ' . $errorMsg, IfthenpayLogProcess::INFO, $this->order->id);
                         $this->redirectUser('error', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Error processing credit card payment',  Utility::getClassName($this)));
                     }
                 } else if ($this->paymentData['status'] === 'cancel') {

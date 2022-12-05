@@ -45,27 +45,27 @@
 		<div id="confirmMbwayOrder" class="panel" style="display:none;">
 			<div class="panel-heading mbway_status">
 				<img src="{$confirmOrderImg}" alt="confirm order icon">
-				<h3>{l s='Order Paid!' mod='ifthenpay'}</h3>
 			</div>
 			<div class="panel-body">
+				<h3>{l s='Order Paid!' mod='ifthenpay'}</h3>
 				<p>{l s='Payment confirmed, your order will be shipped.' mod='ifthenpay'}</p>
 			</div>
 		</div>
 		<div id="refusedMbwayOrder" class="panel" style="display:none;">
 			<div class="panel-heading mbway_status">
 				<img src="{$refusedOrderImg}" alt="refused order icon">
-				<h3>{l s='MB WAY payment refused!' mod='ifthenpay'}</h3>
-			</div>
+				</div>
 			<div class="panel-body">
+				<h3>{l s='MB WAY payment refused!' mod='ifthenpay'}</h3>
 				<p>{l s='Order payment refused from MB WAY app.' mod='ifthenpay'}</p>
 			</div>
 		</div>
 		<div id="errorMbwayOrder" class="panel" style="display:none;">
 			<div class="panel-heading mbway_status">
 					<img src="{$errorOrderImg}" alt="error order icon">
-					<h3>{l s='MB WAY payment failed!' mod='ifthenpay'}</h3>
 			</div>
 			<div class="panel-body">
+				<h3>{l s='MB WAY payment failed!' mod='ifthenpay'}</h3>
 				<p>{l s='Order payment by MB WAY failed either from incorrect phone number or SIBS downtime.' mod='ifthenpay'}</p>
 			</div>
 		</div>
