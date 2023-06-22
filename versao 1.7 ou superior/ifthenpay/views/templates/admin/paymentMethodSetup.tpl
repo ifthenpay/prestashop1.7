@@ -153,7 +153,7 @@
                     <div class="col-md-3 col-sm-12">
                         {l s='Callback Url' mod='ifthenpay'}
                     </div>
-                    <div class="col-md-9 col-sm-12">
+                    <div class="col-md-9 col-sm-12 text-right">
                         <span id="callbackUrl" class="badge">{$urlCallback}</span>
                     </div>
                 </div>

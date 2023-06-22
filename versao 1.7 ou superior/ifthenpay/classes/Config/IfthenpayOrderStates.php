@@ -60,20 +60,20 @@ class IfthenpayOrderStates implements InstallerInterface
                                 'Aguarda pagamento por ' . \Tools::ucfirst($paymentMethod) : 'Confirmado pagamento por ' . \Tools::ucfirst($paymentMethod);
                         }
                     }
-                    $order_state->send_email = strpos($status, 'WAITING')  ? false : true;
+                    $order_state->send_email = strpos($status, 'WAITING') ? false : true;
                     $order_state->template = strpos($status, 'WAITING') ? '' : 'payment';
                     $order_state->color = strpos($status, 'WAITING') ? '#FF8100' : '#33B200';
                     $order_state->hidden = false;
                     $order_state->delivery = false;
-                    $order_state->logable = strpos($status, 'WAITING')  ? false : true;
+                    $order_state->logable = strpos($status, 'WAITING') ? false : true;
                     $order_state->invoice = false;
                     $order_state->module_name = 'ifthenpay';
                     $order_state->unremovable = true;
-                    $order_state->paid = strpos($status, 'WAITING')  ? false : true;
+                    $order_state->paid = strpos($status, 'WAITING') ? false : true;
 
                     if ($order_state->add()) {
                         $source = _PS_MODULE_DIR_ . 'ifthenpay/views/img/os_' . $paymentMethod . '.png';
-                        $destination = _PS_ROOT_DIR_ . '/img/os/' . (int)$order_state->id . '.gif';
+                        $destination = _PS_ROOT_DIR_ . '/img/os/' . (int) $order_state->id . '.gif';
                         copy($source, $destination);
                     } else {
                         throw new \Exception('Error saving order state.');
@@ -82,7 +82,7 @@ class IfthenpayOrderStates implements InstallerInterface
                     if (\Shop::isFeatureActive()) {
                         $shops = \Shop::getShops();
                         foreach ($shops as $shop) {
-                            \Configuration::updateValue($status, (int) $order_state->id, false, null, (int)$shop['id_shop']);
+                            \Configuration::updateValue($status, (int) $order_state->id, false, null, (int) $shop['id_shop']);
                         }
                     } else {
                         \Configuration::updateValue($status, (int) $order_state->id);
@@ -95,21 +95,20 @@ class IfthenpayOrderStates implements InstallerInterface
     public function uninstall()
     {
         /* @var $orderState OrderState */
-       /* $result = true;
+        /* $result = true;
         $collection = PrestashopFactory::buildPrestaShopCollection('OrderState');
         $collection->where('module_name', '=', 'ifthenpay');
         $orderStates = $collection->getResults();
-
         if ($orderStates !== false) {
-            foreach ($orderStates as $orderState) {
-                $result &= $orderState->delete();
-            }
+        foreach ($orderStates as $orderState) {
+        $result &= $orderState->delete();
+        }
         }*/
 
         $query = new \DbQuery();
         $query->select('id_order_state');
         $query->from('order_state');
-        $query->where('module_name = \''.pSQL('ifthenpay').'\'');
+        $query->where('module_name = \'' . pSQL('ifthenpay') . '\'');
 
         $orderStateData = \Db::getInstance()->executeS($query);
 
@@ -118,8 +117,8 @@ class IfthenpayOrderStates implements InstallerInterface
                 $query = new \DbQuery();
                 $query->select('1');
                 $query->from('orders');
-                $query->where('current_state = '.$data['id_order_state']);
-                $isUsed = (bool)\Db::getInstance()->getValue($query);
+                $query->where('current_state = ' . $data['id_order_state']);
+                $isUsed = (bool) \Db::getInstance()->getValue($query);
                 $orderState = new \OrderState($data['id_order_state']);
                 if ($isUsed && version_compare(_PS_VERSION_, '1.7.6.8', '>')) {
                     $orderState->deleted = true;

@@ -44,11 +44,11 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
         if ($type === 'success') {
             \Context::getContext()->controller->success[] = $ifthenpayModule->l($message, pathinfo(__FILE__)['filename']);
         } else {
-            \Context::getContext()->controller->errors[] = $ifthenpayModule->l($message,  Utility::getClassName($this));
+            \Context::getContext()->controller->errors[] = $ifthenpayModule->l($message, Utility::getClassName($this));
         }
         \Context::getContext()->controller->redirectWithNotifications($redirectUrl);
     }
-    
+
     public function process()
     {
         $this->setPaymentData();
@@ -62,42 +62,43 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
                 $customer = PrestashopModelFactory::buildCustomer((string) $cart->id_customer);
                 $this->setOrder();
                 $redirectUrl = \Context::getContext()->link->getPageLink('order-confirmation', true) .
-                '?id_cart=' . $this->request['cartId'] . '&id_module=' . (int)$ifthenpayModule->id . '&id_order=' . $this->order->id . '&key='.
-                $customer->secure_key . '&paymentOption=ccard';
+                    '?id_cart=' . $this->request['cartId'] . '&id_module=' . (int) $ifthenpayModule->id . '&id_order=' . $this->order->id . '&key=' .
+                    $customer->secure_key . '&paymentOption=ccard';
                 if ($this->paymentData['status'] === 'pending') {
                     $paymentStatus = Status::getTokenStatus(
                         Token::decrypt($this->request['qn'])
                     );
                     if ($paymentStatus === 'success') {
-                        if ($this->request['sk'] !== TokenExtra::encript(
-                            $this->request['id'] . $this->request['amount'] . $this->request['requestId'], \Configuration::get('IFTHENPAY_CCARD_KEY'))) {
-                                throw new \Exception($ifthenpayModule->l('Invalid security token',  Utility::getClassName($this)));
+                        if (
+                            $this->request['sk'] !== TokenExtra::encript(
+                                $this->request['id'] . $this->request['amount'] . $this->request['requestId'], \Configuration::get('IFTHENPAY_CCARD_KEY')
+                            )
+                        ) {
+                            throw new \Exception($ifthenpayModule->l('Invalid security token', Utility::getClassName($this)));
                         }
                         $orderTotal = floatval(Utility::convertPriceToEuros($this->order));
                         $requestValor = floatval($this->request['amount']);
                         if (round($orderTotal, 2) !== round($requestValor, 2)) {
                             IfthenpayLogProcess::addLog('Payment value by credit card not valid - ' . print_r($_GET), IfthenpayLogProcess::ERROR, $this->order->id);
-                            \Context::getContext()->controller[] = $ifthenpayModule->l('Payment by credit card not valid',  Utility::getClassName($this));
+                            \Context::getContext()->controller[] = $ifthenpayModule->l('Payment by credit card not valid', Utility::getClassName($this));
                             \Context::getContext()->controller->redirectWithNotifications($redirectUrl);
                         }
                         $this->changeIfthenpayPaymentStatus('paid');
                         $this->changePrestashopOrderStatus(\Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_OS_CONFIRMED'));
+
                         IfthenpayLogProcess::addLog('Payment by credit card made with success', IfthenpayLogProcess::INFO, $this->order->id);
-                        $this->redirectUser('success', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Payment by credit card made with success',  Utility::getClassName($this)));     
-                    } else if($paymentStatus === 'cancel') {
+                        $this->redirectUser('success', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Payment by credit card made with success', Utility::getClassName($this)));
+                    } else if ($paymentStatus === 'cancel') {
                         $this->changeIfthenpayPaymentStatus('cancel');
                         $this->changePrestashopOrderStatus(\Configuration::get('PS_OS_CANCELED'));
-                        $msg = isset($this->$this->request['error']) 
-                        ? ' id:' . $this->request['id'] . ' amount:' . $this->request['amount'] .  ' requestId:' . $this->request['requestId'] . 'error: ' . json_encode($this->request['error']) 
-                        : 'error data not found';
 
                         IfthenpayLogProcess::addLog('Payment by credit card canceled by the client', IfthenpayLogProcess::INFO, $this->order->id);
-                        $this->redirectUser('cancel', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Payment by credit card canceled',  Utility::getClassName($this)));
+                        $this->redirectUser('cancel', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Payment by credit card canceled', Utility::getClassName($this)));
                     } else {
                         $this->changeIfthenpayPaymentStatus('error');
                         $this->changePrestashopOrderStatus(\Configuration::get('PS_OS_ERROR'));
-                        
-                        // prepare error message
+
+                        // prepare error message with details of the error
                         $errorMsg = '{}';
                         if (isset($this->request['error'])) {
                             $errorData = Utility::extractArrayWithKeys($this->request, ['error', 'id', 'amount', 'requestId']);
@@ -107,20 +108,20 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
 
 
                         IfthenpayLogProcess::addLog('Error processing credit card payment - ' . $errorMsg, IfthenpayLogProcess::INFO, $this->order->id);
-                        $this->redirectUser('error', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Error processing credit card payment',  Utility::getClassName($this)));
+                        $this->redirectUser('error', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Error processing credit card payment', Utility::getClassName($this)));
                     }
                 } else if ($this->paymentData['status'] === 'cancel') {
-                    $this->redirectUser('cancel', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Order has already been canceled by the customer',  Utility::getClassName($this)));
+                    $this->redirectUser('cancel', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Order has already been canceled by the customer', Utility::getClassName($this)));
                 } else if ($this->paymentData['status'] === 'error') {
-                    $this->redirectUser('error', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Error processing credit card payment',  Utility::getClassName($this)));
+                    $this->redirectUser('error', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Error processing credit card payment', Utility::getClassName($this)));
                 } else {
-                    $this->redirectUser('error', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Order has already been paid',  Utility::getClassName($this)));
+                    $this->redirectUser('error', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Order has already been paid', Utility::getClassName($this)));
                 }
             } catch (\Throwable $th) {
                 $this->changeIfthenpayPaymentStatus('error');
                 $this->changePrestashopOrderStatus(\Configuration::get('PS_OS_ERROR'));
                 IfthenpayLogProcess::addLog('Error processing credit card callback - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $this->order->id);
-                $this->redirectUser('error', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Error processing credit card payment',  Utility::getClassName($this)));
+                $this->redirectUser('error', $ifthenpayModule, $redirectUrl, $ifthenpayModule->l('Error processing credit card payment', Utility::getClassName($this)));
             }
         }
     }

@@ -28,44 +28,45 @@
 namespace PrestaShop\Module\Ifthenpay\Base\Payments;
 
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
 use PrestaShop\Module\Ifthenpay\Base\PaymentBase;
 
 class MultibancoBase extends PaymentBase
 {
-    protected function setGatewayBuilderData()
-    {
-        $this->gatewayBuilder->setEntidade(\Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE'));
-        $this->gatewayBuilder->setSubEntidade(\Configuration::get('IFTHENPAY_MULTIBANCO_SUBENTIDADE'));
-        if (\Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE') == 'MB' || \Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE') == 'mb') {
-            $this->gatewayBuilder->setValidade(\Configuration::get('IFTHENPAY_MULTIBANCO_VALIDADE'));
-        }
-    }
+	protected function setGatewayBuilderData()
+	{
+		$this->gatewayBuilder->setEntidade(\Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE'));
+		$this->gatewayBuilder->setSubEntidade(\Configuration::get('IFTHENPAY_MULTIBANCO_SUBENTIDADE'));
+		if (\Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE') == 'MB' || \Configuration::get('IFTHENPAY_MULTIBANCO_ENTIDADE') == 'mb') {
+			$this->gatewayBuilder->setValidade(\Configuration::get('IFTHENPAY_MULTIBANCO_VALIDADE'));
+		}
+	}
 
-    protected function saveToDatabase()
-    {
-        $this->paymentModel->entidade = $this->paymentGatewayResultData->entidade;
-        $this->paymentModel->referencia = $this->paymentGatewayResultData->referencia;
-        $this->paymentModel->order_id = $this->paymentDefaultData->order->id;
-        $this->paymentModel->request_id = isset($this->paymentGatewayResultData->idPedido) ? $this->paymentGatewayResultData->idPedido : null;
-        $this->paymentModel->validade = isset($this->paymentGatewayResultData->validade) ? $this->paymentGatewayResultData->validade : null;
-        $this->paymentModel->status = 'pending';
-        $this->paymentModel->save();
-    }
+	protected function saveToDatabase()
+	{
+		$this->paymentModel->entidade = $this->paymentGatewayResultData->entidade;
+		$this->paymentModel->referencia = $this->paymentGatewayResultData->referencia;
+		$this->paymentModel->order_id = $this->paymentDefaultData->order->id;
+		$this->paymentModel->request_id = isset($this->paymentGatewayResultData->idPedido) ? $this->paymentGatewayResultData->idPedido : null;
+		$this->paymentModel->validade = isset($this->paymentGatewayResultData->validade) ? $this->paymentGatewayResultData->validade : null;
+		$this->paymentModel->status = 'pending';
+		$this->paymentModel->save();
+	}
 
-    protected function updateDatabase()
-    {
-        $this->setPaymentModel('multibanco', $this->paymentDataFromDb['id_ifthenpay_multibanco']);
-        $this->paymentModel->referencia = $this->paymentGatewayResultData->referencia;
-        $this->paymentModel->update();
-    }
+	protected function updateDatabase()
+	{
+		$this->setPaymentModel('multibanco', $this->paymentDataFromDb['id_ifthenpay_multibanco']);
+		$this->paymentModel->entidade = $this->paymentGatewayResultData->entidade;
+		$this->paymentModel->referencia = $this->paymentGatewayResultData->referencia;
+		$this->paymentModel->update();
+	}
 
-    protected function setEmailVariables()
-    {
-        $this->emailDefaultData['{mb_logo}'] = _PS_BASE_URL_ . _MODULE_DIR_ . 'ifthenpay/views/img/multibanco.png';
-        $this->emailDefaultData['{entidade}'] = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->entidade : $this->paymentDataFromDb['entidade'];
-        $this->emailDefaultData['{referencia}'] = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->referencia : $this->paymentDataFromDb['referencia'];
-    }
+	protected function setEmailVariables()
+	{
+		$this->emailDefaultData['{mb_logo}'] = _PS_BASE_URL_ . _MODULE_DIR_ . 'ifthenpay/views/img/multibanco.png';
+		$this->emailDefaultData['{entidade}'] = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->entidade : $this->paymentDataFromDb['entidade'];
+		$this->emailDefaultData['{referencia}'] = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->referencia : $this->paymentDataFromDb['referencia'];
+	}
 }
