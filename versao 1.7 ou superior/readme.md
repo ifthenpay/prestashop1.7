@@ -76,6 +76,7 @@ Follow the table below to verify Ifthenpay's module compatibility with your onli
 | Ifthenpay v1.3.1 | Not compatible | Compatible                     |
 | Ifthenpay v1.3.2 | Not compatible | Compatible                     |
 | Ifthenpay v1.3.3 | Not compatible | Compatible                     |
+| Ifthenpay v1.3.4 | Not compatible | Compatible                     |
 
 # Installation
 
