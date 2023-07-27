@@ -1,47 +1,59 @@
+# Notice: 
+## This module is only compatible with Prestashop 1.6 to 1.7. For Prestashop 8.0 and above, please use the [Ifthenpay Prestashop 8.0 payment module](https://github.com/ifthenpay/prestashop8)
+
+</br>
+</br>
+
+
+
 # Ifthenpay Prestashop 1.7 payment module
 
 Read this in ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pt.png) [Portuguese](readme.pt.md), and ![Inglês](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/en.png) [English](readme.md)
 
-[1. Introduction](#Introduction)
 
-[2. Compatibility](#Compatibility)
 
-[3. Installation](#Installation)
 
-[4. Configuration](#Configuration)
-  * [Backoffice Key](#Backoffice-Key)
-  * [Enable Payment Method](#Enable-Payment-Method)
-  * [Multibanco](#Multibanco)
-  * [Multibanco with Dynamic References](#Multibanco-with-Dynamic-References)
-  * [MB WAY](#MB-WAY)
-  * [Credit Card](#Credit-Card)
-  * [Payshop](#Payshop)
 
-[5. Edit payment details](#Edit-payment-details)
-  * [Update Payment Data](#Update-Payment-Data)
-  * [Resend Payment Data](#Resend-Payment-Data)
-  * [Remember Payment Data](#Remember-Payment-Data)
-  * [Choose Payment Method](#Choose-Payment-Method)
+[1. Introduction](#introduction)
+
+[2. Compatibility](#compatibility)
+
+[3. Installation](#installation)
+
+[4. Configuration](#configuration)
+  * [Backoffice Key](#backoffice-key)
+  * [Enable Payment Method](#enable-payment-method)
+  * [Multibanco](#multibanco)
+  * [Multibanco with Dynamic References](#multibanco-with-dynamic-references)
+  * [MB WAY](#mb-way)
+  * [Credit Card](#credit-card)
+  * [Payshop](#payshop)
+
+[5. Edit payment details](#edit-payment-details)
+  * [Update Payment Data](#update-payment-data)
+  * [Resend Payment Data](#resend-payment-data)
+  * [Remember Payment Data](#remember-payment-data)
+  * [Choose Payment Method](#choose-payment-method)
   
 
-[6. Other](#Other)
-  * [Support](#Support)
-  * [Request account](#Request-account)
-  * [Request additional account](#Request-additional-account)
-  * [Logs](#Logs)
-  * [Reset Configuration](#Reset-Configuration)
-  * [Updates](#Updates)
-  * [Sandbox Mode](#Sandbox-Mode)
-  * [Callback](#Callback)
-  * [Test Callback](#Test-Callback)
-  * [Known bug and fixes](#Known-bug-and-fixes)
+[6. Other](#other)
+  * [Support](#support)
+  * [Request account](#request-account)
+  * [Request additional account](#request-additional-account)
+  * [Logs](#logs)
+  * [Reset Configuration](#reset-configuration)
+  * [Updates](#updates)
+  * [Sandbox Mode](#sandbox-mode)
+  * [Callback](#callback)
+  * [Test Callback](#test-callback)
+  * [Known bug and fixes](#known-bug-and-fixes)
 
 
-[7. Customer usage experience](#Customer-usage-experience)
-  * [Paying order with Multibanco](#Paying-order-with-Multibanco)
-  * [Paying order with Payshop](#Paying-order-with-Payshop)
-  * [Paying order with MB WAY](#Paying-order-with-MB-WAY)
-  * [Paying order with Credit Card](#Paying-order-with-Credit-Card)
+[7. Customer usage experience](#customer-usage-experience)
+  * [Paying order with Multibanco](#paying-order-with-multibanco)
+  * [Paying order with Payshop](#paying-order-with-payshop)
+  * [Paying order with MB WAY](#paying-order-with-mb-way)
+  * [Paying order with Credit Card](#paying-order-with-credit-card)
 
 
 # Introduction
@@ -77,6 +89,7 @@ Follow the table below to verify Ifthenpay's module compatibility with your onli
 | Ifthenpay v1.3.2 | Not compatible | Compatible                     |
 | Ifthenpay v1.3.3 | Not compatible | Compatible                     |
 | Ifthenpay v1.3.4 | Not compatible | Compatible                     |
+| Ifthenpay v1.3.5 | Not compatible | Compatible                     |
 
 # Installation
 
