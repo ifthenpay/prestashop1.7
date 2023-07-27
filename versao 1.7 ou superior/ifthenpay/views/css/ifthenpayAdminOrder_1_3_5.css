@@ -1,0 +1,88 @@
+/**
+* 2007-2022 Ifthenpay Lda
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @copyright 2007-2022 Ifthenpay Lda
+*  @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
+*  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+*/
+/**
+* 2007-2022 Ifthenpay Lda
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @copyright 2007-2022 Ifthenpay Lda
+*  @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
+*  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+*/
+.panel-order-ifthenpay .panel-heading h3 {
+  font-weight: bold;
+  border-bottom: none !important;
+  margin-left: 5px !important;
+}
+.panel-order-ifthenpay .panel-body .paymentData .list-group {
+  width: 340px;
+}
+
+#mbway_phone_container {
+  height: 38px;
+}
+
+#mbway_phone_container img.input-group-text {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.paymentLogo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.adm_hist_actions {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.m_left_20 {
+  margin-left: 20px;
+}
+
+.m_bottom_20 {
+  margin-bottom: 20px;
+}
+
+.mbway_re_input {
+  vertical-align: middle;
+  display: inline-block;
+  width: auto;
+}

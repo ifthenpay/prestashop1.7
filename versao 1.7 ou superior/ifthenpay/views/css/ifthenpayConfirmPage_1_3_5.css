@@ -1,0 +1,159 @@
+/**
+* 2007-2022 Ifthenpay Lda
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @copyright 2007-2022 Ifthenpay Lda
+*  @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
+*  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+*/
+/**
+* 2007-2022 Ifthenpay Lda
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @copyright 2007-2022 Ifthenpay Lda
+*  @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
+*  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+*/
+#paymentReturnPanel, #cancelMbwayOrder, #confirmMbwayOrder, #refusedMbwayOrder, #errorMbwayOrder, #timeoutMbwayOrder, #orderErrorPanel {
+  width: 440px;
+  max-width: 100%;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+#paymentReturnPanel .panel-heading h5, #cancelMbwayOrder .panel-heading h5, #confirmMbwayOrder .panel-heading h5, #refusedMbwayOrder .panel-heading h5, #errorMbwayOrder .panel-heading h5, #timeoutMbwayOrder .panel-heading h5, #orderErrorPanel .panel-heading h5 {
+  margin-top: 0px;
+}
+#paymentReturnPanel .paymentLogo, #cancelMbwayOrder .paymentLogo, #confirmMbwayOrder .paymentLogo, #refusedMbwayOrder .paymentLogo, #errorMbwayOrder .paymentLogo, #timeoutMbwayOrder .paymentLogo, #orderErrorPanel .paymentLogo {
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+#paymentReturnPanel h5, #cancelMbwayOrder h5, #confirmMbwayOrder h5, #refusedMbwayOrder h5, #errorMbwayOrder h5, #timeoutMbwayOrder h5, #orderErrorPanel h5 {
+  margin-top: 20px;
+}
+#paymentReturnPanel .if_td_desc, #cancelMbwayOrder .if_td_desc, #confirmMbwayOrder .if_td_desc, #refusedMbwayOrder .if_td_desc, #errorMbwayOrder .if_td_desc, #timeoutMbwayOrder .if_td_desc, #orderErrorPanel .if_td_desc {
+  padding: 0.75rem 1.25rem;
+  width: 40%;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+#paymentReturnPanel .if_td_value, #cancelMbwayOrder .if_td_value, #confirmMbwayOrder .if_td_value, #refusedMbwayOrder .if_td_value, #errorMbwayOrder .if_td_value, #timeoutMbwayOrder .if_td_value, #orderErrorPanel .if_td_value {
+  font-weight: bold;
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+#paymentReturnPanel .ifthenpay_info, #cancelMbwayOrder .ifthenpay_info, #confirmMbwayOrder .ifthenpay_info, #refusedMbwayOrder .ifthenpay_info, #errorMbwayOrder .ifthenpay_info, #timeoutMbwayOrder .ifthenpay_info, #orderErrorPanel .ifthenpay_info {
+  text-align: center;
+  color: #7a7a7a;
+  margin: 0px;
+}
+
+.mbwayCountdownPanel {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  padding: 0;
+  margin-bottom: 20px;
+}
+.mbwayCountdownPanel .panel-body {
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 30px;
+  padding-left: 30px;
+  min-height: 200px;
+  width: 100%;
+  margin: auto;
+  margin-top: 21px;
+  margin-bottom: 15px;
+  background: white;
+  border-radius: 5px;
+}
+.mbwayCountdownPanel .panel-body h3 {
+  margin-top: 20px;
+}
+.mbwayCountdownPanel .panel-body #countdownMbway {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mbwayCountdownPanel .panel-body #countdownMbway h3 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 100px;
+  text-align: center;
+  font-weight: bolder;
+  color: red;
+}
+
+#cancelMbwayOrder, #confirmMbwayOrder, #refusedMbwayOrder, #errorMbwayOrder, #timeoutMbwayOrder, #orderErrorPanel {
+  margin-bottom: 20px;
+}
+#cancelMbwayOrder .panel-heading, #confirmMbwayOrder .panel-heading, #refusedMbwayOrder .panel-heading, #errorMbwayOrder .panel-heading, #timeoutMbwayOrder .panel-heading, #orderErrorPanel .panel-heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+#cancelMbwayOrder .panel-heading img, #confirmMbwayOrder .panel-heading img, #refusedMbwayOrder .panel-heading img, #errorMbwayOrder .panel-heading img, #timeoutMbwayOrder .panel-heading img, #orderErrorPanel .panel-heading img {
+  margin: auto;
+}
+#cancelMbwayOrder .panel-body, #confirmMbwayOrder .panel-body, #refusedMbwayOrder .panel-body, #errorMbwayOrder .panel-body, #timeoutMbwayOrder .panel-body, #orderErrorPanel .panel-body {
+  text-align: center;
+  margin-top: 10px;
+}
+
+#paymentReturnPanel, #confirmMbwayOrder, #errorMbwayOrder, #timeoutMbwayOrder, #orderErrorPanel, #refusedMbwayOrder, .mbwayCountdownPanel {
+  max-width: 440px;
+}
+
+@media screen and (max-width: 400px) {
+  .mbwayResendNotificationLink {
+    font-size: 13px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .mbwayResendNotificationLink {
+    font-size: 11px;
+  }
+}
+@media screen and (max-width: 280px) {
+  .mbwayResendNotificationLink {
+    font-size: 8px;
+  }
+}

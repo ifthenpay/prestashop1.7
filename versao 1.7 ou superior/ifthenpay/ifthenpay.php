@@ -50,7 +50,7 @@ class Ifthenpay extends PaymentModule
 	{
 		$this->name = 'ifthenpay';
 		$this->tab = 'payments_gateways';
-		$this->version = '1.3.4';
+		$this->version = '1.3.5';
 		$this->author = 'Ifthenpay';
 		$this->need_instance = 0;
 		$this->bootstrap = true;
@@ -77,7 +77,7 @@ class Ifthenpay extends PaymentModule
 		$this->confirmUninstall = $this->l('Are you sure you want to uninstall ifthenpay module?');
 		$this->currencies = true;
 		$this->currencies_mode = 'checkbox';
-		$this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
+		$this->ps_versions_compliancy = array('min' => '1.7', 'max' => '1.9.9'); // prevent installation on PS versions of 8, due to confusion of users
 		$this->ifthenpayConfig = Configuration::getMultiple(
 			[
 				'IFTHENPAY_USER_PAYMENT_METHODS',
