@@ -1,46 +1,53 @@
+# Atenção:
+
+## Este módulo é apenas compatível com Prestashop 1.6 a 1.7. Para Prestashop 8.0 e superior, por favor use o [módulo de pagamento Prestashop 8.0 Ifthenpay](https://github.com/ifthenpay/prestashop8)
+
+</br>
+</br>
+
 # Módulo de pagamentos Ifthenpay Prestashop 1.7
 
 Ler em ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pt.png) [Português](readme.pt.md), e ![Inglês](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/en.png) [Inglês](readme.md)
 
-[1. Introdução](#Introdução)
+[1. Introdução](#introdução)
 
-[2. Compatibilidade](#Compatibilidade)
+[2. Compatibilidade](#compatibilidade)
 
-[3. Instalação](#Instalação)
+[3. Instalação](#instalação)
 
-[4. Configuração](#Configuração)
-  * [Chave Backoffice](#Chave-Backoffice)
-  * [Multibanco](#Multibanco)
-  * [Multibanco com Referências Dinâmicas](#Multibanco-com-Referências-Dinâmicas)
-  * [MB WAY](#MB-WAY)
-  * [Cartão de Crédito](#Cartão-de-Crédito)
-  * [Payshop](#Payshop)
+[4. Configuração](#configuração)
+  * [Chave Backoffice](#chave-backoffice)
+  * [Multibanco](#multibanco)
+  * [Multibanco com Referências Dinâmicas](#multibanco-com-referências-dinâmicas)
+  * [MB WAY](#mb-way)
+  * [Cartão de Crédito](#cartão-de-crédito)
+  * [Payshop](#payshop)
 
-[5. Editar Dados de Pagamento](#Editar-Dados-de-Pagamento)
-  * [Atualizar Dados de Pagamento](#Atualizar-Dados-de-Pagamento)
-  * [Reenviar Dados de Pagamento](#Reenviar-Dados-de-Pagamento)
-  * [Relembrar Dados de Pagamento](#Relembrar-Dados-de-Pagamento)
-  * [Escolher Método de Pagamento](#Escolher-Método-de-Pagamento)
+[5. Editar Dados de Pagamento](#editar-dados-de-pagamento)
+  * [Atualizar Dados de Pagamento](#atualizar-dados-de-pagamento)
+  * [Reenviar Dados de Pagamento](#reenviar-dados-de-pagamento)
+  * [Relembrar Dados de Pagamento](#relembrar-dados-de-pagamento)
+  * [Escolher Método de Pagamento](#escolher-método-de-pagamento)
   
 
-[6. Outros](#Outros)
-  * [Suporte](#Suporte)
-  * [Pedir Conta](#Pedir-Conta)
-  * [Requerer criação de conta adicional](#Requerer-criação-de-conta-adicional)
+[6. Outros](#outros)
+  * [Suporte](#suporte)
+  * [Pedir Conta](#pedir-conta)
+  * [Requerer criação de conta adicional](#requerer-criação-de-conta-adicional)
   * [Logs](#Logs)
-  * [Reset de Configuração](#Reset-de-Configuração)
-  * [Atualizações](#Atualizações)
-  * [Modo Sandbox](#Modo-Sandbox)
-  * [Callback](#Callback)
-  * [Testar Callback](#Testar-Callback)
-  * [Bugs conhecidos e soluções](#Bugs-conhecidos-e-soluções)
+  * [Reset de Configuração](#reset-de-configuração)
+  * [Atualizações](#atualizações)
+  * [Modo Sandbox](#modo-sandbox)
+  * [Callback](#callback)
+  * [Testar Callback](#testar-callback)
+  * [Bugs conhecidos e soluções](#bugs-conhecidos-e-soluções)
 
 
-[7. Experiência do Utilizador Consumidor](#Experiência-do-Utilizador-Consumidor)
-  * [Pagar encomenda com Multibanco](#Pagar-encomenda-com-Multibanco)
-  * [Pagar encomenda com Payshop](#Pagar-encomenda-com-Payshop)
-  * [Pagar encomenda com MB WAY](#Pagar-encomenda-com-MB-WAY)
-  * [Pagar encomenda com Credit Card](#Pagar-encomenda-com-Credit-Card)
+[7. Experiência do Utilizador Consumidor](#experiência-do-utilizador-consumidor)
+  * [Pagar encomenda com Multibanco](#pagar-encomenda-com-multibanco)
+  * [Pagar encomenda com Payshop](#pagar-encomenda-com-payshop)
+  * [Pagar encomenda com MB WAY](#pagar-encomenda-com-mb-way)
+  * [Pagar encomenda com Credit Card](#pagar-encomenda-com-credit-card)
 
 
 
@@ -75,6 +82,7 @@ Use a tabela abaixo para verificar a compatibilidade do módulo Ifthenpay com a 
 | Ifthenpay v1.3.2 | Não compatível | Compatível                     |
 | Ifthenpay v1.3.3 | Não compatível | Compatível                     |
 | Ifthenpay v1.3.4 | Não compatível | Compatível                     |
+| Ifthenpay v1.3.5 | Não compatível | Compatível                     |
 
 # Instalação
 
