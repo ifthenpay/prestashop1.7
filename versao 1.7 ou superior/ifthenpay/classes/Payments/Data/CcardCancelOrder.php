@@ -30,40 +30,43 @@ use PrestaShop\Module\Ifthenpay\Factory\Models\IfthenpayModelFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
 
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
 class CcardCancelOrder
 {
-    /**
-     * cancels Ccard order if no payment has been received 30 minutes after order confirmation "date_add"
-     *
-     * @return void
-     */
-    public function cancelOrder()
-    {
-        if (\Configuration::get('IFTHENPAY_CCARD_CANCEL_ORDER_AFTER_TIMEOUT')) {
-            $ccardOrders = IfthenpayModelFactory::build('ccard')->getAllPendingOrders();
+	/**
+	 * cancels Ccard order if no payment has been received 30 minutes after order confirmation "date_add"
+	 *
+	 * @return void
+	 */
+	public function cancelOrder()
+	{
+		if (\Configuration::get('IFTHENPAY_CCARD_CANCEL_ORDER_AFTER_TIMEOUT')) {
+			$ccardOrders = IfthenpayModelFactory::build('ccard')->getAllPendingOrders();
 
-            $timezone = \Configuration::get('PS_TIMEZONE');
-            if (!$timezone) {
-                $timezone = 'Europe/Lisbon';
-            }
-            date_default_timezone_set($timezone);
+			$timezone = \Configuration::get('PS_TIMEZONE');
+			if (!$timezone) {
+				$timezone = 'Europe/Lisbon';
+			}
+			date_default_timezone_set($timezone);
 
-            foreach ($ccardOrders as $ccardOrder) {
-                $minutes_to_add = 30;
-                $time = new \DateTime($ccardOrder['date_add']);
-                $time->add(new \DateInterval('PT' . $minutes_to_add . 'M'));
-                $today = new \DateTime(date("Y-m-d G:i"));
+			foreach ($ccardOrders as $ccardOrder) {
+				$minutes_to_add = 30;
+				$time = new \DateTime($ccardOrder['date_add']);
+				$time->add(new \DateInterval('PT' . $minutes_to_add . 'M'));
+				$deadlineStr = strtotime($time->format('Y-m-d H:i:s'));
 
-                if ($time < $today) {
-                    $new_history = PrestashopModelFactory::buildOrderHistory();
-                    $new_history->id_order = (int) $ccardOrder['id_order'];
-                    $new_history->changeIdOrderState((int) \Configuration::get('PS_OS_CANCELED'), (int) $ccardOrder['id_order']);
-                    $new_history->addWithemail(true);
-                }
-            }
-        }
-    }
+				$currentDateStr = strtotime(date('Y-m-d H:i:s'));
+
+
+				if ($deadlineStr < $currentDateStr) {
+					$new_history = PrestashopModelFactory::buildOrderHistory();
+					$new_history->id_order = (int) $ccardOrder['id_order'];
+					$new_history->changeIdOrderState((int) \Configuration::get('PS_OS_CANCELED'), (int) $ccardOrder['id_order']);
+					$new_history->addWithemail(true);
+				}
+			}
+		}
+	}
 }

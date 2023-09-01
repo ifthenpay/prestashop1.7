@@ -60,6 +60,8 @@ class MultibancoBase extends PaymentBase
 		$this->setPaymentModel('multibanco', $this->paymentDataFromDb['id_ifthenpay_multibanco']);
 		$this->paymentModel->entidade = $this->paymentGatewayResultData->entidade;
 		$this->paymentModel->referencia = $this->paymentGatewayResultData->referencia;
+		$this->paymentModel->request_id = isset($this->paymentGatewayResultData->idPedido) ? $this->paymentGatewayResultData->idPedido : null;
+		$this->paymentModel->validade = isset($this->paymentGatewayResultData->validade) ? $this->paymentGatewayResultData->validade : null;
 		$this->paymentModel->update();
 	}
 

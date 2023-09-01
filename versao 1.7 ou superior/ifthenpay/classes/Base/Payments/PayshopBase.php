@@ -26,48 +26,49 @@
 namespace PrestaShop\Module\Ifthenpay\Base\Payments;
 
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
 use PrestaShop\Module\Ifthenpay\Base\PaymentBase;
 
 class PayshopBase extends PaymentBase
 {
-    protected function setGatewayBuilderData()
-    {
-        $this->gatewayBuilder->setPayshopKey(\Configuration::get('IFTHENPAY_PAYSHOP_KEY'));
-        $this->gatewayBuilder->setValidade(\Configuration::get('IFTHENPAY_PAYSHOP_VALIDADE'));
-    }
+	protected function setGatewayBuilderData()
+	{
+		$this->gatewayBuilder->setPayshopKey(\Configuration::get('IFTHENPAY_PAYSHOP_KEY'));
+		$this->gatewayBuilder->setValidade(\Configuration::get('IFTHENPAY_PAYSHOP_VALIDADE'));
+	}
 
-    protected function saveToDatabase()
-    {
-        $this->paymentModel->id_transacao = $this->paymentGatewayResultData->idPedido;
-        $this->paymentModel->referencia = $this->paymentGatewayResultData->referencia;
-        $this->paymentModel->validade = $this->paymentGatewayResultData->validade;
-        $this->paymentModel->order_id = $this->paymentDefaultData->order->id;
-        $this->paymentModel->status = 'pending';
-        $this->paymentModel->save();
-    }
+	protected function saveToDatabase()
+	{
+		$this->paymentModel->id_transacao = $this->paymentGatewayResultData->idPedido;
+		$this->paymentModel->referencia = $this->paymentGatewayResultData->referencia;
+		$this->paymentModel->validade = $this->paymentGatewayResultData->validade;
+		$this->paymentModel->order_id = $this->paymentDefaultData->order->id;
+		$this->paymentModel->status = 'pending';
+		$this->paymentModel->save();
+	}
 
-    protected function updateDatabase()
-    {
-        $this->setPaymentModel('payshop', $this->paymentDataFromDb['id_ifthenpay_payshop']);
-        $this->paymentModel->referencia = $this->paymentGatewayResultData->referencia;
-        $this->paymentModel->id_transacao = $this->paymentGatewayResultData->idPedido;
-        $this->paymentModel->update();
-    }
+	protected function updateDatabase()
+	{
+		$this->setPaymentModel('payshop', $this->paymentDataFromDb['id_ifthenpay_payshop']);
+		$this->paymentModel->referencia = $this->paymentGatewayResultData->referencia;
+		$this->paymentModel->id_transacao = $this->paymentGatewayResultData->idPedido;
+		$this->paymentModel->validade = $this->paymentGatewayResultData->validade;
+		$this->paymentModel->update();
+	}
 
-    protected function setEmailVariables()
-    {
-        $this->emailDefaultData['{referencia}'] = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->referencia : $this->paymentDataFromDb['referencia'];
+	protected function setEmailVariables()
+	{
+		$this->emailDefaultData['{referencia}'] = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->referencia : $this->paymentDataFromDb['referencia'];
 
-        // format validity date if not already formated
-        $validade = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->validade : $this->paymentDataFromDb['validade'];
-        if (!strpos($validade, "-")) {
-            $validade = (new \DateTime($validade))->format('d-m-Y');
-        }
+		// format validity date if not already formated
+		$validade = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->validade : $this->paymentDataFromDb['validade'];
+		if (!strpos($validade, "-")) {
+			$validade = (new \DateTime($validade))->format('d-m-Y');
+		}
 
-        $this->emailDefaultData['{validade}'] = $validade;
+		$this->emailDefaultData['{validade}'] = $validade;
 
-    }
+	}
 }

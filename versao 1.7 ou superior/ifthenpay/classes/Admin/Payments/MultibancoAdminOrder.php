@@ -27,7 +27,7 @@
 namespace PrestaShop\Module\Ifthenpay\Admin\Payments;
 
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
 
@@ -37,42 +37,39 @@ use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminOrderInterface;
 class MultibancoAdminOrder extends MultibancoBase implements AdminOrderInterface
 {
 
-    public function setSmartyVariables($paymentInDatabase)
-    {
-        if ($paymentInDatabase) {
-            $this->smartyDefaultData->setEntidade($this->paymentDataFromDb['entidade']);
-            $this->smartyDefaultData->setReferencia($this->paymentDataFromDb['referencia']);
-            $this->smartyDefaultData->setValidade(
-                (isset($this->paymentDataFromDb['validade']) && $this->paymentDataFromDb['validade'] != '') ?
-                    (new \DateTime($this->paymentDataFromDb['validade']))->format('d-m-Y') : ''
-            );
-        } else {
-            $this->smartyDefaultData->setEntidade($this->paymentGatewayResultData->entidade);
-            $this->smartyDefaultData->setReferencia($this->paymentGatewayResultData->referencia);
-            $this->smartyDefaultData->setValidade(
-                (isset($this->paymentDataFromDb['validade']) && $this->paymentDataFromDb['validade'] != '') ?
-                    (new \DateTime($this->paymentGatewayResultData->validade))->format('d-m-Y') : ''
-            );
-        }
-    }
+	public function setSmartyVariables($paymentInDatabase)
+	{
+		if ($paymentInDatabase) {
+			$this->smartyDefaultData->setEntidade($this->paymentDataFromDb['entidade']);
+			$this->smartyDefaultData->setReferencia($this->paymentDataFromDb['referencia']);
+			$this->smartyDefaultData->setValidade(
+				(isset($this->paymentDataFromDb['validade']) && $this->paymentDataFromDb['validade'] != '') ?
+				(new \DateTime($this->paymentDataFromDb['validade']))->format('d-m-Y') : ''
+			);
+		} else {
+			$this->smartyDefaultData->setEntidade($this->paymentGatewayResultData->entidade);
+			$this->smartyDefaultData->setReferencia($this->paymentGatewayResultData->referencia);
+			$this->smartyDefaultData->setValidade($this->paymentGatewayResultData->validade);
+		}
+	}
 
-    public function getAdminOrder()
-    {
-        $this->setPaymentModel('multibanco');
-        $this->getFromDatabaseById();
-        if (!empty($this->paymentDataFromDb)) {
-            $this->setSmartyVariables(true);
-        } else {
-            $this->setGatewayBuilderData();
-            $this->paymentGatewayResultData = $this->ifthenpayGateway->execute(
-                $this->paymentDefaultData->paymentMethod,
-                $this->gatewayBuilder,
-                strval($this->paymentDefaultData->order->id),
-                strval($this->paymentDefaultData->order->getOrdersTotalPaid())
-            )->getData();
-            $this->saveToDatabase();
-            $this->setSmartyVariables(false);
-        }
-        return $this;
-    }
+	public function getAdminOrder()
+	{
+		$this->setPaymentModel('multibanco');
+		$this->getFromDatabaseById();
+		if (!empty($this->paymentDataFromDb)) {
+			$this->setSmartyVariables(true);
+		} else {
+			$this->setGatewayBuilderData();
+			$this->paymentGatewayResultData = $this->ifthenpayGateway->execute(
+				$this->paymentDefaultData->paymentMethod,
+				$this->gatewayBuilder,
+				strval($this->paymentDefaultData->order->id),
+				strval($this->paymentDefaultData->order->getOrdersTotalPaid())
+			)->getData();
+			$this->saveToDatabase();
+			$this->setSmartyVariables(false);
+		}
+		return $this;
+	}
 }
