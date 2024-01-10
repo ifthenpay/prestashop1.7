@@ -48,7 +48,7 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
 	const COFIDIS_STATUS_INITIATED = 'INITIATED';
 	const COFIDIS_STATUS_PENDING_INVOICE = 'PENDING_INVOICE';
 	const COFIDIS_STATUS_CANCELED = 'CANCELED';
-	const COFIDIS_ENDPOINT_STATUS = 'https://ifthenpay.com/api/cofidis/status/sandbox';
+	const COFIDIS_ENDPOINT_STATUS = 'https://ifthenpay.com/api/cofidis/status';
 	private $ifthenpayModule;
 	private $cart;
 	private $customer;
