@@ -59,7 +59,7 @@ Read this in ![Português](https://github.com/ifthenpay/prestashop/raw/assets/ve
 
 
 # Introduction
-![Ifthenpay](https://ifthenpay.com/images/all_payments_logo_final.png)
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/payment_methods_banner.png)
 
 **This is the Ifthenpay plugin for Prestashop e-commerce platform**
 
