@@ -1,6 +1,6 @@
 <?php
 /**
- * 2007-2022 Ifthenpay Lda
+ * 2007-2023 Ifthenpay Lda
  *
  * NOTICE OF LICENSE
  *
@@ -23,35 +23,32 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-namespace PrestaShop\Module\Ifthenpay\Factory\Payment;
+namespace PrestaShop\Module\Ifthenpay\Payments\Data;
 
 if (!defined('_PS_VERSION_')) {
 	exit;
 }
 
-use PrestaShop\Module\Ifthenpay\Payments\CCard;
-use PrestaShop\Module\Ifthenpay\Payments\CofidisPay;
-use PrestaShop\Module\Ifthenpay\Payments\MbWay;
-use PrestaShop\Module\Ifthenpay\Payments\Payshop;
-use PrestaShop\Module\Ifthenpay\Payments\Multibanco;
+use PrestaShop\Module\Ifthenpay\Base\Payments\CofidispayBase;
+use PrestaShop\Module\Ifthenpay\Contracts\Order\OrderDetailInterface;
 
-class PaymentFactory
+class CofidispayOrderDetail extends CofidispayBase implements OrderDetailInterface
 {
-	public static function build($paymentMethod, $data, $orderId, $valor)
+	public function setSmartyVariables()
 	{
-		switch ($paymentMethod) {
-			case 'multibanco':
-				return new Multibanco($data, $orderId, $valor);
-			case 'mbway':
-				return new MbWay($data, $orderId, $valor);
-			case 'payshop':
-				return new Payshop($data, $orderId, $valor);
-			case 'ccard':
-				return new CCard($data, $orderId, $valor);
-			case 'cofidispay':
-				return new CofidisPay($data, $orderId, $valor);
-			default:
-				throw new \Exception("Unknown Payment Class");
-		}
+		$this->smartyDefaultData->setPaymentMethod(
+			$this->ifthenpayGateway->getAliasPaymentMethods(
+				$this->paymentDefaultData->order->payment,
+				\Context::getContext()->language->iso_code
+			)
+		);
+		$this->smartyDefaultData->setIdPedido($this->paymentDataFromDb['transaction_id']);
+	}
+	public function getOrderDetail()
+	{
+		$this->setPaymentModel('cofidispay');
+		$this->getFromDatabaseById();
+		$this->setSmartyVariables();
+		return $this;
 	}
 }

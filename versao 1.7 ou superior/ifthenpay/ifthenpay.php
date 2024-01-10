@@ -50,7 +50,7 @@ class Ifthenpay extends PaymentModule
 	{
 		$this->name = 'ifthenpay';
 		$this->tab = 'payments_gateways';
-		$this->version = '1.3.6';
+		$this->version = '1.3.7';
 		$this->author = 'Ifthenpay';
 		$this->need_instance = 0;
 		$this->bootstrap = true;
@@ -73,7 +73,7 @@ class Ifthenpay extends PaymentModule
 		parent::__construct();
 
 		$this->displayName = $this->l('Ifthenpay');
-		$this->description = $this->l('Allows payments by Multibanco reference, MB WAY, Payshop and Credit Card.');
+		$this->description = $this->l('Allows payments by Multibanco reference, MB WAY, Payshop, Credit Card and Cofidis Pay.');
 		$this->confirmUninstall = $this->l('Are you sure you want to uninstall ifthenpay module?');
 		$this->currencies = true;
 		$this->currencies_mode = 'checkbox';
@@ -84,6 +84,12 @@ class Ifthenpay extends PaymentModule
 				'IFTHENPAY_BACKOFFICE_KEY'
 			]
 		);
+
+		$this->l('multibanco');
+		$this->l('mbway');
+		$this->l('payshop');
+		$this->l('ccard');
+		$this->l('cofidis');
 	}
 
 	/**
@@ -526,7 +532,7 @@ class Ifthenpay extends PaymentModule
 			)->execute('install');
 
 			Utility::setPrestashopCookie('success', $this->l('Backoffice key was saved with success!'));
-			IfthenpayLogProcess::addLog('Backoffice key saved with success. - ' . $backofficeKey, IfthenpayLogProcess::INFO, 0);
+			IfthenpayLogProcess::addLog('Backoffice key saved with success. - ' . Utility::maskString($backofficeKey, '1000101001001010001'), IfthenpayLogProcess::INFO, 0);
 			Utility::redirectIfthenpayConfigPage();
 		} catch (\Throwable $th) {
 			IfthenpayLogProcess::addLog(
@@ -617,7 +623,7 @@ class Ifthenpay extends PaymentModule
 
 		foreach ($orderedPaymentMethods as $paymentMethod) {
 
-			if (PrestashopModelFactory::buildCurrency($params['cart']->id_currency)->iso_code === 'EUR' || $paymentMethod === 'ccard') {
+			if (PrestashopModelFactory::buildCurrency($params['cart']->id_currency)->iso_code === 'EUR') {
 
 				if (Configuration::get('IFTHENPAY_' . Tools::strtoupper($paymentMethod)) && $this->isValid($params, $paymentMethod)) {
 
@@ -647,6 +653,14 @@ class Ifthenpay extends PaymentModule
 							$this->context->smarty->fetch(
 								$this->local_path .
 								'views/templates/front/mbwayPhone.tpl'
+							)
+						);
+					}
+					if ($paymentMethod === 'cofidispay') {
+						$option->setAdditionalInformation(
+							$this->context->smarty->fetch(
+								$this->local_path .
+								'views/templates/front/cofidisOption.tpl'
 							)
 						);
 					}
@@ -725,6 +739,11 @@ class Ifthenpay extends PaymentModule
 					\Configuration::get('IFTHENPAY_' . strtoupper($paymentMethod) . '_ENTIDADE') &&
 					\Configuration::get('IFTHENPAY_' . strtoupper($paymentMethod) . '_SUBENTIDADE')
 				) {
+					return true;
+				}
+				break;
+			case 'cofidispay':
+				if (\Configuration::get('IFTHENPAY_COFIDIS_KEY')) {
 					return true;
 				}
 				break;

@@ -29,183 +29,199 @@ namespace PrestaShop\Module\Ifthenpay\Utility;
 use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
 
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
 class Utility
 {
-    private static $name = 'ifthenpay';
+	private static $name = 'ifthenpay';
 
-    public static function redirectIfthenpayConfigPage()
-    {
-        $token = \Tools::getAdminTokenLite('AdminModules');
-        \Tools::redirectAdmin('index.php?controller=AdminModules&configure=' . self::$name . '&tab_module=payments_gateways&module_name=' . self::$name . '&token=' . $token);
-    }
+	public static function redirectIfthenpayConfigPage()
+	{
+		$token = \Tools::getAdminTokenLite('AdminModules');
+		\Tools::redirectAdmin('index.php?controller=AdminModules&configure=' . self::$name . '&tab_module=payments_gateways&module_name=' . self::$name . '&token=' . $token);
+	}
 
-    public static function redirectAdminOrder($order)
-    {
-        if (version_compare(_PS_VERSION_, '1.7.5', '<')) {
-            $token = \Tools::getAdminTokenLite('AdminOrders');
-            \Tools::redirectAdmin(\Context::getContext()->link->getAdminLink('AdminOrders') . '&vieworder=&id_order=' . $order->id . '&token=' . $token);
-        } else {
-            \Tools::redirectAdmin(
-                \Context::getContext()->link->getAdminLink('AdminOrders', true, [], [
-                    'vieworder' => 1,
-                    'id_order' => (int) $order->id,
-                ])
-            );
-        }
-    }
+	public static function redirectAdminOrder($order)
+	{
+		if (version_compare(_PS_VERSION_, '1.7.5', '<')) {
+			$token = \Tools::getAdminTokenLite('AdminOrders');
+			\Tools::redirectAdmin(\Context::getContext()->link->getAdminLink('AdminOrders') . '&vieworder=&id_order=' . $order->id . '&token=' . $token);
+		} else {
+			\Tools::redirectAdmin(
+				\Context::getContext()->link->getAdminLink('AdminOrders', true, [], [
+					'vieworder' => 1,
+					'id_order' => (int) $order->id,
+				])
+			);
+		}
+	}
 
-    public static function checkPaymentMethodDefined()
-    {
-        if (!isset($_GET['paymentMethod'])) {
-            self::redirectIfthenpayConfigPage();
-        }
-    }
+	public static function checkPaymentMethodDefined()
+	{
+		if (!isset($_GET['paymentMethod'])) {
+			self::redirectIfthenpayConfigPage();
+		}
+	}
 
-    public static function setPrestashopCookie($cookieName, $cookieValue)
-    {
-        \Context::getContext()->cookie->__set($cookieName, $cookieValue);
-        \Context::getContext()->cookie->write();
-    }
+	public static function setPrestashopCookie($cookieName, $cookieValue)
+	{
+		\Context::getContext()->cookie->__set($cookieName, $cookieValue);
+		\Context::getContext()->cookie->write();
+	}
 
-    public static function unsetPrestashopCookie($cookieName)
-    {
-        \Context::getContext()->cookie->__unset($cookieName);
-        \Context::getContext()->cookie->write();
-    }
+	public static function unsetPrestashopCookie($cookieName)
+	{
+		\Context::getContext()->cookie->__unset($cookieName);
+		\Context::getContext()->cookie->write();
+	}
 
-    /**
-     * Get formated price
-     *@param Order $order
-     *@return string
-     */
-    public static function getFormatedPrice($order)
-    {
-        $price = $order->getOrdersTotalPaid();
-        if (version_compare(_PS_VERSION_, '1.7.6', '<')) {
-            return \Tools::displayPrice(
-                $price,
-                PrestashopModelFactory::buildCurrency((string) $order->id_currency),
-                false
-            );
-        } else {
-            return \Context::getContext()->currentLocale
-                ->formatPrice($price, \Context::getContext()->currency->iso_code);
-        }
-    }
+	/**
+	 * Get formated price
+	 *@param Order $order
+	 *@return string
+	 */
+	public static function getFormatedPrice($order)
+	{
+		$price = $order->getOrdersTotalPaid();
+		if (version_compare(_PS_VERSION_, '1.7.6', '<')) {
+			return \Tools::displayPrice(
+				$price,
+				PrestashopModelFactory::buildCurrency((string) $order->id_currency),
+				false
+			);
+		} else {
+			return \Context::getContext()->currentLocale
+				->formatPrice($price, \Context::getContext()->currency->iso_code);
+		}
+	}
 
-    public static function getMailTranslationString($paymentType, $type = '')
-    {
-        if ($type === 'details') {
-            return \Context::getContext()->language->iso_code === 'pt' ? 'Dados de pagamento ' . ucfirst($paymentType) : 'Payment details for ' . ucfirst($paymentType);
-        } else {
-            return \Context::getContext()->language->iso_code === 'pt' ? 'Pagamento em falta...' : 'Payment missing...';
-        }
-    }
+	public static function getMailTranslationString($paymentType, $type = '')
+	{
+		if ($type === 'details') {
+			return \Context::getContext()->language->iso_code === 'pt' ? 'Dados de pagamento ' . ucfirst($paymentType) : 'Payment details for ' . ucfirst($paymentType);
+		} else {
+			return \Context::getContext()->language->iso_code === 'pt' ? 'Pagamento em falta...' : 'Payment missing...';
+		}
+	}
 
-    public static function convertPriceToEuros($order)
-    {
-        $actualCurrency = PrestashopModelFactory::buildCurrency((string) $order->id_currency);
-        $ammount = $order->getOrdersTotalPaid();
-        //convert ammount to euros if currency is no euros
-        if ($actualCurrency->iso_code !== 'EUR') {
-            return \Tools::convertPriceFull(
-                $order->getOrdersTotalPaid(),
-                $actualCurrency,
-                PrestashopModelFactory::buildCurrency((string) \Currency::getIdByIsoCode('EUR'))
-            );
-        }
-        return $ammount;
-    }
+	public static function convertPriceToEuros($order)
+	{
+		$actualCurrency = PrestashopModelFactory::buildCurrency((string) $order->id_currency);
+		$ammount = $order->getOrdersTotalPaid();
+		//convert ammount to euros if currency is no euros
+		if ($actualCurrency->iso_code !== 'EUR') {
+			return \Tools::convertPriceFull(
+				$order->getOrdersTotalPaid(),
+				$actualCurrency,
+				PrestashopModelFactory::buildCurrency((string) \Currency::getIdByIsoCode('EUR'))
+			);
+		}
+		return $ammount;
+	}
 
-    public static function getClassName($class)
-    {
-        return substr(strrchr(get_class($class), '\\'), 1);
-    }
+	public static function getClassName($class)
+	{
+		return substr(strrchr(get_class($class), '\\'), 1);
+	}
 
-    public static function numberToPagination($rows, $page)
-    {
-        $range = 50;
-        $pages = ceil($rows / $range);
+	public static function numberToPagination($rows, $page)
+	{
+		$range = 50;
+		$pages = ceil($rows / $range);
 
 
-        $html = '';
-        if ($pages) {
-            $htmlList = '';
+		$html = '';
+		if ($pages) {
+			$htmlList = '';
 
-            for ($i = 1; $i <= $pages; $i++) {
+			for ($i = 1; $i <= $pages; $i++) {
 
-                $isActive = $i == $page ? 'active' : '';
+				$isActive = $i == $page ? 'active' : '';
 
-                if (
-                    $i == 1 ||
-                    $i == $pages ||
-                    ($i > $page - 3 && $i <= $page + 2)
-                ) {
-                    $htmlList .= '
+				if (
+					$i == 1 ||
+					$i == $pages ||
+					($i > $page - 3 && $i <= $page + 2)
+				) {
+					$htmlList .= '
                     <li class="page-item">
                         <button type="button" class="btn btn-outline-primary btn_paginator ' . $isActive . '">' . $i . '</button>
                     </li>
                     ';
-                }
+				}
 
-                if (($i == $pages - 1 && $pages > $page + 2) ||
-                    ($i == 2 && $page > 3)
-                ) {
-                    $htmlList .= '
+				if (
+					($i == $pages - 1 && $pages > $page + 2) ||
+					($i == 2 && $page > 3)
+				) {
+					$htmlList .= '
                     <li class="page-item if_dots">
                     ...
                     </li>';
-                }
-            }
+				}
+			}
 
-            $html = '
+			$html = '
             <nav aria-label="Log navigation" class="pagination_container">
                 <ul class="if_paginator">
                     ' . $htmlList . '
                 </ul>
             </nav>
             ';
-        }
+		}
 
-        return $html;
-    }
+		return $html;
+	}
 
-    /**
-     * get a new array with the keys specified in the $keys array
-     * @param array $inputArray
-     * @param array $keys
-     * @return array
-     */
-    public static function extractArrayWithKeys($inputArray, $keys): array
-    {
-        $outputArray = array();
-        foreach ($keys as $key) {
-            if (array_key_exists($key, $inputArray)) {
-                $outputArray[$key] = $inputArray[$key];
-            }
-        }
-        return $outputArray;
-    }
+	/**
+	 * get a new array with the keys specified in the $keys array
+	 * @param array $inputArray
+	 * @param array $keys
+	 * @return array
+	 */
+	public static function extractArrayWithKeys($inputArray, $keys): array
+	{
+		$outputArray = array();
+		foreach ($keys as $key) {
+			if (array_key_exists($key, $inputArray)) {
+				$outputArray[$key] = $inputArray[$key];
+			}
+		}
+		return $outputArray;
+	}
 
 
-    /**
-     * Convert assoc array data to string
-     *@param Order $order
-     *@return string
-     */
-    public static function dataToString($data)
-    {
-        $strData = '{';
-        if (is_array($data)) {
-            foreach ($data as $key => $value) {
-                $strData .= $key . ' => ' . $value . ', ';
-            }
-        }
+	/**
+	 * Convert assoc array data to string
+	 *@param Order $order
+	 *@return string
+	 */
+	public static function dataToString($data)
+	{
+		$strData = '{';
+		if (is_array($data)) {
+			foreach ($data as $key => $value) {
+				$strData .= $key . ' => ' . $value . ', ';
+			}
+		}
 
-        $strData .= '}';
-        return $strData;
-    }
+		$strData .= '}';
+		return $strData;
+	}
+
+	public static function maskString(string $text, string $mask)
+	{
+		if (strlen($text) != strlen($mask)) {
+			return $text;
+		}
+
+		$maskedText = '';
+
+		for ($i = 0; $i < strlen($text); $i++) {
+			$maskedText .= ($mask[$i] == '0') ? 'X' : $text[$i];
+		}
+
+		return $maskedText;
+	}
 }

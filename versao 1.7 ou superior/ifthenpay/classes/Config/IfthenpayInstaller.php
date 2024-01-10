@@ -26,44 +26,45 @@
 namespace PrestaShop\Module\Ifthenpay\Config;
 
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
 use PrestaShop\Module\Ifthenpay\Factory\Config\ConfigFactory;
 
 class IfthenpayInstaller
 {
-    private $userPaymentMethods;
-    private $ifthenpayOrderStates;
-    private $ifthenpayControllersTab;
-    private $ifthenpaySql;
-    private $ifthenpayModule;
+	private $userPaymentMethods;
+	private $ifthenpayOrderStates;
+	private $ifthenpayControllersTab;
+	private $ifthenpaySql;
+	private $ifthenpayModule;
+	private $ifthenpayConfiguration;
 
-    public function __construct($userPaymentMethods, $ifthenpayModule)
-    {
-        $this->ifthenpayModule = $ifthenpayModule;
-        $this->userPaymentMethods = (array) unserialize($userPaymentMethods);
-        $this->ifthenpayOrderStates = ConfigFactory::buildIfthenpayOrderStates($this->userPaymentMethods);
-        $this->ifthenpayControllersTab = ConfigFactory::buildIfthenpayControllersTabs($ifthenpayModule);
-        $this->ifthenpaySql = ConfigFactory::buildIfthenpaySql($this->userPaymentMethods);
-        $this->ifthenpayConfiguration =  ConfigFactory::buildIfthenpayConfiguration($this->userPaymentMethods);
-    }
+	public function __construct($userPaymentMethods, $ifthenpayModule)
+	{
+		$this->ifthenpayModule = $ifthenpayModule;
+		$this->userPaymentMethods = (array) unserialize($userPaymentMethods);
+		$this->ifthenpayOrderStates = ConfigFactory::buildIfthenpayOrderStates($this->userPaymentMethods);
+		$this->ifthenpayControllersTab = ConfigFactory::buildIfthenpayControllersTabs($ifthenpayModule);
+		$this->ifthenpaySql = ConfigFactory::buildIfthenpaySql($this->userPaymentMethods);
+		$this->ifthenpayConfiguration = ConfigFactory::buildIfthenpayConfiguration($this->userPaymentMethods);
+	}
 
-    public function execute($type)
-    {
-        if (!$this->userPaymentMethods) {
-            throw new \Exception('Error instaling, paymentMethods not defined!');
-        } else {
-            if ($type === 'install') {
-                $this->ifthenpaySql->setIfthenpayModule($this->ifthenpayModule)->install();
-                $this->ifthenpayOrderStates->install();
-                $this->ifthenpayControllersTab->install();
-            } else {
-                $this->ifthenpaySql->uninstall();
-                $this->ifthenpayOrderStates->uninstall();
-                $this->ifthenpayControllersTab->uninstall();
-                $this->ifthenpayConfiguration->uninstall();
-            }
-        }
-    }
+	public function execute($type)
+	{
+		if (!$this->userPaymentMethods) {
+			throw new \Exception('Error instaling, paymentMethods not defined!');
+		} else {
+			if ($type === 'install') {
+				$this->ifthenpaySql->setIfthenpayModule($this->ifthenpayModule)->install();
+				$this->ifthenpayOrderStates->install();
+				$this->ifthenpayControllersTab->install();
+			} else {
+				$this->ifthenpaySql->uninstall();
+				$this->ifthenpayOrderStates->uninstall();
+				$this->ifthenpayControllersTab->uninstall();
+				$this->ifthenpayConfiguration->uninstall();
+			}
+		}
+	}
 }

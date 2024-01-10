@@ -32,7 +32,7 @@
         </div>
 
         <div class="col-sm-4 col-md-5 text-center">
-        
+
             <div class="col-sm-6">
                 <h2>{l s='Need help?' mod='ifthenpay'}</h2>
                 <a href="https://helpdesk.ifthenpay.com/pt-PT/support/home" target="_blank"
@@ -47,7 +47,7 @@
 
     </div>
     <div class="panel-body">
-        <h3>{l s='Multibanco, MB WAY and PAYSHOP payments has numerous advantages for your business' mod='ifthenpay'}
+		<h3>{l s='Multibanco, MB WAY, PAYSHOP, Credit Card and Cofidis Pay payments has numerous advantages for your business' mod='ifthenpay'}
         </h3>
         <ul>
             <li>
@@ -57,7 +57,7 @@
                 <h6>{l s='Payments 24 hours a day with real-time notifications' mod='ifthenpay'}</h6>
             </li>
             <li>
-                <h6>{l s='Secure payments in Multibanco Multibanco, MB WAY and PAYSHOP' mod='ifthenpay'}</h6>
+				<h6>{l s='Secure payments by Multibanco, MB WAY, PAYSHOP, Credit Card and Cofidis Pay' mod='ifthenpay'}</h6>
             </li>
             <li>
                 <h6>{l s='Protected user data, no need to enter bank or card information' mod='ifthenpay'}</h6>
@@ -79,11 +79,10 @@
                 <h6>{l s='More automation, less administrative work, greater effectivness sales' mod='ifthenpay'}</h6>
             </li>
         </ul>
+		</br>
         <div>
-            <img src="{$module_dir|escape:'html':'UTF-8'}views/img/multibanco_50.png" />
-            <img src="{$module_dir|escape:'html':'UTF-8'}views/img/mbway_50.png" />
-            <img src="{$module_dir|escape:'html':'UTF-8'}views/img/payshop.png" />
-            <img src="{$module_dir|escape:'html':'UTF-8'}views/img/ccard_50.png" />
+            <img src="{$module_dir|escape:'html':'UTF-8'}views/img/payment_methods_banner.png" />
+
         </div>
     </div>
 </div>

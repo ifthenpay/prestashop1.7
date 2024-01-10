@@ -23,35 +23,29 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-namespace PrestaShop\Module\Ifthenpay\Factory\Payment;
+
+namespace PrestaShop\Module\Ifthenpay\Admin\Payments;
 
 if (!defined('_PS_VERSION_')) {
 	exit;
 }
 
-use PrestaShop\Module\Ifthenpay\Payments\CCard;
-use PrestaShop\Module\Ifthenpay\Payments\CofidisPay;
-use PrestaShop\Module\Ifthenpay\Payments\MbWay;
-use PrestaShop\Module\Ifthenpay\Payments\Payshop;
-use PrestaShop\Module\Ifthenpay\Payments\Multibanco;
 
-class PaymentFactory
+use PrestaShop\Module\Ifthenpay\Base\Payments\CofidispayBase;
+use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminOrderInterface;
+
+class CofidispayAdminOrder extends CofidispayBase implements AdminOrderInterface
 {
-	public static function build($paymentMethod, $data, $orderId, $valor)
+	public function setSmartyVariables($paymentInDatabase)
 	{
-		switch ($paymentMethod) {
-			case 'multibanco':
-				return new Multibanco($data, $orderId, $valor);
-			case 'mbway':
-				return new MbWay($data, $orderId, $valor);
-			case 'payshop':
-				return new Payshop($data, $orderId, $valor);
-			case 'ccard':
-				return new CCard($data, $orderId, $valor);
-			case 'cofidispay':
-				return new CofidisPay($data, $orderId, $valor);
-			default:
-				throw new \Exception("Unknown Payment Class");
-		}
+		$this->smartyDefaultData->setIdPedido($this->paymentDataFromDb['transaction_id']);
+	}
+
+	public function getAdminOrder()
+	{
+		$this->setPaymentModel('cofidispay');
+		$this->getFromDatabaseById();
+		$this->setSmartyVariables(false);
+		return $this;
 	}
 }

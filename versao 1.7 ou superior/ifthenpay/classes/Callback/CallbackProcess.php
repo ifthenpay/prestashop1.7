@@ -32,86 +32,89 @@ use PrestaShop\Module\Ifthenpay\Factory\Models\IfthenpayModelFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
 
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
 class CallbackProcess
 {
-    protected $paymentMethod;
-    protected $paymentData;
-    protected $order;
-    protected $request;
+	protected $paymentMethod;
+	protected $paymentData;
+	protected $order;
+	protected $request;
 
-	    
-    /**
-     * Set the value of paymentMethod
-     *
-     * @return  self
-     */ 
-    public function setPaymentMethod($paymentMethod)
-    {
-        $this->paymentMethod = $paymentMethod;
 
-        return $this;
-    }
+	/**
+	 * Set the value of paymentMethod
+	 *
+	 * @return  self
+	 */
+	public function setPaymentMethod($paymentMethod)
+	{
+		$this->paymentMethod = $paymentMethod;
 
-    /**
-     * Set the value of paymentData
-     *
-     * @return  self
-     */ 
-    protected function setPaymentData()
-    {
-        $this->paymentData = CallbackFactory::buildCalllbackData($_GET)->execute();
+		return $this;
+	}
 
-    }
+	/**
+	 * Set the value of paymentData
+	 *
+	 * @return  self
+	 */
+	protected function setPaymentData()
+	{
+		$this->paymentData = CallbackFactory::buildCalllbackData($_GET)->execute();
 
-    /**
-     * Set the value of order
-     *
-     * @return  self
-     */ 
-    protected function setOrder()
-    {
-        $this->order = PrestashopModelFactory::buildOrder($this->paymentData['order_id']);
-    }
+	}
 
-    protected function executePaymentNotFound()
-    {
-        IfthenpayLogProcess::addLog('Callback Payment not found - ' . print_r($_GET, 1), IfthenpayLogProcess::ERROR, $this->order->id);
-        http_response_code(404);
-        die('Pagamento não encontrado');
-    }
+	/**
+	 * Set the value of order
+	 *
+	 * @return  self
+	 */
+	protected function setOrder()
+	{
+		$this->order = PrestashopModelFactory::buildOrder($this->paymentData['order_id']);
+	}
 
-    protected function changeIfthenpayPaymentStatus($status)
-    {
-        $ifthenpayModel = IfthenpayModelFactory::build($this->paymentMethod, $this->paymentData['id_ifthenpay_' . $this->paymentMethod]);
+	protected function executePaymentNotFound()
+	{
+		IfthenpayLogProcess::addLog('Callback Payment not found - ' . print_r($_GET, 1), IfthenpayLogProcess::ERROR, $this->order->id);
+		http_response_code(404);
+		die('Pagamento não encontrado');
+	}
 
-        //WORKAROUND: odd behaviour from prestashop model object, it loses the requestId of the order for Ccard, so there is a need to set it in the next two lines
-        if($this->paymentMethod == 'ccard' && isset($this->paymentData['requestId'])){
-            $ifthenpayModel->requestId = $this->paymentData['requestId'];		
-        }
-        $ifthenpayModel->status = $status;
-        $ifthenpayModel->update();
-    }
+	protected function changeIfthenpayPaymentStatus($status)
+	{
+		$ifthenpayModel = IfthenpayModelFactory::build($this->paymentMethod, $this->paymentData['id_ifthenpay_' . $this->paymentMethod]);
 
-    protected function changePrestashopOrderStatus($statusId)
-    {
-        $new_history = PrestashopModelFactory::buildOrderHistory();
-        $new_history->id_order = (int) $this->order->id;
-        $new_history->changeIdOrderState((int) $statusId, (int) $this->order->id);
-        $new_history->addWithemail(true);
-    }
+		//WORKAROUND: odd behaviour from prestashop model object, it loses the requestId of the order for Ccard, so there is a need to set it in the next two lines
+		if ($this->paymentMethod == 'ccard' && isset($this->paymentData['requestId'])) {
+			$ifthenpayModel->requestId = $this->paymentData['requestId'];
+		}
+		if ($this->paymentMethod == 'cofidispay' && isset($this->paymentData['transaction_id'])) {
+			$ifthenpayModel->transaction_id = $this->paymentData['transaction_id'];
+		}
+		$ifthenpayModel->status = $status;
+		$ifthenpayModel->update();
+	}
 
-    /**
-     * Set the value of request
-     *
-     * @return  self
-     */ 
-    public function setRequest($request)
-    {
-        $this->request = $request;
+	protected function changePrestashopOrderStatus($statusId)
+	{
+		$new_history = PrestashopModelFactory::buildOrderHistory();
+		$new_history->id_order = (int) $this->order->id;
+		$new_history->changeIdOrderState((int) $statusId, (int) $this->order->id);
+		$new_history->addWithemail(true);
+	}
 
-        return $this;
-    }   
+	/**
+	 * Set the value of request
+	 *
+	 * @return  self
+	 */
+	public function setRequest($request)
+	{
+		$this->request = $request;
+
+		return $this;
+	}
 }

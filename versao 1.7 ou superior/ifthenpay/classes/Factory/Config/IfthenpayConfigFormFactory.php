@@ -26,32 +26,35 @@
 namespace PrestaShop\Module\Ifthenpay\Factory\Config;
 
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
 use PrestaShop\Module\Ifthenpay\Forms\CCardConfigForm;
+use PrestaShop\Module\Ifthenpay\Forms\CofidispayConfigForm;
 use PrestaShop\Module\Ifthenpay\Forms\MbwayConfigForm;
 use PrestaShop\Module\Ifthenpay\Forms\PayshopConfigForm;
 use PrestaShop\Module\Ifthenpay\Forms\MultibancoConfigForm;
 
 class IfthenpayConfigFormFactory
 {
-    public static function build(
-        $type,
-        $ifthenpayModule,
-        $ifthenpayController = null
-    ) {
-        switch ($type) {
-            case 'multibanco':
-                return new MultibancoConfigForm($ifthenpayModule, $ifthenpayController);
-            case 'mbway':
-                return new MbwayConfigForm($ifthenpayModule, $ifthenpayController);
-            case 'payshop':
-                return new PayshopConfigForm($ifthenpayModule, $ifthenpayController);
-            case 'ccard':
-                return new CCardConfigForm($ifthenpayModule, $ifthenpayController);
-            default:
-                throw new \Exception('Unknown Admin Config Form');
-        }
-    }
+	public static function build(
+		$type,
+		$ifthenpayModule,
+		$ifthenpayController = null
+	) {
+		switch ($type) {
+			case 'multibanco':
+				return new MultibancoConfigForm($ifthenpayModule, $ifthenpayController);
+			case 'mbway':
+				return new MbwayConfigForm($ifthenpayModule, $ifthenpayController);
+			case 'payshop':
+				return new PayshopConfigForm($ifthenpayModule, $ifthenpayController);
+			case 'ccard':
+				return new CCardConfigForm($ifthenpayModule, $ifthenpayController);
+			case 'cofidispay':
+				return new CofidispayConfigForm($ifthenpayModule, $ifthenpayController);
+			default:
+				throw new \Exception('Unknown Admin Config Form');
+		}
+	}
 }

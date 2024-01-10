@@ -86,9 +86,10 @@
 
 
 
-
-
-
+		{elseif $paymentMethod === 'cofidispay'}
+			<p>{l s='This module allows secure payment by Cofidis Pay' mod='ifthenpay'}.</p>
+			<p>{l s='If the customer chooses to pay by Cofidis Pay, they will be redirected to a Cofidis form and the order status will be placed at "Awaiting payment by Cofidis Pay"' mod='ifthenpay'}.</p>
+			<p>{l s='If the customer fills out the form properly, the order status will change to "Payment confirmed by Cofidis Pay"' mod='ifthenpay'}.</p>
 
         {else}
             <p>
@@ -153,7 +154,7 @@
                     <div class="col-md-3 col-sm-12">
                         {l s='Callback Url' mod='ifthenpay'}
                     </div>
-                    <div class="col-md-9 col-sm-12 text-right">
+                    <div class="col-md-9 col-sm-12">
                         <span id="callbackUrl" class="badge">{$urlCallback}</span>
                     </div>
                 </div>
@@ -202,7 +203,15 @@
                             <p class="help-block">{l s='Can be found as "IdRequest" in the SELL/Orders/Orders by selecting the order you wish to test and scrolling down to order payment details' mod='ifthenpay'}</p>
                         </div>
                     </div>
+				{elseif $paymentMethod === 'cofidispay'}
 
+					<div class="form-group" style="display: block;">
+						<label class="control-label col-lg-4">{l s='Cofidispay Transaction ID' mod='ifthenpay'}</label>
+						<div class="col-lg-8">
+							<input type="text" id="cofidispay_transaction_id" name="cofidispay_transaction_id" class="form-control" />
+							<p class="help-block">{l s='Can be found as "IdRequest" in the SELL/Orders/Orders by selecting the order you wish to test and scrolling down to order payment details' mod='ifthenpay'}</p>
+						</div>
+					</div>
                 {/if}
 
 

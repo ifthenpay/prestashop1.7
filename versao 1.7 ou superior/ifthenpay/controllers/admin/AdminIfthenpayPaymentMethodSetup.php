@@ -26,7 +26,7 @@
 
 
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
 use PrestaShop\Module\Ifthenpay\Utility\Utility;
@@ -37,195 +37,216 @@ use PrestaShop\Module\Ifthenpay\Factory\Request\RequestFactory;
 
 class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
 {
-    private $paymentMethod;
-    private $ifthenpayGateway;
+	private $paymentMethod;
+	private $ifthenpayGateway;
 
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->bootstrap = true;
-        $this->ifthenpayGateway = GatewayFactory::build('gateway');
-    }
+	public function __construct()
+	{
+		parent::__construct();
+		$this->bootstrap = true;
+		$this->ifthenpayGateway = GatewayFactory::build('gateway');
+	}
 
 
-    public function initPageHeaderToolbar()
-    {
-        $this->page_header_toolbar_btn['return'] = array(
-            'href' => $this->context->link->getAdminLink('AdminModules') . '&configure=' . $this->module->name,
-            'desc' => $this->module->l('Back'),
-            'icon' => 'process-icon-back'
-        );
-        parent::initPageHeaderToolbar();
-    }
+	public function initPageHeaderToolbar()
+	{
+		$this->page_header_toolbar_btn['return'] = array(
+			'href' => $this->context->link->getAdminLink('AdminModules') . '&configure=' . $this->module->name,
+			'desc' => $this->module->l('Back'),
+			'icon' => 'process-icon-back'
+		);
+		parent::initPageHeaderToolbar();
+	}
 
 
-    public function initContent()
-    {
-        Utility::checkPaymentMethodDefined();
+	public function initContent()
+	{
+		Utility::checkPaymentMethodDefined();
 
-        parent::initContent();
+		parent::initContent();
 
-        if ($this->context->cookie->__isset('success')) {
-            $this->displayInformation($this->context->cookie->__get('success'));
-            $this->context->cookie->__unset('success');
-        }
+		if ($this->context->cookie->__isset('success')) {
+			$this->displayInformation($this->context->cookie->__get('success'));
+			$this->context->cookie->__unset('success');
+		}
 
-        if ($this->context->cookie->__isset('error')) {
-            $this->displayWarning($this->context->cookie->__get('error'));
-            $this->context->cookie->__unset('error');
-        }
-        $this->paymentMethod = $_GET['paymentMethod'];
+		if ($this->context->cookie->__isset('error')) {
+			$this->displayWarning($this->context->cookie->__get('error'));
+			$this->context->cookie->__unset('error');
+		}
+		$this->paymentMethod = $_GET['paymentMethod'];
 
-        $this->context->smarty->assign('paymentMethod', $this->paymentMethod);
-        $this->context->smarty->assign('module_dir', _MODULE_DIR_ . $this->module->name);
+		$this->context->smarty->assign('paymentMethod', $this->paymentMethod);
+		$this->context->smarty->assign('module_dir', _MODULE_DIR_ . $this->module->name);
 
-        // prevents configuration without backoffice key
-        if (!Configuration::get('IFTHENPAY_BACKOFFICE_KEY')) {
-            Utility::redirectIfthenpayConfigPage();
-        }
+		// prevents configuration without backoffice key
+		if (!Configuration::get('IFTHENPAY_BACKOFFICE_KEY')) {
+			Utility::redirectIfthenpayConfigPage();
+		}
 
-        IfthenpayConfigFormsFactory::build('ifthenpayConfigForms', $this->paymentMethod, $this->module, $this)->buildForm();
+		IfthenpayConfigFormsFactory::build('ifthenpayConfigForms', $this->paymentMethod, $this->module, $this)->buildForm();
 
-        $this->context->smarty->assign('content', $this->context->smarty->fetch($this->getTemplatePath() . '/paymentMethodSetup.tpl'));
-    }
+		$this->context->smarty->assign('content', $this->context->smarty->fetch($this->getTemplatePath() . '/paymentMethodSetup.tpl'));
+	}
 
-    public function postProcess()
-    {
-        parent::postProcess();
-        $this->paymentMethod = Tools::getValue('IFTHENPAY_PAYMENT_METHOD');
+	public function postProcess()
+	{
+		parent::postProcess();
+		$this->paymentMethod = Tools::getValue('IFTHENPAY_PAYMENT_METHOD');
 
-        if ($this->paymentMethod && Tools::isSubmit('submitIfthenpay' . Tools::ucfirst($this->paymentMethod) . 'Config')) {
-            try {
-                IfthenpayConfigFormsFactory::build('ifthenpayConfigForms', $this->paymentMethod, $this->module)->processForm();
-                IfthenpayLogProcess::addLog(Tools::ucfirst($this->paymentMethod) . ' configuration saved with success.', IfthenpayLogProcess::INFO, 0);
-            } catch (\Throwable $th) {
-                IfthenpayLogProcess::addLog('Error saving ' . Tools::ucfirst($this->paymentMethod) . ' configuration - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
-                Utility::setPrestashopCookie('error', sprintf($this->module->l('Error saving %s data.'), Tools::ucfirst($this->paymentMethod)));
-            }
-            Tools::redirectAdmin(
-                $this->context->link->getAdminLink(
-                    'AdminIfthenpayPaymentMethodSetup',
-                    true,
-                    [],
-                    [
-                        'paymentMethod' => $this->paymentMethod
-                    ]
-                )
-            );
-        }
-    }
+		if ($this->paymentMethod && Tools::isSubmit('submitIfthenpay' . Tools::ucfirst($this->paymentMethod) . 'Config')) {
+			try {
+				IfthenpayConfigFormsFactory::build('ifthenpayConfigForms', $this->paymentMethod, $this->module)->processForm();
+				IfthenpayLogProcess::addLog(Tools::ucfirst($this->paymentMethod) . ' configuration saved with success.', IfthenpayLogProcess::INFO, 0);
+			} catch (\Throwable $th) {
+				IfthenpayLogProcess::addLog('Error saving ' . Tools::ucfirst($this->paymentMethod) . ' configuration - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
+				Utility::setPrestashopCookie('error', sprintf($this->module->l('Error saving %s data.'), Tools::ucfirst($this->paymentMethod)));
+			}
+			Tools::redirectAdmin(
+				$this->context->link->getAdminLink(
+					'AdminIfthenpayPaymentMethodSetup',
+					true,
+					[],
+					[
+						'paymentMethod' => $this->paymentMethod
+					]
+				)
+			);
+		}
+	}
 
-    public function setMedia($isNewTheme = false)
-    {
-        $versioning = '_' . str_replace('.', '_', $this->module->version);
+	public function setMedia($isNewTheme = false)
+	{
+		$versioning = '_' . str_replace('.', '_', $this->module->version);
 
-        $ifthenpayUserPaymentMethods = Configuration::get('IFTHENPAY_USER_PAYMENT_METHODS');
-        if ($ifthenpayUserPaymentMethods) {
-            parent::setMedia($isNewTheme);
-            $this->addJS($this->module->getLocalPath() . '/views/js/adminConfigPage' . $versioning . '.js');
-            $this->addCSS($this->module->getLocalPath() . 'views/css/ifthenpayPaymentMethodSetup' . $versioning . '.css');
-            Media::addJsDef(array(
-                'ifthenpayUserPaymentMethods' => (array) unserialize($ifthenpayUserPaymentMethods),
-                'controllerUrl' => $this->context->link->getAdminLink('AdminIfthenpayPaymentMethodSetup'),
-                'testCallbackUrl' => $this->context->link->getAdminLink('AdminIfthenpayTestCallback'),
-                'msgFillAllFields' => $this->module->l('Please fill all fields', pathinfo(__FILE__)['filename'])
-            ));
-        }
-    }
+		$ifthenpayUserPaymentMethods = Configuration::get('IFTHENPAY_USER_PAYMENT_METHODS');
+		if ($ifthenpayUserPaymentMethods) {
+			parent::setMedia($isNewTheme);
+			$this->addJS($this->module->getLocalPath() . '/views/js/adminConfigPage' . $versioning . '.js');
+			$this->addCSS($this->module->getLocalPath() . 'views/css/ifthenpayPaymentMethodSetup' . $versioning . '.css');
+			Media::addJsDef(
+				array(
+					'ifthenpayUserPaymentMethods' => (array) unserialize($ifthenpayUserPaymentMethods),
+					'controllerUrl' => $this->context->link->getAdminLink('AdminIfthenpayPaymentMethodSetup'),
+					'testCallbackUrl' => $this->context->link->getAdminLink('AdminIfthenpayTestCallback'),
+					'msgFillAllFields' => $this->module->l('Please fill all fields', pathinfo(__FILE__)['filename'])
+				)
+			);
+		}
+	}
 
-    public function ajaxProcessGetSubEntidade()
-    {
-        try {
-            $this->ifthenpayGateway->setAccount((array) unserialize(Configuration::get('IFTHENPAY_USER_ACCOUNT')));
-            $subEntidades = json_encode($this->ifthenpayGateway->getSubEntidadeInEntidade(Tools::getValue('entidade')));
-            // this log is unnecessary
-            // IfthenpayLogProcess::addLog('SubEntidades withdrawn with success', IfthenpayLogProcess::INFO, 0);
-            die($subEntidades);
-        } catch (\Throwable $th) {
-            IfthenpayLogProcess::addLog('Error getting subEntidades by ajax request - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
-            die($th->getMessage());
-        }
-    }
+	public function ajaxProcessGetSubEntidade()
+	{
+		try {
+			$this->ifthenpayGateway->setAccount((array) unserialize(Configuration::get('IFTHENPAY_USER_ACCOUNT')));
+			$subEntidades = json_encode($this->ifthenpayGateway->getSubEntidadeInEntidade(Tools::getValue('entidade')));
+			// this log is unnecessary
+			// IfthenpayLogProcess::addLog('SubEntidades withdrawn with success', IfthenpayLogProcess::INFO, 0);
+			die($subEntidades);
+		} catch (\Throwable $th) {
+			IfthenpayLogProcess::addLog('Error getting subEntidades by ajax request - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
+			die($th->getMessage());
+		}
+	}
 
+	public function ajaxProcessGetCofidisLimits()
+	{
+		try {
+			$limits = json_encode($this->ifthenpayGateway->getCofidisLimits(Tools::getValue('cofidisKey')));
+			// this log is unnecessary
+			// IfthenpayLogProcess::addLog("Cofidis amount limits request (".$limits.")", IfthenpayLogProcess::INFO, 0);
+			die($limits);
+		} catch (\Throwable $th) {
+			IfthenpayLogProcess::addLog('Error getting Cofidis amount Limits by ajax request - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
+			die($th->getMessage());
+		}
+	}
 
-    public function ajaxProcessTestCallback()
-    {
-        try {
+	public function ajaxProcessTestCallback()
+	{
+		try {
 
-            $method = Tools::getValue('method');
+			$method = Tools::getValue('method');
 
-            $isCallbackActive = Configuration::get('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($method));
-            $callbackUrl = Configuration::get('IFTHENPAY_'. strtoupper($method) .'_URL_CALLBACK');
-            $callbackUrl .= '&test=true';
-            
-            $reference = Tools::getValue('reference');
-            $amount = Tools::getValue('amount');
-            $mbwayTransactionId = Tools::getValue('mbway_transaction_id');
-            $payshopTransactionId = Tools::getValue('payshop_transaction_id');
-            
+			$isCallbackActive = Configuration::get('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($method));
+			$callbackUrl = Configuration::get('IFTHENPAY_' . strtoupper($method) . '_URL_CALLBACK');
+			$callbackUrl .= '&test=true';
 
-            if (!$callbackUrl) {
-                die(json_encode([
-                    'status' => 'warning',
-                    'message' => $this->module->l('Callback url not defined', pathinfo(__FILE__)['filename'])
-                ]));
-            }
-            if (!$isCallbackActive) {
-                die(json_encode([
-                    'status' => 'warning',
-                    'message' => $this->module->l('Callback not activated', pathinfo(__FILE__)['filename'])
-                ]));
-            }
-
-
-            $antiPhishingKey = Configuration::get('IFTHENPAY_' . strtoupper($method) . '_CHAVE_ANTI_PHISHING');
-            $callbackUrl = str_replace('[CHAVE_ANTI_PHISHING]', $antiPhishingKey, $callbackUrl);
+			$reference = Tools::getValue('reference');
+			$amount = Tools::getValue('amount');
+			$mbwayTransactionId = Tools::getValue('mbway_transaction_id');
+			$payshopTransactionId = Tools::getValue('payshop_transaction_id');
+			$cofidispayTransactionId = Tools::getValue('cofidis_transaction_id');
 
 
-            // set callback url for multibanco
-            if ($method === 'multibanco') {
-
-                $entity = Configuration::get('IFTHENPAY_' . strtoupper($method) . '_ENTIDADE');
-                $callbackUrl = str_replace('[ENTIDADE]', $entity, $callbackUrl);
-
-                $callbackUrl = str_replace('[REFERENCIA]', $reference, $callbackUrl);
-                $callbackUrl = str_replace('[VALOR]', $amount, $callbackUrl);
-            }
-
-            // set callback url for mbway
-
-            if ($method === 'mbway') {
-                $callbackUrl = str_replace('[ID_TRANSACAO]', $mbwayTransactionId, $callbackUrl);
-                $callbackUrl = str_replace('[VALOR]', $amount, $callbackUrl);
-                $callbackUrl = str_replace('[ESTADO]', 'PAGO', $callbackUrl);
-            }
-
-            // set callback url for payshop
-
-            if ($method === 'payshop') {
-                $callbackUrl = str_replace('[ID_TRANSACAO]', $payshopTransactionId, $callbackUrl);
-                $callbackUrl = str_replace('[VALOR]', $amount, $callbackUrl);
-                $callbackUrl = str_replace('[ESTADO]', 'PAGO', $callbackUrl);
-            }
+			if (!$callbackUrl) {
+				die(json_encode([
+					'status' => 'warning',
+					'message' => $this->module->l('Callback url not defined', pathinfo(__FILE__)['filename'])
+				]));
+			}
+			if (!$isCallbackActive) {
+				die(json_encode([
+					'status' => 'warning',
+					'message' => $this->module->l('Callback not activated', pathinfo(__FILE__)['filename'])
+				]));
+			}
 
 
-            $webservice = RequestFactory::buildWebservice();
+			$antiPhishingKey = Configuration::get('IFTHENPAY_' . strtoupper($method) . '_CHAVE_ANTI_PHISHING');
+			$callbackUrl = str_replace('[CHAVE_ANTI_PHISHING]', $antiPhishingKey, $callbackUrl);
 
-            $request = $webservice->getRequest($callbackUrl);
 
-            $responseBody = $request->getResponseJson();
+			// set callback url for multibanco
+			if ($method === 'multibanco') {
 
-            die(json_encode($responseBody));
-        } catch (\Throwable $th) {
-            IfthenpayLogProcess::addLog('Error testing the callback in backoffice - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
+				$entity = Configuration::get('IFTHENPAY_' . strtoupper($method) . '_ENTIDADE');
+				$callbackUrl = str_replace('[ENTIDADE]', $entity, $callbackUrl);
 
-            $response = [
-                'status' => 'error',
-                'message' => $this->module->l('Invalid data, order not found', pathinfo(__FILE__)['filename']),
-            ];
+				$callbackUrl = str_replace('[REFERENCIA]', $reference, $callbackUrl);
+				$callbackUrl = str_replace('[VALOR]', $amount, $callbackUrl);
+			}
 
-            die(json_encode($response));
-        }
-    }
+			// set callback url for mbway
+
+			if ($method === 'mbway') {
+				$callbackUrl = str_replace('[ID_TRANSACAO]', $mbwayTransactionId, $callbackUrl);
+				$callbackUrl = str_replace('[VALOR]', $amount, $callbackUrl);
+				$callbackUrl = str_replace('[ESTADO]', 'PAGO', $callbackUrl);
+			}
+
+			// set callback url for payshop
+
+			if ($method === 'payshop') {
+				$callbackUrl = str_replace('[ID_TRANSACAO]', $payshopTransactionId, $callbackUrl);
+				$callbackUrl = str_replace('[VALOR]', $amount, $callbackUrl);
+				$callbackUrl = str_replace('[ESTADO]', 'PAGO', $callbackUrl);
+			}
+
+			if ($method === 'cofidispay') {
+				$callbackUrl = str_replace('[ID_TRANSACAO]', $cofidispayTransactionId, $callbackUrl);
+				$callbackUrl = str_replace('[VALOR]', $amount, $callbackUrl);
+				$callbackUrl = str_replace('[ESTADO]', 'PAGO', $callbackUrl);
+			}
+
+
+			$webservice = RequestFactory::buildWebservice();
+
+			$request = $webservice->getRequest($callbackUrl);
+
+			$responseBody = $request->getResponseJson();
+
+			die(json_encode($responseBody));
+		} catch (\Throwable $th) {
+			IfthenpayLogProcess::addLog('Error testing the callback in backoffice - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
+
+			$response = [
+				'status' => 'error',
+				'message' => $this->module->l('Invalid data, order not found', pathinfo(__FILE__)['filename']),
+			];
+
+			die(json_encode($response));
+		}
+	}
 }

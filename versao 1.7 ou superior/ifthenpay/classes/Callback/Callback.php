@@ -27,7 +27,7 @@
 namespace PrestaShop\Module\Ifthenpay\Callback;
 
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
 use PrestaShop\Module\Ifthenpay\Factory\Request\RequestFactory;
@@ -35,82 +35,94 @@ use PrestaShop\Module\Ifthenpay\Factory\Request\RequestFactory;
 class Callback
 {
 
-    private $activateEndpoint = 'https://ifthenpay.com/api/endpoint/callback/activation';
-    private $webservice;
-    private $urlCallback;
-    private $chaveAntiPhishing;
-    private $backofficeKey;
-    private $entidade;
-    private $subEntidade;
-    private $paymentType;
+	private $activateEndpoint = 'https://ifthenpay.com/api/endpoint/callback/activation';
+	private $webservice;
+	private $urlCallback;
+	private $chaveAntiPhishing;
+	private $backofficeKey;
+	private $entidade;
+	private $subEntidade;
+	private $paymentType;
 
-    private $urlCallbackParameters = [
-        'multibanco' => '?type=offline&payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&entidade=[ENTIDADE]&referencia=[REFERENCIA]&valor=[VALOR]',
-        'mbway' => '?type=offline&payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&referencia=[REFERENCIA]&id_pedido=[ID_TRANSACAO]&valor=[VALOR]&estado=[ESTADO]',
-        'payshop' => '?type=offline&payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&id_cliente=[ID_CLIENTE]&id_transacao=[ID_TRANSACAO]&referencia=[REFERENCIA]&valor=[VALOR]&estado=[ESTADO]',
-    ];
+	private $urlCallbackParameters = [
+		'multibanco' => '?type=offline&ec={ec}&mv={mv}&payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&entidade=[ENTIDADE]&referencia=[REFERENCIA]&valor=[VALOR]',
+		'mbway' => '?type=offline&ec={ec}&mv={mv}&payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&referencia=[REFERENCIA]&id_pedido=[ID_TRANSACAO]&valor=[VALOR]&estado=[ESTADO]',
+		'payshop' => '?type=offline&ec={ec}&mv={mv}&payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&id_cliente=[ID_CLIENTE]&id_transacao=[ID_TRANSACAO]&referencia=[REFERENCIA]&valor=[VALOR]&estado=[ESTADO]',
+		'cofidispay' => '?type=offline&ec={ec}&mv={mv}&payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&id_pedido=[ID_TRANSACAO]&valor=[VALOR]&estado=[ESTADO]',
+	];
 
-    public function __construct($data)
-    {
-        $this->webservice = RequestFactory::buildWebservice();
-        $this->backofficeKey = $data->getData()->backofficeKey;
-        $this->entidade = $data->getData()->entidade;
-        $this->subEntidade = $data->getData()->subEntidade;
-    }
+	public function __construct($data)
+	{
+		$this->webservice = RequestFactory::buildWebservice();
+		$this->backofficeKey = $data->getData()->backofficeKey;
+		$this->entidade = $data->getData()->entidade;
+		$this->subEntidade = $data->getData()->subEntidade;
+	}
 
-    private function createAntiPhishing()
-    {
-        $this->chaveAntiPhishing = md5((string) rand());
-    }
+	private function createAntiPhishing()
+	{
+		$this->chaveAntiPhishing = md5((string) rand());
+	}
 
-    private function createUrlCallback($paymentType, $moduleLink)
-    {
-        $this->urlCallback = $moduleLink . str_replace('{paymentMethod}', $paymentType, $this->urlCallbackParameters[$paymentType]);
-    }
+	private function createUrlCallback($paymentType, $moduleLink)
+	{
+		$ecommerceVersion = 'ps_' . substr(_PS_VERSION_, 0, 9); // prevent version number of taking too many characters
+		$module = \Module::getInstanceByName('ifthenpay');
+		$moduleVersion = $module->version;
 
-    private function activateCallback()
-    {
-        $request = $this->webservice->postRequest(
-            $this->activateEndpoint,
-            [
-                'chave' => $this->backofficeKey,
-                'entidade' => $this->entidade,
-                'subentidade' => $this->subEntidade,
-                'apKey' => $this->chaveAntiPhishing,
-                'urlCb' => $this->urlCallback,
-            ],
-            true
-        );
+		$paramStr = $this->urlCallbackParameters[$paymentType];
+		$paramStr = str_replace('{paymentMethod}', $paymentType, $paramStr);
+		$paramStr = str_replace('{ec}', $ecommerceVersion, $paramStr);
+		$paramStr = str_replace('{mv}', $moduleVersion, $paramStr);
 
-        $response = $request->getResponse();
-        if (!$response->getStatusCode() === 200 && !$response->getReasonPhrase()) {
-            throw new \Exception("Error Activating Callback");
-        }
-    }
 
-    public function make($paymentType, $moduleLink, $activateCallback = false)
-    {
-        $this->paymentType = $paymentType;
-        $this->createAntiPhishing();
-        $this->createUrlCallback($paymentType, $moduleLink);
-        if ($activateCallback) {
-            $this->activateCallback();
-        }
-    }
 
-    /**
-     * Get the value of urlCallback
-     */
-    public function getUrlCallback()
-    {
-        return $this->urlCallback;
-    }
+		$this->urlCallback = $moduleLink . $paramStr;
+	}
 
-    /**
-     * Get the value of chaveAntiPhishing
-     */
-    public function getChaveAntiPhishing()
-    {
-        return $this->chaveAntiPhishing;
-    }
+	private function activateCallback()
+	{
+		$request = $this->webservice->postRequest(
+			$this->activateEndpoint,
+			[
+				'chave' => $this->backofficeKey,
+				'entidade' => $this->entidade,
+				'subentidade' => $this->subEntidade,
+				'apKey' => $this->chaveAntiPhishing,
+				'urlCb' => $this->urlCallback,
+			],
+			true
+		);
+
+		$response = $request->getResponse();
+		if (!$response->getStatusCode() === 200 && !$response->getReasonPhrase()) {
+			throw new \Exception("Error Activating Callback");
+		}
+	}
+
+	public function make($paymentType, $moduleLink, $activateCallback = false)
+	{
+		$this->paymentType = $paymentType;
+		$this->createAntiPhishing();
+		$this->createUrlCallback($paymentType, $moduleLink);
+		if ($activateCallback) {
+			$this->activateCallback();
+		}
+	}
+
+	/**
+	 * Get the value of urlCallback
+	 */
+	public function getUrlCallback()
+	{
+		return $this->urlCallback;
+	}
+
+	/**
+	 * Get the value of chaveAntiPhishing
+	 */
+	public function getChaveAntiPhishing()
+	{
+		return $this->chaveAntiPhishing;
+	}
 }

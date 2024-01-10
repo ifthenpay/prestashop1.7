@@ -26,34 +26,39 @@
 namespace PrestaShop\Module\Ifthenpay\Builders;
 
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
 use PrestaShop\Module\Ifthenpay\Contracts\Builders\GatewayDataBuilderInterface;
 
 class GatewayDataBuilder extends DataBuilder implements GatewayDataBuilderInterface
 {
-    public function setSubEntidade($value)
-    {
-        $this->data->subEntidade = $value;
-        return $this;
-    }
+	public function setSubEntidade($value)
+	{
+		$this->data->subEntidade = $value;
+		return $this;
+	}
 
-    public function setMbwayKey($value)
-    {
-        $this->data->mbwayKey = $value;
-        return $this;
-    }
+	public function setMbwayKey($value)
+	{
+		$this->data->mbwayKey = $value;
+		return $this;
+	}
 
-    public function setPayshopKey($value)
-    {
-        $this->data->payshopKey = $value;
-        return $this;
-    }
+	public function setPayshopKey($value)
+	{
+		$this->data->payshopKey = $value;
+		return $this;
+	}
 
-    public function setCCardKey($value)
-    {
-        $this->data->ccardKey = $value;
-        return $this;
-    }
+	public function setCCardKey($value)
+	{
+		$this->data->ccardKey = $value;
+		return $this;
+	}
+	public function setCofidisKey($value)
+	{
+		$this->data->cofidisKey = $value;
+		return $this;
+	}
 }

@@ -26,33 +26,36 @@
 namespace PrestaShop\Module\Ifthenpay\Factory\Admin;
 
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
 use PrestaShop\Module\Ifthenpay\Admin\Payments\MbwayAdminOrder;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\PayshopAdminOrder;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\MultibancoAdminOrder;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\CCardAdminOrder;
+use PrestaShop\Module\Ifthenpay\Admin\Payments\CofidispayAdminOrder;
 
 class AdminOrderFactory
 {
-    public static function build(
-        $type,
-        $paymentDefaultData,
-        $smartyDefaultData,
-        $ifthenpayModule
-    ) {
-        switch ($type) {
-            case 'multibanco':
-                return new MultibancoAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
-            case 'mbway':
-                return new MbwayAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
-            case 'payshop':
-                return new PayshopAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
-            case 'ccard':
-                return new CCardAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
-            default:
-                throw new \Exception('Unknown Admin Order class');
-        }
-    }
+	public static function build(
+		$type,
+		$paymentDefaultData,
+		$smartyDefaultData,
+		$ifthenpayModule
+	) {
+		switch ($type) {
+			case 'multibanco':
+				return new MultibancoAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
+			case 'mbway':
+				return new MbwayAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
+			case 'payshop':
+				return new PayshopAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
+			case 'ccard':
+				return new CCardAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
+			case 'cofidispay':
+				return new CofidispayAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
+			default:
+				throw new \Exception('Unknown Admin Order class');
+		}
+	}
 }
