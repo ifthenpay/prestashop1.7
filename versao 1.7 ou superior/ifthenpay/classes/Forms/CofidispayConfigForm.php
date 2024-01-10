@@ -72,6 +72,13 @@ class CofidispayConfigForm extends ConfigForm
 
 		// add min max and country form elements
 		$this->addMinMaxFieldsToForm();
+
+		// modify min max info
+		$this->form['form']['input'][count($this->form['form']['input']) - 2]['desc'] = $this->ifthenpayModule->l('Only display this payment method for orders with total value greater than inserted value. Inputted value can not be less than defined value in ifthenpay backoffice.', pathinfo(__FILE__)['filename']);
+
+		$this->form['form']['input'][count($this->form['form']['input']) - 1]['desc'] = $this->ifthenpayModule->l('Only display this payment method for orders with total value less than inserted value. Inputted value can not be greater than defined value in ifthenpay backoffice.', pathinfo(__FILE__)['filename']);
+
+
 		$this->addCountriesFieldToForm();
 		$this->addOrderByNumberFieldsToForm();
 

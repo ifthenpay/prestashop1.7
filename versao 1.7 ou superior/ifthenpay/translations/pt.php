@@ -180,6 +180,8 @@ $_MODULE['<{ifthenpay}prestashop>mbwayconfigform_f509bfde859916c38f876eec7d7bb81
 $_MODULE['<{ifthenpay}prestashop>mbwayconfigform_b6f32a76c083c0abc94f7934946f9630'] = 'Escolha a Chave MB WAY';
 $_MODULE['<{ifthenpay}prestashop>cofidispayconfigform_7d84537b6d2997bb77e2eeb7c94f6f14'] = 'Cofidis Pay key';
 $_MODULE['<{ifthenpay}prestashop>cofidispayconfigform_08e3c557d3ed3aa35d68f80103725374'] = 'Choose Cofidis Pay key';
+$_MODULE['<{ifthenpay}prestashop>cofidispayconfigform_5546f21c8234bed36ccfa9e6e909a19d'] = 'Exibe este método de pagamento para encomendas com valor total superior ao valor inserido. O valor inserido não pode ser inferior ao valor definido no backoffice da ifthenpay.';
+$_MODULE['<{ifthenpay}prestashop>cofidispayconfigform_b5e9cc76fb67d350c522b09ef830c185'] = 'Exibe este método de pagamento para encomendas com valor total inferior ao valor inserido. O valor inserido não pode ser superior ao valor definido no backoffice da ifthenpay.';
 $_MODULE['<{ifthenpay}prestashop>ccardconfigform_ac1d5c290d4b2176a26575ea5dc3c655'] = 'Chave CCard';
 $_MODULE['<{ifthenpay}prestashop>ccardconfigform_e6885a9d3fa0a1a7d4106c46ba2f9fe5'] = 'Escolha a Chave CCard';
 $_MODULE['<{ifthenpay}prestashop>ccardconfigform_0d6184f604b11a1906364b29c0166b34'] = 'Cancelar Encomenda Ccard';
@@ -210,7 +212,7 @@ $_MODULE['<{ifthenpay}prestashop>configform_235ade195b1a4282b1d4916af584b645'] =
 $_MODULE['<{ifthenpay}prestashop>configform_a240fa27925a635b08dc28c9e4f9216d'] = 'Ordenar';
 $_MODULE['<{ifthenpay}prestashop>configform_ff55c63f99e78602d2061e33888204e4'] = 'Ordena os métodos de pagamento na página de checkout. Ordena do menor para o maior, por exemplo,  (Multibanco: 1, MB WAY: 4, CCARD: 2) resulta em  (Multibanco, CCARD, MB WAY). Esta opção apenas afeta os métodos de pagamento deste módulo.';
 $_MODULE['<{ifthenpay}prestashop>configform_52b7e372bca509e26e66340426dc8531'] = 'Restrições de Países';
-$_MODULE['<{ifthenpay}prestashop>configform_7f677130ed1a95194d57209385064523'] = 'Exibe este método de pagamento para encomendas com país de envio dentro dos selecionados. Deixe vazio (sem seleção) para permitir todos os países. Use a tecla CTRL e o lado direito do rato para seleção multipla.';
+$_MODULE['<{ifthenpay}prestashop>configform_553764f34cf3606a947e68808815ba34'] = 'Exibe este método de pagamento para encomendas com país de envio dentro dos selecionados. Deixe vazio (sem seleção) para permitir todos os países. Use a tecla CTRL e o lado esquerdo do rato para seleção múltipla.';
 $_MODULE['<{ifthenpay}prestashop>ifthenpaysql_b466eee08a9b34db749d4805d50e95d8'] = 'Ocorreu um erro ao criar a tabela ifthenpay payment shop!';
 $_MODULE['<{ifthenpay}prestashop>ifthenpaysql_e6d755c2053083d4b5d444bfe4bf521c'] = 'Ocorreu um erro ao criar a tabela ifthenpay payment!';
 $_MODULE['<{ifthenpay}prestashop>ifthenpaysql_9f4240a0926b09586510034ae430f688'] = 'Ocorreu um erro ao criar a tabela ifthenpay log!';

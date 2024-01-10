@@ -237,7 +237,7 @@ abstract class ConfigForm
 			'label' => $this->ifthenpayModule->l('Country restrictions', pathinfo(__FILE__)['filename']),
 			'id' => 'ifthenpay' . ucfirst($this->paymentMethod) . 'Countries',
 			'name' => 'IFTHENPAY_' . strtoupper($this->paymentMethod) . '_COUNTRIES[]',
-			'desc' => $this->ifthenpayModule->l('Only display this payment method for orders with shipping country within the selected ones. Leave empty to allow all countries. Use CTRL keyboard key and mouse click to toggle selection.', pathinfo(__FILE__)['filename']),
+			'desc' => $this->ifthenpayModule->l('Only display this payment method for orders with shipping country within the selected ones. Leave empty to allow all countries. Use CTRL keyboard key and left mouse click to toggle selection.', pathinfo(__FILE__)['filename']),
 			'multiple' => true,
 			'options' => [
 				'query' => $countriesArr,
