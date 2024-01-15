@@ -26,6 +26,6 @@
 <div class="cofidispay_option">
     <h5>{l s='With COFIDIS PAY you have up to 12 interest-free installments' mod='ifthenpay'}!</h5>
     <p>{l s='You will be redirected to a secure page to make the payment' mod='ifthenpay'}.</p>
-    <p>{l s='Pay for your order in interest-free and fee-free installments using your debit or credit card' mod='ifthenpay'}.</p>
-    <p>{l s='Payment of installments will be made via the customer´s debit or credit card through a payment solution based on a factoring contract established between Cofidis and the Merchant. Check the information with Cofidis, registered with Banco de Portugal under number 921' mod='ifthenpay'}.</p>
+    <p>{l s='Pay for your order in installments without interest or charges using your debit or credit card' mod='ifthenpay'}.</p>
+    <p>{l s='Payment of installments will be made to the customer\'s debit or credit card through a payment solution based on a factoring contract between Cofidis and the Merchant. Find out more at Cofidis, registered with Banco de Portugal under number 921' mod='ifthenpay'}.</p>
 </div>

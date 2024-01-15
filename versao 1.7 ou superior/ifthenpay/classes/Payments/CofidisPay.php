@@ -68,35 +68,90 @@ class CofidisPay extends Payment implements PaymentMethodInterface
 		}
 	}
 
-	private function setReferencia()
-	{
+/**
+ * Generates an array with the customer data required to pass as payload for cofidis pay.
+ * This is an overzealous take on the matter since it checks with isset() although verifying object properties.
+ * @return array
+ */
+	private function getCustomerData(): array{
+		$customerData = [];
 		$context = \Context::getContext();
 		$customer = $context->customer;
-		$langId = $context->cookie->id_lang;
-		$langObj = \Language::getLanguage((int) $langId);
-		$langIsoCode = isset($langObj['iso_code']) ? $langObj['iso_code'] : 'en';
-
 		$addressDelivery = new \Address($context->cart->id_address_delivery);
 		$addressInvoice = new \Address($context->cart->id_address_invoice);
 
+
+		$shippingFirstName = isset($addressDelivery->firstname) ? $addressDelivery->firstname : '';
+		$shippingLastName = isset($addressDelivery->lastname) ? $addressDelivery->lastname : '';
+		if ($shippingFirstName . $shippingLastName != '') {
+			$customerData['customerName'] = trim($shippingFirstName . " " . $shippingLastName);
+		}
+
+		// use billing address customer name instead if it exists
+		$billingFirstName = isset($addressInvoice->firstname) ? $addressInvoice->firstname : '';
+		$billingLastName = isset($addressInvoice->lastname) ? $addressInvoice->lastname : '';
+		if ($billingFirstName . $billingLastName != '') {
+			$customerData['customerName'] = trim($billingFirstName . " " . $billingLastName);
+		}
+
+		if ($addressInvoice->vat_number){
+			$customerData['customerVat'] = $addressInvoice->vat_number;
+		}
+
+		if (isset($customer->email) && $customer->email) {
+			$customerData['customerEmail'] = $customer->email;
+		}
+
+		$phone = isset($addressInvoice->phone) && $addressInvoice->phone != '' ? $addressInvoice->phone : '';
+		$mobilePhone = isset($addressInvoice->phone_mobile) && $addressInvoice->phone_mobile != '' ? $addressInvoice->phone_mobile : '';
+		if ($phone != '' || $mobilePhone != '') {
+			$customerData['customerPhone'] = $mobilePhone != '' ? $mobilePhone : $phone;
+		}
+
+		$billingAddress1 = isset($addressDelivery->address1) ? $addressDelivery->address1 : '';
+		$billingAddress2 = isset($addressDelivery->address2) ? $addressDelivery->address2 : '';
+		if ($billingAddress1 . $billingAddress2 != '') {
+			$customerData['billingAddress'] = trim($billingAddress1 . " " . $billingAddress2);
+		}
+
+		if (isset($addressInvoice->postcode) && $addressInvoice->postcode) {
+			$customerData['billingZipCode'] = $addressInvoice->postcode;
+		}
+
+		if (isset($addressInvoice->city) && $addressInvoice->city) {
+			$customerData['billingCity'] = $addressInvoice->city;
+		}
+
+		$shippingAddress1 = isset($addressDelivery->address1) ? $addressDelivery->address1 : '';
+		$shippingAddress2 = isset($addressDelivery->address2) ? $addressDelivery->address2 : '';
+		if ($shippingAddress1 . $shippingAddress2 != '') {
+			trim($customerData['deliveryAddress'] = trim($shippingAddress1 . " " . $shippingAddress2));
+		}
+
+		if (isset($addressDelivery->postcode) && $addressDelivery->postcode) {
+			$customerData['deliveryZipCode'] = $addressDelivery->postcode;
+		}
+
+		if (isset($addressDelivery->city) && $addressDelivery->city) {
+			$customerData['deliveryCity'] = $addressDelivery->city;
+		}
+
+		return $customerData;
+	}
+
+
+	private function setReferencia()
+	{
+		$payload = $this->getCustomerData();
+		$payload["orderId"] = $this->orderId;
+		$payload["amount"] = $this->valor;
+		$payload["returnUrl"] = $this->successUrl . '&orderId=' . $this->orderId;
+		$payload["description"] = "Order {$this->orderId}";
+
+
 		$this->cofidisRequest = $this->webservice->postRequest(
 			'https://ifthenpay.com/api/cofidis/init/' . $this->cofidisKey,
-			[
-				"orderId" => $this->orderId,
-				"amount" => $this->valor,
-				"returnUrl" => $this->successUrl . '&orderId=' . $this->orderId,
-				"description" => "Order $this->orderId",
-				"customerName" => $customer->firstname . ' ' . $customer->lastname,
-				"customerVat" => $addressInvoice->vat_number,
-				"customerEmail" => $customer->email,
-				"customerPhone" => $addressInvoice->phone_mobile,
-				"billingAddress" => $addressInvoice->address1 . " " . $addressInvoice->address2,
-				"billingZipCode" => $addressInvoice->postcode,
-				"billingCity" => $addressInvoice->city,
-				"deliveryAddress" => $addressDelivery->address1 . " " . $addressDelivery->address2,
-				"deliveryZipCode" => $addressDelivery->postcode,
-				"deliveryCity" => $addressDelivery->city,
-			],
+			$payload,
 			true
 		)->getResponseJson();
 	}
