@@ -43,7 +43,7 @@
 							<div class="paymentLogo  col-auto">
 								<img id="pm_logo" src="{$paymentLogo}">
 							</div>
-							<div class="paymentData  col">
+							<div class="paymentData  col-auto">
 								{if $paymentMethod == 'multibanco'}
 									<ul class="list-group">
 										<li class="list-group-item">

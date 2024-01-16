@@ -184,28 +184,28 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
 		if ($paymentStatus !== 'success') {
 			throw new \Exception($this->ifthenpayModule->l('Invalid security token', Utility::getClassName($this)));
 		}
+
 		if ($this->request['Success'] !== 'True') {
 			sleep(1);
 		}
 
-
 		foreach ($this->getCofidisTransactionStatus() as $transactionStatus) {
-			switch ($transactionStatus['statusCode']) {
-				case self::COFIDIS_STATUS_INITIATED:
-				case self::COFIDIS_STATUS_PENDING_INVOICE:
-					IfthenpayLogProcess::addLog('Awaiting by ' . $this->paymentMethod . ' invoice', IfthenpayLogProcess::INFO, $this->order->id);
-					$this->redirectUser('success', sprintf($this->ifthenpayModule->l('Payment by %s made with success', Utility::getClassName($this)), $this->ifthenpayModule->l($this->paymentMethod, 'ifthenpay')));
 
-					break;
-				case self::COFIDIS_STATUS_CANCELED:
-					$this->changeIfthenpayPaymentStatus('cancel');
+			if (
+				$this->request['Success'] === 'True' &&
+				($transactionStatus['statusCode'] === self::COFIDIS_STATUS_INITIATED || $transactionStatus['statusCode'] === self::COFIDIS_STATUS_PENDING_INVOICE)
+			){
+				IfthenpayLogProcess::addLog('Awaiting by ' . $this->paymentMethod . ' invoice', IfthenpayLogProcess::INFO, $this->order->id);
+				$this->redirectUser('success', sprintf($this->ifthenpayModule->l('Payment by %s made with success', Utility::getClassName($this)), $this->ifthenpayModule->l($this->paymentMethod, 'ifthenpay')));
+			}
+			else if($this->request['Success'] !== 'True' || $transactionStatus['statusCode'] === self::COFIDIS_STATUS_CANCELED) {
+				$this->changeIfthenpayPaymentStatus('cancel');
 					$this->changePrestashopOrderStatus(\Configuration::get('PS_OS_CANCELED'));
 					IfthenpayLogProcess::addLog('Payment by ' . $this->paymentMethod . ' canceled by the customer', IfthenpayLogProcess::INFO, $this->order->id);
 					$this->redirectUser('cancel', sprintf($this->ifthenpayModule->l('Payment by %s canceled', Utility::getClassName($this)), $this->ifthenpayModule->l($this->paymentMethod, 'ifthenpay')));
-
-					break;
-				default:
-					throw new \Exception($transactionStatus['statusCode'] . " status");
+			}
+			else{
+				throw new \Exception($transactionStatus['statusCode'] . " status");
 			}
 		}
 	}
