@@ -7,7 +7,9 @@
 
 # Módulo de pagamentos Ifthenpay Prestashop 1.7
 
-Ler em ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pt.png) [Português](readme.pt.md), e ![Inglês](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/en.png) [Inglês](readme.md)
+
+Ler em ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pt.png) [Português](https://github.com/ifthenpay/prestashop1.7/blob/main/versao%201.7%20ou%20superior/readme.pt.md), e ![Inglês](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/en.png) [Inglês](https://github.com/ifthenpay/prestashop1.7/blob/main/versao%201.7%20ou%20superior/readme.md)
+
 
 [1. Introdução](#introdução)
 
@@ -54,7 +56,7 @@ Ler em ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version1
 
 
 # Introdução
-![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/payment_methods_banner.png)
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/payment_methods_banner.png)
 
 **Este é o plugin Ifthenpay para a plataforma de e-commerce Prestashop**
 
@@ -529,7 +531,7 @@ As ações seguintes são descritas da perspetiva do cliente consumidor.
 
 ## Pagar encomenda com Cofidis Pay
 
-* Selecionar Cartão de Crédito e confirmar encomenda:
+* Selecionar Cofidis Pay e confirmar encomenda:
 1. Selecionar "Pagamento por Cofidis Pay";
 2. Colocar o visto nos "termos do serviço" (Depende da sua configuração do Prestashop);
 3. Clicar no botão "PLACE ORDER";
