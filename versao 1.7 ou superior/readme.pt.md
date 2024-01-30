@@ -529,7 +529,7 @@ As ações seguintes são descritas da perspetiva do cliente consumidor.
 
 ## Pagar encomenda com Cofidis Pay
 
-* Selecionar Cartão de Crédito e confirmar encomenda:
+* Selecionar Cofidis Pay e confirmar encomenda:
 1. Selecionar "Pagamento por Cofidis Pay";
 2. Colocar o visto nos "termos do serviço" (Depende da sua configuração do Prestashop);
 3. Clicar no botão "PLACE ORDER";
