@@ -112,6 +112,7 @@ $_MODULE['<{ifthenpay}prestashop>paymentmethodsetup_b2f40690858b404ed10e62bdf422
 $_MODULE['<{ifthenpay}prestashop>config_5c501852232d2eaaa88eb15e9e9a81cf'] = 'Pagamentos Inteligentes';
 $_MODULE['<{ifthenpay}prestashop>config_4bd9ef088a14b5f6fd9ef86e6f33037f'] = 'Precisa de ajuda?';
 $_MODULE['<{ifthenpay}prestashop>config_1ab2760af5c2828261ea75f7eb76b76b'] = 'Ir para Suporte!';
+$_MODULE['<{ifthenpay}prestashop>config_1d622b97d923d16d433fb5d32071c298'] = 'Ir para Manual de Utilizador!';
 $_MODULE['<{ifthenpay}prestashop>config_21bdc5689c12595ae14298354d5550d5'] = 'Já tem Conta?';
 $_MODULE['<{ifthenpay}prestashop>config_6b298b50a1c14abc94f5a483dabc6e1b'] = 'Pedir Conta!';
 $_MODULE['<{ifthenpay}prestashop>config_050d6dbbea52b8140563586a2d74909f'] = 'Pagamentos Multibanco, MB WAY, PAYSHOP, Cartão de Crédito e Cofidis Pay têm inúmeras vantagens para o seu negócio';
@@ -138,8 +139,6 @@ $_MODULE['<{ifthenpay}prestashop>buttonativatenewaccount_632f0876c2e2be7b8c794c6
 $_MODULE['<{ifthenpay}prestashop>buttonativatenewaccount_e85fdea1a72cab96c19ca711a319f1f8'] = 'Requerer a criação de conta %s';
 $_MODULE['<{ifthenpay}prestashop>cofidisoption_f7ecd8beac48d54531e68be68b50bde7'] = 'Com COFIDIS PAY tem até 12 prestações sem juros';
 $_MODULE['<{ifthenpay}prestashop>cofidisoption_2f12d29eba0e54c3faffd69a149961b8'] = 'Será redirecionado para uma página segura a fim de efetuar o pagamento';
-$_MODULE['<{ifthenpay}prestashop>cofidisoption_8541bcaf21a8a3a7570f43340a8a7a34'] = 'Pague a sua encomenda em prestações sem juros nem encargos através do seu cartão de débito ou crédito';
-$_MODULE['<{ifthenpay}prestashop>cofidisoption_ff92f2c13296d622d094b32fccc163bd'] = 'O pagamento das prestações será efetuado no cartão de débito ou crédito do cliente através de solução de pagamento assente em contrato de factoring entre a Cofidis e o Comerciante. Informe-se na Cofidis, registada no Banco de Portugal com o n 921';
 $_MODULE['<{ifthenpay}prestashop>payment_execution_f990493af3321939ca512f8f2cace108'] = 'Pagar por %s';
 $_MODULE['<{ifthenpay}prestashop>payment_execution_f1d3b424cd68795ecaa552883759aceb'] = 'Sumário de Encomenda';
 $_MODULE['<{ifthenpay}prestashop>payment_execution_879f6b8877752685a966564d072f498f'] = 'O seu carrinho está vazio.';
