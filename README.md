@@ -252,11 +252,12 @@ O método de pagamento Multibanco com Referências Dinâmicas, gera referências
 * Configurar o método de pagamento Cofidis Pay:
 1. Ativar Callback. Ao selecionar esta opção, o estado da encomenda será atualizado quando o pagamento for recebido;
 2. Selecionar uma Chave Cofidis Pay. Apenas pode selecionar uma das Chaves Cofidis Pay associadas à Chave Backoffice;
-3. (opcional) Inserir valor mínimo de encomenda. Apenas exibe este método de pagamento para encomendas com valor superior ao valor inserido. **Aviso Importante:** Na seleção da chave Cofidis, este campo é atualizado com o valor configurado no backoffice da ifthenpay, e ao editar, este não pode ser inferior ao valor especificado no backoffice da ifthenpay;
-4. (opcional) Inserir valor máximo de encomenda. Apenas exibe este método de pagamento para encomendas com valor inferior ao valor inserido. **Aviso Importante:** Na seleção da chave Cofidis, este campo é atualizado com o valor configurado no backoffice da ifthenpay, e ao editar, este não pode ser superior ao valor especificado no backoffice da ifthenpay
-5. (opcional) Selecione um ou mais países. Apenas exibe este método de pagamento para encomendas com destino de envio dentro dos países selecionados, deixar vazio para permitir todos os países;
-6. (opcional) Inserir um número de sequência. Ordena os métodos de pagamento na página de checkout de forma ascendente. Número mais baixo toma o primeiro lugar;
-7. Clicar no botão "Salvar";
+3. (optional) Ativar Cancelar Encomenda Cofidis Pay. Ao selecionar esta opção, encomendas Cofidis Pay que ainda não receberam pagamento serão canceladas 60 minutos após a confirmação no checkout;  
+4. (opcional) Inserir valor mínimo de encomenda. Apenas exibe este método de pagamento para encomendas com valor superior ao valor inserido. **Aviso Importante:** Na seleção da chave Cofidis, este campo é atualizado com o valor configurado no backoffice da ifthenpay, e ao editar, este não pode ser inferior ao valor especificado no backoffice da ifthenpay;
+5. (opcional) Inserir valor máximo de encomenda. Apenas exibe este método de pagamento para encomendas com valor inferior ao valor inserido. **Aviso Importante:** Na seleção da chave Cofidis, este campo é atualizado com o valor configurado no backoffice da ifthenpay, e ao editar, este não pode ser superior ao valor especificado no backoffice da ifthenpay
+6. (opcional) Selecione um ou mais países. Apenas exibe este método de pagamento para encomendas com destino de envio dentro dos países selecionados, deixar vazio para permitir todos os países;
+7. (opcional) Inserir um número de sequência. Ordena os métodos de pagamento na página de checkout de forma ascendente. Número mais baixo toma o primeiro lugar;
+8. Clicar no botão "Salvar";
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/config_cofidis.png)
 </br>
 
