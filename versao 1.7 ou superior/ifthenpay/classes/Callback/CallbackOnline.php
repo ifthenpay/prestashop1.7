@@ -48,6 +48,10 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
 	const COFIDIS_STATUS_INITIATED = 'INITIATED';
 	const COFIDIS_STATUS_PENDING_INVOICE = 'PENDING_INVOICE';
 	const COFIDIS_STATUS_CANCELED = 'CANCELED';
+	const COFIDIS_STATUS_NOT_APPROVED = 'NOT_APPROVED';
+	const COFIDIS_STATUS_TECHNICAL_ERROR = 'TECHNICAL_ERROR';
+
+
 	const COFIDIS_ENDPOINT_STATUS = 'https://ifthenpay.com/api/cofidis/status';
 	private $ifthenpayModule;
 	private $cart;
@@ -185,26 +189,59 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
 			throw new \Exception($this->ifthenpayModule->l('Invalid security token', Utility::getClassName($this)));
 		}
 
+		
+
+		$transactionStatusArray = [];
+
 		if ($this->request['Success'] !== 'True') {
-			sleep(1);
+			// sleep 5 seconds because error, cancel, not approved may not be present right after returning with error from cofidis
+			for ($i = 0; $i < 2; $i++) {
+				IfthenpayLogProcess::addLog('iteration ' . $i, IfthenpayLogProcess::INFO, $this->order->id);
+
+				sleep(5);
+				$transactionStatusArray = $this->getCofidisTransactionStatus();
+				if (count($transactionStatusArray) > 1) {
+					break;
+				}
+			}
 		}
 
-		foreach ($this->getCofidisTransactionStatus() as $transactionStatus) {
+		foreach ($transactionStatusArray as $transactionStatus) {
 
 			if (
 				$this->request['Success'] === 'True' &&
 				($transactionStatus['statusCode'] === self::COFIDIS_STATUS_INITIATED || $transactionStatus['statusCode'] === self::COFIDIS_STATUS_PENDING_INVOICE)
-			){
+			) {
 				IfthenpayLogProcess::addLog('Awaiting by ' . $this->paymentMethod . ' invoice', IfthenpayLogProcess::INFO, $this->order->id);
 				$this->redirectUser('success', sprintf($this->ifthenpayModule->l('Payment by %s made with success', Utility::getClassName($this)), $this->ifthenpayModule->l($this->paymentMethod, 'ifthenpay')));
-			}
-			else if($this->request['Success'] !== 'True' || $transactionStatus['statusCode'] === self::COFIDIS_STATUS_CANCELED) {
+			} else if ($this->request['Success'] !== 'True' && $transactionStatus['statusCode'] === self::COFIDIS_STATUS_CANCELED) {
+
+
+				foreach ($transactionStatusArray as $transactionStatus) {
+					if ($transactionStatus['statusCode'] === self::COFIDIS_STATUS_TECHNICAL_ERROR) {
+						$this->changeIfthenpayPaymentStatus('cancel');
+						$this->changePrestashopOrderStatus(\Configuration::get('PS_OS_CANCELED'));
+						IfthenpayLogProcess::addLog('Payment by ' . $this->paymentMethod . ' canceled due to technical error from Cofidis', IfthenpayLogProcess::INFO, $this->order->id);
+						$this->redirectUser('cancel', sprintf($this->ifthenpayModule->l('Payment by %s canceled', Utility::getClassName($this)), $this->ifthenpayModule->l($this->paymentMethod, 'ifthenpay')));
+					}
+				}
 				$this->changeIfthenpayPaymentStatus('cancel');
-					$this->changePrestashopOrderStatus(\Configuration::get('PS_OS_CANCELED'));
-					IfthenpayLogProcess::addLog('Payment by ' . $this->paymentMethod . ' canceled by the customer', IfthenpayLogProcess::INFO, $this->order->id);
-					$this->redirectUser('cancel', sprintf($this->ifthenpayModule->l('Payment by %s canceled', Utility::getClassName($this)), $this->ifthenpayModule->l($this->paymentMethod, 'ifthenpay')));
+				$this->changePrestashopOrderStatus(\Configuration::get('PS_OS_CANCELED'));
+				IfthenpayLogProcess::addLog('Payment by ' . $this->paymentMethod . ' canceled by the customer', IfthenpayLogProcess::INFO, $this->order->id);
+				$this->redirectUser('cancel', sprintf($this->ifthenpayModule->l('Payment by %s canceled', Utility::getClassName($this)), $this->ifthenpayModule->l($this->paymentMethod, 'ifthenpay')));
+			} else if ($this->request['Success'] !== 'True' && $transactionStatus['statusCode'] === self::COFIDIS_STATUS_NOT_APPROVED) {
+				$this->changeIfthenpayPaymentStatus('cancel');
+				$this->changePrestashopOrderStatus(\Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_OS_NOT_APPROVED'));
+				IfthenpayLogProcess::addLog('Payment by ' . $this->paymentMethod . ' not approved by Cofidis', IfthenpayLogProcess::INFO, $this->order->id);
+				$this->redirectUser('cancel', sprintf($this->ifthenpayModule->l('Payment by %s not approved', Utility::getClassName($this)), $this->ifthenpayModule->l($this->paymentMethod, 'ifthenpay')));
 			}
-			else{
+			// fallback for technical error status without canceled status, that can occur if cancel status is not registered immediately after technical error
+			else if ($this->request['Success'] !== 'True' && $transactionStatus['statusCode'] === self::COFIDIS_STATUS_TECHNICAL_ERROR) {
+				$this->changeIfthenpayPaymentStatus('cancel');
+				$this->changePrestashopOrderStatus(\Configuration::get('PS_OS_CANCELED'));
+				IfthenpayLogProcess::addLog('Payment by ' . $this->paymentMethod . ' canceled due to technical error from Cofidis', IfthenpayLogProcess::INFO, $this->order->id);
+				$this->redirectUser('cancel', sprintf($this->ifthenpayModule->l('Payment by %s canceled', Utility::getClassName($this)), $this->ifthenpayModule->l($this->paymentMethod, 'ifthenpay')));
+			} else {
 				throw new \Exception($transactionStatus['statusCode'] . " status");
 			}
 		}

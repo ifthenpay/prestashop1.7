@@ -109,6 +109,8 @@ class IfthenpayConfiguration implements InstallerInterface
 						break;
 					case 'cofidispay':
 						\Configuration::deleteByName('IFTHENPAY_COFIDIS_KEY');
+						\Configuration::deleteByName('IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT');
+
 						break;
 					default:
 				}

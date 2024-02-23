@@ -174,7 +174,7 @@ abstract class ConfigForm
 				[
 					'id' => 'active_on',
 					'value' => true,
-					'label' => $this->ifthenpayModule->l('Activate', pathinfo(__FILE__)['filename'])
+					'label' => $this->ifthenpayModule->l('Activated', pathinfo(__FILE__)['filename'])
 				],
 				[
 					'id' => 'active_off',

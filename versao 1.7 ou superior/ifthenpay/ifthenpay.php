@@ -50,7 +50,7 @@ class Ifthenpay extends PaymentModule
 	{
 		$this->name = 'ifthenpay';
 		$this->tab = 'payments_gateways';
-		$this->version = '1.4.0';
+		$this->version = '1.4.1';
 		$this->author = 'Ifthenpay';
 		$this->need_instance = 0;
 		$this->bootstrap = true;
@@ -1103,6 +1103,7 @@ class Ifthenpay extends PaymentModule
 			ConfigFactory::buildCancelCcardOrder()->cancelOrder();
 			ConfigFactory::buildCancelPayshopOrder()->cancelOrder();
 			ConfigFactory::buildCancelMultibancoOrder()->cancelOrder();
+			ConfigFactory::buildCancelCofidisOrder()->cancelOrder();
 		}
 	}
 	public function hookActionOrderStatusPostUpdate($params)

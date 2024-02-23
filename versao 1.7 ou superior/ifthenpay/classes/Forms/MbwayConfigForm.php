@@ -66,7 +66,7 @@ class MbwayConfigForm extends ConfigForm
                 [
                     'id' => 'active_on',
                     'value' => true,
-                    'label' => $this->ifthenpayModule->l('Activate', pathinfo(__FILE__)['filename'])
+                    'label' => $this->ifthenpayModule->l('Activated', pathinfo(__FILE__)['filename'])
                 ],
                 [
                     'id' => 'active_off',
@@ -86,7 +86,7 @@ class MbwayConfigForm extends ConfigForm
                 [
                     'id' => 'active_on',
                     'value' => true,
-                    'label' => $this->ifthenpayModule->l('Activate', pathinfo(__FILE__)['filename'])
+                    'label' => $this->ifthenpayModule->l('Activated', pathinfo(__FILE__)['filename'])
                 ],
                 [
                     'id' => 'active_off',
@@ -154,7 +154,7 @@ class MbwayConfigForm extends ConfigForm
         if ($this->isValid()) {
 
             $this->setGatewayBuilderData();
-     
+
             // save specific values
             \Configuration::updateValue('IFTHENPAY_MBWAY_KEY', $this->gatewayDataBuilder->getData()->subEntidade);
             \Configuration::updateValue('IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT', \Tools::getValue('IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT'));
@@ -168,7 +168,7 @@ class MbwayConfigForm extends ConfigForm
         }
     }
 
-    
+
 
     /**
      * verifies if form inputs are valid

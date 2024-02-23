@@ -69,6 +69,27 @@ class CofidispayConfigForm extends ConfigForm
 			]
 		];
 
+		// cancel after deadline
+		$this->form['form']['input'][] = [
+			'type' => 'switch',
+			'label' => $this->ifthenpayModule->l('Cancel Cofidis Pay Order', pathinfo(__FILE__)['filename']),
+			'name' => 'IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT',
+			'desc' => $this->ifthenpayModule->l('Cancel order if not payed within 60 minutes after confirmation. This is triggered when admin visits the order list page.', pathinfo(__FILE__)['filename']),
+			'is_bool' => true,
+			'values' => [
+				[
+					'id' => 'active_on',
+					'value' => true,
+					'label' => $this->ifthenpayModule->l('Activated', pathinfo(__FILE__)['filename'])
+				],
+				[
+					'id' => 'active_off',
+					'value' => false,
+					'label' => $this->ifthenpayModule->l('Disabled', pathinfo(__FILE__)['filename'])
+				]
+			]
+		];
+
 
 		// add min max and country form elements
 		$this->addMinMaxFieldsToForm();
@@ -89,7 +110,8 @@ class CofidispayConfigForm extends ConfigForm
 	protected function getConfigFormValues()
 	{
 		return array_merge(parent::getCommonConfigFormValues(), [
-			'IFTHENPAY_COFIDIS_KEY' => \Configuration::get('IFTHENPAY_COFIDIS_KEY')
+			'IFTHENPAY_COFIDIS_KEY' => \Configuration::get('IFTHENPAY_COFIDIS_KEY'),
+			'IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT' => \Configuration::get('IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT')
 		]);
 	}
 
@@ -121,6 +143,8 @@ class CofidispayConfigForm extends ConfigForm
 
 			// save specific values
 			\Configuration::updateValue('IFTHENPAY_COFIDIS_KEY', $this->gatewayDataBuilder->getData()->subEntidade);
+			\Configuration::updateValue('IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT', \Tools::getValue('IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT'));
+
 
 			$this->setIfthenpayCallback();
 			$this->updatePayMethodCommonValues();
@@ -178,5 +202,7 @@ class CofidispayConfigForm extends ConfigForm
 	{
 		$this->deleteCommonConfigValues();
 		\Configuration::deleteByName('IFTHENPAY_COFIDIS_KEY');
+		\Configuration::deleteByName('IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT');
+
 	}
 }
