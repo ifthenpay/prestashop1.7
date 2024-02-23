@@ -87,7 +87,7 @@ See more at [Ifthenpay](https://ifthenpay.com).
 Follow the table below to verify Ifthenpay's module compatibility with your online store.
 |                            | Prestashop 1.6 | Prestashop 1.7 [1.7.0 - 1.7.8] |
 |----------------------------|----------------|--------------------------------|
-| Ifthenpay v1.3.0 to v1.4.0 | Not compatible | Compatible                     |
+| Ifthenpay v1.3.0 to v1.4.1 | Not compatible | Compatible                     |
 
 
 # Installation
@@ -256,11 +256,12 @@ Multibanco with Dynamic References payment method generates references by reques
 * Configure Cofidis Pay payment method:
 1. Activate Callback, by selecting this option the order state will update when a payment is received;
 2. Select a Cofidis Pay key. Can only select from the Cofidis Pay keys associated with your Backoffice key;
-3. (optional) Input minimum order value to only display this payment method for order above it. **Important Notice:** On Cofidis Key selection, this input is updated with value configured in ifthenpay's backoffice, and when editing, it can not be less then the value specified in ifthenpay's backoffice.;
-4. (optional) Input maximum order value to only display this payment method for order below it. **Important Notice:** On Cofidis Key selection, this input is updated with value configured in ifthenpay's backoffice, and when editing, it can not be greater then the value specified in ifthenpay's backoffice.;
-5. (optional) Select one or more countries to only display this payment method for orders with that shipping country, leave empty to allow all;
-6. (optional) Input an Integer number to order this payment method in the checkout page. Smallest takes first place.
-7. Click "Save" button;
+3. (optional) Activate Cancel Cofidis Pay Order, by selecting this option, Cofidis Pay orders that are still unpaid 60 minutes after confirmation will have status changed to "Cancelled";
+4. (optional) Input minimum order value to only display this payment method for order above it. **Important Notice:** On Cofidis Key selection, this input is updated with value configured in ifthenpay's backoffice, and when editing, it can not be less then the value specified in ifthenpay's backoffice.;
+5. (optional) Input maximum order value to only display this payment method for order below it. **Important Notice:** On Cofidis Key selection, this input is updated with value configured in ifthenpay's backoffice, and when editing, it can not be greater then the value specified in ifthenpay's backoffice.;
+6. (optional) Select one or more countries to only display this payment method for orders with that shipping country, leave empty to allow all;
+7. (optional) Input an Integer number to order this payment method in the checkout page. Smallest takes first place.
+8. Click "Save" button;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/config_cofidis.png)
 </br>
 
