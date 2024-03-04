@@ -127,7 +127,6 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
 				$this->redirectUser('error', $this->ifthenpayModule->l('Order has already been paid', Utility::getClassName($this)));
 				return;
 			}
-
 		} catch (\Throwable $th) {
 			$this->handleError($th);
 		}
@@ -160,7 +159,6 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
 			IfthenpayLogProcess::addLog('Payment by ' . $this->paymentMethod . ' made with success', IfthenpayLogProcess::INFO, $this->order->id);
 
 			$this->redirectUser('success', sprintf($this->ifthenpayModule->l('Payment by %s made with success', Utility::getClassName($this)), $this->ifthenpayModule->l($this->paymentMethod, 'ifthenpay')));
-
 		} else if ($paymentStatus === 'cancel') {
 			$this->changeIfthenpayPaymentStatus('cancel');
 			$this->changePrestashopOrderStatus(\Configuration::get('PS_OS_CANCELED'));
@@ -189,22 +187,21 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
 			throw new \Exception($this->ifthenpayModule->l('Invalid security token', Utility::getClassName($this)));
 		}
 
-		
+
 
 		$transactionStatusArray = [];
 
-		if ($this->request['Success'] !== 'True') {
-			// sleep 5 seconds because error, cancel, not approved may not be present right after returning with error from cofidis
-			for ($i = 0; $i < 2; $i++) {
-				IfthenpayLogProcess::addLog('iteration ' . $i, IfthenpayLogProcess::INFO, $this->order->id);
-
+		$iteration = 0;
+		do {
+			$transactionStatusArray = $this->getCofidisTransactionStatus();
+			if (count($transactionStatusArray) > 1) {
+				$iteration = 99;
+			} else {
+				// sleep 5 seconds because error, cancel, not approved may not be present right after returning with error from cofidis
 				sleep(5);
-				$transactionStatusArray = $this->getCofidisTransactionStatus();
-				if (count($transactionStatusArray) > 1) {
-					break;
-				}
 			}
-		}
+			$iteration++;
+		} while ($iteration <= 2);
 
 		foreach ($transactionStatusArray as $transactionStatus) {
 
