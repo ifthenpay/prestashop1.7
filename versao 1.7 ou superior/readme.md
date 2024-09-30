@@ -29,6 +29,7 @@ Read this in ![Português](https://github.com/ifthenpay/prestashop/raw/assets/ve
   * [Credit Card](#credit-card)
   * [Payshop](#payshop)
   * [Cofidis Pay](#cofidis-pay)
+  * [Ifthenpay Gateway](#ifthenpay-gateway)
 
 [5. Edit payment details](#edit-payment-details)
   * [Update Payment Data](#update-payment-data)
@@ -56,6 +57,7 @@ Read this in ![Português](https://github.com/ifthenpay/prestashop/raw/assets/ve
   * [Paying order with MB WAY](#paying-order-with-mb-way)
   * [Paying order with Credit Card](#paying-order-with-credit-card)
   * [Paying order with Cofidis Pay](#paying-order-with-cofidis-pay)
+  * [Paying order with Ifthenpay Gateway](#paying-order-with-ifthenpay-gateway)
 
 
 # Introduction
@@ -87,7 +89,7 @@ See more at [Ifthenpay](https://ifthenpay.com).
 Follow the table below to verify Ifthenpay's module compatibility with your online store.
 |                            | Prestashop 1.6 | Prestashop 1.7 [1.7.0 - 1.7.8] |
 |----------------------------|----------------|--------------------------------|
-| Ifthenpay v1.3.0 to v1.4.2 | Not compatible | Compatible                     |
+| Ifthenpay v1.3.0 to v1.5.0 | Not compatible | Compatible                     |
 
 
 # Installation
@@ -270,6 +272,37 @@ Multibanco with Dynamic References payment method generates references by reques
 </br>
 
 
+## Ifthenpay Gateway
+
+* In Modules/Ifthenpay/Configure, click the "MANAGE" button for Ifthenpay Gateway;
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/manage_ifthenpaygateway.png)
+</br>
+
+* Configure Ifthenpay Gateway payment method:
+1. Activate Callback, by selecting this option the order state will update when a payment is received;
+2. Select a Ifthenpay Gateway key. Can only select from the Ifthenpay Gateway keys associated with your Backoffice key;
+3. Select a Payment Method Key per each Method and check the checkbox if you want to display it in the gateway page.
+4. Select a Payment Method that will be selected in the gateway page by default.
+5. (optional) Input a Deadline for gateway page link, from 1 to 99 days or leave empty if you do not want it to expire;
+6. Text displayed in the "Return to Shop" button in the gateway page;
+7. (optional) Activate Cancel Ifthenpay Gateway Order, by selecting this option, Ifthenpay Gateway orders that are expired 60 minutes after confirmation will have status changed to "Cancelled";
+8. (optional) Input minimum order value to only display this payment method for order above it. 
+9. (optional) Input maximum order value to only display this payment method for order below it. 
+10. (optional) Select one or more countries to only display this payment method for orders with that shipping country, leave empty to allow all;
+11. Display this payment method logo image on checkout, choose from 3 options:
+    -  enabled - default image: displays ifthenpay gateway logo;
+    -  disabled: displays Payment Method Title;
+    -  enabled - composite image: displays a composite image of all the payment method logos you have selected;
+12. Text that appears to the consumer during checkout if logo option above is set to disabled.
+13. (optional) Input an Integer number to order this payment method in the checkout page. Smallest takes first place.
+14. Click "Save" button;
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/config_ifthenpaygateway.png)
+</br>
+
+* If you set the "Callback" to activate, it's state will be updated below with the generated Anti-Phishing key and Callback Url;
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/ifthenpaygateway_callback_activated.png)
+</br>
+
 
 # Edit payment details
 **Important Notice:** It is not possible to change to or update the Credit Card and Cofidis Pay payment methods.
@@ -342,6 +375,13 @@ If you already have an Ifthenpay account, but don't have a payment method unlock
 
 * At Modules/Ifthenpay/Configure, there will be a "REQUEST ... ACCOUNT CREATION" button for every payment method that you have yet to unlock. Click the button for the payment method you require. After Ifthenpay's team have added your payment method, the list of payment methods available on your module will be updated with the new one. 
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/request_account_creation.png)
+</br>
+
+
+## Request additional Gateway Method
+After selecting your Ifthenpay Gateway Key some methods may not be available, to unlock these follow the same procedure above by clicking one of the buttons (1) of the method you want to unlock.
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/request_gateway_method_creation.png)
+</br>
 
 
 ## Logs
@@ -435,6 +475,12 @@ to fill the Test Callback form and click the "Test Callback" button (3):
 
 to fill the Test Callback form and click the "Test Callback" button (3):
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/cofidis_callback_test.png)
+</br>
+
+**Ifthenpay Gateway**: In the backoffice, use the order ID and the order amount, and enter them in the respective fields (1) and (2) of the Callback test form, then click on Test (3).
+Note: The value, if it has decimals, should be separated by a dot.
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/ifthenpaygateway_callback_test.png)
+
 </br>
 
 
@@ -586,3 +632,35 @@ The following action are described from the perspective of the consumer.
 * After which you will be redirected back to the store;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/cofidis_payment_return.png)
 </br>
+
+
+
+## Paying order with Ifthenpay Gateway
+
+* Select Ifthenpay Gateway at checkout and place order:
+1. Select "Pay by Ifthenpay Gateway";
+2. Check the box of "terms of service" (this will depend on your Prestashop configuration);
+3. Click "PLACE ORDER" button;
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/checkout_ifthenpaygateway.png)
+</br>
+
+* Upon confirmation, you will be greeted with the Ifthenpay Gateway payment information;
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/ifthenpaygateway_payment_return.png)
+</br>
+
+Select one of the payment methods available in the gateway page (1). 
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/ifthenpaygateway_payment_1.png)
+</br>
+
+In case of Multibanco method, the entity, reference and amount will be displayed.
+Here the user can do one of the two:
+ - in case of an offline payment method, note down the payment details, click the close gateway button (2) and pay later;
+ - pay at that moment and click the confirm payment button (3) to verify the payment.
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/ifthenpaygateway_payment_2.png)
+</br>
+
+If the user did not pay at the moment and did not take note of the payment details, it is also possible to access the Ithenpay Gateway link at a later date in the user account order history or order confirmation email.
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/ifthenpaygateway_payment_3.png)
+</br>
+
+You have reached the end of the ifthenpay extension manual for Prestashop 1.7.
