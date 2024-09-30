@@ -29,11 +29,14 @@ if (!defined('_PS_VERSION_')) {
 	exit;
 }
 
+use PrestaShop\Module\Ifthenpay\Factory\Config\IfthenpayConfigFormFactory;
 use PrestaShop\Module\Ifthenpay\Utility\Utility;
 use PrestaShop\Module\Ifthenpay\Log\IfthenpayLogProcess;
 use PrestaShop\Module\Ifthenpay\Factory\Payment\GatewayFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Config\IfthenpayConfigFormsFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Request\RequestFactory;
+use PrestaShop\Module\Ifthenpay\Forms\IfthenpayConfigForms;
+
 
 class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
 {
@@ -163,6 +166,53 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
 		}
 	}
 
+
+	public function ajaxProcessGetIfthenpayGatewayMethods(): void
+	{
+		try {
+
+			$ifthenpaygatewayKey = Tools::getValue('gatewayKey') ?? '';
+
+			if ($ifthenpaygatewayKey !== '') {
+
+				// payment methods selection
+				$selectPaymentMethodsHtml = IfthenpayConfigFormFactory::build(
+					'ifthenpaygateway',
+					$this->module,
+					$this
+				)->generateIfthenpaygatewayPaymentMethodsHtml($ifthenpaygatewayKey, []);
+				$json['payment_methods_html'] = $selectPaymentMethodsHtml;
+
+
+				// default payment method selection
+				$selectDefaultPaymentMethodHtml = IfthenpayConfigFormFactory::build(
+					'ifthenpaygateway',
+					$this->module,
+					$this
+				)->generateIfthenpaygatewayDefaultPaymentMethodSelectionHtml($ifthenpaygatewayKey);
+				$json['default_selected_html'] = $selectDefaultPaymentMethodHtml;
+
+
+				$json['status'] = 'success';
+
+			} else {
+				$json['payment_methods_html'] = '<p class="mb-0 mt-2">' . $this->module->l('Please select a Ifthenpay Gateway key to view this field.', pathinfo(__FILE__)['filename']) . '</p>';
+				$json['default_selected_html'] = '<p class="mb-0 mt-2">' . $this->module->l('Please select a Ifthenpay Gateway key to view this field.', pathinfo(__FILE__)['filename']) . '</p>';
+			}
+			die(json_encode($json));
+		} catch (\Throwable $th) {
+			IfthenpayLogProcess::addLog('Error testing the callback in backoffice - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
+
+			$response = [
+				'status' => 'error',
+				'message' => $this->module->l('Invalid data, order not found', pathinfo(__FILE__)['filename']),
+			];
+
+			die(json_encode($response));
+		}
+	}
+
+
 	public function ajaxProcessTestCallback()
 	{
 		try {
@@ -178,6 +228,7 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
 			$mbwayTransactionId = Tools::getValue('mbway_transaction_id');
 			$payshopTransactionId = Tools::getValue('payshop_transaction_id');
 			$cofidispayTransactionId = Tools::getValue('cofidis_transaction_id');
+			$orderId = Tools::getValue('order_id');
 
 
 			if (!$callbackUrl) {
@@ -195,41 +246,40 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
 
 
 			$antiPhishingKey = Configuration::get('IFTHENPAY_' . strtoupper($method) . '_CHAVE_ANTI_PHISHING');
-			$callbackUrl = str_replace('[CHAVE_ANTI_PHISHING]', $antiPhishingKey, $callbackUrl);
+			$callbackUrl = str_replace('[ANTI_PHISHING_KEY]', $antiPhishingKey, $callbackUrl);
 
 
-			// set callback url for multibanco
 			if ($method === 'multibanco') {
 
 				$entity = Configuration::get('IFTHENPAY_' . strtoupper($method) . '_ENTIDADE');
-				$callbackUrl = str_replace('[ENTIDADE]', $entity, $callbackUrl);
-
-				$callbackUrl = str_replace('[REFERENCIA]', $reference, $callbackUrl);
-				$callbackUrl = str_replace('[VALOR]', $amount, $callbackUrl);
+				$callbackUrl = str_replace('[ENTITY]', $entity, $callbackUrl);
+				$callbackUrl = str_replace('[REFERENCE]', $reference, $callbackUrl);
+				$callbackUrl = str_replace('[AMOUNT]', $amount, $callbackUrl);
 			}
 
-			// set callback url for mbway
 
 			if ($method === 'mbway') {
-				$callbackUrl = str_replace('[ID_TRANSACAO]', $mbwayTransactionId, $callbackUrl);
-				$callbackUrl = str_replace('[VALOR]', $amount, $callbackUrl);
-				$callbackUrl = str_replace('[ESTADO]', 'PAGO', $callbackUrl);
+				$callbackUrl = str_replace('[REQUEST_ID]', $mbwayTransactionId, $callbackUrl);
+				$callbackUrl = str_replace('[AMOUNT]', $amount, $callbackUrl);
 			}
 
-			// set callback url for payshop
 
 			if ($method === 'payshop') {
-				$callbackUrl = str_replace('[ID_TRANSACAO]', $payshopTransactionId, $callbackUrl);
-				$callbackUrl = str_replace('[VALOR]', $amount, $callbackUrl);
-				$callbackUrl = str_replace('[ESTADO]', 'PAGO', $callbackUrl);
+				$callbackUrl = str_replace('[REQUEST_ID]', $payshopTransactionId, $callbackUrl);
+				$callbackUrl = str_replace('[AMOUNT]', $amount, $callbackUrl);
 			}
+
 
 			if ($method === 'cofidispay') {
-				$callbackUrl = str_replace('[ID_TRANSACAO]', $cofidispayTransactionId, $callbackUrl);
-				$callbackUrl = str_replace('[VALOR]', $amount, $callbackUrl);
-				$callbackUrl = str_replace('[ESTADO]', 'PAGO', $callbackUrl);
+				$callbackUrl = str_replace('[REQUEST_ID]', $cofidispayTransactionId, $callbackUrl);
+				$callbackUrl = str_replace('[AMOUNT]', $amount, $callbackUrl);
 			}
 
+
+			if ($method === 'ifthenpaygateway') {
+				$callbackUrl = str_replace('[ID]', $orderId, $callbackUrl);
+				$callbackUrl = str_replace('[AMOUNT]', $amount, $callbackUrl);
+			}
 
 			$webservice = RequestFactory::buildWebservice();
 

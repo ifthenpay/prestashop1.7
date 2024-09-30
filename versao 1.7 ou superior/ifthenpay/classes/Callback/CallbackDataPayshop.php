@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -27,17 +28,26 @@
 
 namespace PrestaShop\Module\Ifthenpay\Callback;
 
+
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
 use PrestaShop\Module\Ifthenpay\Factory\Models\IfthenpayModelFactory;
 use PrestaShop\Module\Ifthenpay\Contracts\Callback\CallbackDataInterface;
+use PrestaShop\Module\Ifthenpay\Callback\CallbackVars as Cb;
 
 class CallbackDataPayshop implements CallbackDataInterface
 {
-    public function getData($request)
-    {
-        return IfthenpayModelFactory::build('payshop')->getPayshopByIdTransacao($request['id_transacao']);
-    }
+	public function getData($request)
+	{
+		$model = IfthenpayModelFactory::build('payshop');
+		$data = $model->getPayshopByIdTransacao($request[Cb::TRANSACTION_ID]);
+
+		if (!empty($data)) {
+			return $data;
+		}
+
+		return $model->getByOrderId($request[Cb::ORDER_ID]);
+	}
 }

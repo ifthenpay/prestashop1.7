@@ -84,12 +84,6 @@ class Ifthenpay extends PaymentModule
 				'IFTHENPAY_BACKOFFICE_KEY'
 			]
 		);
-
-		$this->l('multibanco');
-		$this->l('mbway');
-		$this->l('payshop');
-		$this->l('ccard');
-		$this->l('cofidis');
 	}
 
 	/**
@@ -135,7 +129,7 @@ class Ifthenpay extends PaymentModule
 			IfthenpayInstallerFactory::build(
 				'ifthenpayInstaller',
 				$this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS'] ?
-				$this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS'] : '',
+					$this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS'] : '',
 				$this
 			)->execute('uninstall');
 		} catch (\Throwable $th) {
@@ -303,7 +297,7 @@ class Ifthenpay extends PaymentModule
 			$this->context->smarty->assign(
 				'paymentMethodSetupLink',
 				$this->context->link->getAdminLink('AdminIfthenpayPaymentMethodSetup')
-				. "&paymentMethod=$paymentMethod"
+					. "&paymentMethod=$paymentMethod"
 			);
 
 			$form['form']['input'][] = [
@@ -344,7 +338,7 @@ class Ifthenpay extends PaymentModule
 			];
 		}
 
-		// check for mb dynamic references and if not create "request" button
+
 
 		$accounts = unserialize(Configuration::get('IFTHENPAY_USER_ACCOUNT'));
 
@@ -362,7 +356,7 @@ class Ifthenpay extends PaymentModule
 				$this->context->smarty->assign(
 					'ativateNewAccountLink',
 					$this->context->link->getAdminLink('AdminIfthenpayActivateNewAccount')
-					. "&paymentMethod=Multibanco dinamica"
+						. "&paymentMethod=Multibanco dinamica"
 				);
 				$form['form']['input'][] = [
 					'type' => 'html',
@@ -382,7 +376,7 @@ class Ifthenpay extends PaymentModule
 				$this->context->smarty->assign(
 					'ativateNewAccountLink',
 					$this->context->link->getAdminLink('AdminIfthenpayActivateNewAccount')
-					. "&paymentMethod=$paymentMethodType"
+						. "&paymentMethod=$paymentMethodType"
 				);
 				$form['form']['input'][] = [
 					'type' => 'html',
@@ -413,7 +407,7 @@ class Ifthenpay extends PaymentModule
 			foreach ((array) unserialize($this->ifthenpayConfig['IFTHENPAY_USER_PAYMENT_METHODS']) as $paymentMethod) {
 				$formValues['IFTHENPAY_' . Tools::strtoupper($paymentMethod)] = Configuration::get(
 					'IFTHENPAY_' .
-					Tools::strtoupper($paymentMethod)
+						Tools::strtoupper($paymentMethod)
 				);
 			}
 		}
@@ -523,6 +517,7 @@ class Ifthenpay extends PaymentModule
 				)
 			);
 			ConfigFactory::buildIfthenpayControllersTabs($this)->dynamicInstall('AdminIfthenpayActivateNewAccount');
+			ConfigFactory::buildIfthenpayControllersTabs($this)->dynamicInstall('AdminIfthenpayActivateNewGatewayMethod');
 
 
 			IfthenpayInstallerFactory::build(
@@ -652,7 +647,7 @@ class Ifthenpay extends PaymentModule
 						$option->setForm(
 							$this->context->smarty->fetch(
 								$this->local_path .
-								'views/templates/front/mbwayPhone.tpl'
+									'views/templates/front/mbwayPhone.tpl'
 							)
 						);
 					}
@@ -660,10 +655,48 @@ class Ifthenpay extends PaymentModule
 						$option->setAdditionalInformation(
 							$this->context->smarty->fetch(
 								$this->local_path .
-								'views/templates/front/cofidisOption.tpl'
+									'views/templates/front/cofidisOption.tpl'
 							)
 						);
 					}
+					if ($paymentMethod === 'ifthenpaygateway') {
+						$option->setCallToActionText(
+							$this->l('Pay by ') . $ifthenpayGateway->getAliasPaymentMethods(
+								$paymentMethod,
+								$this->context->language->iso_code
+							)
+						)
+							->setAction(
+								$this->context->link->getModuleLink(
+									$this->name,
+									'validation',
+									[
+										'paymentOption' => $paymentMethod,
+									],
+									true
+								)
+							)
+							->setModuleName($this->name);
+
+						$logoTypeToShow = Configuration::get('IFTHENPAY_IFTHENPAYGATEWAY_SHOW_LOGO');
+						$paymentMethodTitle = Configuration::get('IFTHENPAY_IFTHENPAYGATEWAY_TITLE');
+						// if show logo
+						if ($logoTypeToShow === '0') //show regular logo
+						{
+							$option->setCallToActionText($this->l('Pay by ') . $paymentMethodTitle);
+						} else { //show regular logo
+							$option->setLogo(
+								Media::getMediaPath(
+									_PS_MODULE_DIR_ . $this->name . '/views/img/' . $paymentMethod . '_option.png'
+								)
+							);
+						}
+
+						$payments_options[] = $option;
+						continue;
+					}
+
+
 					$option->setCallToActionText(
 						$this->l('Pay by ') . $ifthenpayGateway->getAliasPaymentMethods(
 							$paymentMethod,
@@ -734,6 +767,13 @@ class Ifthenpay extends PaymentModule
 	private function isPayMethodConfigured($paymentMethod)
 	{
 		switch ($paymentMethod) {
+			case 'ifthenpaygateway':
+				if (
+					\Configuration::get('IFTHENPAY_' . strtoupper($paymentMethod) . '_KEY')
+				) {
+					return true;
+				}
+				break;
 			case 'multibanco':
 				if (
 					\Configuration::get('IFTHENPAY_' . strtoupper($paymentMethod) . '_ENTIDADE') &&
@@ -1104,6 +1144,7 @@ class Ifthenpay extends PaymentModule
 			ConfigFactory::buildCancelPayshopOrder()->cancelOrder();
 			ConfigFactory::buildCancelMultibancoOrder()->cancelOrder();
 			ConfigFactory::buildCancelCofidisOrder()->cancelOrder();
+			ConfigFactory::buildCancelIfthenpaygatewayOrder()->cancelOrder();
 		}
 	}
 	public function hookActionOrderStatusPostUpdate($params)

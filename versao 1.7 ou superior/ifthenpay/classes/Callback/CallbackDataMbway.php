@@ -31,18 +31,20 @@ if (!defined('_PS_VERSION_')) {
 
 use PrestaShop\Module\Ifthenpay\Factory\Models\IfthenpayModelFactory;
 use PrestaShop\Module\Ifthenpay\Contracts\Callback\CallbackDataInterface;
+use PrestaShop\Module\Ifthenpay\Callback\CallbackVars as Cb;
+
 
 class CallbackDataMbway implements CallbackDataInterface
 {
     public function getData($request)
     {
-        $mbwayModel = IfthenpayModelFactory::build('mbway');
-        $callbackData = $mbwayModel->getMbwayByIdTransacao($request['id_pedido']); 
-        
-        if (empty($callbackData)) {
-            return $mbwayModel->getByOrderId($request['referencia']);
-        } else {
-            return $callbackData;
-        }
+		$model = IfthenpayModelFactory::build('mbway');
+		$data = $model->getMbwayByIdTransacao($request[Cb::TRANSACTION_ID]);
+
+		if (!empty($data)) {
+			return $data;
+		}
+
+        return $model->getByOrderId($request[Cb::ORDER_ID]);
     }
 }

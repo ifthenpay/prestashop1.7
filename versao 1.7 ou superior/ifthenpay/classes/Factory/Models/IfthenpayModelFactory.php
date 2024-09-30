@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -35,6 +36,7 @@ use PrestaShop\Module\Ifthenpay\Models\IfthenpayCofidispay;
 use PrestaShop\Module\Ifthenpay\Models\IfthenpayMbway;
 use PrestaShop\Module\Ifthenpay\Models\IfthenpayPayshop;
 use PrestaShop\Module\Ifthenpay\Models\IfthenpayMultibanco;
+use PrestaShop\Module\Ifthenpay\Models\IfthenpayIfthenpaygateway;
 
 class IfthenpayModelFactory
 {
@@ -51,6 +53,8 @@ class IfthenpayModelFactory
 				return new IfthenpayCCard($modelId);
 			case 'cofidispay':
 				return new IfthenpayCofidispay($modelId);
+			case 'ifthenpaygateway':
+				return new IfthenpayIfthenpaygateway($modelId);
 			case 'log':
 				return new IfthenpayLog($modelId);
 			default:

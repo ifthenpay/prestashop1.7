@@ -30,6 +30,8 @@ if (!defined('_PS_VERSION_')) {
 }
 
 use PrestaShop\Module\Ifthenpay\Factory\Callback\CallbackDataFactory;
+use PrestaShop\Module\Ifthenpay\Callback\CallbackVars as Cb;
+
 
 class CallbackData
 {
@@ -42,6 +44,6 @@ class CallbackData
 
     public function execute()
     {
-        return CallbackDataFactory::build($this->request['payment'])->getData($this->request);
+        return CallbackDataFactory::build($this->request[Cb::PAYMENT])->getData($this->request);
     }
 }

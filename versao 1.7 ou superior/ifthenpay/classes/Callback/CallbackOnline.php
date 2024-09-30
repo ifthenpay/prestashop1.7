@@ -34,6 +34,7 @@ use PrestaShop\Module\Ifthenpay\Log\IfthenpayLogProcess;
 use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Request\RequestFactory;
 use PrestaShop\Module\Ifthenpay\Contracts\Callback\CallbackProcessInterface;
+use PrestaShop\Module\Ifthenpay\Callback\CallbackVars as Cb;
 
 if (!defined('_PS_VERSION_')) {
 	exit;
@@ -43,8 +44,10 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
 {
 	const CCARD = 'ccard';
 	const COFIDISPAY = 'cofidispay';
+	const IFTHENPAYGATEWAY = 'ifthenpaygateway';
 	const CCARD_KEY = 'IFTHENPAY_CCARD_KEY';
 	const COFIDIS_KEY = 'IFTHENPAY_COFIDIS_KEY';
+	const IFTHENPAYGATEWAY_KEY = 'IFTHENPAY_IFTHENPAYGATEWAY_KEY';
 	const COFIDIS_STATUS_INITIATED = 'INITIATED';
 	const COFIDIS_STATUS_PENDING_INVOICE = 'PENDING_INVOICE';
 	const COFIDIS_STATUS_CANCELED = 'CANCELED';
@@ -65,13 +68,15 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
 				return self::CCARD_KEY;
 			case self::COFIDISPAY:
 				return self::COFIDIS_KEY;
+			case self::IFTHENPAYGATEWAY:
+				return self::IFTHENPAYGATEWAY_KEY;
 			default:
 				throw new \Exception('Invalid payment method');
 		}
 	}
 	private function setupContext()
 	{
-		$this->request['payment'] = $this->paymentMethod;
+		$this->request[Cb::PAYMENT] = $this->paymentMethod;
 		$this->setPaymentData();
 		$this->setOrder();
 
@@ -110,6 +115,9 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
 						break;
 					case self::COFIDISPAY:
 						$this->processCofidisPayment($paymentStatus);
+						break;
+					case self::IFTHENPAYGATEWAY:
+						$this->processIfthenpaygatewayPayment($paymentStatus);
 						break;
 					default:
 						throw new \Exception('Invalid payment method');
@@ -256,6 +264,41 @@ class CallbackOnline extends CallbackProcess implements CallbackProcessInterface
 			true
 		)->getResponseJson();
 	}
+
+
+
+	private function processIfthenpaygatewayPayment($paymentStatus)
+	{
+		if ($paymentStatus === 'pending') {
+			IfthenpayLogProcess::addLog('Payment by ' . $this->paymentMethod . ' is awaiting payment', IfthenpayLogProcess::INFO, $this->order->id);
+			$this->redirectUser('success', sprintf($this->ifthenpayModule->l('Payment by %s awaiting verification', Utility::getClassName($this)), $this->ifthenpayModule->l($this->paymentMethod, 'ifthenpay')));
+		} else if ($paymentStatus === 'success') {
+			$this->changeIfthenpayPaymentStatus('pending');
+			IfthenpayLogProcess::addLog('Payment by ' . $this->paymentMethod . ' made with success, awaiting verification', IfthenpayLogProcess::INFO, $this->order->id);
+			$this->redirectUser('success', sprintf($this->ifthenpayModule->l('Payment by %s made with success, awaiting verification', Utility::getClassName($this)), $this->ifthenpayModule->l($this->paymentMethod, 'ifthenpay')));
+		} else if ($paymentStatus === 'cancel') {
+			$this->changeIfthenpayPaymentStatus('cancel');
+			$this->changePrestashopOrderStatus(\Configuration::get('PS_OS_CANCELED'));
+			IfthenpayLogProcess::addLog('Payment by ' . $this->paymentMethod . ' canceled by the customer', IfthenpayLogProcess::INFO, $this->order->id);
+			$this->redirectUser('cancel', sprintf($this->ifthenpayModule->l('Payment by %s canceled', Utility::getClassName($this)), $this->ifthenpayModule->l($this->paymentMethod, 'ifthenpay')));
+		} else {
+			$this->changeIfthenpayPaymentStatus('error');
+			$this->changePrestashopOrderStatus(\Configuration::get('PS_OS_ERROR'));
+
+			// prepare error message
+			$errorMsg = '{}';
+			if (isset($this->request['error'])) {
+				$errorData = Utility::extractArrayWithKeys($this->request, ['error', 'id', 'amount', 'requestId']);
+				$errorMsg = Utility::dataToString($errorData);
+			}
+			$errorMsg = $errorMsg === '{}' ? 'error data not found' : $errorMsg;
+
+			IfthenpayLogProcess::addLog("Error processing " . $this->paymentMethod . " payment - $errorMsg", IfthenpayLogProcess::INFO, $this->order->id);
+			$this->redirectUser('error', sprintf($this->ifthenpayModule->l('Error processing %s payment', Utility::getClassName($this)), $this->ifthenpayModule->l($this->paymentMethod, 'ifthenpay')));
+		}
+	}
+
+
 
 	private function handleError(\Throwable $th)
 	{

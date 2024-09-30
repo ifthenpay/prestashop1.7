@@ -25,7 +25,7 @@
 <div class="card mt-2" id="view_order_payments_block">
 	<div class="card-header">
 		<h3 class="card-header-title">
-		ifthenpay
+			ifthenpay
 		</h3>
 	</div>
 
@@ -96,6 +96,23 @@
 											{l s='IdRequest:' mod='ifthenpay'}
 											<span class="pl-1">{$idPedido}</span>
 										</li>
+										<li class="list-group-item">
+											{l s='Total to Pay:' mod='ifthenpay'}
+											<span class="pl-1">{$totalToPay}</span>
+										</li>
+									</ul>
+								{elseif $paymentMethod == 'ifthenpaygateway'}
+									<ul class="list-group">
+										<li class="list-group-item">
+											{l s='Payment Gateway Link:' mod='ifthenpay'}
+											<span class="pl-1">{$paymentUrl}</span>
+										</li>
+										{if $deadline != ''}
+											<li class="list-group-item">
+												{l s='Deadline:' mod='ifthenpay'}
+												<span class="pl-1">{$deadline}</span>
+											</li>
+										{/if}
 										<li class="list-group-item">
 											{l s='Total to Pay:' mod='ifthenpay'}
 											<span class="pl-1">{$totalToPay}</span>

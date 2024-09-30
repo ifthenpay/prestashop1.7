@@ -30,7 +30,8 @@ if (!defined('_PS_VERSION_')) {
 }
 
 class Status {
-    
+
+    private static $statusPending = "a7b9e3f042d8c16a";
     private static $statusSucess = "6dfcbb0428e4f89c";
     private static $statusError = "101737ba0aa2e7c5";
     private static $statusCancel = "d4d26126c0f39bf2";
@@ -38,6 +39,8 @@ class Status {
     public static function getTokenStatus($token)
     {
         switch ($token) {
+			case self::$statusPending:
+                return 'pending';
             case self::$statusSucess:
                 return 'success';
             case self::$statusCancel:
@@ -49,9 +52,21 @@ class Status {
         }
     }
 
+
+
+    /**
+     * Get the value of statusPending
+     */
+    public static function getStatusPending()
+    {
+        return self::$statusPending;
+    }
+
+
+
     /**
      * Get the value of statusSucess
-     */ 
+     */
     public static function getStatusSucess()
     {
         return self::$statusSucess;
@@ -59,7 +74,7 @@ class Status {
 
     /**
      * Get the value of statusError
-     */ 
+     */
     public static function getStatusError()
     {
         return self::$statusError;
@@ -67,7 +82,7 @@ class Status {
 
     /**
      * Get the value of statusCancel
-     */ 
+     */
     public static function getStatusCancel()
     {
         return self::$statusCancel;

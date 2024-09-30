@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -84,6 +85,15 @@ class IfthenpaySql implements InstallerInterface
             PRIMARY KEY  (`id_ifthenpay_cofidispay`),
             INDEX `transaction_id` (`transaction_id`)
           ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
+		'ifthenpaygateway' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_ifthenpaygateway` (
+            `id_ifthenpay_ifthenpaygateway` int(10) unsigned NOT NULL auto_increment,
+            `order_id` int(11) NOT NULL,
+            `status` varchar(50) NOT NULL,
+            `payment_url` varchar(255) NOT NULL,
+            `deadline` varchar(10) NOT NULL,
+            PRIMARY KEY  (`id_ifthenpay_ifthenpaygateway`),
+            INDEX `order_id` (`order_id`)
+          ) ENGINE=MyISAM DEFAULT CHARSET=utf8;',
 	];
 
 	private $storeSql = [
@@ -111,6 +121,11 @@ class IfthenpaySql implements InstallerInterface
             `id_ifthenpay_cofidispay` int(10) unsigned NOT NULL auto_increment,
             `id_shop` int(10) unsigned NOT NULL,
             PRIMARY KEY (`id_ifthenpay_cofidispay`, `id_shop`)
+          ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
+		'ifthenpaygateway' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_ifthenpaygateway_shop` (
+            `id_ifthenpay_ifthenpaygateway` int(10) unsigned NOT NULL auto_increment,
+            `id_shop` int(10) unsigned NOT NULL,
+            PRIMARY KEY (`id_ifthenpay_ifthenpaygateway`, `id_shop`)
           ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
 	];
 

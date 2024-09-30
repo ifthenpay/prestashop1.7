@@ -29,9 +29,9 @@ namespace PrestaShop\Module\Ifthenpay\Payments;
 use PrestaShop\Module\Ifthenpay\Builders\DataBuilder;
 use PrestaShop\Module\Ifthenpay\Builders\GatewayDataBuilder;
 use PrestaShop\Module\Ifthenpay\Contracts\Payments\PaymentMethodInterface;
-use PrestaShop\PrestaShop\Adapter\Entity\Language;
-use PrestaShop\Module\Ifthenpay\Utility\Token;
 use PrestaShop\Module\Ifthenpay\Utility\Status;
+use PrestaShop\Module\Ifthenpay\Utility\Token;
+use PrestaShop\PrestaShop\Adapter\Entity\Language;
 use PrestaShop\PrestaShop\Core\Address\Address;
 
 if (!defined('_PS_VERSION_')) {
@@ -144,7 +144,7 @@ class CofidisPay extends Payment implements PaymentMethodInterface
 	{
 		$payload = $this->getCustomerData();
 		$payload["orderId"] = $this->orderId;
-		$payload["amount"] = $this->valor;
+		$payload["amount"] = (string)$this->valor;
 		$payload["returnUrl"] = $this->successUrl . '&orderId=' . $this->orderId;
 		$payload["description"] = "Order {$this->orderId}";
 

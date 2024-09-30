@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -27,16 +28,35 @@
 namespace PrestaShop\Module\Ifthenpay\Callback;
 
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
 use PrestaShop\Module\Ifthenpay\Factory\Models\IfthenpayModelFactory;
 use PrestaShop\Module\Ifthenpay\Contracts\Callback\CallbackDataInterface;
+use PrestaShop\Module\Ifthenpay\Callback\CallbackVars as Cb;
 
 class CallbackDataCCard implements CallbackDataInterface
 {
-    public function getData($request)
-    {
-        return IfthenpayModelFactory::build('ccard')->getCCardByRequestId($request['requestId']);
-    }
+	public function getData($request)
+	{
+		$model = IfthenpayModelFactory::build('ccard');
+
+		switch ($request['type']) {
+			case 'online':
+				return $model->getCCardByRequestId($request['requestId']);
+
+			case 'offline':
+
+				$data = $model->getCCardByRequestId($request[Cb::TRANSACTION_ID]);
+
+				if (!empty($data)) {
+					return $data;
+				}
+
+				return $model->getByOrderId($request[Cb::ORDER_ID]);
+
+			default:
+				throw new \Exception('Invalid request type when obtaining callback data');
+		}
+	}
 }

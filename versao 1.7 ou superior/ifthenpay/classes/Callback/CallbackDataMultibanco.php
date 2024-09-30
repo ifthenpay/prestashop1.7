@@ -32,11 +32,20 @@ if (!defined('_PS_VERSION_')) {
 
 use PrestaShop\Module\Ifthenpay\Factory\Models\IfthenpayModelFactory;
 use PrestaShop\Module\Ifthenpay\Contracts\Callback\CallbackDataInterface;
+use PrestaShop\Module\Ifthenpay\Callback\CallbackVars as Cb;
+
 
 class CallbackDataMultibanco implements CallbackDataInterface
 {
     public function getData($request)
     {
-        return IfthenpayModelFactory::build('multibanco')->getMultibancoByReferencia($request['referencia']);
+		$model = IfthenpayModelFactory::build('multibanco');
+		$data = $model->getMultibancoByReferencia($request[Cb::REFERENCE]);
+
+		if (!empty($data)) {
+			return $data;
+		}
+
+        return $model->getByOrderId($request[Cb::ORDER_ID]);
     }
 }

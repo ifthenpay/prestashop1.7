@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -34,6 +35,7 @@ use PrestaShop\Module\Ifthenpay\Payments\Data\CofidispayPaymentReturn;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MbwayPaymentReturn;
 use PrestaShop\Module\Ifthenpay\Payments\Data\PayshopPaymentReturn;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MultibancoPaymentReturn;
+use PrestaShop\Module\Ifthenpay\Payments\Data\IfthenpaygatewayPaymentReturn;
 
 class PaymentReturnFactory
 {
@@ -80,6 +82,14 @@ class PaymentReturnFactory
 					$smartyDefaultData,
 					$emailDefaultData
 				);
+			case 'ifthenpaygateway':
+				return new IfthenpaygatewayPaymentReturn(
+					$ifthenpayModule,
+					$paymentDefaultData,
+					$smartyDefaultData,
+					$emailDefaultData
+				);
+
 			default:
 				throw new \Exception('Unknown Payment Return Class');
 		}

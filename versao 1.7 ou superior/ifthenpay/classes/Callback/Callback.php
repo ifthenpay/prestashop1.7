@@ -31,6 +31,7 @@ if (!defined('_PS_VERSION_')) {
 }
 
 use PrestaShop\Module\Ifthenpay\Factory\Request\RequestFactory;
+use PrestaShop\Module\Ifthenpay\Callback\CallbackVars as Cb;
 
 class Callback
 {
@@ -42,14 +43,9 @@ class Callback
 	private $backofficeKey;
 	private $entidade;
 	private $subEntidade;
-	private $paymentType;
+	private $urlCallbackParameters = [];
 
-	private $urlCallbackParameters = [
-		'multibanco' => '?type=offline&ec={ec}&mv={mv}&payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&entidade=[ENTIDADE]&referencia=[REFERENCIA]&valor=[VALOR]',
-		'mbway' => '?type=offline&ec={ec}&mv={mv}&payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&referencia=[REFERENCIA]&id_pedido=[ID_TRANSACAO]&valor=[VALOR]&estado=[ESTADO]',
-		'payshop' => '?type=offline&ec={ec}&mv={mv}&payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&id_cliente=[ID_CLIENTE]&id_transacao=[ID_TRANSACAO]&referencia=[REFERENCIA]&valor=[VALOR]&estado=[ESTADO]',
-		'cofidispay' => '?type=offline&ec={ec}&mv={mv}&payment={paymentMethod}&chave=[CHAVE_ANTI_PHISHING]&id_pedido=[ID_TRANSACAO]&valor=[VALOR]&estado=[ESTADO]',
-	];
+
 
 	public function __construct($data)
 	{
@@ -57,6 +53,91 @@ class Callback
 		$this->backofficeKey = $data->getData()->backofficeKey;
 		$this->entidade = $data->getData()->entidade;
 		$this->subEntidade = $data->getData()->subEntidade;
+
+		$this->urlCallbackParameters = [
+			'multibanco' => '?' . $this->toHttpQuery(
+				[
+					Cb::TYPE => 'offline',
+					Cb::ECOMMERCE_VERSION => '{ec}',
+					Cb::MODULE_VERSION => '{mv}',
+					Cb::PAYMENT => '{paymentMethod}',
+					Cb::ANTIPHISH_KEY => '[ANTI_PHISHING_KEY]',
+					Cb::ORDER_ID => '[ID]',
+					Cb::ENTITY => '[ENTITY]',
+					Cb::REFERENCE => '[REFERENCE]',
+					Cb::AMOUNT => '[AMOUNT]',
+					Cb::PM => '[PAYMENT_METHOD]',
+				]
+			),
+			'mbway' => '?' . $this->toHttpQuery(
+				[
+					Cb::TYPE => 'offline',
+					Cb::ECOMMERCE_VERSION => '{ec}',
+					Cb::MODULE_VERSION => '{mv}',
+					Cb::PAYMENT => '{paymentMethod}',
+					Cb::ANTIPHISH_KEY => '[ANTI_PHISHING_KEY]',
+					Cb::ORDER_ID => '[ID]',
+					Cb::TRANSACTION_ID => '[REQUEST_ID]',
+					Cb::AMOUNT => '[AMOUNT]',
+					Cb::PM => '[PAYMENT_METHOD]',
+				]
+			),
+			'payshop' => '?' . $this->toHttpQuery(
+				[
+					Cb::TYPE => 'offline',
+					Cb::ECOMMERCE_VERSION => '{ec}',
+					Cb::MODULE_VERSION => '{mv}',
+					Cb::PAYMENT => '{paymentMethod}',
+					Cb::ANTIPHISH_KEY => '[ANTI_PHISHING_KEY]',
+					Cb::REFERENCE => '[REFERENCE]',
+					Cb::ORDER_ID => '[ID]',
+					Cb::TRANSACTION_ID => '[REQUEST_ID]',
+					Cb::AMOUNT => '[AMOUNT]',
+					Cb::PM => '[PAYMENT_METHOD]',
+				]
+			),
+			'ccard' => '?' . $this->toHttpQuery(
+				[
+					Cb::TYPE => 'offline',
+					Cb::ECOMMERCE_VERSION => '{ec}',
+					Cb::MODULE_VERSION => '{mv}',
+					Cb::PAYMENT => '{paymentMethod}',
+					Cb::ANTIPHISH_KEY => '[ANTI_PHISHING_KEY]',
+					Cb::ORDER_ID => '[ID]',
+					Cb::TRANSACTION_ID => '[REQUEST_ID]',
+					Cb::AMOUNT => '[AMOUNT]',
+					Cb::PM => '[PAYMENT_METHOD]',
+				]
+			),
+			'cofidispay' => '?' . $this->toHttpQuery(
+				[
+					Cb::TYPE => 'offline',
+					Cb::ECOMMERCE_VERSION => '{ec}',
+					Cb::MODULE_VERSION => '{mv}',
+					Cb::PAYMENT => '{paymentMethod}',
+					Cb::ANTIPHISH_KEY => '[ANTI_PHISHING_KEY]',
+					Cb::ORDER_ID => '[ID]',
+					Cb::TRANSACTION_ID => '[REQUEST_ID]',
+					Cb::AMOUNT => '[AMOUNT]',
+					Cb::PM => '[PAYMENT_METHOD]',
+				]
+			),
+			'ifthenpaygateway' => '?' . $this->toHttpQuery(
+				[
+					Cb::TYPE => 'offline',
+					Cb::ECOMMERCE_VERSION => '{ec}',
+					Cb::MODULE_VERSION => '{mv}',
+					Cb::PAYMENT => '{paymentMethod}',
+					Cb::ANTIPHISH_KEY => '[ANTI_PHISHING_KEY]',
+					Cb::ORDER_ID => '[ID]',
+					Cb::ENTITY => '[ENTITY]',
+					Cb::REFERENCE => '[REFERENCE]',
+					Cb::TRANSACTION_ID => '[REQUEST_ID]',
+					Cb::AMOUNT => '[AMOUNT]',
+					Cb::PM => '[PAYMENT_METHOD]',
+				]
+			),
+		];
 	}
 
 	private function createAntiPhishing()
@@ -111,6 +192,25 @@ class Callback
 	}
 
 	/**
+	 * activates callback for ifthenpay gateway
+	 * it does the same as the make() function above but exclusively for ifthenpaygateway method
+	 */
+	public function activateIfthenpayGatewayCallback($moduleLink, $activateCallback = false, string $antiPhishingKey = '')
+	{
+		if ($antiPhishingKey == '') {
+			$this->createAntiPhishing();
+		} else{
+			$this->chaveAntiPhishing = $antiPhishingKey;
+		}
+
+		$this->createUrlCallback('ifthenpaygateway', $moduleLink);
+		if ($activateCallback) {
+			$this->activateCallback();
+		}
+	}
+
+
+	/**
 	 * Get the value of urlCallback
 	 */
 	public function getUrlCallback()
@@ -124,5 +224,10 @@ class Callback
 	public function getChaveAntiPhishing()
 	{
 		return $this->chaveAntiPhishing;
+	}
+
+
+	private function toHttpQuery(array $array){
+		return urldecode(http_build_query($array));
 	}
 }

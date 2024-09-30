@@ -58,3 +58,60 @@
 .clearboth {
   clear: both;
 }
+
+.method_line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.method_checkbox {
+  display: flex;
+  align-items: center;
+  min-width: 160px;
+}
+
+.method_checkbox input {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.method_checkbox img {
+  max-height: 30px;
+}
+
+.method_select {
+  width: 400px;
+  margin-left: 10px;
+}
+
+.method_select select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.request_ifthenpaygateway_method {
+  width: 400px;
+}
+
+@media (max-width: 992px) {
+  .method_line {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .method_checkbox {
+    margin-bottom: 8px;
+  }
+  .method_select {
+    width: 100%;
+    margin-left: 0px;
+  }
+}
+.method_line .method_checkbox img {
+  margin-left: 8px;
+}
+
+.width_100 {
+  width: 100%;
+}

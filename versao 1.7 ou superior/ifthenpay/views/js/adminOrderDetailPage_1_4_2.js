@@ -679,7 +679,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         if ($('#cancelPaymentMethod').length === 0) {
           this.documentFragment.append('<select id="changePaymentMethodSelect" class="form-select custom-select" aria-label="Default select example" style="width:150px;"></select>');
           Object.keys(this.ifthenpayUserPaymentMethods).forEach(function (key) {
-            if (_this.ifthenpayUserPaymentMethods[key] !== 'ccard' && _this.ifthenpayUserPaymentMethods[key] !== 'cofidispay') {
+            if (_this.ifthenpayUserPaymentMethods[key] !== 'ccard' && _this.ifthenpayUserPaymentMethods[key] !== 'cofidispay' && _this.ifthenpayUserPaymentMethods[key] !== 'ifthenpaygateway') {
               _this.documentFragment.children().append("<option value=\"".concat(_this.ifthenpayUserPaymentMethods[key], "\">").concat(_this.ifthenpayUserPaymentMethods[key].charAt(0).toUpperCase() + _this.ifthenpayUserPaymentMethods[key].slice(1), "</option>"));
             }
           });

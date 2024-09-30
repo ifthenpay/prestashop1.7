@@ -36,7 +36,7 @@ use PrestaShop\Module\Ifthenpay\Base\PaymentBase;
 
 class CCardBase extends PaymentBase
 {
-    
+
     private function getUrlCallback()
     {
         return \Context::getContext()->link->getModuleLink('ifthenpay', 'callback', array(), true);
@@ -45,18 +45,18 @@ class CCardBase extends PaymentBase
     protected function setGatewayBuilderData()
     {
         $this->gatewayBuilder->setCCardKey(\Configuration::get('IFTHENPAY_CCARD_KEY'));
-        $this->gatewayBuilder->setSuccessUrl($this->getUrlCallback() . '?type=online&payment=ccard&cartId=' . \Tools::getValue('id_cart') . '&qn=' . 
+        $this->gatewayBuilder->setSuccessUrl($this->getUrlCallback() . '?type=online&p=ccard&cartId=' . \Tools::getValue('id_cart') . '&qn=' .
             Token::encrypt(Status::getStatusSucess())
         );
-        
-        $this->gatewayBuilder->setErrorUrl($this->getUrlCallback() . '?type=online&payment=ccard&cartId=' . \Tools::getValue('id_cart') . '&qn=' . 
+
+        $this->gatewayBuilder->setErrorUrl($this->getUrlCallback() . '?type=online&p=ccard&cartId=' . \Tools::getValue('id_cart') . '&qn=' .
             Token::encrypt(Status::getStatusError())
         );
-    
-        $this->gatewayBuilder->setCancelUrl($this->getUrlCallback() . '?type=online&payment=ccard&cartId=' . \Tools::getValue('id_cart') . '&qn=' . 
+
+        $this->gatewayBuilder->setCancelUrl($this->getUrlCallback() . '?type=online&p=ccard&cartId=' . \Tools::getValue('id_cart') . '&qn=' .
             Token::encrypt(Status::getStatusCancel())
         );
-        
+
     }
 
     protected function saveToDatabase()

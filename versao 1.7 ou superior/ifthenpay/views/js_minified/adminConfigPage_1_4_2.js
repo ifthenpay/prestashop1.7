@@ -315,6 +315,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         dom_alignSpinnerWithInput();
       }
 
+      if (isIfthenpaygateway()) {
+        dom_alignSpinnerWithInput();
+        dom_disableUncheckedDefaultPaymentMethods();
+      }
+
       var app = inversify_adminConfigPage_1["default"].get(AdminConfigPageCreateApp_1.AdminConfigPageCreateApp);
       app.start();
     });
@@ -367,12 +372,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       if (domSpinner.closest(".col-lg-8")) {
         var domMbSubEnt = document.getElementById("ifthenpayMultibancoSubentidade");
         var domCofidisKey = document.getElementById("ifthenpayCofidisKey");
+        var domIfthenpaygatewayKey = document.getElementById("ifthenpayIfthenpaygatewayKey");
         var domElement = void 0;
 
         if (domMbSubEnt) {
           domElement = domMbSubEnt;
         } else if (domCofidisKey) {
           domElement = domCofidisKey;
+        } else if (domIfthenpaygatewayKey) {
+          domElement = domIfthenpaygatewayKey;
         } else {
           return;
         }
@@ -404,6 +412,26 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
     function isCofidis() {
       return document.getElementById("ifthenpayCofidisKey") ? true : false;
+    }
+
+    function isIfthenpaygateway() {
+      return document.getElementById("ifthenpayIfthenpaygatewayKey") ? true : false;
+    }
+
+    function dom_disableUncheckedDefaultPaymentMethods() {
+      var methods = $("#methods_container .method_checkbox_input");
+      methods.each(function (i, obj) {
+        var method = $(obj).data("method");
+        var isSwitchOn = $(obj).prop("checked");
+        var defaultPaymentSelect = $("#payment_ifthenpaygateway_default");
+        var target = defaultPaymentSelect.find('option[data-method="' + method + '"]');
+        target.prop("disabled", !isSwitchOn);
+
+        if (target.prop("selected")) {
+          target.prop("selected", false);
+          defaultPaymentSelect.find("option").first().prop("selected", true);
+        }
+      });
     }
     /***/
 
@@ -932,10 +960,55 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         }).then(function (response) {
           var _a, _b;
 
-          containerCofidisMax.val((_a = response['maxAmount']) !== null && _a !== void 0 ? _a : '');
-          containerCofidisMin.val((_b = response['minAmount']) !== null && _b !== void 0 ? _b : '');
+          containerCofidisMax.val((_a = response["maxAmount"]) !== null && _a !== void 0 ? _a : "");
+          containerCofidisMin.val((_b = response["minAmount"]) !== null && _b !== void 0 ? _b : "");
           spinner.hide();
         });
+      };
+
+      AdminConfigPage.prototype.changeIfthenpayGatewayKey = function (event) {
+        var spinner = $("#appSpinner");
+        spinner.parent().insertAfter($(event.target));
+        spinner.show();
+        this.httpService = inversify_adminConfigPage_1["default"].get(HttpService_1.HttpService);
+        this.httpService.setUrl(controllerUrl);
+        this.httpService.post({
+          ajax: 1,
+          controller: "AdminIfthenpayPaymentMethodSetup",
+          action: "getIfthenpayGatewayMethods",
+          gatewayKey: $(event.target).val()
+        }).then(function (response) {
+          var containerGatewayAccounts = $("#methods_container"); // clean methods and accounts
+
+          containerGatewayAccounts.html("");
+
+          if ("payment_methods_html" in response) {
+            containerGatewayAccounts.html(response["payment_methods_html"]);
+          }
+
+          var containerDefaultMethod = $("#default_method_container"); // clean default method
+
+          containerDefaultMethod.html("");
+
+          if ("default_selected_html" in response) {
+            containerDefaultMethod.html(response["default_selected_html"]);
+          }
+
+          spinner.hide();
+        });
+      };
+
+      AdminConfigPage.prototype.updateSelectedDefault = function (event) {
+        var method = $(event.target).data("method");
+        var isSwitchOn = $(event.target).prop("checked");
+        var defaultPaymentSelect = $("#payment_ifthenpaygateway_default");
+        var target = defaultPaymentSelect.find('option[data-method="' + method + '"]');
+        target.prop("disabled", !isSwitchOn);
+
+        if (target.prop("selected")) {
+          target.prop("selected", false);
+          defaultPaymentSelect.find("option").first().prop("selected", true);
+        }
       };
 
       AdminConfigPage.prototype.testCallback = function (event) {
@@ -947,7 +1020,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var amountDom = $("#amount");
         var mbwayTransactionIdDom = $("#mbway_transaction_id");
         var payshopTransactionIdDom = $("#payshop_transaction_id");
-        var cofidisTransactionIdDom = $("#cofidispay_transaction_id"); // message template
+        var cofidisTransactionIdDom = $("#cofidispay_transaction_id");
+        var orderIdDom = $("#order_id"); // message template
 
         var msgHtml = "\n        <div class=\"alert alert-{{type}}\">\n            <button type=\"button\" class=\"close\" data-dismiss=\"alert\">\xD7</button>\n            <ul class=\"list-unstyled\">\n                <li>{{message}}</li>\n            </ul>\n        </div>\n";
         var method = methodDom.length ? methodDom.val() : "";
@@ -955,9 +1029,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var amount = amountDom.length ? amountDom.val() : "";
         var mbwayTransactionId = mbwayTransactionIdDom.length ? mbwayTransactionIdDom.val() : "";
         var payshopTransactionId = payshopTransactionIdDom.length ? payshopTransactionIdDom.val() : "";
-        var cofidisTransactionId = cofidisTransactionIdDom.length ? cofidisTransactionIdDom.val() : ""; // verify if multibanco or mbway or payshop have arguments
+        var cofidisTransactionId = cofidisTransactionIdDom.length ? cofidisTransactionIdDom.val() : "";
+        var orderId = orderIdDom.length ? orderIdDom.val() : ""; // verify if multibanco or mbway or payshop have arguments
 
-        if (method === "multibanco" && (reference === "" || amount === "") || method === "mbway" && (amount === "" || mbwayTransactionId === "") || method === "payshop" && (amount === "" || payshopTransactionId === "")) {
+        if (method === "multibanco" && (reference === "" || amount === "") || method === "mbway" && (amount === "" || mbwayTransactionId === "") || method === "payshop" && (amount === "" || payshopTransactionId === "") || method === "ifthenpaygateway" && (amount === "" || orderId === "")) {
           bootstrapMsgContainer.html(msgHtml.replace("{{type}}", "danger").replace("{{message}}", msgFillAllFields));
           return;
         }
@@ -973,6 +1048,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           mbway_transaction_id: mbwayTransactionId,
           payshop_transaction_id: payshopTransactionId,
           cofidis_transaction_id: cofidisTransactionId,
+          order_id: orderId,
           method: method
         }).then(function (response) {
           var msgType = "";
@@ -992,6 +1068,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       __decorate([(0, Event_1.Event)("change", "#ifthenpayMultibancoEntidade"), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminConfigPage.prototype, "changeEntidade", null);
 
       __decorate([(0, Event_1.Event)("change", "#ifthenpayCofidisKey"), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminConfigPage.prototype, "changeCofidisKey", null);
+
+      __decorate([(0, Event_1.Event)("change", "#ifthenpayIfthenpaygatewayKey"), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminConfigPage.prototype, "changeIfthenpayGatewayKey", null);
+
+      __decorate([(0, Event_1.Event)("change", "#methods_container", ".method_checkbox_input"), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminConfigPage.prototype, "updateSelectedDefault", null);
 
       __decorate([(0, Event_1.Event)("click", "#testCallback"), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminConfigPage.prototype, "testCallback", null);
 

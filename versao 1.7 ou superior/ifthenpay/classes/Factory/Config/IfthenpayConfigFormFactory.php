@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -34,6 +35,7 @@ use PrestaShop\Module\Ifthenpay\Forms\CofidispayConfigForm;
 use PrestaShop\Module\Ifthenpay\Forms\MbwayConfigForm;
 use PrestaShop\Module\Ifthenpay\Forms\PayshopConfigForm;
 use PrestaShop\Module\Ifthenpay\Forms\MultibancoConfigForm;
+use PrestaShop\Module\Ifthenpay\Forms\IfthenpaygatewayConfigForm;
 
 class IfthenpayConfigFormFactory
 {
@@ -53,6 +55,8 @@ class IfthenpayConfigFormFactory
 				return new CCardConfigForm($ifthenpayModule, $ifthenpayController);
 			case 'cofidispay':
 				return new CofidispayConfigForm($ifthenpayModule, $ifthenpayController);
+			case 'ifthenpaygateway':
+				return new IfthenpaygatewayConfigForm($ifthenpayModule, $ifthenpayController);
 			default:
 				throw new \Exception('Unknown Admin Config Form');
 		}

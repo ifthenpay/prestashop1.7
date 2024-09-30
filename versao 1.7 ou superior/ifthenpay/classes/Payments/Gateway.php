@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -38,7 +39,7 @@ class Gateway
 {
 	private $webservice;
 	private $account;
-	private $paymentMethods = ['multibanco', 'mbway', 'payshop', 'ccard', 'cofidispay', 'ifthenpay'];
+	private $paymentMethods = ['multibanco', 'mbway', 'payshop', 'ccard', 'cofidispay', 'ifthenpay', 'ifthenpaygateway'];
 	private $previousModulePaymentMethods = ['pagamento por multibanco', 'pagamento por mbway', 'pagamento por payshop'];
 	private $aliasPaymentMethods = [
 		'multibanco' => [
@@ -76,6 +77,13 @@ class Gateway
 			'es' => 'Cofidis Pay',
 			'de' => 'Cofidis Pay'
 		],
+		'ifthenpaygateway' => [
+			'gb' => 'Ifthenpay Gateway',
+			'en' => 'Ifthenpay Gateway',
+			'pt' => 'Ifthenpay Gateway',
+			'es' => 'Ifthenpay Gateway',
+			'de' => 'Ifthenpay Gateway'
+		],
 	];
 
 	public function __construct()
@@ -112,18 +120,36 @@ class Gateway
 
 	public function authenticate($backofficeKey)
 	{
-		$authenticate = $this->webservice->postRequest(
+
+		$gatewayKeys = $this->webservice->getRequest(
+			'https://ifthenpay.com/IfmbWS/ifthenpaymobile.asmx/GetGatewayKeys',
+			[
+				'backofficekey' => $backofficeKey,
+			]
+		)->getResponseJson();
+
+
+		$accountKeys = $this->webservice->postRequest(
 			'https://www.ifthenpay.com/IfmbWS/ifmbws.asmx/' .
-			'getEntidadeSubentidadeJsonV2',
+				'getEntidadeSubentidadeJsonV2',
 			[
 				'chavebackoffice' => $backofficeKey,
 			]
 		)->getResponseJson();
 
-		if (!$authenticate[0]['Entidade'] && empty($authenticate[0]['SubEntidade'])) {
+		if (!$accountKeys[0]['Entidade'] && empty($accountKeys[0]['SubEntidade'])) {
 			throw new \Exception('Backoffice key is invalid');
-		} else {
-			$this->account = $authenticate;
+		}
+
+		if (!empty($accountKeys)) {
+			$this->account = $accountKeys;
+		}
+
+		if (!empty($gatewayKeys)) {
+			$this->account[] = [
+				'Entidade' => 'IFTHENPAYGATEWAY',
+				'SubEntidade' => $gatewayKeys
+			];
 		}
 	}
 
@@ -143,6 +169,7 @@ class Gateway
 		$paymentMethodMapping = [
 			'mb' => $this->paymentMethods[0],
 			'cofidis' => $this->paymentMethods[4],
+			'ifthenpaygateway' => $this->paymentMethods[6],
 		];
 
 		foreach ($this->account as $account) {
@@ -154,6 +181,8 @@ class Gateway
 				$userPaymentMethods[] = $paymentMethodMapping['mb'];
 			} elseif ($entidade == 'cofidis') {
 				$userPaymentMethods[] = $paymentMethodMapping['cofidis'];
+			}elseif ($entidade == 'ifthenpaygateway') {
+				$userPaymentMethods[] = $paymentMethodMapping['ifthenpaygateway'];
 			}
 		}
 		return array_unique($userPaymentMethods);
@@ -195,6 +224,57 @@ class Gateway
 		}
 		return $list;
 	}
+
+
+	public function getIthenpaygatewayKeys(){
+		foreach (array_column($this->account, 'SubEntidade', 'Entidade') as $key => $value) {
+			if ($key === \Tools::strtoupper('ifthenpaygateway')) {
+				return $value;
+			}
+		}
+	}
+
+
+	public function getIfthenpayGatewayPaymentMethodsDataByBackofficeKeyAndGatewayKey($backofficeKey, $gatewayKey): array
+	{
+
+		$methods = $this->webservice->getRequest(
+			'https://api.ifthenpay.com/gateway/methods/available',
+			[]
+		)->getResponseJson();
+
+		if (empty($methods)) {
+			return [];
+		}
+
+		$accounts = $this->webservice->getRequest(
+			'https://ifthenpay.com/IfmbWS/ifthenpaymobile.asmx/GetAccountsByGatewayKey',
+			[
+				'backofficekey' => $backofficeKey,
+				'gatewayKey' => $gatewayKey
+			]
+		)->getResponseJson();
+
+		if (empty($accounts)) {
+			return [];
+		}
+
+
+		foreach ($methods as &$method) {
+
+			$methodCode = $method['Entity'];
+			$filteredAccounts = array_filter($accounts, function ($item) use ($methodCode) {
+				return $item['Entidade'] === $methodCode || ($methodCode === 'MB' && is_numeric($item['Entidade']));
+			});
+
+			$method['accounts'] = $filteredAccounts;
+		}
+		unset($method);
+
+		return $methods;
+	}
+
+
 
 	public function getCofidisLimits($cofidisKey)
 	{

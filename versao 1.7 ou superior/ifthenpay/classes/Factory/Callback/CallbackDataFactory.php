@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -34,6 +35,7 @@ use PrestaShop\Module\Ifthenpay\Callback\CallbackDataCofidispay;
 use PrestaShop\Module\Ifthenpay\Callback\CallbackDataMbway;
 use PrestaShop\Module\Ifthenpay\Callback\CallbackDataMultibanco;
 use PrestaShop\Module\Ifthenpay\Callback\CallbackDataPayshop;
+use PrestaShop\Module\Ifthenpay\Callback\CallbackDataIfthenpaygateway;
 use PrestaShop\Module\Ifthenpay\Contracts\Callback\CallbackDataInterface;
 
 class CallbackDataFactory
@@ -51,6 +53,8 @@ class CallbackDataFactory
 				return new CallbackDataCCard();
 			case 'cofidispay':
 				return new CallbackDataCofidispay();
+			case 'ifthenpaygateway':
+				return new CallbackDataIfthenpaygateway();
 			default:
 				throw new \Exception('Unknown Callback Data Class');
 		}

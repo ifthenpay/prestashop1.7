@@ -81,6 +81,9 @@
 			</div>
 		</div>
 	{/if}
+
+
+
 	<div id="paymentReturnPanel" class="panel">
 		{include file="./_partials/paymentPanel.tpl"}
 	</div>

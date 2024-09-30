@@ -110,6 +110,15 @@ class IfthenpayConfiguration implements InstallerInterface
 					case 'cofidispay':
 						\Configuration::deleteByName('IFTHENPAY_COFIDIS_KEY');
 						\Configuration::deleteByName('IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT');
+					case 'ifthenpaygateway':
+						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_KEY');
+						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_METHODS');
+						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_DEFAULT_METHOD');
+						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_DEADLINE');
+						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_CLOSE_BTN');
+						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_CANCEL_ORDER_AFTER_TIMEOUT');
+						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_SHOW_LOGO');
+						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_TITLE');
 
 						break;
 					default:

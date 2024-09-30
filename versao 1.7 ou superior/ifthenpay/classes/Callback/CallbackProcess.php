@@ -62,8 +62,7 @@ class CallbackProcess
 	 */
 	protected function setPaymentData()
 	{
-		$this->paymentData = CallbackFactory::buildCalllbackData($_GET)->execute();
-
+		$this->paymentData = CallbackFactory::buildCalllbackData($this->request)->execute();
 	}
 
 	/**

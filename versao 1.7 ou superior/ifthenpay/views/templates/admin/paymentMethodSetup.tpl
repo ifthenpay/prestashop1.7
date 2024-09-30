@@ -28,21 +28,28 @@
 
 <!-- Panes -->
 {* info panel start *}
+
+{if $paymentMethod === 'ifthenpaygateway'}
+    {assign var="paymentName" value="Ifthenpay Gateway"}
+{else}
+    {assign var="paymentName" value="{$paymenMethod}"}
+{/if}
+
 <div class="panel">
     <div class="panel-heading">
         <i class="icon-info"></i>
-        {l s='%s payment method' mod='ifthenpay' sprintf=[$paymentMethod|ucfirst]}
+			{l s='%s payment method' mod='ifthenpay' sprintf=[$paymentName|ucfirst]}
     </div>
 
     <div class="panel-header header-paymentMethod">
         <img src="{$module_dir|escape:'html':'UTF-8'}/views/img/{$paymentMethod}.png" />
     </div>
     <div class="panel-body body-paymentMethod">
-        {if $paymentMethod === 'mbway'}
-            <p>{l s='This module allows secure payment by %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}.</p>
-            <p>{l s='If the customer chooses to pay by %s, the order status will be placed in "Wait for payment by %s"' mod='ifthenpay' sprintf=[$paymentMethod|capitalize, $paymentMethod|capitalize]}.
+        {if $paymentName === 'mbway'}
+            <p>{l s='This module allows secure payment by %s' mod='ifthenpay' sprintf=[$paymentName|capitalize]}.</p>
+            <p>{l s='If the customer chooses to pay by %s, the order status will be placed in "Wait for payment by %s"' mod='ifthenpay' sprintf=[$paymentName|capitalize, $paymentName|capitalize]}.
             </p>
-        <p>{l s='When payment is made, the order status will change to "Payment confirmed by %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}."
+        <p>{l s='When payment is made, the order status will change to "Payment confirmed by %s' mod='ifthenpay' sprintf=[$paymentName|capitalize]}."
             </p>
 
 
@@ -98,7 +105,7 @@
 
 
 
-            {l s='This module allows secure payment by Reference %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}.
+            {l s='This module allows secure payment by Reference %s' mod='ifthenpay' sprintf=[$paymentName|capitalize]}.
             </p>
             <p>
 
@@ -106,7 +113,7 @@
 
 
 
-            {l s='If the customer chooses to pay by %s reference, the order status will be placed in "Wait for payment by %s"' mod='ifthenpay' sprintf=[$paymentMethod|capitalize, $paymentMethod|capitalize]}.
+            {l s='If the customer chooses to pay by %s reference, the order status will be placed in "Wait for payment by %s"' mod='ifthenpay' sprintf=[$paymentName|capitalize, $paymentName|capitalize]}.
             </p>
             <p>
 
@@ -114,7 +121,7 @@
 
 
 
-            {l s='When payment is made, the order status will change to "Payment confirmed by %s' mod='ifthenpay' sprintf=[$paymentMethod|capitalize]}."
+            {l s='When payment is made, the order status will change to "Payment confirmed by %s' mod='ifthenpay' sprintf=[$paymentName|capitalize]}."
             </p>
         {/if}
     </div>
@@ -210,6 +217,14 @@
 						<div class="col-lg-8">
 							<input type="text" id="cofidispay_transaction_id" name="cofidispay_transaction_id" class="form-control" />
 							<p class="help-block">{l s='Can be found as "IdRequest" in the SELL/Orders/Orders by selecting the order you wish to test and scrolling down to order payment details' mod='ifthenpay'}</p>
+						</div>
+					</div>
+				{elseif $paymentMethod === 'ifthenpaygateway'}
+
+					<div class="form-group" style="display: block;">
+						<label class="control-label col-lg-4">{l s='Order ID' mod='ifthenpay'}</label>
+						<div class="col-lg-8">
+							<input type="text" id="order_id" name="order_id" class="form-control" />
 						</div>
 					</div>
                 {/if}

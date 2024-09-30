@@ -25,6 +25,9 @@
 
 namespace PrestaShop\Module\Ifthenpay\Callback;
 
+use PrestaShop\Module\Ifthenpay\Callback\CallbackVars as Cb;
+
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -55,7 +58,7 @@ class CallbackValidate
     private function validateOrderValue()
     {
         $orderTotal = floatval($this->order->getOrdersTotalPaid());
-        $requestValor = floatval($this->httpRequest['valor']);
+        $requestValor = floatval($this->httpRequest[Cb::AMOUNT]);
         if (round($orderTotal, 2) !== round($requestValor, 2)) {
             throw new \Exception('Valor não corresponde ao valor da encomenda.');
         }
@@ -70,11 +73,11 @@ class CallbackValidate
 
     private function validateChaveAntiPhishing()
     {
-        if (!$this->httpRequest['chave']) {
+        if (!$this->httpRequest[Cb::ANTIPHISH_KEY]) {
             throw new \Exception('Chave Anti-Phishing não foi enviada.');
         }
 
-        if ($this->httpRequest['chave'] !== $this->configurationChaveAntiPhishing) {
+        if ($this->httpRequest[Cb::ANTIPHISH_KEY] !== $this->configurationChaveAntiPhishing) {
             throw new \Exception('Chave Anti-Phishing não é válida.');
         }
     }

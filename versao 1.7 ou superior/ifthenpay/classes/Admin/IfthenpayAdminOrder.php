@@ -67,7 +67,7 @@ class IfthenpayAdminOrder extends IfthenpayStrategy
                 $this->order->payment = 'payshop';
                 $this->order->save();
             } else {
-                // TODO: wait, shouldn't this be ccard??
+                // TODO: currently defaulting to multibanco
                 $this->paymentDefaultData->setPaymentMethod('multibanco');
                 $this->order->payment = 'multibanco';
                 $this->order->save();

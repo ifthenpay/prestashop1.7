@@ -129,12 +129,15 @@ abstract class ConfigForm
 	 *
 	 * @return void
 	 */
-	protected function setFormParent()
+	protected function setFormParent(string $title = '')
 	{
+
+		$title = $title != '' ? $title : $this->paymentMethod;
+
 		$this->form = [
 			'form' => [
 				'legend' => [
-					'title' => \Tools::ucfirst($this->paymentMethod) . ' ' . $this->ifthenpayModule->l('Settings', pathinfo(__FILE__)['filename']),
+					'title' => \Tools::ucfirst($title) . ' ' . $this->ifthenpayModule->l('Settings', pathinfo(__FILE__)['filename']),
 					'icon' => 'icon-cogs',
 				],
 				'input' => [

@@ -47,7 +47,7 @@ class CofidispayBase extends PaymentBase
 		$this->gatewayBuilder->setCofidisKey(\Configuration::get('IFTHENPAY_COFIDIS_KEY'));
 
 		$this->gatewayBuilder->setSuccessUrl(
-			$this->getUrlCallback() . '?type=online&payment=cofidispay&cartId=' . \Tools::getValue('id_cart') . '&qn=' .
+			$this->getUrlCallback() . '?type=online&p=cofidispay&cartId=' . \Tools::getValue('id_cart') . '&qn=' .
 			Token::encrypt(Status::getStatusSucess())
 		);
 	}

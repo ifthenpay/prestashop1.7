@@ -65,6 +65,12 @@ class DataBuilder implements DataBuilderInterface
         return $this;
     }
 
+	public function setKey($value)
+    {
+        $this->data->key = $value;
+        return $this;
+    }
+
     public function setReferencia($value)
     {
         $this->data->referencia = $value;
@@ -136,7 +142,7 @@ class DataBuilder implements DataBuilderInterface
         $this->data->min = $value;
         return $this;
     }
-    
+
     public function setMax($value)
     {
         $this->data->max = $value;
@@ -163,5 +169,43 @@ class DataBuilder implements DataBuilderInterface
     public function getData()
     {
         return $this->data;
+    }
+
+	// ifthenpaygateway related
+
+    public function setSelectableMethods($value)
+    {
+        $this->data->selectableMethods = $value;
+        return $this;
+    }
+
+	public function setDefaultMethod($value)
+    {
+        $this->data->defaultMethod = $value;
+        return $this;
+    }
+
+	public function setDeadline($value)
+    {
+        $this->data->deadline = $value;
+        return $this;
+    }
+
+	public function setCloseBtn($value)
+    {
+        $this->data->closeBtn = $value;
+        return $this;
+    }
+
+	public function setTitle($value)
+    {
+        $this->data->title = $value;
+        return $this;
+    }
+
+	public function setShowLogo($value)
+    {
+        $this->data->showLogo = $value;
+        return $this;
     }
 }

@@ -1,0 +1,11 @@
+Ativar método de pagamento para a Gateway Ifthenpay
+Chave de acesso ao backoffice: {backoffice_key}
+Gateway Key: {gateway_key}
+Email Cliente: {store_email}
+Método a ativar: {payment_method}
+Loja online: {store_name}
+Plataforma ecommerce: {ecommerce_platform}
+Versão do Módulo ifthenpay: {module_version}
+Atualizar Conta Cliente: Após adicionar o método não precisa de tomar mais nenhuma ação, este método ficará disponível para seleção na página de configuração da extensão.
+
+Pedido gerado automáticamente pelo módulo Ifthenpay

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -34,6 +35,7 @@ use PrestaShop\Module\Ifthenpay\Payments\CofidisPay;
 use PrestaShop\Module\Ifthenpay\Payments\MbWay;
 use PrestaShop\Module\Ifthenpay\Payments\Payshop;
 use PrestaShop\Module\Ifthenpay\Payments\Multibanco;
+use PrestaShop\Module\Ifthenpay\Payments\Ifthenpaygateway;
 
 class PaymentFactory
 {
@@ -50,6 +52,9 @@ class PaymentFactory
 				return new CCard($data, $orderId, $valor);
 			case 'cofidispay':
 				return new CofidisPay($data, $orderId, $valor);
+			case 'ifthenpaygateway':
+				return new Ifthenpaygateway($data, $orderId, $valor);
+
 			default:
 				throw new \Exception("Unknown Payment Class");
 		}
