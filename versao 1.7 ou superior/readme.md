@@ -634,7 +634,6 @@ The following action are described from the perspective of the consumer.
 </br>
 
 
-
 ## Paying order with Ifthenpay Gateway
 
 * Select Ifthenpay Gateway at checkout and place order:
@@ -642,10 +641,6 @@ The following action are described from the perspective of the consumer.
 2. Check the box of "terms of service" (this will depend on your Prestashop configuration);
 3. Click "PLACE ORDER" button;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/checkout_ifthenpaygateway.png)
-</br>
-
-* Upon confirmation, you will be greeted with the Ifthenpay Gateway payment information;
-![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/ifthenpaygateway_payment_return.png)
 </br>
 
 Select one of the payment methods available in the gateway page (1). 
