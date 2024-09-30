@@ -23,6 +23,8 @@ Ler em ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version1
   * [Cartão de Crédito](#cartão-de-crédito)
   * [Payshop](#payshop)
   * [Cofidis Pay](#cofidis-pay)
+  * [Ifthenpay Gateway](#ifthenpay-gateway)
+  
 
 [5. Editar Dados de Pagamento](#editar-dados-de-pagamento)
   * [Atualizar Dados de Pagamento](#atualizar-dados-de-pagamento)
@@ -50,6 +52,7 @@ Ler em ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version1
   * [Pagar encomenda com MB WAY](#pagar-encomenda-com-mb-way)
   * [Pagar encomenda com Credit Card](#pagar-encomenda-com-credit-card)
   * [Pagar encomenda com Cofidis Pay](#pagar-encomenda-com-cofidis-pay)
+  * [Pagar encomenda com Ifthenpay Gateway](#pagar-encomenda-com-ifthenpay-gateway)
 
 
 
@@ -81,7 +84,7 @@ Mais informações em [Ifthenpay](https://ifthenpay.com).
 Use a tabela abaixo para verificar a compatibilidade do módulo Ifthenpay com a sua loja online.
 |                           | Prestashop 1.6 | Prestashop 1.7 [1.7.0 - 1.7.8] |
 |---------------------------|----------------|--------------------------------|
-| Ifthenpay v1.3.0 a v1.4.2 | Não compatível | Compatível                     |
+| Ifthenpay v1.3.0 a v1.5.0 | Não compatível | Compatível                     |
 
 # Instalação
 
@@ -263,6 +266,38 @@ O método de pagamento Multibanco com Referências Dinâmicas, gera referências
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/cofidis_callback_activated.png)
 </br>
 
+
+## Ifthenpay Gateway
+
+* Clicar no botão "GERIR" abaixo de Ifthenpay Gateway;
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/manage_ifthenpaygateway.png)
+</br>
+
+* Configurar o método de pagamento Ifthenpay Gateway:
+1. Ativar Callback. Ao selecionar esta opção, o estado da encomenda será atualizado quando o pagamento for recebido;
+2. Selecionar uma Chave Ifthenpay Gateway. Apenas pode selecionar uma das Chaves Ifthenpay Gateway associadas à Chave Backoffice;
+3. Selecionar uma conta por cada método de pagamento e colocar o visto na checkbox dos métodos que pretende exibir na página de gateway;
+4. Selecionar um método de pagamento que estará selecionado por defeito na página da gateway quando o consumidor aceder a esta;
+5. (opcional) Selecionar o número de dias de validade da referência Payshop. De 1 a 99 dias, deixe vazio se não pretender que expire;
+6. (opcional) Texto exíbido no botão de "Voltar para loja" na página da gateway;
+7. (optional) Ativar Cancelar Encomenda Ifthenpay Gateway. Ao selecionar esta opção, encomendas Ifthenpay Gateway que ainda não receberam pagamento após a Validade serão canceladas;
+8. (opcional) Inserir valor mínimo de encomenda. Apenas exibe este método de pagamento para encomendas com valor superior ao valor inserido;
+9. (opcional) Inserir valor máximo de encomenda. Apenas exibe este método de pagamento para encomendas com valor inferior ao valor inserido;
+10. (opcional) Selecione um ou mais países. Apenas exibe este método de pagamento para encomendas com destino de envio dentro dos países selecionados, deixar vazio para permitir todos os países;
+11. (opcional) Inserir um número de sequência. Ordena os métodos de pagamento na página de checkout de forma ascendente. Número mais baixo toma o primeiro lugar;
+12. (opcional) Exibe o logo deste método de pagamento no checkout, escolha uma de três opções:
+    - habilitado - imagem por defeito: Exibe o logo ifthenpay gateway;
+    - desabilitado: Exibe o Título do método de pagamento;
+    - habilitado - imagem composta: Exibe uma imagem composta por todos os logos dos métodos de pagamento selecionados;
+13. The title that appears to the consumer during checkout.
+14. Clicar no botão "Salvar";
+
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/config_ifthenpaygateway.png)
+</br>
+
+* Se selecionou "Callback" ativado anteriormente, após salvar, o estado do Callback será mostrado abaixo com a Chave Anti-Phishing e Url de Callback criados;
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/ifthenpaygateway_callback_activated.png)
+</br>
 
 
 # Editar Dados de Pagamento
