@@ -618,7 +618,7 @@ As ações seguintes são descritas da perspetiva do cliente consumidor.
 </br>
 
 
-## Pagar com Ifthenpay Gateway
+## Pagar encomenda com Ifthenpay Gateway
 
 * Selecionar Cartão de Crédito e confirmar encomenda:
 1. Selecionar "Pagamento por Cartão de Crédito";
