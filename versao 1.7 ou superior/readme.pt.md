@@ -616,3 +616,30 @@ As ações seguintes são descritas da perspetiva do cliente consumidor.
 * Após o qual será redirecionado de volta para a loja;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/cofidis_payment_return.png)
 </br>
+
+
+## Pagar com Ifthenpay Gateway
+
+* Selecionar Cartão de Crédito e confirmar encomenda:
+1. Selecionar "Pagamento por Cartão de Crédito";
+2. Colocar o visto nos "termos do serviço" (Depende da sua configuração do Prestashop);
+3. Clicar no botão "PLACE ORDER";
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/checkout_ifthenpaygateway.png)
+</br>
+
+Selecionar um dos métodos de pagamento disponíveis na página da gateway (1).
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/ifthenpaygateway_payment_1.png)
+</br>
+
+No caso do método de pagamento Multibanco, a entidade, referência e valor serão exibidos.
+Aqui o consumidor pode fazer uma das duas ações:
+ - em caso de método de pagamento offline, guardar os dados de pagamento, clicar em fechar a gateway no botão (2) e pagar mais tarde;
+ - pagar no momento e clicar no botão de confirmar pagamento (3) para verificar o pagamento; 
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/ifthenpaygateway_payment_2.png)
+</br>
+
+Se o consumidor não pagou no momento e não guardou os dados de pagamento, ainda pode aceder mais tarde a estes através do link de acesso à gateway encontrado no histórico de encomenda na conta de utilizador ou email de confirmação de encomenda. 
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/ifthenpaygateway_payment_3.png)
+</br>
+
+Chegou ao fim do manual da extensão ifthenpay para Prestashop 1.7.
