@@ -466,6 +466,13 @@ para preencher o formulário de Testar Callback e clicar no botão "Testar Callb
 </br>
 
 
+**Ifthenpay Gateway**: No backoffice, use o ID de encomenda e o valor e introduza este nos respetivos campos (1) e (2) do formulário de teste de callback e clique em Testar (3).
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/ifthenpaygateway_callback_test.png)
+
+</br>
+
+
+
 
 ## Bugs conhecidos e soluções
 
