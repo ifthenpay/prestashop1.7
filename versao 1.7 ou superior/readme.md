@@ -4,15 +4,9 @@
 </br>
 </br>
 
-
-
 # Ifthenpay Prestashop 1.7 payment module
 
 Read this in ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pt.png) [Portuguese](readme.pt.md), and ![Inglês](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/en.png) [English](readme.md)
-
-
-
-
 
 [1. Introduction](#introduction)
 
@@ -29,6 +23,7 @@ Read this in ![Português](https://github.com/ifthenpay/prestashop/raw/assets/ve
   * [Credit Card](#credit-card)
   * [Payshop](#payshop)
   * [Cofidis Pay](#cofidis-pay)
+  * [Pix](#pix)
   * [Ifthenpay Gateway](#ifthenpay-gateway)
 
 [5. Edit payment details](#edit-payment-details)
@@ -57,6 +52,7 @@ Read this in ![Português](https://github.com/ifthenpay/prestashop/raw/assets/ve
   * [Paying order with MB WAY](#paying-order-with-mb-way)
   * [Paying order with Credit Card](#paying-order-with-credit-card)
   * [Paying order with Cofidis Pay](#paying-order-with-cofidis-pay)
+  * [Paying order with Pix](#paying-order-with-pix)
   * [Paying order with Ifthenpay Gateway](#paying-order-with-ifthenpay-gateway)
 
 
@@ -89,7 +85,7 @@ See more at [Ifthenpay](https://ifthenpay.com).
 Follow the table below to verify Ifthenpay's module compatibility with your online store.
 |                            | Prestashop 1.6 | Prestashop 1.7 [1.7.0 - 1.7.8] |
 |----------------------------|----------------|--------------------------------|
-| Ifthenpay v1.3.0 to v1.5.0 | Not compatible | Compatible                     |
+| Ifthenpay v1.3.0 to v1.6.0 | Not compatible | Compatible                     |
 
 
 # Installation
@@ -190,7 +186,7 @@ Multibanco with Dynamic References payment method generates references by reques
 * Configure MB WAY payment method:
 1. Activate Callback, by selecting this option the order state will update when a payment is received;
 2. (optional) Activate Cancel MB WAY Order, by selecting this option, MB WAY orders that are still unpaid 30 min after confirmation, will have status changed to "Cancelled";
-3. MB WAY Countdown, set to "Activate" by default, this option determines whether the MB WAY 5 minutes countdown is displayed or not after confirming order;
+3. MB WAY Countdown, set to "Activate" by default, this option determines whether the MB WAY 4 minutes countdown is displayed or not after confirming order;
 4. Select a MB WAY key. Can only select from the MB WAY keys associated with your Backoffice key; 
 5. (optional) Input minimum order value to only display this payment method for orders above it;
 6. (optional) Input maximum order value to only display this payment method for orders below it;
@@ -272,6 +268,29 @@ Multibanco with Dynamic References payment method generates references by reques
 </br>
 
 
+## Pix
+
+* In Modules/Ifthenpay/Configure, click the "MANAGE" button for Pix;
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/manage_pix.png)
+</br>
+
+* Configure Pix payment method:
+1. Activate Callback, by selecting this option the order state will update when a payment is received;
+2. Select a Pix key. Can only select from the Pix keys associated with your Backoffice key;
+3. (optional) Activate Cancel Pix Order, by selecting this option, Pix orders that are expired 30 minutes after confirmation will have status changed to "Cancelled";
+4. (optional) Input minimum order value to only display this payment method for order above it;
+5. (optional) Input maximum order value to only display this payment method for order below it;
+6. (optional) Select one or more countries to only display this payment method for orders with that shipping country, leave empty to allow all;
+7. (optional) Input an Integer number to order this payment method in the checkout page. Smallest takes first place.
+8. Click "Save" button;
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/config_pix.png)
+</br>
+
+* If you set the "Callback" to activate, it's state will be updated below with the generated Anti-Phishing key and Callback Url;
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pix_callback_activated.png)
+</br>
+
+
 ## Ifthenpay Gateway
 
 * In Modules/Ifthenpay/Configure, click the "MANAGE" button for Ifthenpay Gateway;
@@ -348,7 +367,7 @@ Choose a different payment method:
   ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/new_payment_method.png)
 </br>
 
-  * If you are changing from Multibanco or Payshop to MB WAY, you are required to input the customer's phone number and click the "Change Payment Method" button. This action sends the MB WAY notification automatically, but you can use the "Resend Payment Data" button if the customer does not pay in the 5 minutes time window and requires another payment notification to their MB WAY app;
+  * If you are changing from Multibanco or Payshop to MB WAY, you are required to input the customer's phone number and click the "Change Payment Method" button. This action sends the MB WAY notification automatically, but you can use the "Resend Payment Data" button if the customer does not pay in the 4 minutes time window and requires another payment notification to their MB WAY app;
     ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/change_to_mbway_payment.png)
 </br>
 
@@ -477,6 +496,15 @@ to fill the Test Callback form and click the "Test Callback" button (3):
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/cofidis_callback_test.png)
 </br>
 
+**Pix:** Use the following data (1) and (2) from order payment details:
+
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pix_callback_data.png)
+</br>
+
+to fill the Test Callback form and click the "Test Callback" button (3):
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pix_callback_test.png)
+</br>
+
 **Ifthenpay Gateway**: In the backoffice, use the order ID and the order amount, and enter them in the respective fields (1) and (2) of the Callback test form, then click on Test (3).
 Note: The value, if it has decimals, should be separated by a dot.
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/ifthenpaygateway_callback_test.png)
@@ -563,7 +591,7 @@ The following action are described from the perspective of the consumer.
 1. Select "Pay by Credit Card";
 2. Check the box of "terms of service" (this will depend on your Prestashop configuration);
 3. Click "PLACE ORDER" button;
-![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/checkout_payshop.png)
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/checkout_ccard.png)
 </br>
 
 * Fill Credit Card data:
@@ -631,6 +659,29 @@ The following action are described from the perspective of the consumer.
 
 * After which you will be redirected back to the store;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/cofidis_payment_return.png)
+</br>
+
+
+## Paying order with Pix
+
+* Select Pix at checkout and place order:
+1. Select "Pay by Pix";
+2. Fill the form. Only the name, CPF, and Email are required, the remaining are optional;
+3. Check the box of "terms of service" (this will depend on your Prestashop configuration);
+4. Click "PLACE ORDER" button;
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/checkout_pix.png)
+</br>
+
+* Proceed with payment with one of two options:
+1. Reading QR code with mobile phone;
+2. Copy the Pix code and pay with online banking;
+**Important Note:** In order to be redirected back to the store after paying, this page must be left open. If closed the consumer will still be able to pay, as long as he has already read the Pix code, he will only not be redirected back to the store.
+
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pix_payment.png)
+</br>
+
+* After paying you will be redirected back to the store;
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pix_payment_return.png)
 </br>
 
 
