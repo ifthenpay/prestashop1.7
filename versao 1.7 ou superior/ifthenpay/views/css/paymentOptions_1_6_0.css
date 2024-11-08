@@ -116,3 +116,43 @@
   max-width: 300px;
   padding-left: 10px;
 }
+
+/* pix */
+.form_pix .form-group label {
+  text-align: left;
+}
+
+.iftp_separator {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.iftp_separator hr {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.iftp_separator span {
+  white-space: nowrap;
+  font-weight: bold;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+#ifthenpayPhoneWrapper {
+  display: flex;
+}
+
+#ifthenpayMbwayPhoneCode, .ifthenpay_mbway_phone {
+  height: 40px; /* Adjust as per your requirement */
+  padding: 8px;
+}
+
+#ifthenpayMbwayPhoneCode {
+  margin-right: 10px;
+}
+
+.ifthenpay_mbway_phone {
+  flex-grow: 1; /* Makes the input take the remaining space */
+}

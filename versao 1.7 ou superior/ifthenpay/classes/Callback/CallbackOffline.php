@@ -51,11 +51,9 @@ class CallbackOffline extends CallbackProcess implements CallbackProcessInterfac
 		if (empty($this->paymentData)) {
 			if ($this->paymentMethod === 'ifthenpaygateway') {
 
-				$methodsWithCallback = ['multibanco', 'mbway', 'payshop', 'ccard', 'cofidispay', 'ifthenpaygateway'];
+				$methodsWithCallback = ['multibanco', 'mbway', 'payshop', 'ccard', 'cofidispay', 'ifthenpaygateway', 'pix'];
 
 				// search every active payment method tables
-
-
 				foreach ($methodsWithCallback as $paymentMethod) {
 					$isActive = \Configuration::get('IFTHENPAY_' . strtoupper($this->paymentMethod));
 
@@ -88,14 +86,33 @@ class CallbackOffline extends CallbackProcess implements CallbackProcessInterfac
 		if (empty($this->paymentData)) {
 			$this->executePaymentNotFound();
 		} else {
+
 			try {
 				$this->setOrder();
 				CallbackFactory::buildCalllbackValidate($_GET, $this->order, \Configuration::get('IFTHENPAY_' . \Tools::strtoupper($originalPaymentMethod) . '_CHAVE_ANTI_PHISHING'), $this->paymentData)
 					->validate();
 				IfthenpayLogProcess::addLog('Callback received and validated with success for payment method ' . $this->paymentMethod, IfthenpayLogProcess::INFO, $this->order->id);
+
 				$this->changeIfthenpayPaymentStatus('paid');
-				$this->changePrestashopOrderStatus(\Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_OS_CONFIRMED'));
-				IfthenpayLogProcess::addLog('Order status change with success to paid (after receiving callback)', IfthenpayLogProcess::INFO, $this->order->id);
+
+				$splitOrders = $this->getSplitOrders($this->order->reference, $this->order->id_cart);
+				if (count($splitOrders) > 1) {
+					// update status for split orders
+					foreach ($splitOrders as $order) {
+
+						if (!isset($order['id_order'])) {
+							IfthenpayLogProcess::addLog('Error processing callback for split orders - prestashop db order property id_order is not set.', IfthenpayLogProcess::ERROR, $this->order->id);
+							http_response_code(400);
+						}
+
+						$this->changePrestashopOrderStatusByOrderId(\Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_OS_CONFIRMED'), $order['id_order']);
+						IfthenpayLogProcess::addLog('Split Order status change with success to paid (after receiving callback)', IfthenpayLogProcess::INFO, $order['id_order']);
+					}
+				} else {
+					// update status of single order
+					$this->changePrestashopOrderStatus(\Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_OS_CONFIRMED'));
+					IfthenpayLogProcess::addLog('Order status change with success to paid (after receiving callback)', IfthenpayLogProcess::INFO, $this->order->id);
+				}
 
 				if (isset($_GET['test']) && $_GET['test'] === 'true') {
 					http_response_code(200);
@@ -106,8 +123,6 @@ class CallbackOffline extends CallbackProcess implements CallbackProcessInterfac
 						'status' => 'success',
 						'message' => $ifthenpayModule->l('Callback received and validated with success for payment method ', pathinfo(__FILE__)['filename']) . $this->paymentMethod
 					];
-
-
 					die(json_encode($response));
 				}
 

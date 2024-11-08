@@ -36,6 +36,7 @@ use PrestaShop\Module\Ifthenpay\Forms\MbwayConfigForm;
 use PrestaShop\Module\Ifthenpay\Forms\PayshopConfigForm;
 use PrestaShop\Module\Ifthenpay\Forms\MultibancoConfigForm;
 use PrestaShop\Module\Ifthenpay\Forms\IfthenpaygatewayConfigForm;
+use PrestaShop\Module\Ifthenpay\Forms\PixConfigForm;
 
 class IfthenpayConfigFormFactory
 {
@@ -57,6 +58,8 @@ class IfthenpayConfigFormFactory
 				return new CofidispayConfigForm($ifthenpayModule, $ifthenpayController);
 			case 'ifthenpaygateway':
 				return new IfthenpaygatewayConfigForm($ifthenpayModule, $ifthenpayController);
+			case 'pix':
+				return new PixConfigForm($ifthenpayModule, $ifthenpayController);
 			default:
 				throw new \Exception('Unknown Admin Config Form');
 		}

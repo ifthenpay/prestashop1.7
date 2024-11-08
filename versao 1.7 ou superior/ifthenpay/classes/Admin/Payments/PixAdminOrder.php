@@ -23,47 +23,29 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-namespace PrestaShop\Module\Ifthenpay\Builders;
+
+namespace PrestaShop\Module\Ifthenpay\Admin\Payments;
 
 if (!defined('_PS_VERSION_')) {
-	exit;
+    exit;
 }
 
-use PrestaShop\Module\Ifthenpay\Contracts\Builders\GatewayDataBuilderInterface;
 
-class GatewayDataBuilder extends DataBuilder implements GatewayDataBuilderInterface
+use PrestaShop\Module\Ifthenpay\Base\Payments\PixBase;
+use PrestaShop\Module\Ifthenpay\Contracts\Admin\AdminOrderInterface;
+
+class PixAdminOrder extends PixBase implements AdminOrderInterface
 {
-	public function setSubEntidade($value)
-	{
-		$this->data->subEntidade = $value;
-		return $this;
-	}
+    public function setSmartyVariables($paymentInDatabase)
+    {
+        $this->smartyDefaultData->setIdPedido($this->paymentDataFromDb['requestId']);
+    }
 
-	public function setMbwayKey($value)
-	{
-		$this->data->mbwayKey = $value;
-		return $this;
-	}
-
-	public function setPayshopKey($value)
-	{
-		$this->data->payshopKey = $value;
-		return $this;
-	}
-
-	public function setCCardKey($value)
-	{
-		$this->data->ccardKey = $value;
-		return $this;
-	}
-	public function setCofidisKey($value)
-	{
-		$this->data->cofidisKey = $value;
-		return $this;
-	}
-	public function setPixKey($value)
-	{
-		$this->data->pixKey = $value;
-		return $this;
-	}
+    public function getAdminOrder()
+    {
+        $this->setPaymentModel('pix');
+        $this->getFromDatabaseById();
+        $this->setSmartyVariables(false);
+        return $this;
+    }
 }

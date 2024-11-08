@@ -36,6 +36,7 @@ use PrestaShop\Module\Ifthenpay\Payments\Data\MbwayOrderDetail;
 use PrestaShop\Module\Ifthenpay\Payments\Data\PayshopOrderDetail;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MultibancoOrderDetail;
 use PrestaShop\Module\Ifthenpay\Payments\Data\IfthenpaygatewayOrderDetail;
+use PrestaShop\Module\Ifthenpay\Payments\Data\PixOrderDetail;
 
 class OrderDetailFactory
 {
@@ -58,6 +59,8 @@ class OrderDetailFactory
 				return new CofidispayOrderDetail($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
 			case 'ifthenpaygateway':
 				return new IfthenpaygatewayOrderDetail($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
+			case 'pix':
+				return new PixOrderDetail($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
 			default:
 				throw new \Exception('Unknown Order Detail Class');
 		}

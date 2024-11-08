@@ -1,0 +1,2194 @@
+{
+	"mobile_prefixes": [
+	  {
+		"Id": "6BE61511-061F-4930-A990-B2EE11545A69",
+		"PT": "Afeganistão",
+		"EN": "Afghanistan",
+		"ES": "Afganistán",
+		"FR": "Afghanistan",
+		"Indicativo": 93,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "3747695C-5386-4D68-816A-9ADC141E0BD9",
+		"PT": "África do Sul",
+		"EN": "South Africa",
+		"ES": "Sudáfrica",
+		"FR": "Afrique du Sud",
+		"Indicativo": 27,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "D96CEEAF-79E8-4EB0-ACFC-47E530E973AD",
+		"PT": "Albânia",
+		"EN": "Albania",
+		"ES": "Albania",
+		"FR": "Albanie",
+		"Indicativo": 355,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "3EF4F90A-08BB-423D-B1C0-CF5311723019",
+		"PT": "Alemanha",
+		"EN": "Germany",
+		"ES": "Alemania",
+		"FR": "Allemagne",
+		"Indicativo": 49,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "9467859A-6F18-4169-9A8B-DFFA529CAF45",
+		"PT": "Andorra",
+		"EN": "Andorra",
+		"ES": "Andorra",
+		"FR": "Andorre",
+		"Indicativo": 376,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "3C04A838-4658-4950-83FC-2F161799E460",
+		"PT": "Angola",
+		"EN": "Angola",
+		"ES": "Angola",
+		"FR": "Angola",
+		"Indicativo": 244,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "30A497A6-6252-4BB6-92A9-AC622D281066",
+		"PT": "Anguila",
+		"EN": "Anguilla",
+		"ES": "Anguila",
+		"FR": "Anguilla",
+		"Indicativo": 264,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "81ED73D4-2E9E-4AD9-8310-10C20E7DE148",
+		"PT": "Antígua e Barbuda",
+		"EN": "Antigua and Barbuda",
+		"ES": "Antigua y Barbuda",
+		"FR": "Antigua et Barbuda",
+		"Indicativo": 268,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "0309E925-DF57-488D-BFD9-5CB20DA65DA3",
+		"PT": "Antilhas Holandesas",
+		"EN": "Netherlands Antilles",
+		"ES": "Antillas Neerlandesas",
+		"FR": "Antilles néerlandaises",
+		"Indicativo": 599,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "B34E6A71-0165-4F14-884D-C0BDD39C35DF",
+		"PT": "Arábia Saudita",
+		"EN": "Saudi Arabia",
+		"ES": "Arabia Saudí",
+		"FR": "Arabie Saoudite",
+		"Indicativo": 966,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "72F513F8-83DC-4B57-8EAC-90D30F0E8C58",
+		"PT": "Argélia",
+		"EN": "Algeria",
+		"ES": "Argelia",
+		"FR": "Algérie",
+		"Indicativo": 213,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "54287654-0E62-446F-BB87-D8B53C2FA3F6",
+		"PT": "Argentina",
+		"EN": "Argentina",
+		"ES": "Argentina",
+		"FR": "Argentine",
+		"Indicativo": 54,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "4E043AC8-070B-4D19-86D8-05E4CDECDC19",
+		"PT": "Arménia",
+		"EN": "Armenia",
+		"ES": "Armenia",
+		"FR": "Arménie",
+		"Indicativo": 374,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "6D940553-9A70-4D54-A670-9BCB8BBEE1CA",
+		"PT": "Aruba",
+		"EN": "Aruba",
+		"ES": "Aruba",
+		"FR": "Aruba",
+		"Indicativo": 297,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "F23A878A-1935-4D82-A0CE-4A3634107A3A",
+		"PT": "Ascensão",
+		"EN": "Ascension",
+		"ES": "Ascensión",
+		"FR": "Ascension",
+		"Indicativo": 247,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "BA52C71A-1017-4187-94CA-AF3A2CDF8ED9",
+		"PT": "Austrália",
+		"EN": "Australia",
+		"ES": "Australia",
+		"FR": "Australie",
+		"Indicativo": 61,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "3A32E9CC-B067-4BD2-87B4-FEC92CC5E8B2",
+		"PT": "Áustria",
+		"EN": "Austria",
+		"ES": "Austria",
+		"FR": "Autriche",
+		"Indicativo": 43,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "F0C060D3-7C6E-43BB-B6BF-967E687C7017",
+		"PT": "Azerbaijão",
+		"EN": "Azerbaijan",
+		"ES": "Azerbaiyán",
+		"FR": "Azerbaïdjan",
+		"Indicativo": 994,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "14BC009D-7644-4199-BB57-A87DEAF891AA",
+		"PT": "Bahamas",
+		"EN": "Bahamas",
+		"ES": "Bahamas",
+		"FR": "Bahamas",
+		"Indicativo": 1242,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "ACB3B926-41F3-4FA2-98FD-30F8EB48AEE1",
+		"PT": "Bahrein",
+		"EN": "Bahrain",
+		"ES": "Bahrein",
+		"FR": "Bahreïn",
+		"Indicativo": 973,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "E26EA77A-18FD-40A6-9153-C55BFD220218",
+		"PT": "Bangladesh",
+		"EN": "Bangladesh",
+		"ES": "Bangladesh",
+		"FR": "Bangladesh",
+		"Indicativo": 880,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "CA4E87B1-47FF-47D6-A3BD-74B111404A6B",
+		"PT": "Barbados",
+		"EN": "Barbados",
+		"ES": "Barbados",
+		"FR": "Barbade",
+		"Indicativo": 246,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "E4331580-87D1-401E-BBAB-5A841CF5C8B6",
+		"PT": "Bélgica",
+		"EN": "Belgium",
+		"ES": "Bélgica",
+		"FR": "Belgique",
+		"Indicativo": 32,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "D6AD7101-C790-411E-8375-500048685900",
+		"PT": "Belize",
+		"EN": "Belize",
+		"ES": "Belice",
+		"FR": "Belize",
+		"Indicativo": 501,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "B30ED59C-F35C-431F-8FBF-18AEEB7E4523",
+		"PT": "Benim",
+		"EN": "Benin",
+		"ES": "Benín",
+		"FR": "Bénin",
+		"Indicativo": 229,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "6E0F85DD-801F-4E3F-9FCB-34581A3E73D6",
+		"PT": "Bermudas",
+		"EN": "Bermuda",
+		"ES": "Bermudas",
+		"FR": "Bermudes",
+		"Indicativo": 1441,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "FC5B11C3-EBDB-40E0-9D2D-81DE524808A4",
+		"PT": "Bielorrússia",
+		"EN": "Belarus",
+		"ES": "Bielorrusia",
+		"FR": "Bélarus",
+		"Indicativo": 375,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "771B0B07-0C5A-4B69-9746-0F3419B259E8",
+		"PT": "Bolívia",
+		"EN": "Bolivia",
+		"ES": "Bolivia",
+		"FR": "Bolivie",
+		"Indicativo": 591,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "1B6C98CA-A4E8-447B-8793-32F9DD481E47",
+		"PT": "Bósnia e Herzegovina",
+		"EN": "Bosnia and Herzegovina",
+		"ES": "Bosnia y Herzegovina",
+		"FR": "Bosnie-Herzégovine",
+		"Indicativo": 387,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "548C7482-70E1-40C2-AAAB-CF4078784A8B",
+		"PT": "Botswana",
+		"EN": "Botswana",
+		"ES": "Botswana",
+		"FR": "Botswana",
+		"Indicativo": 267,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "3C135DDA-06B3-4214-B68A-F987AB0A00F0",
+		"PT": "Brasil",
+		"EN": "Brazil",
+		"ES": "Brasil",
+		"FR": "Brésil",
+		"Indicativo": 55,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "C492ACFF-84ED-4BEC-87E1-ED74AEF53599",
+		"PT": "Brunei",
+		"EN": "Brunei",
+		"ES": "Brunei",
+		"FR": "Brunei",
+		"Indicativo": 673,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "1021CE3D-E444-4562-B19F-6B0053DDE7E9",
+		"PT": "Bulgária",
+		"EN": "Bulgaria",
+		"ES": "Bulgaria",
+		"FR": "Bulgarie",
+		"Indicativo": 359,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "59F27A24-B1A4-4868-9EE0-5677032F37D2",
+		"PT": "Burkina Faso",
+		"EN": "Burkina Faso",
+		"ES": "Burkina Faso",
+		"FR": "Burkina Faso",
+		"Indicativo": 226,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "50F3BE5E-9A75-4CD9-8F45-08724E97BA5A",
+		"PT": "Burundi",
+		"EN": "Burundi",
+		"ES": "Burundi",
+		"FR": "Burundi",
+		"Indicativo": 257,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "0B717544-775B-431C-AA90-9C89F433E353",
+		"PT": "Butão",
+		"EN": "Bhutan",
+		"ES": "Bhután",
+		"FR": "Bhoutan",
+		"Indicativo": 975,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "F605EFBD-1669-4D51-8384-F54414AEE35F",
+		"PT": "Cabo Verde",
+		"EN": "Cape Verde",
+		"ES": "Cabo Verde",
+		"FR": "Cap-Vert",
+		"Indicativo": 238,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "FA42BD0C-1B65-447B-A130-378677AF6835",
+		"PT": "Camarões",
+		"EN": "Cameroon",
+		"ES": "Camerún",
+		"FR": "Cameroun",
+		"Indicativo": 237,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "0995A8E2-BF88-4B81-AF4A-3DD477E9B2E8",
+		"PT": "Camboja",
+		"EN": "Cambodia",
+		"ES": "Camboya",
+		"FR": "Cambodge",
+		"Indicativo": 855,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "7FE21E40-84A9-4E71-B34A-B499C046E0F0",
+		"PT": "Canadá",
+		"EN": "Canada",
+		"ES": "Canadá",
+		"FR": "Canada",
+		"Indicativo": 1,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "1D129A7F-D399-4511-BC80-BB879DA673F8",
+		"PT": "Cazaquistão",
+		"EN": "Kazakhstan",
+		"ES": "Kazajistán",
+		"FR": "Kazakhstan",
+		"Indicativo": 7,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "446525B4-3C87-4327-AE4A-D0527FA2D56C",
+		"PT": "Chade",
+		"EN": "Chad",
+		"ES": "Chad",
+		"FR": "Chad",
+		"Indicativo": 235,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "F4AE9A5E-3B5F-4853-BA8E-8440589F8DD5",
+		"PT": "Chile",
+		"EN": "Chile",
+		"ES": "Chile",
+		"FR": "Chili",
+		"Indicativo": 56,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "E1C16151-A64F-4DDA-BED1-CC2606F06C92",
+		"PT": "China",
+		"EN": "China",
+		"ES": "China",
+		"FR": "Chine",
+		"Indicativo": 86,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "14DE1C9F-54C0-4AF4-9ED8-CA34136B2DD0",
+		"PT": "Chipre",
+		"EN": "Cyprus",
+		"ES": "Chipre",
+		"FR": "Chypre",
+		"Indicativo": 357,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "847C9403-41B6-4503-98F3-0700EFCACC88",
+		"PT": "Colômbia",
+		"EN": "Colombia",
+		"ES": "Colombia",
+		"FR": "Colombie",
+		"Indicativo": 57,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "8C049F8F-8116-4547-996B-7BA50A910019",
+		"PT": "Comores",
+		"EN": "Comoros",
+		"ES": "Comoras",
+		"FR": "Comores",
+		"Indicativo": 269,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "7A2E980A-08C8-4BDE-913C-917E6F247A39",
+		"PT": "Congo",
+		"EN": "Congo",
+		"ES": "Congo",
+		"FR": "Congo",
+		"Indicativo": 242,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "5CE6BBB4-5355-4C37-993E-A438FFD5DFFF",
+		"PT": "Coreia do Norte",
+		"EN": "Cook Islands",
+		"ES": "Islas Cook",
+		"FR": "Îles Cook",
+		"Indicativo": 850,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "F512D2C0-2731-4AAC-AA6F-9B8AADB685C4",
+		"PT": "Coreia do Sul",
+		"EN": "Congo (Brazzaville)",
+		"ES": "Congo (Brazzaville)",
+		"FR": "Congo (Brazzaville)",
+		"Indicativo": 82,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "D3761C1C-93B6-44FC-9F6E-9A6D338C7D89",
+		"PT": "Costa do Marfim",
+		"EN": "Côte d'Ivoire",
+		"ES": "Costa de Marfil",
+		"FR": "Côte d'Ivoire",
+		"Indicativo": 225,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "9B298DD7-A5ED-4DB2-814F-15A939221DF9",
+		"PT": "Costa Rica",
+		"EN": "Costa Rica",
+		"ES": "Costa Rica",
+		"FR": "Costa Rica",
+		"Indicativo": 506,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "FD2AD145-E077-4E8B-AE3D-4F10FB9EB963",
+		"PT": "Croácia",
+		"EN": "Croatia",
+		"ES": "Croacia",
+		"FR": "Croatie",
+		"Indicativo": 385,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "70D03279-6E20-41EB-9A75-C8E17184E630",
+		"PT": "Cuba",
+		"EN": "Cuba",
+		"ES": "Cuba",
+		"FR": "Cuba",
+		"Indicativo": 53,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "46B68B38-75B6-4ADC-BA6D-A7B5693E49C3",
+		"PT": "Dinamarca",
+		"EN": "Denmark",
+		"ES": "Dinamarca",
+		"FR": "Danemark",
+		"Indicativo": 45,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "78C9CCA4-7975-4EA7-9C9A-5AFD1B608B9A",
+		"PT": "Djibuti",
+		"EN": "Djibouti",
+		"ES": "Yibuti",
+		"FR": "Djibouti",
+		"Indicativo": 253,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "5FB4D5AF-5E66-424B-8CCA-69477D565AA2",
+		"PT": "Dominica",
+		"EN": "Dominica",
+		"ES": "Dominica",
+		"FR": "Dominique",
+		"Indicativo": 767,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "CF99D5F0-9890-4C5E-991F-266ADEBDB13C",
+		"PT": "Egito",
+		"EN": "Egypt",
+		"ES": "Egipto",
+		"FR": "Égypte",
+		"Indicativo": 20,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "51C109DB-6193-4004-BE9F-39187786710A",
+		"PT": "El Salvador",
+		"EN": "Dominica",
+		"ES": "Dominica",
+		"FR": "Dominique",
+		"Indicativo": 503,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "13816A9B-1097-4C7A-9003-9628B480618E",
+		"PT": "Emirados Árabes",
+		"EN": "Philippines",
+		"ES": "Filipinas",
+		"FR": "Philippines",
+		"Indicativo": 971,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "71E45C33-C161-44AC-9731-93E1151DBF9A",
+		"PT": "Equador",
+		"EN": "Ecuador",
+		"ES": "Ecuador",
+		"FR": "Équateur",
+		"Indicativo": 593,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "6ACA76BE-0338-4A68-A67D-92E70EB99CDE",
+		"PT": "Eritreia",
+		"EN": "Eritrea",
+		"ES": "Eritrea",
+		"FR": "Érythrée",
+		"Indicativo": 291,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "760FDB85-5C41-4CFD-A0AE-99040F1F6A6A",
+		"PT": "Eslováquia",
+		"EN": "Slovakia",
+		"ES": "Eslovaquia",
+		"FR": "Slovaquie",
+		"Indicativo": 42,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "20C76718-6BE3-4702-83B1-0FC59169D058",
+		"PT": "Eslovénia",
+		"EN": "Slovenia",
+		"ES": "Eslovenia",
+		"FR": "Slovénie",
+		"Indicativo": 386,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "0771A56E-4550-46EB-A1E9-A1EB56B95207",
+		"PT": "Espanha",
+		"EN": "Spain",
+		"ES": "España",
+		"FR": "Espagne",
+		"Indicativo": 34,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "0237C5F0-4838-49C1-A9DD-3EBAEFDA18B1",
+		"PT": "Estados Unidos",
+		"EN": "United States of America",
+		"ES": "Estados Unidos de América",
+		"FR": "États-Unis d'Amérique",
+		"Indicativo": 1,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "DB513DF3-1F79-4905-BDD0-873557D4B0AC",
+		"PT": "Estónia",
+		"EN": "Estonia",
+		"ES": "Estonia",
+		"FR": "Estonie",
+		"Indicativo": 372,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "9140B8F8-242B-4418-B7B9-E00C62F1F438",
+		"PT": "Etiópia",
+		"EN": "Ethiopia",
+		"ES": "Etiopía",
+		"FR": "Éthiopie",
+		"Indicativo": 251,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "CD1F45C6-873D-4801-8672-B663972AEB79",
+		"PT": "Fiji",
+		"EN": "Fiji",
+		"ES": "Fiji",
+		"FR": "Fidji",
+		"Indicativo": 679,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "60C78FC0-5FA8-4DB8-AFCC-4BA271CCD2F4",
+		"PT": "Filipinas",
+		"EN": "Philippines",
+		"ES": "Filipinas",
+		"FR": "Philippines",
+		"Indicativo": 63,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "DC2F3E08-5266-4FD5-9B5A-EE32D18A5003",
+		"PT": "Finlândia",
+		"EN": "Finland",
+		"ES": "Finlandia",
+		"FR": "Finlande",
+		"Indicativo": 358,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "684442DB-AFA5-43E6-A060-DAD71F11AC6C",
+		"PT": "França",
+		"EN": "France",
+		"ES": "Francia",
+		"FR": "France",
+		"Indicativo": 33,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "B456B3EC-1A29-4A64-AF01-1F57A1052723",
+		"PT": "Gabão",
+		"EN": "Gabon",
+		"ES": "Gabón",
+		"FR": "Gabon",
+		"Indicativo": 241,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "BD00F09A-C247-45DA-AF33-01B6320209AE",
+		"PT": "Gâmbia",
+		"EN": "Gambia",
+		"ES": "Gambia",
+		"FR": "Gambie",
+		"Indicativo": 220,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "86E785D5-E84D-4789-8889-F64DC9375CD2",
+		"PT": "Gana",
+		"EN": "Ghana",
+		"ES": "Ghana",
+		"FR": "Ghana",
+		"Indicativo": 233,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "95495235-EFB7-4848-8DAE-E0A51548BE69",
+		"PT": "Geórgia",
+		"EN": "Georgia",
+		"ES": "Georgia",
+		"FR": "Géorgie",
+		"Indicativo": 995,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "0C8B788C-745F-45FB-9094-172E6FED3B8A",
+		"PT": "Geórgia",
+		"EN": "Georgia",
+		"ES": "Georgia",
+		"FR": "Géorgie",
+		"Indicativo": 995,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "6A55473B-5D6B-4E6E-94BD-AD2E3A2DC449",
+		"PT": "Granada",
+		"EN": "Grenada",
+		"ES": "Granada",
+		"FR": "Grenade",
+		"Indicativo": 1473,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "93912222-6815-4395-BCD8-DDA27B7E2A9F",
+		"PT": "Grécia",
+		"EN": "Greece",
+		"ES": "Grecia",
+		"FR": "Grèce",
+		"Indicativo": 30,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "67ED2F23-84BA-42F6-A809-C44505B42D3C",
+		"PT": "Gronelândia",
+		"EN": "Greenland",
+		"ES": "Groenlandia",
+		"FR": "Groenland",
+		"Indicativo": 299,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "A3B58509-FF24-4825-8E59-0F3F538FE0B3",
+		"PT": "Guadalupe",
+		"EN": "Guadeloupe",
+		"ES": "Guadalupe",
+		"FR": "Guadeloupe",
+		"Indicativo": 590,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "A14503F8-C97B-44D1-8C86-8F949DF903B5",
+		"PT": "Guam",
+		"EN": "Guam",
+		"ES": "Guam",
+		"FR": "Guam",
+		"Indicativo": 671,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "1F945B7D-A642-40D2-8361-81ADBFA74450",
+		"PT": "Guiana",
+		"EN": "Guyana",
+		"ES": "Guyana",
+		"FR": "Guyane",
+		"Indicativo": 592,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "A69E48B0-E8A4-4751-809E-98CC546FFBD0",
+		"PT": "Guiana Francesa",
+		"EN": "French Guyana",
+		"ES": "Guayana Francesa",
+		"FR": "Guyane française",
+		"Indicativo": 594,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "DBD07BFE-9E6D-46EB-8E87-8A7C220B5A6B",
+		"PT": "Guiné",
+		"EN": "Guinea",
+		"ES": "Guinea",
+		"FR": "Guinée",
+		"Indicativo": 224,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "B114E10D-012D-46BD-83C8-C597D77B38CD",
+		"PT": "Guiné Bissau",
+		"EN": "Guiné Bissau",
+		"ES": "Guiné Bissau",
+		"FR": "Guiné Bissau",
+		"Indicativo": 245,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "784AB380-4665-40C8-906D-C3320C0337E6",
+		"PT": "Guiné Equatorial",
+		"EN": "Lesotho",
+		"ES": "Lesotho",
+		"FR": "Lesotho",
+		"Indicativo": 240,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "8B32909E-F21C-499E-A3D6-5DC3DC359C09",
+		"PT": "Haiti",
+		"EN": "Haiti",
+		"ES": "Haití",
+		"FR": "Haïti",
+		"Indicativo": 509,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "6D9BB941-BB27-410A-A0C4-E4FD70C8DD4F",
+		"PT": "Holanda",
+		"EN": "Netherlands",
+		"ES": "Países Bajos",
+		"FR": "Pays-Bas",
+		"Indicativo": 31,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "C0DA9D19-A2F2-464C-916B-67059AC06009",
+		"PT": "Honduras",
+		"EN": "Honduras",
+		"ES": "Honduras",
+		"FR": "Honduras",
+		"Indicativo": 504,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "992529A6-A2EB-4A7F-80AC-F9531FFD2593",
+		"PT": "Hong Kong",
+		"EN": "Yemen",
+		"ES": "Yemen",
+		"FR": "Yémen",
+		"Indicativo": 852,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "56899D7A-68AC-4EFE-A22E-BBD83E0ED471",
+		"PT": "Hungria",
+		"EN": "Hungary",
+		"ES": "Hungría",
+		"FR": "Hongrie",
+		"Indicativo": 36,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "31C38149-03B2-441E-8E03-BB8EBC6CA08C",
+		"PT": "Iêmen",
+		"EN": "Yemen",
+		"ES": "Yemen",
+		"FR": "Yémen",
+		"Indicativo": 967,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "A44B8EB1-9AA7-4FF2-A288-A978C28A47FC",
+		"PT": "Ilhas Cayman",
+		"EN": "Cayman Islands",
+		"ES": "Islas Caimán",
+		"FR": "Îles Caïmans",
+		"Indicativo": 1345,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "651AEF44-5AA1-485E-BCC7-FAE345D76AD7",
+		"PT": "Ilhas Christmas",
+		"EN": "Christmas Islands",
+		"ES": "Islas de Navidad",
+		"FR": "Îles de Noël",
+		"Indicativo": 672,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "AEC35B48-8D6E-4234-8E6D-31CC0696AF67",
+		"PT": "Ilhas Cook",
+		"EN": "Ilhas Cook",
+		"ES": "Ilhas Cook",
+		"FR": "Ilhas Cook",
+		"Indicativo": 682,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "BB4EA308-F375-460C-A128-1FC3D836EC93",
+		"PT": "Ilhas Malvinas",
+		"EN": "Falkland Islands",
+		"ES": "Islas Malvinas",
+		"FR": "Îles Falkland",
+		"Indicativo": 500,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "E9C1020D-06D8-44DD-B46F-58117CA34C36",
+		"PT": "Ilhas Marshall",
+		"EN": "Marshall Islands",
+		"ES": "Islas Marshall",
+		"FR": "Îles Marshall",
+		"Indicativo": 692,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "0D210581-FF68-459D-B152-E7CA65758101",
+		"PT": "Ilhas Salomão",
+		"EN": "Solomon Islands",
+		"ES": "Islas Salomón",
+		"FR": "Îles Salomon",
+		"Indicativo": 677,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "A41C53D1-C077-4EB9-B046-5A850AF76019",
+		"PT": "Índia",
+		"EN": "India",
+		"ES": "India",
+		"FR": "Inde",
+		"Indicativo": 91,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "72B71FD4-A239-483A-A94C-859CA8E647CF",
+		"PT": "Indonésia",
+		"EN": "Indonesia",
+		"ES": "Indonesia",
+		"FR": "Indonésie",
+		"Indicativo": 62,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "F5E2ADB7-2A47-4ECB-9939-469D7D9F1103",
+		"PT": "Irã",
+		"EN": "Iran",
+		"ES": "Irán",
+		"FR": "Iran",
+		"Indicativo": 98,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "4292EC4A-9119-4A22-8541-52924367DD21",
+		"PT": "Iraque",
+		"EN": "Iraq",
+		"ES": "Iraq",
+		"FR": "Irak",
+		"Indicativo": 964,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "C0DF334A-6E6B-4C9E-A521-C30EBB8CECFC",
+		"PT": "Irlanda",
+		"EN": "Ireland",
+		"ES": "Irlanda",
+		"FR": "Irlande",
+		"Indicativo": 353,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "EA3896A0-3BDA-4C87-AE97-80D2A056772F",
+		"PT": "Islândia",
+		"EN": "Iceland",
+		"ES": "Islandia",
+		"FR": "Islande",
+		"Indicativo": 354,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "326AB169-E7D3-4E85-95BC-510DD9B9AA7A",
+		"PT": "Israel",
+		"EN": "Israel",
+		"ES": "Israel",
+		"FR": "Israël",
+		"Indicativo": 972,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "2329A844-9786-44AE-9337-FA7F2212CC20",
+		"PT": "Itália",
+		"EN": "Italy",
+		"ES": "Italia",
+		"FR": "Italie",
+		"Indicativo": 39,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "8ECD7687-9F9F-461B-8FCF-F2BEEAAB8264",
+		"PT": "Jamaica",
+		"EN": "Jamaica",
+		"ES": "Jamaica",
+		"FR": "Jamaïque",
+		"Indicativo": 1876,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "4EBF2994-E066-49DB-948C-59E056DA3484",
+		"PT": "Japão",
+		"EN": "Japan",
+		"ES": "Japón",
+		"FR": "Japon",
+		"Indicativo": 81,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "6CAE11AA-00FC-4184-B2C2-CC19AD6EAA86",
+		"PT": "Jordânia",
+		"EN": "Jordan",
+		"ES": "Jordania",
+		"FR": "Jordan",
+		"Indicativo": 962,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "54D36582-3033-450C-AD07-BC21023DF088",
+		"PT": "Jugoslávia",
+		"EN": "Yugoslavia",
+		"ES": "Yugoslavia",
+		"FR": "Yougoslavie",
+		"Indicativo": 381,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "2DF67362-4920-4C82-8EAA-04A008A73260",
+		"PT": "Kiribati",
+		"EN": "Kiribati",
+		"ES": "Kiribati",
+		"FR": "Kiribati",
+		"Indicativo": 686,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "D9BB1E62-5E01-4251-B818-0FBE45C81460",
+		"PT": "Kuwait",
+		"EN": "Kuwait",
+		"ES": "Kuwait",
+		"FR": "Koweït",
+		"Indicativo": 965,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "B5A1C81B-6431-4FE4-B442-68DAEE8D3A18",
+		"PT": "Laos",
+		"EN": "Laos",
+		"ES": "Laos",
+		"FR": "Laos",
+		"Indicativo": 856,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "262C6B74-8235-48F9-9611-28EA289448E7",
+		"PT": "Lesoto",
+		"EN": "Lesotho",
+		"ES": "Lesotho",
+		"FR": "Lesotho",
+		"Indicativo": 266,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "33D57475-BB8D-4B46-93FF-F2FB29664F7D",
+		"PT": "Letónia",
+		"EN": "Latvia",
+		"ES": "Letonia",
+		"FR": "Lettonie",
+		"Indicativo": 371,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "49D178DB-2D66-4ED2-8AE3-6E8B27638412",
+		"PT": "Líbano",
+		"EN": "Lebanon",
+		"ES": "Líbano",
+		"FR": "Liban",
+		"Indicativo": 961,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "637137A4-C643-4BBF-984D-EC3B056C34DC",
+		"PT": "Libéria",
+		"EN": "Liberia",
+		"ES": "Liberia",
+		"FR": "Liberia",
+		"Indicativo": 231,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "B080CBF8-A4C1-4EFA-9977-EC147644E4E6",
+		"PT": "Líbia",
+		"EN": "Libya",
+		"ES": "Libia",
+		"FR": "Libye",
+		"Indicativo": 218,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "95CD9EFF-9190-481F-A8FD-88E8D76BFE06",
+		"PT": "Liechtenstein",
+		"EN": "Liechtenstein",
+		"ES": "Liechtenstein",
+		"FR": "Liechtenstein",
+		"Indicativo": 423,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "2EE4638B-75C0-4B6C-B2FE-62A034FE9692",
+		"PT": "Lituânia",
+		"EN": "Lithuania",
+		"ES": "Lituania",
+		"FR": "Lituanie",
+		"Indicativo": 370,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "6F4D48F0-96EA-402C-BF54-219845C06BA4",
+		"PT": "Luxemburgo",
+		"EN": "Luxembourg",
+		"ES": "Luxemburgo",
+		"FR": "Luxembourg",
+		"Indicativo": 352,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "1B31A703-C22A-45C3-AE69-AFEF7F55D973",
+		"PT": "Macau",
+		"EN": "Macao",
+		"ES": "Macao",
+		"FR": "Macao",
+		"Indicativo": 853,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "5139FFDF-B23E-4773-89B7-9BE6689B4F5C",
+		"PT": "Macedónia do Norte",
+		"EN": "North Macedonia",
+		"ES": "Macedonia del Norte",
+		"FR": "Macédoine du Nord",
+		"Indicativo": 389,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "38A31889-2E12-4876-BA66-38EA97447B9C",
+		"PT": "Madagáscar",
+		"EN": "Madagascar",
+		"ES": "Madagascar",
+		"FR": "Madagascar",
+		"Indicativo": 261,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "F43A9019-233E-4688-A2F7-FE821719F89C",
+		"PT": "Malásia",
+		"EN": "Malaysia",
+		"ES": "Malasia",
+		"FR": "Malaisie",
+		"Indicativo": 60,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "692E07DE-A7AC-498C-A59F-0AE28A3FAACD",
+		"PT": "Malawi",
+		"EN": "Malawi",
+		"ES": "Malawi",
+		"FR": "Malawi",
+		"Indicativo": 265,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "3ED6B7E5-3A3F-47AE-A4AB-26D0258A6017",
+		"PT": "Maldivas",
+		"EN": "Maldives",
+		"ES": "Maldivas",
+		"FR": "Maldives",
+		"Indicativo": 960,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "F79EB932-165E-48AA-AD5D-970CAFF4C84A",
+		"PT": "Mali",
+		"EN": "Mali",
+		"ES": "Mali",
+		"FR": "Mali",
+		"Indicativo": 223,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "4CD028C6-6CA9-4566-8499-E2B31BBB66A2",
+		"PT": "Malta",
+		"EN": "Malta",
+		"ES": "Malta",
+		"FR": "Malte",
+		"Indicativo": 356,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "C325EB68-E25F-499A-A425-196B1EAC3DA7",
+		"PT": "Marrocos",
+		"EN": "Morocco",
+		"ES": "Marruecos",
+		"FR": "Maroc",
+		"Indicativo": 212,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "41D31D66-18DF-4164-BFE7-9FCADA6D7265",
+		"PT": "Martinica",
+		"EN": "Martinique",
+		"ES": "Martinica",
+		"FR": "Martinique",
+		"Indicativo": 596,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "C29D86E3-AFD6-46DF-A855-6ABAAFD62D67",
+		"PT": "Maurícia",
+		"EN": "Mauritius",
+		"ES": "Mauricio",
+		"FR": "Maurice",
+		"Indicativo": 230,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "F84388EE-B5F2-44A6-9DD2-6FCE166D0DD2",
+		"PT": "Mauritânia",
+		"EN": "Mauritania",
+		"ES": "Mauritania",
+		"FR": "Mauritanie",
+		"Indicativo": 222,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "C2B99CAC-D9A9-4983-B783-516F01860A43",
+		"PT": "Mayotte",
+		"EN": "Mayotte",
+		"ES": "Mayotte",
+		"FR": "Mayotte",
+		"Indicativo": 269,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "1F858B8F-EA54-43A6-9533-69A5F1D6EA96",
+		"PT": "México",
+		"EN": "Mexico",
+		"ES": "México",
+		"FR": "Mexique",
+		"Indicativo": 52,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "819A3905-9C7F-4BC8-BC47-BEC20A4B712F",
+		"PT": "Micronésia",
+		"EN": "Micronesia",
+		"ES": "Micronesia",
+		"FR": "Micronésie",
+		"Indicativo": 691,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "26FD4D72-FB17-4968-8DC5-8337AA65229D",
+		"PT": "Moçambique",
+		"EN": "Mozambique",
+		"ES": "Mozambique",
+		"FR": "Mozambique",
+		"Indicativo": 258,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "840AE3F4-924F-4B8E-BBD0-7B81C5BE7E8D",
+		"PT": "Moldávia",
+		"EN": "Moldova",
+		"ES": "Moldavia",
+		"FR": "Moldavie",
+		"Indicativo": 373,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "60C8F806-87B6-4F45-BDE4-1A579DB4FA65",
+		"PT": "Mónaco",
+		"EN": "Monaco",
+		"ES": "Mónaco",
+		"FR": "Monaco",
+		"Indicativo": 377,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "F7019E3D-134E-454E-A76D-E10CFA0FA470",
+		"PT": "Mongólia",
+		"EN": "Mongolia",
+		"ES": "Mongolia",
+		"FR": "Mongolie",
+		"Indicativo": 976,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "A3A90F4D-23C7-4628-8EDC-B955A46172B9",
+		"PT": "Montenegro",
+		"EN": "Montenegro",
+		"ES": "Montenegro",
+		"FR": "Monténégro",
+		"Indicativo": 382,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "876F9972-B474-4A23-ABBB-5F09F7DB958C",
+		"PT": "Montserrat",
+		"EN": "Montserrat",
+		"ES": "Montserrat",
+		"FR": "Montserrat",
+		"Indicativo": 1664,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "A6BD20BB-B9BB-485E-BB33-2E3C7049DAD3",
+		"PT": "Myanmar",
+		"EN": "Myanmar",
+		"ES": "Myanmar",
+		"FR": "Myanmar",
+		"Indicativo": 95,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "F9C85692-17C6-457C-B4FF-452E1183BBDB",
+		"PT": "Namíbia",
+		"EN": "Namibia",
+		"ES": "Namibia",
+		"FR": "Namibie",
+		"Indicativo": 264,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "11829062-D097-4C9C-BB6D-6DA97E019B41",
+		"PT": "Nauru",
+		"EN": "Nauru",
+		"ES": "Nauru",
+		"FR": "Nauru",
+		"Indicativo": 674,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "C3138035-AF11-42DE-B900-1817DD7ED836",
+		"PT": "Nepal",
+		"EN": "Nepal",
+		"ES": "Nepal",
+		"FR": "Népal",
+		"Indicativo": 977,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "E1A3A084-B369-420B-ACB6-6EDA84DA4F45",
+		"PT": "Nicarágua",
+		"EN": "Nicaragua",
+		"ES": "Nicaragua",
+		"FR": "Nicaragua",
+		"Indicativo": 505,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "BBA631A1-B495-471C-B1D3-796C5B90695B",
+		"PT": "Níger",
+		"EN": "Niger",
+		"ES": "Níger",
+		"FR": "Niger",
+		"Indicativo": 227,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "C2B76439-5BE7-435B-AF2F-A54E18BBDBC0",
+		"PT": "Nigéria",
+		"EN": "Nigeria",
+		"ES": "Nigeria",
+		"FR": "Nigeria",
+		"Indicativo": 234,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "CC15599B-F79C-4039-A40E-97B841C13652",
+		"PT": "Niue",
+		"EN": "Niue",
+		"ES": "Niue",
+		"FR": "Niue",
+		"Indicativo": 683,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "A702DF3B-6DCB-4941-A566-0F6148B56FCA",
+		"PT": "Noruega",
+		"EN": "Norway",
+		"ES": "Noruega",
+		"FR": "Norvège",
+		"Indicativo": 47,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "7F58FE6B-918E-472C-BAC9-9BDDC07E59B8",
+		"PT": "Nova Caledônia",
+		"EN": "New Caledonia",
+		"ES": "Nueva Caledonia",
+		"FR": "Nouvelle-Calédonie",
+		"Indicativo": 687,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "4E16AA4B-1FF1-47A4-9163-07483A47FFED",
+		"PT": "Nova Zelândia",
+		"EN": "New Zealand",
+		"ES": "Nueva Zelanda",
+		"FR": "Nouvelle-Zélande",
+		"Indicativo": 64,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "B89C91F9-A244-4033-8C65-7D07A6E4EEB4",
+		"PT": "Omã",
+		"EN": "Oman",
+		"ES": "Omán",
+		"FR": "Oman",
+		"Indicativo": 968,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "5EA46C85-6DFB-4D6A-98F6-C0F2EF089C78",
+		"PT": "Palau",
+		"EN": "Palau",
+		"ES": "Palau",
+		"FR": "Palau",
+		"Indicativo": 680,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "85E6282D-DEE9-4A5F-AE01-FB3FF4E158B9",
+		"PT": "Palestina",
+		"EN": "Palestine",
+		"ES": "Palestina",
+		"FR": "Palestine",
+		"Indicativo": 970,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "C4A3C423-A0F7-490B-9975-7A9150798BE1",
+		"PT": "Panamá",
+		"EN": "Panama",
+		"ES": "Panamá",
+		"FR": "Panama",
+		"Indicativo": 507,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "A759F137-0117-4F08-82CF-04A25E067C17",
+		"PT": "Papua Nova Guiné",
+		"EN": "Papua New Guinea",
+		"ES": "Papúa Nueva Guinea",
+		"FR": "Papouasie-Nouvelle-Guinée",
+		"Indicativo": 675,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "47250BC5-5442-4760-8479-EB5463170025",
+		"PT": "Paquistão",
+		"EN": "Pakistan",
+		"ES": "Pakistán",
+		"FR": "Pakistan",
+		"Indicativo": 92,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "E4C4E2C7-807C-446B-A33B-AB7B7767C6EB",
+		"PT": "Paraguai",
+		"EN": "Paraguay",
+		"ES": "Paraguay",
+		"FR": "Paraguay",
+		"Indicativo": 595,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "E7A13D5E-3FF7-4AB8-9CB7-BC36ACEF5AAA",
+		"PT": "Peru",
+		"EN": "Peru",
+		"ES": "Perú",
+		"FR": "Pérou",
+		"Indicativo": 51,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "0BDF1724-8AA8-4FB7-9CD7-C0ECCC09AD47",
+		"PT": "Polinésia Francesa",
+		"EN": "Papua New Guinea",
+		"ES": "Papúa Nueva Guinea",
+		"FR": "Papouasie-Nouvelle-Guinée",
+		"Indicativo": 689,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "688740ED-37BE-42E5-BA80-775B619392D2",
+		"PT": "Polónia",
+		"EN": "Poland",
+		"ES": "Polonia",
+		"FR": "Pologne",
+		"Indicativo": 48,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "02E5DD3A-EB39-49CD-9196-4394DA19C6DA",
+		"PT": "Porto Rico",
+		"EN": "Puerto Rico",
+		"ES": "Puerto Rico",
+		"FR": "Porto Rico",
+		"Indicativo": 1787,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "46FEC979-09E0-43FF-A30E-3C21161C5B9A",
+		"PT": "Portugal",
+		"EN": "Portugal",
+		"ES": "Portugal",
+		"FR": "Portugal",
+		"Indicativo": 351,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "42641E19-9335-4787-9851-DC204F0D7A80",
+		"PT": "Qatar",
+		"EN": "Qatar",
+		"ES": "Qatar",
+		"FR": "Qatar",
+		"Indicativo": 974,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "F8966B4E-F5BD-4136-9136-591CC4F0447A",
+		"PT": "Quênia",
+		"EN": "Kenya",
+		"ES": "Kenia",
+		"FR": "Kenya",
+		"Indicativo": 254,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "2F0D7E14-F4D5-4DCD-8388-8003F3BD1F20",
+		"PT": "Quirguistão",
+		"EN": "Kyrgyzstan",
+		"ES": "Kirguistán",
+		"FR": "Kirghizistan",
+		"Indicativo": 996,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "55310F3E-6557-4A96-BC6D-B7E0A335D7B4",
+		"PT": "Reino Unido",
+		"EN": "Portugal",
+		"ES": "Portugal",
+		"FR": "Portugal",
+		"Indicativo": 44,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "C60F7BB7-4A0A-4FF4-B857-1598AF4641C4",
+		"PT": "República Centro-Africana",
+		"EN": "Central African Republic",
+		"ES": "República Centroafricana",
+		"FR": "République centrafricaine",
+		"Indicativo": 236,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "BE4CCCE2-18D6-4798-96CD-895B88E06C36",
+		"PT": "República Checa",
+		"EN": "Czech Republic",
+		"ES": "República Checa",
+		"FR": "République tchèque",
+		"Indicativo": 420,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "DC29A349-D6B7-4FE4-B120-7869D03A7807",
+		"PT": "República Dominicana",
+		"EN": "Dominican Republic",
+		"ES": "República Dominicana",
+		"FR": "République dominicaine",
+		"Indicativo": 1809,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "7A8E126A-F1B2-4036-A009-FABC746E3777",
+		"PT": "Reunião",
+		"EN": "Reunion",
+		"ES": "Reunión",
+		"FR": "Réunion",
+		"Indicativo": 262,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "73BF35A9-F886-4647-B2C2-30AA5446DBC7",
+		"PT": "Roménia",
+		"EN": "Romania",
+		"ES": "Rumanía",
+		"FR": "Roumanie",
+		"Indicativo": 40,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "D8B0858C-18EC-4FAD-BBD1-D8D2CD1F9700",
+		"PT": "Ruanda",
+		"EN": "Rwanda",
+		"ES": "Ruanda",
+		"FR": "Rwanda",
+		"Indicativo": 250,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "EDF96515-BACF-443A-ACA9-BC187A7897B7",
+		"PT": "Saint-Pierre e Miquelon",
+		"EN": "Saint Pierre and Miquelon",
+		"ES": "San Pedro y Miquelón",
+		"FR": "Saint Pierre et Miquelon",
+		"Indicativo": 508,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "34123A3F-601D-4F64-8D1A-B7BD78FCD8A7",
+		"PT": "Samoa",
+		"EN": "Samoa",
+		"ES": "Samoa",
+		"FR": "Samoa",
+		"Indicativo": 685,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "0749B9F3-E64C-4743-B620-205091F25590",
+		"PT": "San Marino",
+		"EN": "Spain",
+		"ES": "España",
+		"FR": "Espagne",
+		"Indicativo": 378,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "94791AEF-5E67-4783-88AA-BC6C4033FF97",
+		"PT": "Santa Helena",
+		"EN": "Saint Helena",
+		"ES": "Santa Elena",
+		"FR": "Sainte-Hélène",
+		"Indicativo": 290,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "38B28E73-6344-4BE7-B220-53C10B0A7849",
+		"PT": "Santa Lúcia",
+		"EN": "Saint Lucia",
+		"ES": "Santa Lucía",
+		"FR": "Sainte-Lucie",
+		"Indicativo": 1758,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "CB26FC84-FDE3-4E0E-A797-185B610FFF45",
+		"PT": "São Tomé e Príncipe",
+		"EN": "Sao Tome and Principe",
+		"ES": "Santo Tomé y Príncipe",
+		"FR": "Sao Tomé et Principe",
+		"Indicativo": 239,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "2947493C-2457-40A8-8A1C-486DD9A6B36A",
+		"PT": "São Vicente e Grenadines",
+		"EN": "Saint Vincent and the Grenadines",
+		"ES": "San Vicente y las Granadinas",
+		"FR": "Saint-Vincent-et-les-Grenadines",
+		"Indicativo": 1784,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "D93BC657-4F2C-4179-8FF0-966A5275743A",
+		"PT": "Seicheles",
+		"EN": "Seychelles",
+		"ES": "Seychelles",
+		"FR": "Seychelles",
+		"Indicativo": 248,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "68528B45-7AB7-4E02-A297-32C42E1A577F",
+		"PT": "Senegal",
+		"EN": "Senegal",
+		"ES": "Senegal",
+		"FR": "Sénégal",
+		"Indicativo": 221,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "FEAA6B04-3018-4487-BFAA-B356DBFD5103",
+		"PT": "Serra Leoa",
+		"EN": "Somalia",
+		"ES": "Somalia",
+		"FR": "Somalie",
+		"Indicativo": 232,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "E04300D4-2F56-48F8-B6F4-C5C6084B6801",
+		"PT": "Singapura",
+		"EN": "Singapore",
+		"ES": "Singapur",
+		"FR": "Singapour",
+		"Indicativo": 65,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "3153452E-76C0-4A33-B74C-4ED94071913E",
+		"PT": "Síria",
+		"EN": "Syria",
+		"ES": "Siria",
+		"FR": "Syrie",
+		"Indicativo": 963,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "52B45B72-92D2-4398-BDF3-4CF466B2E2DC",
+		"PT": "Somália",
+		"EN": "Somalia",
+		"ES": "Somalia",
+		"FR": "Somalie",
+		"Indicativo": 252,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "48C8EFDF-07D9-45CF-B147-D0A5E9842129",
+		"PT": "Sri Lanka",
+		"EN": "Syria",
+		"ES": "Siria",
+		"FR": "Syrie",
+		"Indicativo": 94,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "DFC32C4F-519C-4B1D-A887-99601D2BF6D8",
+		"PT": "Sudão",
+		"EN": "Sudan",
+		"ES": "Sudán",
+		"FR": "Soudan",
+		"Indicativo": 249,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "E7000A82-7F45-4163-85A0-E2081F79141A",
+		"PT": "Sudão do Sul",
+		"EN": "South Sudan",
+		"ES": "Sudán del Sur",
+		"FR": "Sud-Soudan",
+		"Indicativo": 211,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "45837D2B-773A-4741-A4E8-CB37DA0A9676",
+		"PT": "Suécia",
+		"EN": "Sweden",
+		"ES": "Suecia",
+		"FR": "Suède",
+		"Indicativo": 46,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "2468D32E-BF55-450E-9B2E-AEEC7126702F",
+		"PT": "Suíça",
+		"EN": "Switzerland",
+		"ES": "Suiza",
+		"FR": "Suisse",
+		"Indicativo": 41,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "1A8007E4-AB2D-4316-974E-EE8CA0AC3A68",
+		"PT": "Suriname",
+		"EN": "Suriname",
+		"ES": "Surinam",
+		"FR": "Suriname",
+		"Indicativo": 597,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "C3AD21DD-8D43-48A4-9069-E34CBF0235D8",
+		"PT": "Tadjiquistão",
+		"EN": "Tajikistan",
+		"ES": "Tayikistán",
+		"FR": "Tadjikistan",
+		"Indicativo": 992,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "C578EE97-11CC-42AC-B50B-8E5FD6216EFA",
+		"PT": "Tailândia",
+		"EN": "Thailand",
+		"ES": "Tailandia",
+		"FR": "Thaïlande",
+		"Indicativo": 66,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "2C110165-B847-45B9-8B3D-530D94F57F0D",
+		"PT": "Tanzânia",
+		"EN": "Tanzania",
+		"ES": "Tanzania",
+		"FR": "Tanzanie",
+		"Indicativo": 255,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "19F539FC-4BB0-4674-BA9B-219AFD1BC341",
+		"PT": "Timor Leste",
+		"EN": "Thailand",
+		"ES": "Tailandia",
+		"FR": "Thaïlande",
+		"Indicativo": 670,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "5B223FDA-9018-4E2D-85F2-AB9BCE4383B3",
+		"PT": "Togo",
+		"EN": "Togo",
+		"ES": "Togo",
+		"FR": "Togo",
+		"Indicativo": 228,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "6B022592-1745-4F8A-849A-DA414F64F571",
+		"PT": "Tonga",
+		"EN": "Tonga",
+		"ES": "Tonga",
+		"FR": "Tonga",
+		"Indicativo": 676,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "4A965B9F-4446-4422-820B-B06DCCE603D2",
+		"PT": "Toquelau",
+		"EN": "Toquelau",
+		"ES": "Toquelau",
+		"FR": "Toquelau",
+		"Indicativo": 690,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "7A2047D3-BB7C-46E0-A5C9-8298FF781039",
+		"PT": "Trinidad e Tobago",
+		"EN": "Trinidad and Tobago",
+		"ES": "Trinidad y Tobago",
+		"FR": "Trinité-et-Tobago",
+		"Indicativo": 1868,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "FD3B20F1-3BED-421D-8BE3-5F9F95D01760",
+		"PT": "Tunísia",
+		"EN": "Tunisia",
+		"ES": "Túnez",
+		"FR": "Tunisie",
+		"Indicativo": 216,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "DC765958-53A6-48D7-8B41-4622DB9E3EEF",
+		"PT": "Turcas e Caico",
+		"EN": "Turks and Caicos Islands",
+		"ES": "Islas Turcas y Caicos",
+		"FR": "Îles Turks et Caicos",
+		"Indicativo": 1649,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "AC3323D6-D7E3-4035-96A9-7AA3189E6621",
+		"PT": "Turquemenistão",
+		"EN": "Turkmenistan",
+		"ES": "Turkmenistán",
+		"FR": "Turkménistan",
+		"Indicativo": 993,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "B91F59EA-4A1A-4DBD-8B40-ECCB0280D4E1",
+		"PT": "Turquia",
+		"EN": "Turkey",
+		"ES": "Turquía",
+		"FR": "Turquie",
+		"Indicativo": 90,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "5B66BEC8-1810-4AD7-BF80-7FE0F7FD468E",
+		"PT": "Tuvalu",
+		"EN": "Tuvalu",
+		"ES": "Tuvalu",
+		"FR": "Tuvalu",
+		"Indicativo": 688,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "793278F4-805F-4BB2-A270-560097069B6C",
+		"PT": "Ucrânia",
+		"EN": "Ukraine",
+		"ES": "Ucrania",
+		"FR": "Ukraine",
+		"Indicativo": 380,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "9046F27A-C476-4FF9-9470-9EA76F64FB3B",
+		"PT": "Uganda",
+		"EN": "Uganda",
+		"ES": "Uganda",
+		"FR": "Ouganda",
+		"Indicativo": 256,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "7B1A795B-98D1-4C31-B9EE-A3F73BD7874A",
+		"PT": "Uruguai",
+		"EN": "Uruguay",
+		"ES": "Uruguay",
+		"FR": "Uruguay",
+		"Indicativo": 598,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "72B3BF14-DA79-4E05-90C2-EA163D99725C",
+		"PT": "Uzbequistão",
+		"EN": "Uzbekistan",
+		"ES": "Uzbekistán",
+		"FR": "Ouzbékistan",
+		"Indicativo": 998,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "BB0DF9F5-B56F-4A73-8B04-75014B03894E",
+		"PT": "Vanuatu",
+		"EN": "Vanuatu",
+		"ES": "Vanuatu",
+		"FR": "Vanuatu",
+		"Indicativo": 678,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "061FA25D-34A8-46CE-9E93-9EDB5BE21C77",
+		"PT": "Vaticano",
+		"EN": "Vatican City",
+		"ES": "Ciudad del Vaticano",
+		"FR": "Cité du Vatican",
+		"Indicativo": 379,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "3EA11613-7546-4F0F-87AF-2539C2BD0893",
+		"PT": "Venezuela",
+		"EN": "Venezuela",
+		"ES": "Venezuela",
+		"FR": "Venezuela",
+		"Indicativo": 58,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "0F0D9FA5-E3EF-4128-B852-38D696FF2AAD",
+		"PT": "Vietnam",
+		"EN": "Vietnam",
+		"ES": "Vietnam",
+		"FR": "Vietnam",
+		"Indicativo": 84,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "2E0B745A-C6ED-44AA-85A4-CCDB9C313AB6",
+		"PT": "Wallis e Futuna",
+		"EN": "Wallis and Futuna",
+		"ES": "Wallis y Futuna",
+		"FR": "Wallis et Futuna",
+		"Indicativo": 681,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "A72B65DF-D878-4F8D-AD48-5148FFAF04D5",
+		"PT": "Zâmbia",
+		"EN": "Zambia",
+		"ES": "Zambia",
+		"FR": "Zambie",
+		"Indicativo": 260,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  },
+	  {
+		"Id": "2FE6B184-91B6-4268-B7C2-AE61EEF70A1C",
+		"PT": "Zimbabué",
+		"EN": "Zimbabwe",
+		"ES": "Zimbabue",
+		"FR": "Zimbabwe",
+		"Indicativo": 263,
+		"Ativo": 1,
+		"CreationDate": "2022-05-13 10:14:57.970"
+	  }
+	]
+  }

@@ -56,7 +56,7 @@ class IfthenpayOrderStates implements InstallerInterface
 					foreach (\Language::getLanguages() as $language) {
 						if (\Tools::strtolower($language['iso_code']) == 'en') {
 							$order_state->name[$language['id_lang']] = strpos($status, 'WAITING') ?
-								'Awaiting for ' . \Tools::ucfirst($paymentMethod) . 'payment' : 'Payment by ' . \Tools::ucfirst($paymentMethod) . 'confirmed';
+								'Awaiting for ' . \Tools::ucfirst($paymentMethod) . ' payment' : 'Payment by ' . \Tools::ucfirst($paymentMethod) . ' confirmed';
 						} else {
 							$order_state->name[$language['id_lang']] = strpos($status, 'WAITING') ?
 								'Aguarda pagamento por ' . \Tools::ucfirst($paymentMethod) : 'Confirmado pagamento por ' . \Tools::ucfirst($paymentMethod);

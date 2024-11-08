@@ -247,7 +247,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
   /******/
 
-  return __webpack_require__(__webpack_require__.s = 3);
+  return __webpack_require__(__webpack_require__.s = 2);
   /******/
 }
 /************************************************************************/
@@ -255,15 +255,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 /******/
 )({
   /***/
-  "./_dev/js/classes/MbwayCountDown.ts":
-  /*!*******************************************!*\
-    !*** ./_dev/js/classes/MbwayCountDown.ts ***!
-    \*******************************************/
+  "./_dev/js/adminOrderDetailPage.ts":
+  /*!*****************************************!*\
+    !*** ./_dev/js/adminOrderDetailPage.ts ***!
+    \*****************************************/
 
   /*! no static exports found */
 
   /***/
-  function _devJsClassesMbwayCountDownTs(module, exports, __webpack_require__) {
+  function _devJsAdminOrderDetailPageTs(module, exports, __webpack_require__) {
     "use strict";
     /**
     * 2007-2022 Ifthenpay Lda
@@ -289,148 +289,39 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     *  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
     */
 
-    var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
-      var c = arguments.length,
-          r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-          d;
-      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-      }
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-
-    var __metadata = this && this.__metadata || function (k, v) {
-      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-    };
-
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    exports.MbwayCountdown = void 0;
 
-    var inversify_1 = __webpack_require__(
-    /*! inversify */
-    "./node_modules/inversify/lib/inversify.js");
+    __webpack_require__(
+    /*! reflect-metadata */
+    "./node_modules/reflect-metadata/Reflect.js");
 
-    var HttpService_1 = __webpack_require__(
-    /*! ../services/HttpService */
-    "./_dev/js/services/HttpService.ts");
+    var inversify_adminOrderDetailPage_1 = __webpack_require__(
+    /*! ./container/inversify.adminOrderDetailPage */
+    "./_dev/js/container/inversify.adminOrderDetailPage.ts");
 
-    var MbwayCountdown =
-    /** @class */
-    function () {
-      // private countdownMbway: JQuery<HTMLElement>;
-      function MbwayCountdown(httpService) {
-        this.checkInterval = 10000; // miliseconds
+    var AdminOrderDetailPageCreateApp_1 = __webpack_require__(
+    /*! ./facades/AdminOrderDetailPageCreateApp */
+    "./_dev/js/facades/AdminOrderDetailPageCreateApp.ts");
 
-        this.countdownTimer = '5:01';
-        this.minutesElement = $('#countdownMinutes');
-        this.secondsElement = $('#countdownSeconds');
-        this.httpService = httpService;
-        this.appSpinner = $('#appSpinner'); // this.countdownMbway = $('#countdownMbway');
-      }
-
-      MbwayCountdown.prototype.checkMBwayPaymentStatus = function () {
-        var _this = this;
-
-        window.checkIntervalTimer = setInterval(function () {
-          var url = new URL(window.location.href);
-
-          _this.httpService.setUrl(cancelMbwayOrderControllerUrl);
-
-          _this.httpService.post({
-            ajax: 1,
-            action: 'cancelMbwayOrder',
-            orderId: url.searchParams.get('id_order')
-          }).then(function (response) {
-            if (response.orderStatus === 'paid') {
-              $('div.mbwayCountdownPanel').hide();
-              clearInterval(window.countdownIntervalTimer);
-              clearInterval(window.checkIntervalTimer);
-              $('#confirmMbwayOrder').show();
-            }
-
-            if (response.orderStatus === 'refused') {
-              $('div.mbwayCountdownPanel').hide();
-              clearInterval(window.countdownIntervalTimer);
-              clearInterval(window.checkIntervalTimer);
-              $('#refusedMbwayOrder').show();
-            }
-
-            if (response.orderStatus === 'error') {
-              $('div.mbwayCountdownPanel').hide();
-              clearInterval(window.countdownIntervalTimer);
-              clearInterval(window.checkIntervalTimer);
-              $('#errorMbwayOrder').show();
-            }
-
-            _this.appSpinner.hide();
-          }).fail(function (xhr, status, error) {
-            $('div.mbwayCountdownPanel').hide();
-            console.log(error);
-          });
-        }, this.checkInterval);
-      };
-
-      MbwayCountdown.prototype.init = function () {
-        var _this = this;
-
-        if (document.getElementsByClassName("mbwayCountdownPanel").length !== 0) {
-          this.checkMBwayPaymentStatus();
-          window.countdownIntervalTimer = setInterval(function () {
-            var timer = _this.countdownTimer.split(':');
-
-            var minutes = parseInt(timer[0], 10);
-            var seconds = parseInt(timer[1], 10);
-            --seconds;
-            minutes = seconds < 0 ? --minutes : minutes;
-            seconds = seconds < 0 ? 59 : seconds; // 0 leftpad needs to be in type string
-
-            var strSeconds = seconds < 10 ? "0" + seconds : "" + seconds;
-
-            _this.minutesElement.text(minutes);
-
-            _this.secondsElement.text(strSeconds);
-
-            if (minutes < 0) {
-              // this.mbwayOrderCancel();
-              $('div.mbwayCountdownPanel').hide();
-              $('div#timeoutMbwayOrder').show();
-              clearInterval(window.countdownIntervalTimer);
-              clearInterval(window.checkIntervalTimer);
-            }
-
-            if (seconds <= 0 && minutes <= 0) {
-              // this.mbwayOrderCancel();
-              $('div.mbwayCountdownPanel').hide();
-              $('div#timeoutMbwayOrder').show();
-              clearInterval(window.countdownIntervalTimer);
-              clearInterval(window.checkIntervalTimer);
-            }
-
-            _this.countdownTimer = minutes + ':' + strSeconds;
-          }, 1000);
-        }
-      };
-
-      MbwayCountdown = __decorate([(0, inversify_1.injectable)(), __metadata("design:paramtypes", [HttpService_1.HttpService])], MbwayCountdown);
-      return MbwayCountdown;
-    }();
-
-    exports.MbwayCountdown = MbwayCountdown;
+    $(document).ready(function () {
+      var app = inversify_adminOrderDetailPage_1["default"].get(AdminOrderDetailPageCreateApp_1.AdminOrderDetailPageCreateApp);
+      app.start();
+    });
     /***/
   },
 
   /***/
-  "./_dev/js/container/inversify.PaymentConfirmPage.ts":
-  /*!***********************************************************!*\
-    !*** ./_dev/js/container/inversify.PaymentConfirmPage.ts ***!
-    \***********************************************************/
+  "./_dev/js/container/inversify.adminOrderDetailPage.ts":
+  /*!*************************************************************!*\
+    !*** ./_dev/js/container/inversify.adminOrderDetailPage.ts ***!
+    \*************************************************************/
 
   /*! no static exports found */
 
   /***/
-  function _devJsContainerInversifyPaymentConfirmPageTs(module, exports, __webpack_require__) {
+  function _devJsContainerInversifyAdminOrderDetailPageTs(module, exports, __webpack_require__) {
     "use strict";
     /**
     * 2007-2022 Ifthenpay Lda
@@ -464,23 +355,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     /*! inversify */
     "./node_modules/inversify/lib/inversify.js");
 
-    var MbwayCountDown_1 = __webpack_require__(
-    /*! ../classes/MbwayCountDown */
-    "./_dev/js/classes/MbwayCountDown.ts");
+    var AdminOrderDetailPage_1 = __webpack_require__(
+    /*! ../events/AdminOrderDetailPage */
+    "./_dev/js/events/AdminOrderDetailPage.ts");
 
-    var PaymentConfirmPageCreateApp_1 = __webpack_require__(
-    /*! ../facades/PaymentConfirmPageCreateApp */
-    "./_dev/js/facades/PaymentConfirmPageCreateApp.ts");
+    var AdminOrderDetailPageCreateApp_1 = __webpack_require__(
+    /*! ../facades/AdminOrderDetailPageCreateApp */
+    "./_dev/js/facades/AdminOrderDetailPageCreateApp.ts");
 
-    var HttpService_1 = __webpack_require__(
-    /*! ../services/HttpService */
-    "./_dev/js/services/HttpService.ts");
-
-    var containerPaymentConfirmPage = new inversify_1.Container();
-    containerPaymentConfirmPage.bind(MbwayCountDown_1.MbwayCountdown).toSelf();
-    containerPaymentConfirmPage.bind(PaymentConfirmPageCreateApp_1.PaymentConfirmPageCreateApp).toSelf();
-    containerPaymentConfirmPage.bind(HttpService_1.HttpService).toSelf();
-    exports["default"] = containerPaymentConfirmPage;
+    var containerOrderDetaiPage = new inversify_1.Container();
+    containerOrderDetaiPage.bind(AdminOrderDetailPageCreateApp_1.AdminOrderDetailPageCreateApp).toSelf();
+    containerOrderDetaiPage.bind(AdminOrderDetailPage_1.AdminOrderDetailPage).toSelf();
+    exports["default"] = containerOrderDetaiPage;
     /***/
   },
 
@@ -625,6 +511,526 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   },
 
   /***/
+  "./_dev/js/decorators/Event.ts":
+  /*!*************************************!*\
+    !*** ./_dev/js/decorators/Event.ts ***!
+    \*************************************/
+
+  /*! no static exports found */
+
+  /***/
+  function _devJsDecoratorsEventTs(module, exports, __webpack_require__) {
+    "use strict";
+    /**
+    * 2007-2022 Ifthenpay Lda
+    *
+    * NOTICE OF LICENSE
+    *
+    * This source file is subject to the Academic Free License (AFL 3.0)
+    * that is bundled with this package in the file LICENSE.txt.
+    * It is also available through the world-wide-web at this URL:
+    * http://opensource.org/licenses/afl-3.0.php
+    * If you did not receive a copy of the license and are unable to
+    * obtain it through the world-wide-web, please send an email
+    * to license@prestashop.com so we can send you a copy immediately.
+    *
+    * DISCLAIMER
+    *
+    * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+    * versions in the future. If you wish to customize PrestaShop for your
+    * needs please refer to http://www.prestashop.com for more information.
+    *
+    *  @copyright 2007-2022 Ifthenpay Lda
+    *  @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
+    *  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+    */
+
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.Event = void 0;
+
+    var Event = function Event(type, selector, dynamic) {
+      return function (target, propertyKey) {
+        if (!Reflect.hasMetadata('events', target.constructor)) {
+          Reflect.defineMetadata('events', [], target.constructor);
+        }
+
+        var events = Reflect.getMetadata('events', target.constructor);
+        events.push({
+          type: type,
+          element: selector,
+          methodName: propertyKey,
+          dynamic: dynamic
+        });
+        Reflect.defineMetadata('events', events, target.constructor);
+      };
+    };
+
+    exports.Event = Event;
+    /***/
+  },
+
+  /***/
+  "./_dev/js/events/AdminOrderDetailPage.ts":
+  /*!************************************************!*\
+    !*** ./_dev/js/events/AdminOrderDetailPage.ts ***!
+    \************************************************/
+
+  /*! no static exports found */
+
+  /***/
+  function _devJsEventsAdminOrderDetailPageTs(module, exports, __webpack_require__) {
+    "use strict";
+    /**
+    * 2007-2022 Ifthenpay Lda
+    *
+    * NOTICE OF LICENSE
+    *
+    * This source file is subject to the Academic Free License (AFL 3.0)
+    * that is bundled with this package in the file LICENSE.txt.
+    * It is also available through the world-wide-web at this URL:
+    * http://opensource.org/licenses/afl-3.0.php
+    * If you did not receive a copy of the license and are unable to
+    * obtain it through the world-wide-web, please send an email
+    * to license@prestashop.com so we can send you a copy immediately.
+    *
+    * DISCLAIMER
+    *
+    * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+    * versions in the future. If you wish to customize PrestaShop for your
+    * needs please refer to http://www.prestashop.com for more information.
+    *
+    *  @copyright 2007-2022 Ifthenpay Lda
+    *  @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
+    *  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+    */
+
+    var __extends = this && this.__extends || function () {
+      var _extendStatics2 = function extendStatics(d, b) {
+        _extendStatics2 = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function (d, b) {
+          d.__proto__ = b;
+        } || function (d, b) {
+          for (var p in b) {
+            if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+          }
+        };
+
+        return _extendStatics2(d, b);
+      };
+
+      return function (d, b) {
+        if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+
+        _extendStatics2(d, b);
+
+        function __() {
+          this.constructor = d;
+        }
+
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+
+    var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
+      var c = arguments.length,
+          r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+          d;
+      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      }
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+
+    var __metadata = this && this.__metadata || function (k, v) {
+      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    };
+
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.AdminOrderDetailPage = void 0;
+
+    var Event_1 = __webpack_require__(
+    /*! ../decorators/Event */
+    "./_dev/js/decorators/Event.ts");
+
+    var Page_1 = __webpack_require__(
+    /*! ./Page */
+    "./_dev/js/events/Page.ts");
+
+    var AdminOrderDetailPage =
+    /** @class */
+    function (_super) {
+      __extends(AdminOrderDetailPage, _super);
+
+      function AdminOrderDetailPage() {
+        return _super !== null && _super.apply(this, arguments) || this;
+      }
+
+      AdminOrderDetailPage.prototype.chooseNewPaymentMethod = function (event) {
+        var _this = this;
+
+        this.setEventDefault(event, true);
+        this.eventTargetSrc = this.eventTarget.attr('href');
+
+        if ($('#cancelPaymentMethod').length === 0) {
+          this.documentFragment.append('<select id="changePaymentMethodSelect" class="form-select custom-select" aria-label="Default select example" style="width:150px;"></select>');
+          Object.keys(this.ifthenpayUserPaymentMethods).forEach(function (key) {
+            if (_this.ifthenpayUserPaymentMethods[key] !== 'ccard' && _this.ifthenpayUserPaymentMethods[key] !== 'cofidispay' && _this.ifthenpayUserPaymentMethods[key] !== 'ifthenpaygateway' && _this.ifthenpayUserPaymentMethods[key] !== 'pix') {
+              _this.documentFragment.children().append("<option value=\"".concat(_this.ifthenpayUserPaymentMethods[key], "\">").concat(_this.ifthenpayUserPaymentMethods[key].charAt(0).toUpperCase() + _this.ifthenpayUserPaymentMethods[key].slice(1), "</option>"));
+            }
+          });
+          $(".new_payment").on("change", "#changePaymentMethodSelect", function () {
+            if ($('#changePaymentMethodSelect').val() != 'mbway') {
+              $('#mbway_input').hide();
+            } else {
+              $('#mbway_input').show();
+            }
+          });
+          this.documentFragment.append("<button id=\"cancelPaymentMethod\" class=\"btn btn-danger m_left_20\">".concat(strCancel, "</button>\n                <button id=\"changePaymentMethod\" class=\"btn btn-primary m_left_20\">").concat(strChangeMethod, "</button>"));
+          this.eventTarget.parent().append(this.documentFragment);
+          $('#changePaymentMethodSelect').after("<input id=\"mbway_input\" name=\"ifthenpayMbwayPhone\" type=\"text\" class=\"form-control mbway_re_input m_left_20\" placeholder=\"".concat(strMbwayNumber, "\" value=\"\">"));
+
+          if ($('#changePaymentMethodSelect').find("option:first-child").val() != 'mbway') {
+            $('#mbway_input').hide();
+          }
+        } else {
+          $('#cancelPaymentMethod').show();
+          $('#mbway_input').show();
+          $('#changePaymentMethod').show();
+          $('#changePaymentMethodSelect').show();
+        }
+
+        this.eventTarget.hide();
+      };
+
+      AdminOrderDetailPage.prototype.cancelChooseNewPaymentMethod = function (event) {
+        this.setEventDefault(event, true);
+        this.eventTarget.hide();
+        $('#mbway_input').hide();
+        $('#changePaymentMethod').hide();
+        $('#changePaymentMethodSelect').hide();
+        $('#chooseNewPaymentMethod').show();
+      };
+      /**
+       * handles the change payment method after selecting a new payment method and clicking "change payment method" in admin order details
+       *
+       * @param event
+       */
+
+
+      AdminOrderDetailPage.prototype.submitChooseNewPaymentMethod = function (event) {
+        this.setEventDefault(event, true);
+        this.eventTargetSrc = this.eventTarget.attr('href');
+        var selectElementInput = $('#changePaymentMethodSelect');
+
+        if (!selectElementInput.val()) {
+          this.showMessageInGUIBootstrap(msgPhoneNumberInvalid);
+        } else {
+          if (selectElementInput.val() != 'mbway' || this.isMbwayPhoneValid($('#mbway_input').val())) {
+            $('#changePaymentMethodError').hide();
+            var url = new URL($('#chooseNewPaymentMethod').attr('href'));
+            url.searchParams.set('newPaymentMethod', selectElementInput.val());
+
+            if (selectElementInput.val() == 'mbway') {
+              var mbwayPhone = $('#mbway_input').val();
+              url.searchParams.set('mbwayPhone', mbwayPhone);
+            }
+
+            window.location.href = url.href;
+          } else {
+            this.showMessageInGUIBootstrap(msgPhoneNumberInvalid);
+          }
+        }
+      };
+
+      AdminOrderDetailPage.prototype.showMessageInGUIBootstrap = function (msg) {
+        var msgContainer = document.querySelector('.panel-order-ifthenpay div .bootstrap');
+
+        if (msgContainer) {
+          var div = document.createElement('div');
+          div.innerHTML = "<div class=\"module_error alert alert-danger\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">\xD7</button>".concat(msg, "</div>");
+          msgContainer.replaceChildren(div.firstChild);
+        }
+      };
+
+      AdminOrderDetailPage.prototype.resendMbwayPhone = function (event) {
+        this.setEventDefault(event, true);
+        this.eventTargetSrc = this.eventTarget.attr('href');
+        var searchParams = new URLSearchParams(this.eventTargetSrc);
+        var ifthenpayMbwayPhoneInput = $('#ifthenpayMbwayPhone');
+
+        if (searchParams.get('paymentMethod') === 'mbway' && ifthenpayMbwayPhoneInput.length === 0) {
+          var tempDiv = document.createElement('div');
+          tempDiv.innerHTML = "<div class=\"adm_hist_actions form-group\">\n                    <input name=\"ifthenpayMbwayPhone\" class=\"form-control\" type=\"text\" id=\"ifthenpayMbwayPhone\" placeholder=\"".concat(strMbwayNumber, "\">\n                </div>");
+          event.target.parentElement.after(tempDiv.firstChild);
+        } else if (searchParams.get('paymentMethod') === 'mbway' && ifthenpayMbwayPhoneInput.length > 0) {
+          if (!ifthenpayMbwayPhoneInput.val() || !this.isMbwayPhoneValid(ifthenpayMbwayPhoneInput.val())) {
+            ifthenpayMbwayPhoneInput.addClass("is-invalid");
+            this.showMessageInGUIBootstrap(msgPhoneNumberInvalid);
+          } else {
+            var url = new URL(this.eventTargetSrc);
+            url.searchParams.set('mbwayPhoneAdmin', ifthenpayMbwayPhoneInput.val());
+            window.location.href = url.href;
+          }
+        } else {
+          window.location.href = this.eventTargetSrc;
+        }
+      };
+      /**
+       * validates if a value is a phone number (note: it does not validate length)
+       * @param value
+       * @returns
+       */
+
+
+      AdminOrderDetailPage.prototype.isMbwayPhoneValid = function (value) {
+        var num = Number(value); // is it a number...
+
+        if (!num) {
+          return false;
+        } // is it a positive integer
+
+
+        if (!(Number.isInteger(num) && num > 0)) {
+          return false;
+        }
+
+        if (!(num.toString().length >= 9)) {
+          return false;
+        }
+
+        return true;
+      };
+
+      __decorate([(0, Event_1.Event)('click', '#chooseNewPaymentMethod'), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminOrderDetailPage.prototype, "chooseNewPaymentMethod", null);
+
+      __decorate([(0, Event_1.Event)('click', 'div.new_payment', '#cancelPaymentMethod'), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminOrderDetailPage.prototype, "cancelChooseNewPaymentMethod", null);
+
+      __decorate([(0, Event_1.Event)('click', 'div.new_payment', '#changePaymentMethod'), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminOrderDetailPage.prototype, "submitChooseNewPaymentMethod", null);
+
+      __decorate([(0, Event_1.Event)('click', '#resendPaymentBtn'), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminOrderDetailPage.prototype, "resendMbwayPhone", null);
+
+      return AdminOrderDetailPage;
+    }(Page_1.Page);
+
+    exports.AdminOrderDetailPage = AdminOrderDetailPage;
+    /***/
+  },
+
+  /***/
+  "./_dev/js/events/Page.ts":
+  /*!********************************!*\
+    !*** ./_dev/js/events/Page.ts ***!
+    \********************************/
+
+  /*! no static exports found */
+
+  /***/
+  function _devJsEventsPageTs(module, exports, __webpack_require__) {
+    "use strict";
+    /**
+    * 2007-2022 Ifthenpay Lda
+    *
+    * NOTICE OF LICENSE
+    *
+    * This source file is subject to the Academic Free License (AFL 3.0)
+    * that is bundled with this package in the file LICENSE.txt.
+    * It is also available through the world-wide-web at this URL:
+    * http://opensource.org/licenses/afl-3.0.php
+    * If you did not receive a copy of the license and are unable to
+    * obtain it through the world-wide-web, please send an email
+    * to license@prestashop.com so we can send you a copy immediately.
+    *
+    * DISCLAIMER
+    *
+    * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+    * versions in the future. If you wish to customize PrestaShop for your
+    * needs please refer to http://www.prestashop.com for more information.
+    *
+    *  @copyright 2007-2022 Ifthenpay Lda
+    *  @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
+    *  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+    */
+
+    var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
+      var c = arguments.length,
+          r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+          d;
+      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      }
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+
+    var __metadata = this && this.__metadata || function (k, v) {
+      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    };
+
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.Page = void 0;
+
+    var inversify_1 = __webpack_require__(
+    /*! inversify */
+    "./node_modules/inversify/lib/inversify.js");
+
+    var Page =
+    /** @class */
+    function () {
+      function Page() {
+        this.documentFragment = $(document.createDocumentFragment());
+        this.ifthenpayUserPaymentMethods = typeof ifthenpayUserPaymentMethods !== 'undefined' ? ifthenpayUserPaymentMethods : [];
+      }
+
+      Page.prototype.setEventDefault = function (event, preventDefault) {
+        if (preventDefault) {
+          event.preventDefault();
+        }
+
+        this.eventTarget = $(event.target);
+      };
+
+      Page = __decorate([(0, inversify_1.injectable)(), __metadata("design:paramtypes", [])], Page);
+      return Page;
+    }();
+
+    exports.Page = Page;
+    /***/
+  },
+
+  /***/
+  "./_dev/js/facades/AdminOrderDetailPageCreateApp.ts":
+  /*!**********************************************************!*\
+    !*** ./_dev/js/facades/AdminOrderDetailPageCreateApp.ts ***!
+    \**********************************************************/
+
+  /*! no static exports found */
+
+  /***/
+  function _devJsFacadesAdminOrderDetailPageCreateAppTs(module, exports, __webpack_require__) {
+    "use strict";
+    /**
+    * 2007-2022 Ifthenpay Lda
+    *
+    * NOTICE OF LICENSE
+    *
+    * This source file is subject to the Academic Free License (AFL 3.0)
+    * that is bundled with this package in the file LICENSE.txt.
+    * It is also available through the world-wide-web at this URL:
+    * http://opensource.org/licenses/afl-3.0.php
+    * If you did not receive a copy of the license and are unable to
+    * obtain it through the world-wide-web, please send an email
+    * to license@prestashop.com so we can send you a copy immediately.
+    *
+    * DISCLAIMER
+    *
+    * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+    * versions in the future. If you wish to customize PrestaShop for your
+    * needs please refer to http://www.prestashop.com for more information.
+    *
+    *  @copyright 2007-2022 Ifthenpay Lda
+    *  @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
+    *  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+    */
+
+    var __extends = this && this.__extends || function () {
+      var _extendStatics3 = function extendStatics(d, b) {
+        _extendStatics3 = Object.setPrototypeOf || {
+          __proto__: []
+        } instanceof Array && function (d, b) {
+          d.__proto__ = b;
+        } || function (d, b) {
+          for (var p in b) {
+            if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+          }
+        };
+
+        return _extendStatics3(d, b);
+      };
+
+      return function (d, b) {
+        if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+
+        _extendStatics3(d, b);
+
+        function __() {
+          this.constructor = d;
+        }
+
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+      };
+    }();
+
+    var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
+      var c = arguments.length,
+          r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+          d;
+      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      }
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+
+    var __metadata = this && this.__metadata || function (k, v) {
+      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    };
+
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.AdminOrderDetailPageCreateApp = void 0;
+
+    var inversify_1 = __webpack_require__(
+    /*! inversify */
+    "./node_modules/inversify/lib/inversify.js");
+
+    var inversify_adminOrderDetailPage_1 = __webpack_require__(
+    /*! ../container/inversify.adminOrderDetailPage */
+    "./_dev/js/container/inversify.adminOrderDetailPage.ts");
+
+    var AppComponent_1 = __webpack_require__(
+    /*! ../decorators/AppComponent */
+    "./_dev/js/decorators/AppComponent.ts");
+
+    var AdminOrderDetailPage_1 = __webpack_require__(
+    /*! ../events/AdminOrderDetailPage */
+    "./_dev/js/events/AdminOrderDetailPage.ts");
+
+    var MainApp_1 = __webpack_require__(
+    /*! ./MainApp */
+    "./_dev/js/facades/MainApp.ts");
+
+    var AdminOrderDetailPageCreateApp =
+    /** @class */
+    function (_super) {
+      __extends(AdminOrderDetailPageCreateApp, _super);
+
+      function AdminOrderDetailPageCreateApp() {
+        var _this = _super.call(this) || this;
+
+        _this.container = inversify_adminOrderDetailPage_1["default"];
+        return _this;
+      }
+
+      AdminOrderDetailPageCreateApp.prototype.start = function () {// console.log('start app');
+      };
+
+      AdminOrderDetailPageCreateApp = __decorate([(0, inversify_1.injectable)(), (0, AppComponent_1.AppComponent)({
+        pageEvents: [AdminOrderDetailPage_1.AdminOrderDetailPage]
+      }), __metadata("design:paramtypes", [])], AdminOrderDetailPageCreateApp);
+      return AdminOrderDetailPageCreateApp;
+    }(MainApp_1.MainApp);
+
+    exports.AdminOrderDetailPageCreateApp = AdminOrderDetailPageCreateApp;
+    /***/
+  },
+
+  /***/
   "./_dev/js/facades/MainApp.ts":
   /*!************************************!*\
     !*** ./_dev/js/facades/MainApp.ts ***!
@@ -719,280 +1125,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }();
 
     exports.MainApp = MainApp;
-    /***/
-  },
-
-  /***/
-  "./_dev/js/facades/PaymentConfirmPageCreateApp.ts":
-  /*!********************************************************!*\
-    !*** ./_dev/js/facades/PaymentConfirmPageCreateApp.ts ***!
-    \********************************************************/
-
-  /*! no static exports found */
-
-  /***/
-  function _devJsFacadesPaymentConfirmPageCreateAppTs(module, exports, __webpack_require__) {
-    "use strict";
-    /**
-    * 2007-2022 Ifthenpay Lda
-    *
-    * NOTICE OF LICENSE
-    *
-    * This source file is subject to the Academic Free License (AFL 3.0)
-    * that is bundled with this package in the file LICENSE.txt.
-    * It is also available through the world-wide-web at this URL:
-    * http://opensource.org/licenses/afl-3.0.php
-    * If you did not receive a copy of the license and are unable to
-    * obtain it through the world-wide-web, please send an email
-    * to license@prestashop.com so we can send you a copy immediately.
-    *
-    * DISCLAIMER
-    *
-    * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-    * versions in the future. If you wish to customize PrestaShop for your
-    * needs please refer to http://www.prestashop.com for more information.
-    *
-    *  @copyright 2007-2022 Ifthenpay Lda
-    *  @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
-    *  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
-    */
-
-    var __extends = this && this.__extends || function () {
-      var _extendStatics2 = function extendStatics(d, b) {
-        _extendStatics2 = Object.setPrototypeOf || {
-          __proto__: []
-        } instanceof Array && function (d, b) {
-          d.__proto__ = b;
-        } || function (d, b) {
-          for (var p in b) {
-            if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-          }
-        };
-
-        return _extendStatics2(d, b);
-      };
-
-      return function (d, b) {
-        if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-
-        _extendStatics2(d, b);
-
-        function __() {
-          this.constructor = d;
-        }
-
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-
-    var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
-      var c = arguments.length,
-          r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-          d;
-      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-      }
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-
-    var __metadata = this && this.__metadata || function (k, v) {
-      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-    };
-
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    exports.PaymentConfirmPageCreateApp = void 0;
-
-    var inversify_1 = __webpack_require__(
-    /*! inversify */
-    "./node_modules/inversify/lib/inversify.js");
-
-    var MbwayCountDown_1 = __webpack_require__(
-    /*! ../classes/MbwayCountDown */
-    "./_dev/js/classes/MbwayCountDown.ts");
-
-    var inversify_PaymentConfirmPage_1 = __webpack_require__(
-    /*! ../container/inversify.PaymentConfirmPage */
-    "./_dev/js/container/inversify.PaymentConfirmPage.ts");
-
-    var AppComponent_1 = __webpack_require__(
-    /*! ../decorators/AppComponent */
-    "./_dev/js/decorators/AppComponent.ts");
-
-    var MainApp_1 = __webpack_require__(
-    /*! ./MainApp */
-    "./_dev/js/facades/MainApp.ts");
-
-    var PaymentConfirmPageCreateApp =
-    /** @class */
-    function (_super) {
-      __extends(PaymentConfirmPageCreateApp, _super);
-
-      function PaymentConfirmPageCreateApp() {
-        var _this = _super.call(this) || this;
-
-        _this.container = inversify_PaymentConfirmPage_1["default"];
-        return _this;
-      }
-
-      PaymentConfirmPageCreateApp.prototype.start = function () {};
-
-      PaymentConfirmPageCreateApp = __decorate([(0, inversify_1.injectable)(), (0, AppComponent_1.AppComponent)({
-        pageEvents: [],
-        apps: [MbwayCountDown_1.MbwayCountdown]
-      }), __metadata("design:paramtypes", [])], PaymentConfirmPageCreateApp);
-      return PaymentConfirmPageCreateApp;
-    }(MainApp_1.MainApp);
-
-    exports.PaymentConfirmPageCreateApp = PaymentConfirmPageCreateApp;
-    /***/
-  },
-
-  /***/
-  "./_dev/js/mbwayCountdownConfirmPage.ts":
-  /*!**********************************************!*\
-    !*** ./_dev/js/mbwayCountdownConfirmPage.ts ***!
-    \**********************************************/
-
-  /*! no static exports found */
-
-  /***/
-  function _devJsMbwayCountdownConfirmPageTs(module, exports, __webpack_require__) {
-    "use strict";
-    /**
-    * 2007-2022 Ifthenpay Lda
-    *
-    * NOTICE OF LICENSE
-    *
-    * This source file is subject to the Academic Free License (AFL 3.0)
-    * that is bundled with this package in the file LICENSE.txt.
-    * It is also available through the world-wide-web at this URL:
-    * http://opensource.org/licenses/afl-3.0.php
-    * If you did not receive a copy of the license and are unable to
-    * obtain it through the world-wide-web, please send an email
-    * to license@prestashop.com so we can send you a copy immediately.
-    *
-    * DISCLAIMER
-    *
-    * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-    * versions in the future. If you wish to customize PrestaShop for your
-    * needs please refer to http://www.prestashop.com for more information.
-    *
-    *  @copyright 2007-2022 Ifthenpay Lda
-    *  @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
-    *  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
-    */
-
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-
-    __webpack_require__(
-    /*! reflect-metadata */
-    "./node_modules/reflect-metadata/Reflect.js");
-
-    var inversify_PaymentConfirmPage_1 = __webpack_require__(
-    /*! ./container/inversify.PaymentConfirmPage */
-    "./_dev/js/container/inversify.PaymentConfirmPage.ts");
-
-    var PaymentConfirmPageCreateApp_1 = __webpack_require__(
-    /*! ./facades/PaymentConfirmPageCreateApp */
-    "./_dev/js/facades/PaymentConfirmPageCreateApp.ts");
-
-    $(document).ready(function () {
-      var app = inversify_PaymentConfirmPage_1["default"].get(PaymentConfirmPageCreateApp_1.PaymentConfirmPageCreateApp);
-      app.start();
-    });
-    /***/
-  },
-
-  /***/
-  "./_dev/js/services/HttpService.ts":
-  /*!*****************************************!*\
-    !*** ./_dev/js/services/HttpService.ts ***!
-    \*****************************************/
-
-  /*! no static exports found */
-
-  /***/
-  function _devJsServicesHttpServiceTs(module, exports, __webpack_require__) {
-    "use strict";
-    /**
-    * 2007-2022 Ifthenpay Lda
-    *
-    * NOTICE OF LICENSE
-    *
-    * This source file is subject to the Academic Free License (AFL 3.0)
-    * that is bundled with this package in the file LICENSE.txt.
-    * It is also available through the world-wide-web at this URL:
-    * http://opensource.org/licenses/afl-3.0.php
-    * If you did not receive a copy of the license and are unable to
-    * obtain it through the world-wide-web, please send an email
-    * to license@prestashop.com so we can send you a copy immediately.
-    *
-    * DISCLAIMER
-    *
-    * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-    * versions in the future. If you wish to customize PrestaShop for your
-    * needs please refer to http://www.prestashop.com for more information.
-    *
-    *  @copyright 2007-2022 Ifthenpay Lda
-    *  @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
-    *  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
-    */
-
-    var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
-      var c = arguments.length,
-          r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-          d;
-      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-      }
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-    exports.HttpService = void 0;
-
-    var inversify_1 = __webpack_require__(
-    /*! inversify */
-    "./node_modules/inversify/lib/inversify.js");
-
-    var HttpService =
-    /** @class */
-    function () {
-      function HttpService() {}
-
-      HttpService.prototype.get = function () {
-        return $.ajax({
-          url: this.url,
-          type: 'GET',
-          dataType: 'json'
-        });
-      };
-
-      HttpService.prototype.post = function (data) {
-        return $.ajax({
-          url: this.url,
-          type: 'POST',
-          cache: false,
-          data: data,
-          dataType: 'json'
-        });
-      };
-
-      HttpService.prototype.setUrl = function (url) {
-        this.url = url;
-      };
-
-      HttpService = __decorate([(0, inversify_1.injectable)()], HttpService);
-      return HttpService;
-    }();
-
-    exports.HttpService = HttpService;
     /***/
   },
 
@@ -6444,18 +6576,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   },
 
   /***/
-  3:
-  /*!****************************************************!*\
-    !*** multi ./_dev/js/mbwayCountdownConfirmPage.ts ***!
-    \****************************************************/
+  2:
+  /*!***********************************************!*\
+    !*** multi ./_dev/js/adminOrderDetailPage.ts ***!
+    \***********************************************/
 
   /*! no static exports found */
 
   /***/
   function _(module, exports, __webpack_require__) {
     module.exports = __webpack_require__(
-    /*! /home/devilbox/data/www/prestashop_17/htdocs/modules/ifthenpay/_dev/js/mbwayCountdownConfirmPage.ts */
-    "./_dev/js/mbwayCountdownConfirmPage.ts");
+    /*! /shared/httpd/prestashop17/htdocs/modules/ifthenpay/_dev/js/adminOrderDetailPage.ts */
+    "./_dev/js/adminOrderDetailPage.ts");
     /***/
   }
   /******/

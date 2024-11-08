@@ -39,6 +39,7 @@ use PrestaShop\Module\Ifthenpay\Payments\Data\PayshopCancelOrder;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MultibancoCancelOrder;
 use PrestaShop\Module\Ifthenpay\Payments\Data\CofidisCancelOrder;
 use PrestaShop\Module\Ifthenpay\Payments\Data\IfthenpaygatewayCancelOrder;
+use PrestaShop\Module\Ifthenpay\Payments\Data\PixCancelOrder;
 use PrestaShop\Module\Ifthenpay\Config\IfthenpayControllersTabs;
 
 class ConfigFactory
@@ -100,4 +101,9 @@ class ConfigFactory
         return new IfthenpaygatewayCancelOrder();
     }
 
+
+	public static function buildCancelPixOrder()
+    {
+        return new PixCancelOrder();
+    }
 }

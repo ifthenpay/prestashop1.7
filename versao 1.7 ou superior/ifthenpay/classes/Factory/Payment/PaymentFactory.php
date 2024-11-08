@@ -36,6 +36,7 @@ use PrestaShop\Module\Ifthenpay\Payments\MbWay;
 use PrestaShop\Module\Ifthenpay\Payments\Payshop;
 use PrestaShop\Module\Ifthenpay\Payments\Multibanco;
 use PrestaShop\Module\Ifthenpay\Payments\Ifthenpaygateway;
+use PrestaShop\Module\Ifthenpay\Payments\Pix;
 
 class PaymentFactory
 {
@@ -54,6 +55,8 @@ class PaymentFactory
 				return new CofidisPay($data, $orderId, $valor);
 			case 'ifthenpaygateway':
 				return new Ifthenpaygateway($data, $orderId, $valor);
+				case 'pix':
+					return new Pix($data, $orderId, $valor);
 
 			default:
 				throw new \Exception("Unknown Payment Class");

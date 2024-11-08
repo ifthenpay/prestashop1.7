@@ -228,6 +228,7 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
 			$mbwayTransactionId = Tools::getValue('mbway_transaction_id');
 			$payshopTransactionId = Tools::getValue('payshop_transaction_id');
 			$cofidispayTransactionId = Tools::getValue('cofidis_transaction_id');
+			$pixTransactionId = Tools::getValue('pix_transaction_id');
 			$orderId = Tools::getValue('order_id');
 
 
@@ -278,6 +279,12 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
 
 			if ($method === 'ifthenpaygateway') {
 				$callbackUrl = str_replace('[ID]', $orderId, $callbackUrl);
+				$callbackUrl = str_replace('[AMOUNT]', $amount, $callbackUrl);
+			}
+
+
+			if ($method === 'pix') {
+				$callbackUrl = str_replace('[REQUEST_ID]', $pixTransactionId, $callbackUrl);
 				$callbackUrl = str_replace('[AMOUNT]', $amount, $callbackUrl);
 			}
 

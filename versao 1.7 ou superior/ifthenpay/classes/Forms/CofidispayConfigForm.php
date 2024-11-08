@@ -59,7 +59,7 @@ class CofidispayConfigForm extends ConfigForm
 			'type' => 'select',
 			'label' => $this->ifthenpayModule->l('Cofidis Pay key', pathinfo(__FILE__)['filename']),
 			'desc' => $this->ifthenpayModule->l('Choose Cofidis Pay key', pathinfo(__FILE__)['filename']),
-			'name' => 'IFTHENPAY_COFIDIS_KEY',
+			'name' => 'IFTHENPAY_COFIDISPAY_KEY',
 			'id' => 'ifthenpayCofidisKey',
 			'required' => true,
 			'options' => [
@@ -73,7 +73,7 @@ class CofidispayConfigForm extends ConfigForm
 		$this->form['form']['input'][] = [
 			'type' => 'switch',
 			'label' => $this->ifthenpayModule->l('Cancel Cofidis Pay Order', pathinfo(__FILE__)['filename']),
-			'name' => 'IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT',
+			'name' => 'IFTHENPAY_COFIDISPAY_CANCEL_ORDER_AFTER_TIMEOUT',
 			'desc' => $this->ifthenpayModule->l('Cancel order if not payed within 60 minutes after confirmation. This is triggered when admin visits the order list page.', pathinfo(__FILE__)['filename']),
 			'is_bool' => true,
 			'values' => [
@@ -110,8 +110,8 @@ class CofidispayConfigForm extends ConfigForm
 	protected function getConfigFormValues()
 	{
 		return array_merge(parent::getCommonConfigFormValues(), [
-			'IFTHENPAY_COFIDIS_KEY' => \Configuration::get('IFTHENPAY_COFIDIS_KEY'),
-			'IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT' => \Configuration::get('IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT')
+			'IFTHENPAY_COFIDISPAY_KEY' => \Configuration::get('IFTHENPAY_COFIDISPAY_KEY'),
+			'IFTHENPAY_COFIDISPAY_CANCEL_ORDER_AFTER_TIMEOUT' => \Configuration::get('IFTHENPAY_COFIDISPAY_CANCEL_ORDER_AFTER_TIMEOUT')
 		]);
 	}
 
@@ -121,18 +121,18 @@ class CofidispayConfigForm extends ConfigForm
 		parent::assignSmartyPayMethodsCommonVars();
 
 		// specific to this payment method
-		\Context::getContext()->smarty->assign('cofidisKey', \Configuration::get('IFTHENPAY_COFIDIS_KEY'));
+		\Context::getContext()->smarty->assign('cofidisKey', \Configuration::get('IFTHENPAY_COFIDISPAY_KEY'));
 	}
 
 
 
 	public function setGatewayBuilderData()
 	{
-		$getCofidisKeyFromRequest = \Tools::getValue('IFTHENPAY_COFIDIS_KEY');
+		$getCofidisKeyFromRequest = \Tools::getValue('IFTHENPAY_COFIDISPAY_KEY');
 
 		parent::setGatewayBuilderData();
 		$this->gatewayDataBuilder->setEntidade(\Tools::strtoupper('COFIDIS'));
-		$this->gatewayDataBuilder->setSubEntidade($getCofidisKeyFromRequest ? $getCofidisKeyFromRequest : \Configuration::get('IFTHENPAY_COFIDIS_KEY'));
+		$this->gatewayDataBuilder->setSubEntidade($getCofidisKeyFromRequest ? $getCofidisKeyFromRequest : \Configuration::get('IFTHENPAY_COFIDISPAY_KEY'));
 	}
 
 	public function processForm()
@@ -142,8 +142,8 @@ class CofidispayConfigForm extends ConfigForm
 			$this->setGatewayBuilderData();
 
 			// save specific values
-			\Configuration::updateValue('IFTHENPAY_COFIDIS_KEY', $this->gatewayDataBuilder->getData()->subEntidade);
-			\Configuration::updateValue('IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT', \Tools::getValue('IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT'));
+			\Configuration::updateValue('IFTHENPAY_COFIDISPAY_KEY', $this->gatewayDataBuilder->getData()->subEntidade);
+			\Configuration::updateValue('IFTHENPAY_COFIDISPAY_CANCEL_ORDER_AFTER_TIMEOUT', \Tools::getValue('IFTHENPAY_COFIDISPAY_CANCEL_ORDER_AFTER_TIMEOUT'));
 
 
 			$this->setIfthenpayCallback();
@@ -174,7 +174,7 @@ class CofidispayConfigForm extends ConfigForm
 			return false;
 		}
 
-		$cofidisKey = \Tools::getValue('IFTHENPAY_COFIDIS_KEY');
+		$cofidisKey = \Tools::getValue('IFTHENPAY_COFIDISPAY_KEY');
 		$minimum = \Tools::getValue('IFTHENPAY_' . strtoupper($this->paymentMethod) . '_MINIMUM');
 		$maximum = \Tools::getValue('IFTHENPAY_' . strtoupper($this->paymentMethod) . '_MAXIMUM');
 
@@ -201,8 +201,8 @@ class CofidispayConfigForm extends ConfigForm
 	public function deleteConfigValues()
 	{
 		$this->deleteCommonConfigValues();
-		\Configuration::deleteByName('IFTHENPAY_COFIDIS_KEY');
-		\Configuration::deleteByName('IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT');
+		\Configuration::deleteByName('IFTHENPAY_COFIDISPAY_KEY');
+		\Configuration::deleteByName('IFTHENPAY_COFIDISPAY_CANCEL_ORDER_AFTER_TIMEOUT');
 
 	}
 }

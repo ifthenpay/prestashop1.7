@@ -55,7 +55,7 @@ class Callback
 		$this->subEntidade = $data->getData()->subEntidade;
 
 		$this->urlCallbackParameters = [
-			'multibanco' => '?' . $this->toHttpQuery(
+			'multibanco' => $this->toHttpQuery(
 				[
 					Cb::TYPE => 'offline',
 					Cb::ECOMMERCE_VERSION => '{ec}',
@@ -69,7 +69,7 @@ class Callback
 					Cb::PM => '[PAYMENT_METHOD]',
 				]
 			),
-			'mbway' => '?' . $this->toHttpQuery(
+			'mbway' => $this->toHttpQuery(
 				[
 					Cb::TYPE => 'offline',
 					Cb::ECOMMERCE_VERSION => '{ec}',
@@ -82,7 +82,7 @@ class Callback
 					Cb::PM => '[PAYMENT_METHOD]',
 				]
 			),
-			'payshop' => '?' . $this->toHttpQuery(
+			'payshop' => $this->toHttpQuery(
 				[
 					Cb::TYPE => 'offline',
 					Cb::ECOMMERCE_VERSION => '{ec}',
@@ -96,7 +96,7 @@ class Callback
 					Cb::PM => '[PAYMENT_METHOD]',
 				]
 			),
-			'ccard' => '?' . $this->toHttpQuery(
+			'ccard' => $this->toHttpQuery(
 				[
 					Cb::TYPE => 'offline',
 					Cb::ECOMMERCE_VERSION => '{ec}',
@@ -109,7 +109,7 @@ class Callback
 					Cb::PM => '[PAYMENT_METHOD]',
 				]
 			),
-			'cofidispay' => '?' . $this->toHttpQuery(
+			'cofidispay' => $this->toHttpQuery(
 				[
 					Cb::TYPE => 'offline',
 					Cb::ECOMMERCE_VERSION => '{ec}',
@@ -122,7 +122,7 @@ class Callback
 					Cb::PM => '[PAYMENT_METHOD]',
 				]
 			),
-			'ifthenpaygateway' => '?' . $this->toHttpQuery(
+			'ifthenpaygateway' => $this->toHttpQuery(
 				[
 					Cb::TYPE => 'offline',
 					Cb::ECOMMERCE_VERSION => '{ec}',
@@ -132,6 +132,19 @@ class Callback
 					Cb::ORDER_ID => '[ID]',
 					Cb::ENTITY => '[ENTITY]',
 					Cb::REFERENCE => '[REFERENCE]',
+					Cb::TRANSACTION_ID => '[REQUEST_ID]',
+					Cb::AMOUNT => '[AMOUNT]',
+					Cb::PM => '[PAYMENT_METHOD]',
+				]
+			),
+			'pix' => $this->toHttpQuery(
+				[
+					Cb::TYPE => 'offline',
+					Cb::ECOMMERCE_VERSION => '{ec}',
+					Cb::MODULE_VERSION => '{mv}',
+					Cb::PAYMENT => '{paymentMethod}',
+					Cb::ANTIPHISH_KEY => '[ANTI_PHISHING_KEY]',
+					Cb::ORDER_ID => '[ID]',
 					Cb::TRANSACTION_ID => '[REQUEST_ID]',
 					Cb::AMOUNT => '[AMOUNT]',
 					Cb::PM => '[PAYMENT_METHOD]',
@@ -157,8 +170,12 @@ class Callback
 		$paramStr = str_replace('{mv}', $moduleVersion, $paramStr);
 
 
-
-		$this->urlCallback = $moduleLink . $paramStr;
+		// condition to take into account uglyfied URLs, a prestashop setting at Shop Parameters > Traffic & SEO > Friendly URL
+		if (strpos($moduleLink, '?') === true) {
+			$this->urlCallback = $moduleLink . '&' . $paramStr;
+		} else {
+			$this->urlCallback = $moduleLink . '?' . $paramStr;
+		}
 	}
 
 	private function activateCallback()

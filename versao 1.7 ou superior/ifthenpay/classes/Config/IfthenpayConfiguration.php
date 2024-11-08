@@ -65,17 +65,19 @@ class IfthenpayConfiguration implements InstallerInterface
 
 		foreach ($this->userPaymentMethods as $paymentMethod) {
 			if ($paymentMethod) {
+				$methodName = \Tools::strtoupper($paymentMethod);
 
-				\Configuration::deleteByName('IFTHENPAY_' . \Tools::strtoupper($paymentMethod) . '_OS_WAITING');
-				\Configuration::deleteByName('IFTHENPAY_' . \Tools::strtoupper($paymentMethod) . '_OS_CONFIRMED');
-				\Configuration::deleteByName('IFTHENPAY_' . \Tools::strtoupper($paymentMethod));
+				\Configuration::deleteByName('IFTHENPAY_' . $methodName);
+				\Configuration::deleteByName('IFTHENPAY_' . $methodName . '_OS_WAITING');
+				\Configuration::deleteByName('IFTHENPAY_' . $methodName . '_OS_CONFIRMED');
 
-				\Configuration::deleteByName('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . strtoupper($paymentMethod));
-				\Configuration::deleteByName('IFTHENPAY_' . strtoupper($paymentMethod . '_MINIMUM'));
-				\Configuration::deleteByName('IFTHENPAY_' . strtoupper($paymentMethod . '_MAXIMUM'));
-				\Configuration::deleteByName('IFTHENPAY_' . strtoupper($paymentMethod . '_COUNTRIES'));
-				\Configuration::deleteByName('IFTHENPAY_' . strtoupper($paymentMethod . '_ORDER'));
-				\Configuration::deleteByName('IFTHENPAY_' . strtoupper($paymentMethod));
+				\Configuration::deleteByName('IFTHENPAY_CALLBACK_ACTIVATED_FOR_' . $methodName);
+				\Configuration::deleteByName('IFTHENPAY_' . $methodName . '_MINIMUM');
+				\Configuration::deleteByName('IFTHENPAY_' . $methodName . '_MAXIMUM');
+				\Configuration::deleteByName('IFTHENPAY_' . $methodName . '_COUNTRIES');
+				\Configuration::deleteByName('IFTHENPAY_' . $methodName . '_ORDER');
+				\Configuration::deleteByName('IFTHENPAY_ACTIVATE_NEW_' . $methodName . '_ACCOUNT');
+
 
 				switch ($paymentMethod) {
 					case 'multibanco':
@@ -85,8 +87,8 @@ class IfthenpayConfiguration implements InstallerInterface
 						\Configuration::deleteByName('IFTHENPAY_MULTIBANCO_URL_CALLBACK');
 						\Configuration::deleteByName('IFTHENPAY_MULTIBANCO_CHAVE_ANTI_PHISHING');
 						\Configuration::deleteByName('IFTHENPAY_MULTIBANCO_CANCEL_ORDER_AFTER_TIMEOUT');
-
 						break;
+
 					case 'mbway':
 						\Configuration::deleteByName('IFTHENPAY_MBWAY_KEY');
 						\Configuration::deleteByName('IFTHENPAY_MBWAY_URL_CALLBACK');
@@ -94,8 +96,8 @@ class IfthenpayConfiguration implements InstallerInterface
 						\Configuration::deleteByName('IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT');
 						\Configuration::deleteByName('IFTHENPAY_MBWAY_SHOW_COUNTDOWN');
 						\Configuration::deleteByName('IFTHENPAY_MBWAY_CANCEL_ORDER_AFTER_TIMEOUT');
-
 						break;
+
 					case 'payshop':
 						\Configuration::deleteByName('IFTHENPAY_PAYSHOP_KEY');
 						\Configuration::deleteByName('IFTHENPAY_PAYSHOP_VALIDADE');
@@ -103,13 +105,20 @@ class IfthenpayConfiguration implements InstallerInterface
 						\Configuration::deleteByName('IFTHENPAY_PAYSHOP_CHAVE_ANTI_PHISHING');
 						\Configuration::deleteByName('IFTHENPAY_PAYSHOP_CANCEL_ORDER_AFTER_TIMEOUT');
 						break;
+
 					case 'ccard':
 						\Configuration::deleteByName('IFTHENPAY_CCARD_KEY');
 						\Configuration::deleteByName('IFTHENPAY_CCARD_CANCEL_ORDER_AFTER_TIMEOUT');
 						break;
+
 					case 'cofidispay':
-						\Configuration::deleteByName('IFTHENPAY_COFIDIS_KEY');
-						\Configuration::deleteByName('IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT');
+						\Configuration::deleteByName('IFTHENPAY_COFIDISPAY_KEY');
+						\Configuration::deleteByName('IFTHENPAY_COFIDISPAY_CANCEL_ORDER_AFTER_TIMEOUT');
+						\Configuration::deleteByName('IFTHENPAY_' . $methodName . '_OS_NOT_APPROVED');
+						\Configuration::deleteByName('IFTHENPAY_COFIDISPAY_URL_CALLBACK');
+						\Configuration::deleteByName('IFTHENPAY_COFIDISPAY_CHAVE_ANTI_PHISHING');
+						break;
+
 					case 'ifthenpaygateway':
 						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_KEY');
 						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_METHODS');
@@ -119,8 +128,17 @@ class IfthenpayConfiguration implements InstallerInterface
 						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_CANCEL_ORDER_AFTER_TIMEOUT');
 						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_SHOW_LOGO');
 						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_TITLE');
-
+						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_URL_CALLBACK');
+						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_CHAVE_ANTI_PHISHING');
 						break;
+
+					case 'pix':
+						\Configuration::deleteByName('IFTHENPAY_PIX_KEY');
+						\Configuration::deleteByName('IFTHENPAY_PIX_CANCEL_ORDER_AFTER_TIMEOUT');
+						\Configuration::deleteByName('IFTHENPAY_PIX_URL_CALLBACK');
+						\Configuration::deleteByName('IFTHENPAY_PIX_CHAVE_ANTI_PHISHING');
+						break;
+
 					default:
 				}
 			}

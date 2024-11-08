@@ -24,42 +24,39 @@
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-namespace PrestaShop\Module\Ifthenpay\Factory\Callback;
+
+namespace PrestaShop\Module\Ifthenpay\Callback;
 
 if (!defined('_PS_VERSION_')) {
 	exit;
 }
 
-use PrestaShop\Module\Ifthenpay\Callback\CallbackDataCCard;
-use PrestaShop\Module\Ifthenpay\Callback\CallbackDataCofidispay;
-use PrestaShop\Module\Ifthenpay\Callback\CallbackDataMbway;
-use PrestaShop\Module\Ifthenpay\Callback\CallbackDataMultibanco;
-use PrestaShop\Module\Ifthenpay\Callback\CallbackDataPayshop;
-use PrestaShop\Module\Ifthenpay\Callback\CallbackDataIfthenpaygateway;
-use PrestaShop\Module\Ifthenpay\Callback\CallbackDataPix;
+use PrestaShop\Module\Ifthenpay\Factory\Models\IfthenpayModelFactory;
 use PrestaShop\Module\Ifthenpay\Contracts\Callback\CallbackDataInterface;
+use PrestaShop\Module\Ifthenpay\Callback\CallbackVars as Cb;
 
-class CallbackDataFactory
+class CallbackDataPix implements CallbackDataInterface
 {
-	public static function build($type)
+	public function getData($request)
 	{
-		switch ($type) {
-			case 'multibanco':
-				return new CallbackDataMultibanco();
-			case 'mbway':
-				return new CallbackDataMbway();
-			case 'payshop':
-				return new CallbackDataPayshop();
-			case 'ccard':
-				return new CallbackDataCCard();
-			case 'cofidispay':
-				return new CallbackDataCofidispay();
-			case 'ifthenpaygateway':
-				return new CallbackDataIfthenpaygateway();
-			case 'pix':
-				return new CallbackDataPix();
+		$model = IfthenpayModelFactory::build('pix');
+
+		switch ($request['type']) {
+			case 'online':
+				return $model->getByOrderId($request['orderId']);
+
+			case 'offline':
+
+				$data = $model->getPixByRequestId($request[Cb::TRANSACTION_ID]);
+
+				if (!empty($data)) {
+					return $data;
+				}
+
+				return $model->getByOrderId($request[Cb::ORDER_ID]);
+
 			default:
-				throw new \Exception('Unknown Callback Data Class');
+				throw new \Exception('Invalid request type when obtaining callback data');
 		}
 	}
 }

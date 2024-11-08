@@ -36,6 +36,7 @@ use PrestaShop\Module\Ifthenpay\Payments\Data\MbwayPaymentReturn;
 use PrestaShop\Module\Ifthenpay\Payments\Data\PayshopPaymentReturn;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MultibancoPaymentReturn;
 use PrestaShop\Module\Ifthenpay\Payments\Data\IfthenpaygatewayPaymentReturn;
+use PrestaShop\Module\Ifthenpay\Payments\Data\PixPaymentReturn;
 
 class PaymentReturnFactory
 {
@@ -84,6 +85,13 @@ class PaymentReturnFactory
 				);
 			case 'ifthenpaygateway':
 				return new IfthenpaygatewayPaymentReturn(
+					$ifthenpayModule,
+					$paymentDefaultData,
+					$smartyDefaultData,
+					$emailDefaultData
+				);
+			case 'pix':
+				return new PixPaymentReturn(
 					$ifthenpayModule,
 					$paymentDefaultData,
 					$smartyDefaultData,

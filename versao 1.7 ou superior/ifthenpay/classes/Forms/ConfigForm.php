@@ -471,12 +471,12 @@ abstract class ConfigForm
 		$maximum = \Tools::getValue('IFTHENPAY_' . strtoupper($this->paymentMethod) . '_MAXIMUM');
 		$order = \Tools::getValue('IFTHENPAY_' . strtoupper($this->paymentMethod) . '_ORDER');
 
-		if (!preg_match("/^[0-9]+([.][0-9]{3})*$/", $minimum) && $minimum != '') {
+		if (!preg_match("/^[0-9]+([.][0-9]+)?$/", $minimum) && $minimum != '') {
 			Utility::setPrestashopCookie('error', 'Inputted Minimum Order Value is not valid', pathinfo(__FILE__)['filename']);
 			return false;
 		}
 
-		if (!preg_match("/^[0-9]+([.][0-9]{3})*$/", $maximum) && $maximum != '') {
+		if (!preg_match("/^[0-9]+([.][0-9]+)?$/", $maximum) && $maximum != '') {
 			Utility::setPrestashopCookie('error', 'Inputted Maximum Order Value is not valid', pathinfo(__FILE__)['filename']);
 			return false;
 		}

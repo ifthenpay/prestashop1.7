@@ -39,7 +39,7 @@
 					<h3>:</h3>
 					<h3 id="countdownSeconds"></h3>
 				</div>
-				<p>{l s='If you do not confirm payment in 5 minutes, the payment notification will expire.' mod='ifthenpay'}</p>
+				<p>{l s='If you do not confirm payment in 4 minutes, the payment notification will expire.' mod='ifthenpay'}</p>
 			</div>
 		</div>
 		<div id="confirmMbwayOrder" class="panel" style="display:none;">

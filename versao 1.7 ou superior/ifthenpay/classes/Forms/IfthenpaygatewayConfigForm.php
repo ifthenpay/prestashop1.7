@@ -146,8 +146,8 @@ class IfthenpaygatewayConfigForm extends ConfigForm
 			'name' => 'IFTHENPAY_IFTHENPAYGATEWAY_SHOW_LOGO',
 			'options' => [
 				'query' => [
-					['id' => '1', 'name' => $this->ifthenpayModule->l('Enabled - Use Default Image', pathinfo(__FILE__)['filename'])],
-					['id' => '0', 'name' => $this->ifthenpayModule->l('Disabled - Use Payment Method Title', pathinfo(__FILE__)['filename'])],
+					['id' => '0', 'name' => $this->ifthenpayModule->l('Enabled - Use Default Image', pathinfo(__FILE__)['filename'])],
+					['id' => '1', 'name' => $this->ifthenpayModule->l('Disabled - Use Payment Method Title', pathinfo(__FILE__)['filename'])],
 					['id' => 'composite', 'name' => $this->ifthenpayModule->l('Enabled - Use Generated Composite Image', pathinfo(__FILE__)['filename'])],
 				],
 				'id' => 'id',

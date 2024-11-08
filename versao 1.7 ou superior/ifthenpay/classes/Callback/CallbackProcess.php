@@ -30,6 +30,7 @@ use PrestaShop\Module\Ifthenpay\Log\IfthenpayLogProcess;
 use PrestaShop\Module\Ifthenpay\Factory\Callback\CallbackFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Models\IfthenpayModelFactory;
 use PrestaShop\Module\Ifthenpay\Factory\Prestashop\PrestashopModelFactory;
+use PrestaShop\Module\Ifthenpay\Factory\Database\DatabaseFactory;
 
 if (!defined('_PS_VERSION_')) {
 	exit;
@@ -93,6 +94,8 @@ class CallbackProcess
 		if ($this->paymentMethod == 'cofidispay' && isset($this->paymentData['transaction_id'])) {
 			$ifthenpayModel->transaction_id = $this->paymentData['transaction_id'];
 		}
+
+
 		$ifthenpayModel->status = $status;
 		$ifthenpayModel->update();
 	}
@@ -115,5 +118,33 @@ class CallbackProcess
 		$this->request = $request;
 
 		return $this;
+	}
+
+	/**
+	 *  especially used to change split orders
+	 */
+	protected function changePrestashopOrderStatusByOrderId($statusId, $orderId)
+	{
+		$new_history = PrestashopModelFactory::buildOrderHistory();
+		$new_history->id_order = (int) $orderId;
+		$new_history->changeIdOrderState((int) $statusId, (int) $orderId);
+		$new_history->addWithemail(true);
+	}
+
+
+	/**
+	 * Get orders that have been created from one that had products tied to different shipping methods and thus were created separately
+	 * Used to process single callback and update order status for both
+	 */
+	protected function getSplitOrders($reference, $cartId)
+	{
+		$query = DatabaseFactory::buildDbQuery();
+		$query->select('*');
+		$query->from('orders');
+		$query->where('`reference` = \'' . pSQL($reference) . '\' AND `id_cart` = ' . (int) $cartId);
+
+		$orders = \Db::getInstance()->executeS($query);
+
+		return $orders;
 	}
 }

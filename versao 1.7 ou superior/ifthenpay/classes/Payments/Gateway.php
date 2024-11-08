@@ -39,7 +39,7 @@ class Gateway
 {
 	private $webservice;
 	private $account;
-	private $paymentMethods = ['multibanco', 'mbway', 'payshop', 'ccard', 'cofidispay', 'ifthenpay', 'ifthenpaygateway'];
+	private $paymentMethods = ['multibanco', 'mbway', 'payshop', 'ccard', 'cofidispay', 'ifthenpay', 'ifthenpaygateway', 'pix'];
 	private $previousModulePaymentMethods = ['pagamento por multibanco', 'pagamento por mbway', 'pagamento por payshop'];
 	private $aliasPaymentMethods = [
 		'multibanco' => [
@@ -83,6 +83,13 @@ class Gateway
 			'pt' => 'Ifthenpay Gateway',
 			'es' => 'Ifthenpay Gateway',
 			'de' => 'Ifthenpay Gateway'
+		],
+		'pix' => [
+			'gb' => 'Pix',
+			'en' => 'Pix',
+			'pt' => 'Pix',
+			'es' => 'Pix',
+			'de' => 'Pix'
 		],
 	];
 

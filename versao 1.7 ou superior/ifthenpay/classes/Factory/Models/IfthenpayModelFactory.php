@@ -37,6 +37,7 @@ use PrestaShop\Module\Ifthenpay\Models\IfthenpayMbway;
 use PrestaShop\Module\Ifthenpay\Models\IfthenpayPayshop;
 use PrestaShop\Module\Ifthenpay\Models\IfthenpayMultibanco;
 use PrestaShop\Module\Ifthenpay\Models\IfthenpayIfthenpaygateway;
+use PrestaShop\Module\Ifthenpay\Models\IfthenpayPix;
 
 class IfthenpayModelFactory
 {
@@ -55,6 +56,8 @@ class IfthenpayModelFactory
 				return new IfthenpayCofidispay($modelId);
 			case 'ifthenpaygateway':
 				return new IfthenpayIfthenpaygateway($modelId);
+			case 'pix':
+				return new IfthenpayPix($modelId);
 			case 'log':
 				return new IfthenpayLog($modelId);
 			default:

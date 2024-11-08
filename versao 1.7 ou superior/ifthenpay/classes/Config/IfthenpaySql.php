@@ -94,7 +94,35 @@ class IfthenpaySql implements InstallerInterface
             PRIMARY KEY  (`id_ifthenpay_ifthenpaygateway`),
             INDEX `order_id` (`order_id`)
           ) ENGINE=MyISAM DEFAULT CHARSET=utf8;',
+		'pix' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_pix` (
+            `id_ifthenpay_pix` int(10) unsigned NOT NULL auto_increment,
+            `requestId` varchar(50) NOT NULL,
+            `order_id` int(11) NOT NULL,
+            `status` varchar(50) NOT NULL,
+            PRIMARY KEY  (`id_ifthenpay_pix`),
+            INDEX `requestId` (`requestId`)
+          ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
 	];
+
+
+	private $tempSqlTable = [
+		'pix' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_temp_pix` (
+            `id_ifthenpay_temp_pix` int(10) unsigned NOT NULL auto_increment,
+			`cartId` varchar(50) NOT NULL,
+			`customerName` varchar(255),
+			`customerCpf` varchar(14),
+			`customerEmail` varchar(255),
+			`customerPhone` varchar(20),
+			`customerAddress` varchar(250),
+			`customerStreetNumber` varchar(20),
+			`customerCity` varchar(20),
+			`customerZipCode` varchar(20),
+			`customerState` varchar(50),
+            PRIMARY KEY  (`id_ifthenpay_temp_pix`),
+            INDEX `customerCpf` (`customerCpf`)
+          ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
+	];
+
 
 	private $storeSql = [
 		'multibanco' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_multibanco_shop` (
@@ -126,6 +154,11 @@ class IfthenpaySql implements InstallerInterface
             `id_ifthenpay_ifthenpaygateway` int(10) unsigned NOT NULL auto_increment,
             `id_shop` int(10) unsigned NOT NULL,
             PRIMARY KEY (`id_ifthenpay_ifthenpaygateway`, `id_shop`)
+          ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
+		'pix' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_pix_shop` (
+            `id_ifthenpay_pix` int(10) unsigned NOT NULL auto_increment,
+            `id_shop` int(10) unsigned NOT NULL,
+            PRIMARY KEY (`id_ifthenpay_pix`, `id_shop`)
           ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
 	];
 
@@ -164,6 +197,19 @@ class IfthenpaySql implements InstallerInterface
 		}
 	}
 
+	private function createTempIfthenpaySql()
+	{
+		foreach ($this->userPaymentMethods as $paymentMethod) {
+			if (!$this->tempSqlTable[$paymentMethod]) {
+				continue;
+			}
+			$sql = \Db::getInstance()->execute($this->tempSqlTable[$paymentMethod]);
+			if (!$sql) {
+				throw new \Exception($this->ifthenpayModule->l('Error creating ifthenpay temp payment table!', pathinfo(__FILE__)['filename']));
+			}
+		}
+	}
+
 	public function createIfthenpayLogSql()
 	{
 		$sql = \Db::getInstance()->execute($this->ifthenpaySqlLogTable);
@@ -192,6 +238,20 @@ class IfthenpaySql implements InstallerInterface
 		}
 	}
 
+	private function deleteTempIfthenpaySql()
+	{
+		foreach ($this->userPaymentMethods as $paymentMethod) {
+			if (!$this->tempSqlTable[$paymentMethod]) {
+				continue;
+			}
+
+			$sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_temp_' . $paymentMethod);
+			if (!$sql) {
+				throw new \Exception($this->ifthenpayModule->l('Error deleting temp ifthenpay payment table!', pathinfo(__FILE__)['filename']));
+			}
+		}
+	}
+
 	private function deleteIfthenpayLogSql()
 	{
 		$sql = \Db::getInstance()->execute('DROP TABLE IF EXISTS ' . _DB_PREFIX_ . 'ifthenpay_log');
@@ -203,6 +263,7 @@ class IfthenpaySql implements InstallerInterface
 	public function install()
 	{
 		$this->createIfthenpaySql();
+		$this->createTempIfthenpaySql();
 		$this->createShopSql();
 	}
 
@@ -210,6 +271,7 @@ class IfthenpaySql implements InstallerInterface
 	{
 		if ($this->userPaymentMethods) {
 			$this->deleteIfthenpaySql();
+			$this->deleteTempIfthenpaySql();
 			$this->deleteShopSql();
 		}
 		$this->deleteIfthenpayLogSql();

@@ -25,10 +25,26 @@
 
 <form method="POST" action="{$action}" id="ifthenpay-mbway-payment-form">
 
-  <div class="input-container">
-    <i class="material-icons mbway_icon">smartphone</i>
-    <input id="ifthenpayMbwayPhone" name="ifthenpayMbwayPhone" class="form-control input-field" type="text"
-      placeholder="{l s='MB WAY Mobile Phone Number' mod='ifthenpay'}">
-  </div>
-
+	<small>
+		{l s='Please enter the mobile phone number associated with your MB WAY account' mod='ifthenpay'}
+	</small>
+	<div id="ifthenpayPhoneWrapper" class="input-container">
+		{if not empty($countryCodeOptions)}
+			<select id="ifthenpayMbwayPhoneCode" class="form-control form-control-select" name="ifthenpayMbwayPhoneCode"
+				required="">
+				{foreach $countryCodeOptions as $countryCode}
+					<option value="{$countryCode['value']}" {if $countryCode['value'] == '351'} selected {/if}>
+						{$countryCode['name']}</option>
+				{/foreach}
+			</select>
+			<input id="ifthenpayMbwayPhone" name="ifthenpayMbwayPhone" class="form-control ifthenpay_mbway_phone"
+				type="text" placeholder="{l s='MB WAY Mobile Phone Number' mod='ifthenpay'}">
+		{else}
+			<div class="input-container">
+				<i class="material-icons mbway_icon">smartphone</i>
+				<input id="ifthenpayMbwayPhone" name="ifthenpayMbwayPhone" class="form-control input-field" type="text"
+					placeholder="{l s='MB WAY Mobile Phone Number' mod='ifthenpay'}">
+			</div>
+		{/if}
+	</div>
 </form>

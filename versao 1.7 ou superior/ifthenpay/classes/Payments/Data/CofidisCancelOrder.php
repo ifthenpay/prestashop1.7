@@ -40,7 +40,7 @@ class CofidisCancelOrder
 
 	const COFIDIS_STATUS_EXPIRED = 'EXPIRED';
 	const COFIDIS_ENDPOINT_STATUS = 'https://ifthenpay.com/api/cofidis/status';
-	const CONFIG_IFTHENPAY_COFIDIS_KEY = 'IFTHENPAY_COFIDIS_KEY';
+	const CONFIG_IFTHENPAY_COFIDIS_KEY = 'IFTHENPAY_COFIDISPAY_KEY';
 
 
 	/**
@@ -50,7 +50,7 @@ class CofidisCancelOrder
 	 */
 	public function cancelOrder()
 	{
-		if (\Configuration::get('IFTHENPAY_COFIDIS_CANCEL_ORDER_AFTER_TIMEOUT')) {
+		if (\Configuration::get('IFTHENPAY_COFIDISPAY_CANCEL_ORDER_AFTER_TIMEOUT')) {
 
 			$cofidisModel = IfthenpayModelFactory::build('cofidispay');
 

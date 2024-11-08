@@ -6595,7 +6595,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   /***/
   function _(module, exports, __webpack_require__) {
     module.exports = __webpack_require__(
-    /*! /home/devilbox/data/www/prestashop_17/htdocs/modules/ifthenpay/_dev/js/adminAccountSettingsPage.ts */
+    /*! /shared/httpd/prestashop17/htdocs/modules/ifthenpay/_dev/js/adminAccountSettingsPage.ts */
     "./_dev/js/adminAccountSettingsPage.ts");
     /***/
   }
