@@ -69,8 +69,14 @@ class MbwayBase extends PaymentBase
     protected function setGatewayBuilderData()
     {
         $this->gatewayBuilder->setMbwayKey(\Configuration::get('IFTHENPAY_MBWAY_KEY'));
-        $telemovelFromCart = \Configuration::get('IFTHENPAY_MBWAY_PHONE_' . \Tools::getValue('id_cart'));
-        $telemovelFromOrderCreateBo = \Configuration::get('IFTHENPAY_MBWAY_PHONE_BO_CREATED' . $this->paymentDefaultData->order->id );
+
+		$telemovelFromCart = \Db::getInstance()->getValue(
+			"SELECT value FROM " . _DB_PREFIX_ . "configuration WHERE name = 'IFTHENPAY_MBWAY_PHONE_" . \Tools::getValue('id_cart') . "'"
+		);
+		$telemovelFromOrderCreateBo = \Db::getInstance()->getValue(
+			"SELECT value FROM " . _DB_PREFIX_ . "configuration WHERE name = 'IFTHENPAY_MBWAY_PHONE_BO_CREATED" . $this->paymentDefaultData->order->id . "'"
+		);
+
         if ($telemovelFromOrderCreateBo) {
             $this->gatewayBuilder->setTelemovel($telemovelFromOrderCreateBo);
             \Configuration::deleteByName('IFTHENPAY_MBWAY_PHONE_BO_CREATED' . $this->paymentDefaultData->order->id);

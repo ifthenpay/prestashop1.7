@@ -110,7 +110,7 @@ class IfthenpayMultibanco extends \ObjectModel implements PaymentModelInterface
             ->executeS('SELECT * FROM ' . _DB_PREFIX_  . self::$definition['table'] . ' WHERE (referencia = ' . \pSQL($referencia) . ') ORDER BY ' . self::$definition['primary'] . ' DESC LIMIT 1');
 
 
-        if (is_array($rowOrder)) {
+        if (is_array($rowOrder) && !empty($rowOrder)) {
             return $rowOrder[0];
         } else {
             return array();
@@ -120,7 +120,7 @@ class IfthenpayMultibanco extends \ObjectModel implements PaymentModelInterface
     public static function getAllPendingOrdersWithDeadline()
     {
         $rowOrder = \Db::getInstance()
-            ->executeS('SELECT * FROM `' . _DB_PREFIX_ . 'orders`' 
+            ->executeS('SELECT * FROM `' . _DB_PREFIX_ . 'orders`'
             . ' INNER JOIN `' . _DB_PREFIX_ . 'ifthenpay_multibanco` ON `' . _DB_PREFIX_ . 'orders`.`id_order` = `' . _DB_PREFIX_ . 'ifthenpay_multibanco`.`order_id`'
             . ' WHERE `current_state` = ' . \Configuration::get('IFTHENPAY_MULTIBANCO_OS_WAITING') . ' AND `payment` = "multibanco"');
 
