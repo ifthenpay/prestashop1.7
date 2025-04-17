@@ -49,7 +49,7 @@ class IfthenpaygatewayBase extends PaymentBase
 	protected function saveToDatabase()
 	{
 		$this->paymentModel->payment_url = $this->paymentGatewayResultData->paymentUrl;
-		$this->paymentModel->deadline = $this->paymentGatewayResultData->deadline;
+		$this->paymentModel->deadline = isset($this->paymentGatewayResultData->deadline) ? $this->paymentGatewayResultData->deadline : null;
 		$this->paymentModel->order_id = $this->paymentDefaultData->order->id;
 		$this->paymentModel->status = 'pending';
 		$this->paymentModel->save();
@@ -71,10 +71,8 @@ class IfthenpaygatewayBase extends PaymentBase
 	{
 		$this->emailDefaultData['{mb_logo}'] = _PS_BASE_URL_ . _MODULE_DIR_ . 'ifthenpay/views/img/ifthenpaygateway.png';
 		$this->emailDefaultData['{payment_url}'] = $this->paymentGatewayResultData ? $this->paymentGatewayResultData->paymentUrl : $this->paymentDataFromDb['payment_url'];
-        $this->smartyDefaultData->setDeadline(isset($this->paymentGatewayResultData->deadline) ? (new \DateTime($this->paymentGatewayResultData->deadline))->format('d-m-Y') : '');
 
-		$deadline = isset($this->paymentGatewayResultData->deadline) ? $this->paymentGatewayResultData->deadline : $this->paymentDataFromDb['deadline'];
-
+		$deadline = isset($this->paymentGatewayResultData->deadline) ? $this->paymentGatewayResultData->deadline : '';
 		$this->emailDefaultData['{deadline}'] = $deadline != '' ? (new \DateTime($deadline))->format('d-m-Y') : '';
 	}
 }
