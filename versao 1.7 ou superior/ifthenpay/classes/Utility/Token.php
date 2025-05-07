@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -26,16 +27,19 @@
 namespace PrestaShop\Module\Ifthenpay\Utility;
 
 if (!defined('_PS_VERSION_')) {
-    exit;
+	exit;
 }
 
-class Token {
+class Token
+{
 
-    public static function encrypt($input) {
-        return urlencode(base64_encode( $input));
-    }
+	public static function encrypt($input)
+	{
+		return base64_encode($input);
+	}
 
-    public static function decrypt($input) {
-        return base64_decode(urldecode($input));
-    }
+	public static function decrypt($input)
+	{
+		return base64_decode($input);
+	}
 }

@@ -2,7 +2,7 @@
 <module>
     <name>ifthenpay</name>
     <displayName><![CDATA[Ifthenpay]]></displayName>
-    <version><![CDATA[1.6.2]]></version>
+    <version><![CDATA[1.6.3]]></version>
     <description><![CDATA[Permite pagamentos por Refer&ecirc;ncia Multibanco, MB WAY, Payshop, Cart&atilde;o de Cr&eacute;dito e Cofidis Pay.]]></description>
     <author><![CDATA[Ifthenpay]]></author>
     <tab><![CDATA[payments_gateways]]></tab>
