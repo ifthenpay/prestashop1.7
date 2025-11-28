@@ -448,6 +448,22 @@ class IfthenpaygatewayConfigForm extends ConfigForm
 			return false;
 		}
 
+		$paymentMethods = \Tools::getValue('IFTHENPAY_' . strtoupper($this->paymentMethod) . '_METHODS');
+
+		$hasSelectedMethod = false;
+		foreach ($paymentMethods as $key => $value) {
+
+			if (isset($value['is_active']) && $value['is_active'] === '1') {
+				$hasSelectedMethod = true;
+				break;
+			}
+		}
+
+		if (!$hasSelectedMethod) {
+			Utility::setPrestashopCookie('error', 'No selected gateway methods', pathinfo(__FILE__)['filename']);
+			return false;
+		}
+
 		return true;
 	}
 
