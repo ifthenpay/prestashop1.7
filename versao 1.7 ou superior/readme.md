@@ -1,7 +1,16 @@
 # Notice: 
-## This module is only compatible with Prestashop 1.6 to 1.7. For Prestashop 8.0 and above, please use the [Ifthenpay Prestashop 8.0 payment module](https://github.com/ifthenpay/prestashop8)
+## This module is only compatible with Prestashop 1.7. For Prestashop 8.0 and above, please use the [Ifthenpay Prestashop 8.0 payment module](https://github.com/ifthenpay/prestashop8)
 
 </br>
+</br>
+
+## Deprecated Versions
+
+**❌ Module versions for prestashop 1.6 are no longer supported.**
+
+    These versions will not receive updates, bug fixes, or security patches.
+    These versions will not receive technical support.
+    It is strongly recommended to upgrade to Prestashop's 8 available Module.
 </br>
 
 # Ifthenpay Prestashop 1.7 payment module
@@ -10,7 +19,7 @@ Read this in ![Português](https://github.com/ifthenpay/prestashop/raw/assets/ve
 
 [1. Introduction](#introduction)
 
-[2. Compatibility](#compatibility)
+[2. Compatibility and Support](#compatibility-and-support)
 
 [3. Installation](#installation)
 
@@ -75,17 +84,23 @@ This module will allow you to generate a payment Reference that the customer can
 
 **Cofidis Pay** is a payment solution of up to 12 interest-free installments that makes it easier to pay for purchases by splitting them. This module uses one of the several gateways/services available in Portugal, IfthenPay.
 
+**Pix** is an instant payment solution widely used in the Brazilian financial market. It enables quick and secure transactions for purchases, using details such as CPF, email, and phone number to complete the payment.
+
+**Ifthenpay Gateway** is a payment gateway page that provides all the payment methods above in one place. This extension uses ifthenpay, one of the various gateways available in Portugal.
+
 **Contract with Ifthenpay is required.**
 
 See more at [Ifthenpay](https://ifthenpay.com). 
 
 
-# Compatibility
+# Compatibility and support
 
-Follow the table below to verify Ifthenpay's module compatibility with your online store.
-|                            | Prestashop 1.6 | Prestashop 1.7 [1.7.0 - 1.7.8] |
-|----------------------------|----------------|--------------------------------|
-| Ifthenpay v1.3.0 to v1.6.3 | Not compatible | Compatible                     |
+The table below indicates the compatibility and the support provided for this module.
+
+|                         | Prestashop 1.7              |
+|-------------------------|-----------------------------|
+| Compatibility           | Ifthenpay v1.3.0 to v1.6.3  |
+| LTS (Long Time Support) | Supported until end of 2026 |
 
 
 # Installation
