@@ -1,17 +1,26 @@
 # Atenção:
 
-## Este módulo é apenas compatível com Prestashop 1.6 a 1.7. Para Prestashop 8.0 e superior, por favor use o [módulo de pagamento Prestashop 8.0 Ifthenpay](https://github.com/ifthenpay/prestashop8)
+## Este módulo é apenas compatível com Prestashop 1.7. Para Prestashop 8.0 e superior, por favor use o [módulo de pagamento Prestashop 8.0 Ifthenpay](https://github.com/ifthenpay/prestashop8)
 
 </br>
+</br>
+
+## Versões Deprecadas
+
+**❌ As versões do módulo para prestashop 1.6 já não são suportadas.**
+
+    Estas versões não receberão atualizações, correções de bugs ou patches de segurança.
+    Estas versões não receberão suporte técnico.
+    É altamente recomendável atualizar para a versão do módulo disponível para Prestashop 8.
 </br>
 
 # Módulo de pagamentos Ifthenpay Prestashop 1.7
 
-Ler em ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pt.png) [Português](readme.pt.md), e ![Inglês](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/en.png) [Inglês](versao%201.7%20ou%20superior/readme.md)
+Ler em ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pt.png) [Português](readme.pt.md), e ![Inglês](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/en.png) [Inglês](readme.md)
 
 [1. Introdução](#introdução)
 
-[2. Compatibilidade](#compatibilidade)
+[2. Compatibilidade e Suporte](#compatibilidade-e-suporte)
 
 [3. Instalação](#instalação)
 
@@ -76,17 +85,24 @@ Este módulo permite gerar uma referência de pagamento que o consumidor pode us
 
 **Cofidis Pay** é uma solução de pagamento que facilita o pagamento de compras ao dividir o valor até 12 prestações sem juros. Este módulo utiliza uma das várias gateways/serviços disponíveis em Portugal, a IfthenPay.
 
+**Pix** é uma solução de pagamento instantâneo amplamente usada no mercado financeiro brasileiro. Permite realizar compras de forma rápida e segura, utilizando dados como CPF, e-mail e número de telemóvel para efetuar o pagamento.
+
+**Ifthenpay** Gateway é uma página de gateway que disponibiliza todos os métodos de pagamento acima mencionados. Esta extensão usa a ifthenpay, uma das várias gateways disponíveis em Portugal.
+
 **É necessário contrato com a Ifthenpay**
 
 Mais informações em [Ifthenpay](https://ifthenpay.com). 
 
 
-# Compatibilidade
+# Compatibilidade e suporte
 
-Use a tabela abaixo para verificar a compatibilidade do módulo Ifthenpay com a sua loja online.
-|                           | Prestashop 1.6 | Prestashop 1.7 [1.7.0 - 1.7.8] |
-|---------------------------|----------------|--------------------------------|
-| Ifthenpay v1.3.0 a v1.6.0 | Não compatível | Compatível                     |
+A tabela abaixo indica a compatibilidade e o supporte disponibilizado para este módulo.
+
+|                              | Prestashop 1.7              |
+|------------------------------|-----------------------------|
+| Compatibilidade              | Ifthenpay v1.3.0 to v1.6.3  |
+| LTS (Suporte de Longo Prazo) | Supported until end of 2026 |
+
 
 # Instalação
 
