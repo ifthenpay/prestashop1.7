@@ -16,7 +16,7 @@
 
 # Módulo de pagamentos Ifthenpay Prestashop 1.7
 
-Ler em ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pt.png) [Português](readme.pt.md), e ![Inglês](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/en.png) [Inglês](readme.md)
+Ler em ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/pt.png) [Português](versao%201.7%20ou%20superior/readme.pt.md), e ![Inglês](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/en.png) [Inglês](versao%201.7%20ou%20superior/readme.md)
 
 [1. Introdução](#introdução)
 
