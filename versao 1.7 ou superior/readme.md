@@ -99,7 +99,7 @@ The table below indicates the compatibility and the support provided for this mo
 
 |                         | Prestashop 1.7              |
 |-------------------------|-----------------------------|
-| Compatibility           | Ifthenpay v1.3.0 to v1.6.3  |
+| Compatibility           | Ifthenpay v1.3.0 to v1.6.4  |
 | LTS (Long Time Support) | Supported until end of 2026 |
 
 
@@ -226,12 +226,13 @@ Multibanco with Dynamic References payment method generates references by reques
 
 * Configure Credit Card (also referred to as Ccard) payment method:
 1. Select a CCard key. Can only select from the CCard keys associated with your Backoffice key; 
-2. (optional) Activate Cancel Credit Card Order, by selecting this option, Credit Card orders that are still unpaid 30 min after confirmation, will have status changed to "Cancelled";
-3. (optional) Input minimum order value to only display this payment method for orders above it;
-4. (optional) Input maximum order value to only display this payment method for orders below it;
-5. (optional) Select one or more countries to only display this payment method for orders with that shipping country, leave empty to allow all;
-6. (optional) Input an Integer number to order this payment method in the checkout page. Smallest takes first place.
-7. Click "Save" button;
+2. Activate Callback, by selecting this option the order state will update when a payment is received;
+3. (optional) Activate Cancel Credit Card Order, by selecting this option, Credit Card orders that are still unpaid 30 min after confirmation, will have status changed to "Cancelled";
+4. (optional) Input minimum order value to only display this payment method for orders above it;
+5. (optional) Input maximum order value to only display this payment method for orders below it;
+6. (optional) Select one or more countries to only display this payment method for orders with that shipping country, leave empty to allow all;
+7. (optional) Input an Integer number to order this payment method in the checkout page. Smallest takes first place.
+8. Click "Save" button;
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/config_ccard.png)
 </br>
 
