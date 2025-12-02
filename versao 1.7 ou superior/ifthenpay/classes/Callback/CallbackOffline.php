@@ -30,122 +30,125 @@ use PrestaShop\Module\Ifthenpay\Log\IfthenpayLogProcess;
 use PrestaShop\Module\Ifthenpay\Factory\Callback\CallbackFactory;
 use PrestaShop\Module\Ifthenpay\Contracts\Callback\CallbackProcessInterface;
 use PrestaShop\Module\Ifthenpay\Callback\CallbackVars as Cb;
-
+use PrestaShop\Module\Ifthenpay\Exceptions\AlreadyPaidException;
 
 if (!defined('_PS_VERSION_')) {
-	exit;
+    exit;
 }
 
 class CallbackOffline extends CallbackProcess implements CallbackProcessInterface
 {
-	public function process()
-	{
-		$this->request[Cb::PAYMENT] = $this->paymentMethod;
+    public function process()
+    {
+        $this->request[Cb::PAYMENT] = $this->paymentMethod;
 
-		// get the callback payment method to use the correct phish key
-		$originalPaymentMethod = $this->paymentMethod;
+        // get the callback payment method to use the correct phish key
+        $originalPaymentMethod = $this->paymentMethod;
 
-		$this->setPaymentData();
+        $this->setPaymentData();
 
-		// if no payment data is set, search other payment methods
-		if (empty($this->paymentData)) {
-			if ($this->paymentMethod === 'ifthenpaygateway') {
+        // if no payment data is set, search other payment methods
+        if (empty($this->paymentData)) {
+            if ($this->paymentMethod === 'ifthenpaygateway') {
 
-				$methodsWithCallback = ['multibanco', 'mbway', 'payshop', 'ccard', 'cofidispay', 'ifthenpaygateway', 'pix'];
+                $methodsWithCallback = ['multibanco', 'mbway', 'payshop', 'ccard', 'cofidispay', 'ifthenpaygateway', 'pix'];
 
-				// search every active payment method tables
-				foreach ($methodsWithCallback as $paymentMethod) {
-					$isActive = \Configuration::get('IFTHENPAY_' . strtoupper($this->paymentMethod));
+                // search every active payment method tables
+                foreach ($methodsWithCallback as $paymentMethod) {
+                    $isActive = \Configuration::get('IFTHENPAY_' . strtoupper($this->paymentMethod));
 
-					if ($isActive == '1') {
-						$this->request[Cb::PAYMENT] = $paymentMethod;
-						$this->setPaymentData();
-						if (!empty($this->paymentData)) {
-							// set the correct payment method
-							$this->paymentMethod = $paymentMethod;
-							break;
-						}
-					}
-				}
-			} else {
+                    if ($isActive == '1') {
+                        $this->request[Cb::PAYMENT] = $paymentMethod;
+                        $this->setPaymentData();
+                        if (!empty($this->paymentData)) {
+                            // set the correct payment method
+                            $this->paymentMethod = $paymentMethod;
+                            break;
+                        }
+                    }
+                }
+            } else {
 
-				$isActive = \Configuration::get('IFTHENPAY_IFTHENPAYGATEWAY');
+                $isActive = \Configuration::get('IFTHENPAY_IFTHENPAYGATEWAY');
 
-				if ($isActive == '1') {
-					// search the ifthenpaygateway table
-					$this->request[Cb::PAYMENT] = 'ifthenpaygateway';
-					$this->setPaymentData();
-					if (!empty($this->paymentData)) {
-						// set the correct payment method
-						$this->paymentMethod = 'ifthenpaygateway';
-					}
-				}
-			}
-		}
+                if ($isActive == '1') {
+                    // search the ifthenpaygateway table
+                    $this->request[Cb::PAYMENT] = 'ifthenpaygateway';
+                    $this->setPaymentData();
+                    if (!empty($this->paymentData)) {
+                        // set the correct payment method
+                        $this->paymentMethod = 'ifthenpaygateway';
+                    }
+                }
+            }
+        }
 
-		if (empty($this->paymentData)) {
-			$this->executePaymentNotFound();
-		} else {
+        if (empty($this->paymentData)) {
+            $this->executePaymentNotFound();
+        } else {
 
-			try {
-				$this->setOrder();
-				CallbackFactory::buildCalllbackValidate($_GET, $this->order, \Configuration::get('IFTHENPAY_' . \Tools::strtoupper($originalPaymentMethod) . '_CHAVE_ANTI_PHISHING'), $this->paymentData)
-					->validate();
-				IfthenpayLogProcess::addLog('Callback received and validated with success for payment method ' . $this->paymentMethod, IfthenpayLogProcess::INFO, $this->order->id);
+            try {
+                $this->setOrder();
+                CallbackFactory::buildCalllbackValidate($_GET, $this->order, \Configuration::get('IFTHENPAY_' . \Tools::strtoupper($originalPaymentMethod) . '_CHAVE_ANTI_PHISHING'), $this->paymentData)
+                    ->validate();
+                IfthenpayLogProcess::addLog('Callback received and validated with success for payment method ' . $this->paymentMethod, IfthenpayLogProcess::INFO, $this->order->id);
 
-				$this->changeIfthenpayPaymentStatus('paid');
+                $this->changeIfthenpayPaymentStatus('paid');
 
-				$splitOrders = $this->getSplitOrders($this->order->reference, $this->order->id_cart);
-				if (count($splitOrders) > 1) {
-					// update status for split orders
-					foreach ($splitOrders as $order) {
+                $splitOrders = $this->getSplitOrders($this->order->reference, $this->order->id_cart);
+                if (count($splitOrders) > 1) {
+                    // update status for split orders
+                    foreach ($splitOrders as $order) {
 
-						if (!isset($order['id_order'])) {
-							IfthenpayLogProcess::addLog('Error processing callback for split orders - prestashop db order property id_order is not set.', IfthenpayLogProcess::ERROR, $this->order->id);
-							http_response_code(400);
-						}
+                        if (!isset($order['id_order'])) {
+                            IfthenpayLogProcess::addLog('Error processing callback for split orders - prestashop db order property id_order is not set.', IfthenpayLogProcess::ERROR, $this->order->id);
+                            http_response_code(400);
+                        }
 
-						$this->changePrestashopOrderStatusByOrderId(\Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_OS_CONFIRMED'), $order['id_order']);
-						IfthenpayLogProcess::addLog('Split Order status change with success to paid (after receiving callback)', IfthenpayLogProcess::INFO, $order['id_order']);
-					}
-				} else {
-					// update status of single order
-					$this->changePrestashopOrderStatus(\Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_OS_CONFIRMED'));
-					IfthenpayLogProcess::addLog('Order status change with success to paid (after receiving callback)', IfthenpayLogProcess::INFO, $this->order->id);
-				}
+                        $this->changePrestashopOrderStatusByOrderId(\Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_OS_CONFIRMED'), $order['id_order']);
+                        IfthenpayLogProcess::addLog('Split Order status change with success to paid (after receiving callback)', IfthenpayLogProcess::INFO, $order['id_order']);
+                    }
+                } else {
+                    // update status of single order
+                    $this->changePrestashopOrderStatus(\Configuration::get('IFTHENPAY_' . \Tools::strtoupper($this->paymentMethod) . '_OS_CONFIRMED'));
+                    IfthenpayLogProcess::addLog('Order status change with success to paid (after receiving callback)', IfthenpayLogProcess::INFO, $this->order->id);
+                }
 
-				if (isset($_GET['test']) && $_GET['test'] === 'true') {
-					http_response_code(200);
+                if (isset($_GET['test']) && $_GET['test'] === 'true') {
+                    http_response_code(200);
 
-					$ifthenpayModule = \Module::getInstanceByName('ifthenpay');
+                    $ifthenpayModule = \Module::getInstanceByName('ifthenpay');
 
-					$response = [
-						'status' => 'success',
-						'message' => $ifthenpayModule->l('Callback received and validated with success for payment method ', pathinfo(__FILE__)['filename']) . $this->paymentMethod
-					];
-					die(json_encode($response));
-				}
+                    $response = [
+                        'status' => 'success',
+                        'message' => $ifthenpayModule->l('Callback received and validated with success for payment method ', pathinfo(__FILE__)['filename']) . $this->paymentMethod
+                    ];
+                    die(json_encode($response));
+                }
 
-				http_response_code(200);
-				die('ok');
-			} catch (\Throwable $th) {
+                http_response_code(200);
+                die('ok');
+            } catch (AlreadyPaidException $th) {
+                http_response_code(200);
+                die($th->getMessage());
+            } catch (\Throwable $th) {
 
-				if (isset($_GET['test']) && $_GET['test'] === 'true') {
-					http_response_code(200);
+                if (isset($_GET['test']) && $_GET['test'] === 'true') {
+                    http_response_code(200);
 
-					$response = [
-						'status' => 'warning',
-						'message' => $th->getMessage(),
-					];
+                    $response = [
+                        'status' => 'warning',
+                        'message' => $th->getMessage(),
+                    ];
 
 
-					die(json_encode($response));
-				}
+                    die(json_encode($response));
+                }
 
-				IfthenpayLogProcess::addLog('Error processing callback - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $this->order->id);
-				http_response_code(400);
-				die($th->getMessage());
-			}
-		}
-	}
+                IfthenpayLogProcess::addLog('Error processing callback - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, $this->order->id);
+                http_response_code(400);
+                die($th->getMessage());
+            }
+        }
+    }
 }

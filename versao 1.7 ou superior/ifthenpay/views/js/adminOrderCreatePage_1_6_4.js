@@ -247,7 +247,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
   /******/
 
-  return __webpack_require__(__webpack_require__.s = 4);
+  return __webpack_require__(__webpack_require__.s = 1);
   /******/
 }
 /************************************************************************/
@@ -255,20 +255,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 /******/
 )({
   /***/
-  "./_dev/js/adminAccountSettingsPage.ts":
-  /*!*********************************************!*\
-    !*** ./_dev/js/adminAccountSettingsPage.ts ***!
-    \*********************************************/
+  "./_dev/js/adminOrderCreatePage.ts":
+  /*!*****************************************!*\
+    !*** ./_dev/js/adminOrderCreatePage.ts ***!
+    \*****************************************/
 
   /*! no static exports found */
 
   /***/
-  function _devJsAdminAccountSettingsPageTs(module, exports, __webpack_require__) {
+  function _devJsAdminOrderCreatePageTs(module, exports, __webpack_require__) {
     "use strict";
-
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
     /**
     * 2007-2022 Ifthenpay Lda
     *
@@ -293,66 +289,114 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     *  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
     */
 
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+
     __webpack_require__(
     /*! reflect-metadata */
     "./node_modules/reflect-metadata/Reflect.js");
 
-    var inversify_containerAdminAccountSettingsPage_1 = __webpack_require__(
-    /*! ./container/inversify.containerAdminAccountSettingsPage */
-    "./_dev/js/container/inversify.containerAdminAccountSettingsPage.ts");
+    var inversify_adminOrderCreatePage_1 = __webpack_require__(
+    /*! ./container/inversify.adminOrderCreatePage */
+    "./_dev/js/container/inversify.adminOrderCreatePage.ts");
 
-    var AdminAccountSettingsPageCreateApp_1 = __webpack_require__(
-    /*! ./facades/AdminAccountSettingsPageCreateApp */
-    "./_dev/js/facades/AdminAccountSettingsPageCreateApp.ts");
-
-    var HttpService_1 = __webpack_require__(
-    /*! ./services/HttpService */
-    "./_dev/js/services/HttpService.ts");
+    var AdminOrderCreateApp_1 = __webpack_require__(
+    /*! ./facades/AdminOrderCreateApp */
+    "./_dev/js/facades/AdminOrderCreateApp.ts");
 
     $(document).ready(function () {
-      var app = inversify_containerAdminAccountSettingsPage_1["default"].get(AdminAccountSettingsPageCreateApp_1.AdminAccountSettingsPageCreateApp);
+      var app = inversify_adminOrderCreatePage_1["default"].get(AdminOrderCreateApp_1.AdminOrderCreateApp);
       app.start();
-      document.addEventListener('click', function (event) {
-        var target = event.target;
-        var hasClass = target.classList.contains('btn_paginator');
-        var isActive = target.parentElement.classList.contains('active');
-
-        if (hasClass && !isActive) {
-          var spinner_1 = $('#appSpinner');
-          spinner_1.show();
-          var domLogTableDiv_1 = $('#log_table');
-          var domLogPaginDiv_1 = $('#log_pagination');
-          var page = target.textContent || '1';
-          var httpService = inversify_containerAdminAccountSettingsPage_1["default"].get(HttpService_1.HttpService);
-          httpService.setUrl(controllerUrl);
-          httpService.post({
-            ajax: 1,
-            action: 'getLogsTable',
-            page: page
-          }).then(function (response) {
-            spinner_1.hide();
-            domLogPaginDiv_1.html(response.pagination);
-            domLogTableDiv_1.html(response.table);
-          }).fail(function (xhr, status, error) {
-            console.log(error);
-            spinner_1.hide();
-          });
-        }
-      });
     });
     /***/
   },
 
   /***/
-  "./_dev/js/container/inversify.containerAdminAccountSettingsPage.ts":
-  /*!**************************************************************************!*\
-    !*** ./_dev/js/container/inversify.containerAdminAccountSettingsPage.ts ***!
-    \**************************************************************************/
+  "./_dev/js/classes/AddIfthenpayPaymentMethodNewVersion.ts":
+  /*!****************************************************************!*\
+    !*** ./_dev/js/classes/AddIfthenpayPaymentMethodNewVersion.ts ***!
+    \****************************************************************/
 
   /*! no static exports found */
 
   /***/
-  function _devJsContainerInversifyContainerAdminAccountSettingsPageTs(module, exports, __webpack_require__) {
+  function _devJsClassesAddIfthenpayPaymentMethodNewVersionTs(module, exports, __webpack_require__) {
+    "use strict";
+    /**
+    * 2007-2022 Ifthenpay Lda
+    *
+    * NOTICE OF LICENSE
+    *
+    * This source file is subject to the Academic Free License (AFL 3.0)
+    * that is bundled with this package in the file LICENSE.txt.
+    * It is also available through the world-wide-web at this URL:
+    * http://opensource.org/licenses/afl-3.0.php
+    * If you did not receive a copy of the license and are unable to
+    * obtain it through the world-wide-web, please send an email
+    * to license@prestashop.com so we can send you a copy immediately.
+    *
+    * DISCLAIMER
+    *
+    * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+    * versions in the future. If you wish to customize PrestaShop for your
+    * needs please refer to http://www.prestashop.com for more information.
+    *
+    *  @copyright 2007-2022 Ifthenpay Lda
+    *  @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
+    *  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+    */
+
+    var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
+      var c = arguments.length,
+          r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+          d;
+      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      }
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.AddIfthenpayPaymentMethodNewVersion = void 0;
+
+    var inversify_1 = __webpack_require__(
+    /*! inversify */
+    "./node_modules/inversify/lib/inversify.js");
+
+    var utility_1 = __webpack_require__(
+    /*! ../utility/utility */
+    "./_dev/js/utility/utility.ts");
+
+    var AddIfthenpayPaymentMethodNewVersion =
+    /** @class */
+    function () {
+      function AddIfthenpayPaymentMethodNewVersion() {}
+
+      AddIfthenpayPaymentMethodNewVersion.prototype.init = function () {
+        (0, utility_1.insertPaymentMethodsName)(ifthenpayUserPaymentMethods, '#cart_summary_payment_module');
+      };
+
+      AddIfthenpayPaymentMethodNewVersion = __decorate([(0, inversify_1.injectable)()], AddIfthenpayPaymentMethodNewVersion);
+      return AddIfthenpayPaymentMethodNewVersion;
+    }();
+
+    exports.AddIfthenpayPaymentMethodNewVersion = AddIfthenpayPaymentMethodNewVersion;
+    /***/
+  },
+
+  /***/
+  "./_dev/js/container/inversify.adminOrderCreatePage.ts":
+  /*!*************************************************************!*\
+    !*** ./_dev/js/container/inversify.adminOrderCreatePage.ts ***!
+    \*************************************************************/
+
+  /*! no static exports found */
+
+  /***/
+  function _devJsContainerInversifyAdminOrderCreatePageTs(module, exports, __webpack_require__) {
     "use strict";
     /**
     * 2007-2022 Ifthenpay Lda
@@ -386,23 +430,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     /*! inversify */
     "./node_modules/inversify/lib/inversify.js");
 
-    var HttpService_1 = __webpack_require__(
-    /*! ../services/HttpService */
-    "./_dev/js/services/HttpService.ts");
+    var AddIfthenpayPaymentMethodNewVersion_1 = __webpack_require__(
+    /*! ../classes/AddIfthenpayPaymentMethodNewVersion */
+    "./_dev/js/classes/AddIfthenpayPaymentMethodNewVersion.ts");
 
-    var AdminAccountSettingsPageCreateApp_1 = __webpack_require__(
-    /*! ../facades/AdminAccountSettingsPageCreateApp */
-    "./_dev/js/facades/AdminAccountSettingsPageCreateApp.ts");
+    var AdminOrderCreatePage_1 = __webpack_require__(
+    /*! ../events/AdminOrderCreatePage */
+    "./_dev/js/events/AdminOrderCreatePage.ts");
 
-    var AdminAccountSettingsPage_1 = __webpack_require__(
-    /*! ../events/AdminAccountSettingsPage */
-    "./_dev/js/events/AdminAccountSettingsPage.ts");
+    var AdminOrderCreateApp_1 = __webpack_require__(
+    /*! ../facades/AdminOrderCreateApp */
+    "./_dev/js/facades/AdminOrderCreateApp.ts");
 
-    var containerAdminAccountSettingsPage = new inversify_1.Container();
-    containerAdminAccountSettingsPage.bind(AdminAccountSettingsPage_1.AdminAccountSettingsPage).toSelf();
-    containerAdminAccountSettingsPage.bind(AdminAccountSettingsPageCreateApp_1.AdminAccountSettingsPageCreateApp).toSelf();
-    containerAdminAccountSettingsPage.bind(HttpService_1.HttpService).toSelf();
-    exports["default"] = containerAdminAccountSettingsPage;
+    var containerAdminOrderCreatePage = new inversify_1.Container();
+    containerAdminOrderCreatePage.bind(AdminOrderCreateApp_1.AdminOrderCreateApp).toSelf();
+    containerAdminOrderCreatePage.bind(AddIfthenpayPaymentMethodNewVersion_1.AddIfthenpayPaymentMethodNewVersion).toSelf();
+    containerAdminOrderCreatePage.bind(AdminOrderCreatePage_1.AdminOrderCreatePage).toSelf();
+    exports["default"] = containerAdminOrderCreatePage;
     /***/
   },
 
@@ -608,39 +652,39 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   },
 
   /***/
-  "./_dev/js/events/AdminAccountSettingsPage.ts":
-  /*!****************************************************!*\
-    !*** ./_dev/js/events/AdminAccountSettingsPage.ts ***!
-    \****************************************************/
+  "./_dev/js/events/AdminOrderCreatePage.ts":
+  /*!************************************************!*\
+    !*** ./_dev/js/events/AdminOrderCreatePage.ts ***!
+    \************************************************/
 
   /*! no static exports found */
 
   /***/
-  function _devJsEventsAdminAccountSettingsPageTs(module, exports, __webpack_require__) {
+  function _devJsEventsAdminOrderCreatePageTs(module, exports, __webpack_require__) {
     "use strict";
     /**
-     * 2007-2022 Ifthenpay Lda
-     *
-     * NOTICE OF LICENSE
-     *
-     * This source file is subject to the Academic Free License (AFL 3.0)
-     * that is bundled with this package in the file LICENSE.txt.
-     * It is also available through the world-wide-web at this URL:
-     * http://opensource.org/licenses/afl-3.0.php
-     * If you did not receive a copy of the license and are unable to
-     * obtain it through the world-wide-web, please send an email
-     * to license@prestashop.com so we can send you a copy immediately.
-     *
-     * DISCLAIMER
-     *
-     * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-     * versions in the future. If you wish to customize PrestaShop for your
-     * needs please refer to http://www.prestashop.com for more information.
-     *
-     *  @copyright 2007-2022 Ifthenpay Lda
-     *  @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
-     *  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
-     */
+    * 2007-2022 Ifthenpay Lda
+    *
+    * NOTICE OF LICENSE
+    *
+    * This source file is subject to the Academic Free License (AFL 3.0)
+    * that is bundled with this package in the file LICENSE.txt.
+    * It is also available through the world-wide-web at this URL:
+    * http://opensource.org/licenses/afl-3.0.php
+    * If you did not receive a copy of the license and are unable to
+    * obtain it through the world-wide-web, please send an email
+    * to license@prestashop.com so we can send you a copy immediately.
+    *
+    * DISCLAIMER
+    *
+    * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+    * versions in the future. If you wish to customize PrestaShop for your
+    * needs please refer to http://www.prestashop.com for more information.
+    *
+    *  @copyright 2007-2022 Ifthenpay Lda
+    *  @author    Ifthenpay Lda <ifthenpay@ifthenpay.com>
+    *  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+    */
 
     var __extends = this && this.__extends || function () {
       var _extendStatics2 = function extendStatics(d, b) {
@@ -687,57 +731,39 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    exports.AdminAccountSettingsPage = void 0;
-
-    var inversify_containerAdminAccountSettingsPage_1 = __webpack_require__(
-    /*! ../container/inversify.containerAdminAccountSettingsPage */
-    "./_dev/js/container/inversify.containerAdminAccountSettingsPage.ts");
+    exports.AdminOrderCreatePage = void 0;
 
     var Event_1 = __webpack_require__(
     /*! ../decorators/Event */
     "./_dev/js/decorators/Event.ts");
 
-    var HttpService_1 = __webpack_require__(
-    /*! ../services/HttpService */
-    "./_dev/js/services/HttpService.ts");
+    var utility_1 = __webpack_require__(
+    /*! ../utility/utility */
+    "./_dev/js/utility/utility.ts");
 
     var Page_1 = __webpack_require__(
     /*! ./Page */
     "./_dev/js/events/Page.ts");
 
-    var AdminAccountSettingsPage =
+    var AdminOrderCreatePage =
     /** @class */
     function (_super) {
-      __extends(AdminAccountSettingsPage, _super);
+      __extends(AdminOrderCreatePage, _super);
 
-      function AdminAccountSettingsPage() {
+      function AdminOrderCreatePage() {
         return _super !== null && _super.apply(this, arguments) || this;
       }
 
-      AdminAccountSettingsPage.prototype.resetIfthenpayAccount = function (event) {
-        var spinner = $("#appSpinner");
-        spinner.show();
-        this.httpService = inversify_containerAdminAccountSettingsPage_1["default"].get(HttpService_1.HttpService);
-        this.httpService.setUrl(controllerUrl);
-        this.httpService.post({
-          ajax: 1,
-          action: "ResetIfthenpayAccount"
-        }).then(function (response) {
-          spinner.hide();
-          location.reload();
-        }).fail(function (xhr, status, error) {
-          console.log(error);
-          spinner.hide();
-          location.reload();
-        });
+      AdminOrderCreatePage.prototype.addIfthenpayPaymentMethods = function (event) {
+        (0, utility_1.insertPaymentMethodsName)(this.ifthenpayUserPaymentMethods);
       };
 
-      __decorate([(0, Event_1.Event)("click", "#resetIfthenpayAccount"), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminAccountSettingsPage.prototype, "resetIfthenpayAccount", null);
+      __decorate([(0, Event_1.Event)('click', '#content', 'a.use_cart.btn.btn-default, #submitAddProduct'), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminOrderCreatePage.prototype, "addIfthenpayPaymentMethods", null);
 
-      return AdminAccountSettingsPage;
+      return AdminOrderCreatePage;
     }(Page_1.Page);
 
-    exports.AdminAccountSettingsPage = AdminAccountSettingsPage;
+    exports.AdminOrderCreatePage = AdminOrderCreatePage;
     /***/
   },
 
@@ -824,15 +850,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   },
 
   /***/
-  "./_dev/js/facades/AdminAccountSettingsPageCreateApp.ts":
-  /*!**************************************************************!*\
-    !*** ./_dev/js/facades/AdminAccountSettingsPageCreateApp.ts ***!
-    \**************************************************************/
+  "./_dev/js/facades/AdminOrderCreateApp.ts":
+  /*!************************************************!*\
+    !*** ./_dev/js/facades/AdminOrderCreateApp.ts ***!
+    \************************************************/
 
   /*! no static exports found */
 
   /***/
-  function _devJsFacadesAdminAccountSettingsPageCreateAppTs(module, exports, __webpack_require__) {
+  function _devJsFacadesAdminOrderCreateAppTs(module, exports, __webpack_require__) {
     "use strict";
     /**
     * 2007-2022 Ifthenpay Lda
@@ -903,50 +929,54 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    exports.AdminAccountSettingsPageCreateApp = void 0;
+    exports.AdminOrderCreateApp = void 0;
 
     var inversify_1 = __webpack_require__(
     /*! inversify */
     "./node_modules/inversify/lib/inversify.js");
 
+    var AddIfthenpayPaymentMethodNewVersion_1 = __webpack_require__(
+    /*! ../classes/AddIfthenpayPaymentMethodNewVersion */
+    "./_dev/js/classes/AddIfthenpayPaymentMethodNewVersion.ts");
+
+    var inversify_adminOrderCreatePage_1 = __webpack_require__(
+    /*! ../container/inversify.adminOrderCreatePage */
+    "./_dev/js/container/inversify.adminOrderCreatePage.ts");
+
     var AppComponent_1 = __webpack_require__(
     /*! ../decorators/AppComponent */
     "./_dev/js/decorators/AppComponent.ts");
 
-    var AdminAccountSettingsPage_1 = __webpack_require__(
-    /*! ../events/AdminAccountSettingsPage */
-    "./_dev/js/events/AdminAccountSettingsPage.ts");
+    var AdminOrderCreatePage_1 = __webpack_require__(
+    /*! ../events/AdminOrderCreatePage */
+    "./_dev/js/events/AdminOrderCreatePage.ts");
 
     var MainApp_1 = __webpack_require__(
     /*! ./MainApp */
     "./_dev/js/facades/MainApp.ts");
 
-    var inversify_containerAdminAccountSettingsPage_1 = __webpack_require__(
-    /*! ../container/inversify.containerAdminAccountSettingsPage */
-    "./_dev/js/container/inversify.containerAdminAccountSettingsPage.ts");
-
-    var AdminAccountSettingsPageCreateApp =
+    var AdminOrderCreateApp =
     /** @class */
     function (_super) {
-      __extends(AdminAccountSettingsPageCreateApp, _super);
+      __extends(AdminOrderCreateApp, _super);
 
-      function AdminAccountSettingsPageCreateApp() {
+      function AdminOrderCreateApp() {
         var _this = _super.call(this) || this;
 
-        _this.container = inversify_containerAdminAccountSettingsPage_1["default"];
+        _this.container = inversify_adminOrderCreatePage_1["default"];
         return _this;
       }
 
-      AdminAccountSettingsPageCreateApp.prototype.start = function () {// console.log('start');
-      };
+      AdminOrderCreateApp.prototype.start = function () {};
 
-      AdminAccountSettingsPageCreateApp = __decorate([(0, inversify_1.injectable)(), (0, AppComponent_1.AppComponent)({
-        pageEvents: [AdminAccountSettingsPage_1.AdminAccountSettingsPage]
-      }), __metadata("design:paramtypes", [])], AdminAccountSettingsPageCreateApp);
-      return AdminAccountSettingsPageCreateApp;
+      AdminOrderCreateApp = __decorate([(0, inversify_1.injectable)(), (0, AppComponent_1.AppComponent)({
+        pageEvents: [AdminOrderCreatePage_1.AdminOrderCreatePage],
+        apps: [AddIfthenpayPaymentMethodNewVersion_1.AddIfthenpayPaymentMethodNewVersion]
+      }), __metadata("design:paramtypes", [])], AdminOrderCreateApp);
+      return AdminOrderCreateApp;
     }(MainApp_1.MainApp);
 
-    exports.AdminAccountSettingsPageCreateApp = AdminAccountSettingsPageCreateApp;
+    exports.AdminOrderCreateApp = AdminOrderCreateApp;
     /***/
   },
 
@@ -1049,15 +1079,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   },
 
   /***/
-  "./_dev/js/services/HttpService.ts":
-  /*!*****************************************!*\
-    !*** ./_dev/js/services/HttpService.ts ***!
-    \*****************************************/
+  "./_dev/js/utility/utility.ts":
+  /*!************************************!*\
+    !*** ./_dev/js/utility/utility.ts ***!
+    \************************************/
 
   /*! no static exports found */
 
   /***/
-  function _devJsServicesHttpServiceTs(module, exports, __webpack_require__) {
+  function _devJsUtilityUtilityTs(module, exports, __webpack_require__) {
     "use strict";
     /**
     * 2007-2022 Ifthenpay Lda
@@ -1083,57 +1113,35 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     *  @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
     */
 
-    var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
-      var c = arguments.length,
-          r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-          d;
-      if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-      }
-      return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    exports.HttpService = void 0;
+    exports.insertPaymentMethodsName = exports.removeIfthenpayOption = void 0;
 
-    var inversify_1 = __webpack_require__(
-    /*! inversify */
-    "./node_modules/inversify/lib/inversify.js");
+    function removeIfthenpayOption() {
+      var ifthenpayOption = $('#payment_module_name').length > 0 ? $('#payment_module_name').find('option[value="ifthenpay"]') : $('#cart_summary_payment_module').find('option[value="ifthenpay"]');
 
-    var HttpService =
-    /** @class */
-    function () {
-      function HttpService() {}
+      if (ifthenpayOption.length > 0) {
+        ifthenpayOption.remove();
+      }
+    }
 
-      HttpService.prototype.get = function () {
-        return $.ajax({
-          url: this.url,
-          type: 'GET',
-          dataType: 'json'
-        });
-      };
+    exports.removeIfthenpayOption = removeIfthenpayOption;
 
-      HttpService.prototype.post = function (data) {
-        return $.ajax({
-          url: this.url,
-          type: 'POST',
-          cache: false,
-          data: data,
-          dataType: 'json'
-        });
-      };
+    function insertPaymentMethodsName(userPaymentMethods, selectElement) {
+      if (selectElement === void 0) {
+        selectElement = '#payment_module_name';
+      }
 
-      HttpService.prototype.setUrl = function (url) {
-        this.url = url;
-      };
+      var documentFragment = $(document.createDocumentFragment());
+      removeIfthenpayOption();
+      Object.keys(userPaymentMethods).forEach(function (key) {
+        documentFragment.append("<option value=\"ifthenpay\">".concat(userPaymentMethods[key].charAt(0).toUpperCase() + userPaymentMethods[key].slice(1), "</option>"));
+      });
+      $(selectElement).append(documentFragment);
+    }
 
-      HttpService = __decorate([(0, inversify_1.injectable)()], HttpService);
-      return HttpService;
-    }();
-
-    exports.HttpService = HttpService;
+    exports.insertPaymentMethodsName = insertPaymentMethodsName;
     /***/
   },
 
@@ -6585,18 +6593,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   },
 
   /***/
-  4:
-  /*!***************************************************!*\
-    !*** multi ./_dev/js/adminAccountSettingsPage.ts ***!
-    \***************************************************/
+  1:
+  /*!***********************************************!*\
+    !*** multi ./_dev/js/adminOrderCreatePage.ts ***!
+    \***********************************************/
 
   /*! no static exports found */
 
   /***/
   function _(module, exports, __webpack_require__) {
     module.exports = __webpack_require__(
-    /*! /home/devilbox/data/www/prestashop17/htdocs/modules/ifthenpay/_dev/js/adminAccountSettingsPage.ts */
-    "./_dev/js/adminAccountSettingsPage.ts");
+    /*! /home/ddev/prestashop17/modules/ifthenpay/_dev/js/adminOrderCreatePage.ts */
+    "./_dev/js/adminOrderCreatePage.ts");
     /***/
   }
   /******/

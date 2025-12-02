@@ -1022,6 +1022,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var payshopTransactionIdDom = $("#payshop_transaction_id");
         var cofidisTransactionIdDom = $("#cofidispay_transaction_id");
         var pixTransactionIdDom = $("#pix_transaction_id");
+        var ccardTransactionIdDom = $("#ccard_transaction_id");
         var orderIdDom = $("#order_id"); // message template
 
         var msgHtml = "\n        <div class=\"alert alert-{{type}}\">\n            <button type=\"button\" class=\"close\" data-dismiss=\"alert\">\xD7</button>\n            <ul class=\"list-unstyled\">\n                <li>{{message}}</li>\n            </ul>\n        </div>\n";
@@ -1032,9 +1033,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var payshopTransactionId = payshopTransactionIdDom.length ? payshopTransactionIdDom.val() : "";
         var cofidisTransactionId = cofidisTransactionIdDom.length ? cofidisTransactionIdDom.val() : "";
         var pixTransactionId = pixTransactionIdDom.length ? pixTransactionIdDom.val() : "";
+        var ccardTransactionId = ccardTransactionIdDom.length ? ccardTransactionIdDom.val() : "";
         var orderId = orderIdDom.length ? orderIdDom.val() : ""; // verify if multibanco or mbway or payshop have arguments
 
-        if (method === "multibanco" && (reference === "" || amount === "") || method === "mbway" && (amount === "" || mbwayTransactionId === "") || method === "payshop" && (amount === "" || payshopTransactionId === "") || method === "ifthenpaygateway" && (amount === "" || orderId === "") || method === "pix" && (amount === "" || pixTransactionId === "")) {
+        if (method === "multibanco" && (reference === "" || amount === "") || method === "mbway" && (amount === "" || mbwayTransactionId === "") || method === "payshop" && (amount === "" || payshopTransactionId === "") || method === "cofidis" && (amount === "" || cofidisTransactionId === "") || method === "ifthenpaygateway" && (amount === "" || orderId === "") || method === "pix" && (amount === "" || pixTransactionId === "")) {
           bootstrapMsgContainer.html(msgHtml.replace("{{type}}", "danger").replace("{{message}}", msgFillAllFields));
           return;
         }
@@ -1051,6 +1053,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           payshop_transaction_id: payshopTransactionId,
           cofidis_transaction_id: cofidisTransactionId,
           pix_transaction_id: pixTransactionId,
+          ccard_transaction_id: ccardTransactionId,
           order_id: orderId,
           method: method
         }).then(function (response) {
@@ -6943,7 +6946,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   /***/
   function _(module, exports, __webpack_require__) {
     module.exports = __webpack_require__(
-    /*! /home/devilbox/data/www/prestashop17/htdocs/modules/ifthenpay/_dev/js/adminConfigPage.ts */
+    /*! /home/ddev/prestashop17/modules/ifthenpay/_dev/js/adminConfigPage.ts */
     "./_dev/js/adminConfigPage.ts");
     /***/
   }

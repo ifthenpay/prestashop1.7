@@ -66,6 +66,9 @@ class CCardConfigForm extends ConfigForm
             ]
         ];
 
+        // activate auto callback
+        $this->addActivateCallbackToForm();
+
         // cancel after timer of 30 minutes
         $this->form['form']['input'][] = [
             'type' => 'switch',
@@ -136,6 +139,7 @@ class CCardConfigForm extends ConfigForm
             \Configuration::updateValue('IFTHENPAY_CCARD_CANCEL_ORDER_AFTER_TIMEOUT', \Tools::getValue('IFTHENPAY_CCARD_CANCEL_ORDER_AFTER_TIMEOUT'));
 
 
+            $this->setIfthenpayCallback();
             $this->updatePayMethodCommonValues();
 
             // response msg after submiting form
@@ -171,6 +175,8 @@ class CCardConfigForm extends ConfigForm
     {
         $this->deleteCommonConfigValues();
         \Configuration::deleteByName('IFTHENPAY_CCARD_KEY');
+        \Configuration::deleteByName('IFTHENPAY_CCARD_URL_CALLBACK');
+        \Configuration::deleteByName('IFTHENPAY_CCARD_CHAVE_ANTI_PHISHING');
         \Configuration::deleteByName('IFTHENPAY_CCARD_CANCEL_ORDER_AFTER_TIMEOUT');
     }
 }

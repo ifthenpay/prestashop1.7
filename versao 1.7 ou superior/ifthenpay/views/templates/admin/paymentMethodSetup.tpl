@@ -263,8 +263,18 @@
 							</p>
 						</div>
 					</div>
-				{/if}
 
+				{elseif $paymentMethod === 'ccard'}
+
+                    <div class="form-group" style="display: block;">
+                        <label class="control-label col-lg-4">{l s='Ccard Transaction ID' mod='ifthenpay'}</label>
+                        <div class="col-lg-8">
+                            <input type="text" id="ccard_transaction_id" name="ccard_transaction_id" class="form-control" />
+                            <p class="help-block">{l s='Can be found as "Ccard Request ID" in the SELL/Orders/Orders by selecting the order you wish to test and scrolling down to order payment details' mod='ifthenpay'}</p>
+
+                        </div>
+                    </div>
+				{/if}
 
 				<div class="form-group" style="display: block;">
 					<label class="control-label col-lg-4">{l s='Amount' mod='ifthenpay'}</label>

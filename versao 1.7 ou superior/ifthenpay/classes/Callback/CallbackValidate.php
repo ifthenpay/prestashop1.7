@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 Ifthenpay Lda
  *
@@ -26,6 +27,7 @@
 namespace PrestaShop\Module\Ifthenpay\Callback;
 
 use PrestaShop\Module\Ifthenpay\Callback\CallbackVars as Cb;
+use PrestaShop\Module\Ifthenpay\Exceptions\AlreadyPaidException;
 
 
 if (!defined('_PS_VERSION_')) {
@@ -67,7 +69,7 @@ class CallbackValidate
     private function validateOrderStatus()
     {
         if ($this->paymentDataFromDb['status'] === 'paid') {
-                throw new \Exception('Encomenda já foi paga.');
+            throw new AlreadyPaidException('Encomenda já foi paga.');
         }
     }
 
