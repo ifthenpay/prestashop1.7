@@ -56,24 +56,24 @@ class MbWay extends Payment implements PaymentMethodInterface
 
 	private function checkEstado()
 	{
-		if ($this->mbwayPedido['Estado'] !== '000') {
-			throw new \Exception($this->mbwayPedido['MsgDescricao']);
+		if ($this->mbwayPedido['Status'] !== '000') {
+			throw new \Exception($this->mbwayPedido['Message']);
 		}
 	}
 
 	private function setReferencia()
 	{
 		$this->mbwayPedido = $this->webservice->postRequest(
-			'https://mbway.ifthenpay.com/IfthenPayMBW.asmx/SetPedidoJSON',
+			'https://api.ifthenpay.com/spg/payment/mbway',
 			[
-				'MbWayKey' => $this->mbwayKey,
-				'canal' => '03',
-				'referencia' => $this->orderId,
-				'valor' => (string) $this->valor,
-				'nrtlm' => $this->telemovel,
+				'mbWayKey' => $this->mbwayKey,
+				'orderId' => $this->orderId,
+				'amount' => (string)$this->valor,
+				'mobileNumber' => $this->telemovel,
 				'email' => '',
-				'descricao' => '',
-			]
+				'description' =>'',
+			],
+			true
 		)->getResponseJson();
 	}
 
@@ -81,7 +81,7 @@ class MbWay extends Payment implements PaymentMethodInterface
 	{
 		$this->setReferencia();
 		$this->checkEstado();
-		$this->dataBuilder->setIdPedido($this->mbwayPedido['IdPedido']);
+		$this->dataBuilder->setIdPedido($this->mbwayPedido['RequestId']);
 		$this->dataBuilder->setTelemovel($this->telemovel);
 		$this->dataBuilder->setTotalToPay((string)$this->valor);
 		return $this->dataBuilder;

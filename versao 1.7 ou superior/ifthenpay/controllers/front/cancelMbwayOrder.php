@@ -38,7 +38,7 @@ class IfthenpayCancelMbwayOrderModuleFrontController extends ModuleFrontControll
 {
 
     public $ssl = true;
-    private $urlCheckMbwayPaymentStatus = 'https://www.ifthenpay.com/mbwayws/ifthenpaymbw.asmx/EstadoPedidosJSON';
+    private $urlCheckMbwayPaymentStatus = 'https://api.ifthenpay.com/spg/payment/mbway/status';
     private $webservice;
 
 
@@ -62,15 +62,14 @@ class IfthenpayCancelMbwayOrderModuleFrontController extends ModuleFrontControll
                 $request = $this->webservice->getRequest(
                     $this->urlCheckMbwayPaymentStatus,
                     [
-                        'MbWayKey' => $mbwayKey,
-                        'canal' => 3,
-                        'idspagamento' => $requestId
+                        'mbWayKey' => $mbwayKey,
+                        'requestId' => $requestId
                     ]
                 );
 
                 $response = $request->getResponseJson();
 
-                $status = $response['EstadoPedidos'][0]['Estado'];
+                $status = $response['Status'];
 
                 $statusCode = array(
                     'refusedByUser' => '020',
