@@ -99,7 +99,7 @@ The table below indicates the compatibility and the support provided for this mo
 
 |                         | Prestashop 1.7              |
 |-------------------------|-----------------------------|
-| Compatibility           | Ifthenpay v1.3.0 to v1.6.4  |
+| Compatibility           | Ifthenpay v1.3.0 to v1.6.5  |
 | LTS (Long Time Support) | Supported until end of 2026 |
 
 
