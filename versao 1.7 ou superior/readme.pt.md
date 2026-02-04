@@ -100,7 +100,7 @@ A tabela abaixo indica a compatibilidade e o supporte disponibilizado para este 
 
 |                              | Prestashop 1.7              |
 |------------------------------|-----------------------------|
-| Compatibilidade              | Ifthenpay v1.3.0 to v1.6.4  |
+| Compatibilidade              | Ifthenpay v1.3.0 to v1.6.5  |
 | LTS (Suporte de Longo Prazo) | Supported until end of 2026 |
 
 
