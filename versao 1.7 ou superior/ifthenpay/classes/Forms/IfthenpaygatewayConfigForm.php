@@ -713,13 +713,6 @@ class IfthenpaygatewayConfigForm extends ConfigForm
 				$checkedStr = (isset($storedMethods[$entity]['is_active']) && $storedMethods[$entity]['is_active'] == '1') || !$storedMethods ? 'checked' : '';
 			} else {
 				// show request button
-				$selectOrActivate = <<<HTML
-				<button type="button" title="request payment method" class="btn btn-primary min_w_300 request_ifthenpaygateway_method" data-method="{$paymentMethodGroup['Entity']}">
-				button label findme {$paymentMethodGroup['Method']}
-					<span class="glyphicon glyphicon glyphicon-send"></span>
-				</button>
-				HTML;
-
 				$requestPaymentMethodUrl = \Context::getContext()->link->getAdminLink('AdminIfthenpayActivateNewGatewayMethod') . "&paymentMethod=" . $entity . "&gatewayKey=" . $ifthenpaygatewayKey;
 
 				$selectOrActivate = '<a class="btn btn-primary width_100" href="' . $requestPaymentMethodUrl . '" role="button">' . $this->ifthenpayModule->l('Request Ifthenpay Gateway Method ', pathinfo(__FILE__)['filename']) . $paymentMethodGroup['Method'] . '</a>';

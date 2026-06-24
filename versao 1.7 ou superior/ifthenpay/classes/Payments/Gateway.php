@@ -188,7 +188,7 @@ class Gateway
 				$userPaymentMethods[] = $paymentMethodMapping['mb'];
 			} elseif ($entidade == 'cofidis') {
 				$userPaymentMethods[] = $paymentMethodMapping['cofidis'];
-			}elseif ($entidade == 'ifthenpaygateway') {
+			} elseif ($entidade == 'ifthenpaygateway') {
 				$userPaymentMethods[] = $paymentMethodMapping['ifthenpaygateway'];
 			}
 		}
@@ -233,7 +233,8 @@ class Gateway
 	}
 
 
-	public function getIthenpaygatewayKeys(){
+	public function getIthenpaygatewayKeys()
+	{
 		foreach (array_column($this->account, 'SubEntidade', 'Entidade') as $key => $value) {
 			if ($key === \Tools::strtoupper('ifthenpaygateway')) {
 				return $value;
@@ -266,9 +267,11 @@ class Gateway
 			return [];
 		}
 
+		$methods = array_values(array_filter($methods, function ($method) {
+			return !(isset($method['IsVisible']) && $method['IsVisible'] === false);
+		}));
 
 		foreach ($methods as &$method) {
-
 			$methodCode = $method['Entity'];
 			$filteredAccounts = array_filter($accounts, function ($item) use ($methodCode) {
 				return $item['Entidade'] === $methodCode || ($methodCode === 'MB' && is_numeric($item['Entidade']));

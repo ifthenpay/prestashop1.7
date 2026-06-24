@@ -732,7 +732,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         });
       };
 
+      AdminAccountSettingsPage.prototype.refreshIfthenpayAccounts = function (event) {
+        this.httpService = inversify_containerAdminAccountSettingsPage_1["default"].get(HttpService_1.HttpService);
+        this.httpService.setUrl(controllerUrl);
+        this.httpService.post({
+          ajax: 1,
+          action: "RefreshAccounts"
+        }).then(function (response) {
+          location.reload();
+        }).fail(function (xhr, status, error) {
+          location.reload();
+        });
+      };
+
       __decorate([(0, Event_1.Event)("click", "#resetIfthenpayAccount"), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminAccountSettingsPage.prototype, "resetIfthenpayAccount", null);
+
+      __decorate([(0, Event_1.Event)("click", "#ifthenpayRefreshAccountsBtn"), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminAccountSettingsPage.prototype, "refreshIfthenpayAccounts", null);
 
       return AdminAccountSettingsPage;
     }(Page_1.Page);
