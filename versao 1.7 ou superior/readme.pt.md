@@ -47,6 +47,7 @@ Ler em ![Português](https://github.com/ifthenpay/prestashop/raw/assets/version1
   * [Suporte](#suporte)
   * [Pedir Conta](#pedir-conta)
   * [Requerer criação de conta adicional](#requerer-criação-de-conta-adicional)
+  * [Atualizar Contas](#atualizar-contas)
   * [Logs](#Logs)
   * [Reset de Configuração](#reset-de-configuração)
   * [Atualizações](#atualizações)
@@ -100,7 +101,7 @@ A tabela abaixo indica a compatibilidade e o supporte disponibilizado para este 
 
 |                              | Prestashop 1.7              |
 |------------------------------|-----------------------------|
-| Compatibilidade              | Ifthenpay v1.3.0 to v1.6.5  |
+| Compatibilidade              | Ifthenpay v1.3.0 to v1.6.6  |
 | LTS (Suporte de Longo Prazo) | Supported until end of 2026 |
 
 
@@ -413,6 +414,17 @@ Se já tem uma conta Ifthenpay, mas não tem contratou um método de pagamento q
 
 * Em Módulos/Ifthenpay/Configurar, haverá um botão "REQUERER A CRIAÇÃO DE CONTA ..." para cada método de pagamento que ainda não tenha contratado. Clique no botão do método de pagamento de necessita. Assim que a equipa da Ifthenpay adiciona o método de pagamento à sua conta, a lista de métodos de pagamento disponíveis no seu módulo será atualizada com o novo.
 ![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/pt/request_account_creation.png)
+
+
+## Atualizar Contas
+
+Se solicitou a criação de uma nova conta por telefone, ou se algo correu mal e a equipa de helpdesk não conseguiu atualizar as suas contas, pode fazê-lo você mesmo.
+> **Nota:** Disponível a partir da versão 1.6.6.
+
+* Em Módulos/Ifthenpay/Configurar, estará disponível um botão "Atualizar". Clique no botão para recarregar as contas disponíveis associadas à sua chave de backoffice.
+![img](https://github.com/ifthenpay/prestashop/raw/assets/version17/img/en/refresh_accounts.png)
+</br>
+
 
 
 ## Logs
