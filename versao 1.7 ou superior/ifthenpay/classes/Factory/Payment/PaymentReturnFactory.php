@@ -31,7 +31,6 @@ if (!defined('_PS_VERSION_')) {
 }
 
 use PrestaShop\Module\Ifthenpay\Payments\Data\CCardPaymentReturn;
-use PrestaShop\Module\Ifthenpay\Payments\Data\CofidispayPaymentReturn;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MbwayPaymentReturn;
 use PrestaShop\Module\Ifthenpay\Payments\Data\PayshopPaymentReturn;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MultibancoPaymentReturn;
@@ -71,13 +70,6 @@ class PaymentReturnFactory
 				);
 			case 'ccard':
 				return new CCardPaymentReturn(
-					$ifthenpayModule,
-					$paymentDefaultData,
-					$smartyDefaultData,
-					$emailDefaultData
-				);
-			case 'cofidispay':
-				return new CofidispayPaymentReturn(
 					$ifthenpayModule,
 					$paymentDefaultData,
 					$smartyDefaultData,

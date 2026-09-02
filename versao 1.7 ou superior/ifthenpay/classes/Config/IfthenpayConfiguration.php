@@ -111,14 +111,6 @@ class IfthenpayConfiguration implements InstallerInterface
 						\Configuration::deleteByName('IFTHENPAY_CCARD_CANCEL_ORDER_AFTER_TIMEOUT');
 						break;
 
-					case 'cofidispay':
-						\Configuration::deleteByName('IFTHENPAY_COFIDISPAY_KEY');
-						\Configuration::deleteByName('IFTHENPAY_COFIDISPAY_CANCEL_ORDER_AFTER_TIMEOUT');
-						\Configuration::deleteByName('IFTHENPAY_' . $methodName . '_OS_NOT_APPROVED');
-						\Configuration::deleteByName('IFTHENPAY_COFIDISPAY_URL_CALLBACK');
-						\Configuration::deleteByName('IFTHENPAY_COFIDISPAY_CHAVE_ANTI_PHISHING');
-						break;
-
 					case 'ifthenpaygateway':
 						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_KEY');
 						\Configuration::deleteByName('IFTHENPAY_IFTHENPAYGATEWAY_METHODS');

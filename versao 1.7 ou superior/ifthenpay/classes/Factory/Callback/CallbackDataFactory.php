@@ -31,7 +31,6 @@ if (!defined('_PS_VERSION_')) {
 }
 
 use PrestaShop\Module\Ifthenpay\Callback\CallbackDataCCard;
-use PrestaShop\Module\Ifthenpay\Callback\CallbackDataCofidispay;
 use PrestaShop\Module\Ifthenpay\Callback\CallbackDataMbway;
 use PrestaShop\Module\Ifthenpay\Callback\CallbackDataMultibanco;
 use PrestaShop\Module\Ifthenpay\Callback\CallbackDataPayshop;
@@ -52,8 +51,6 @@ class CallbackDataFactory
 				return new CallbackDataPayshop();
 			case 'ccard':
 				return new CallbackDataCCard();
-			case 'cofidispay':
-				return new CallbackDataCofidispay();
 			case 'ifthenpaygateway':
 				return new CallbackDataIfthenpaygateway();
 			case 'pix':

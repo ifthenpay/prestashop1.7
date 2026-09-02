@@ -31,7 +31,6 @@ if (!defined('_PS_VERSION_')) {
 }
 
 use PrestaShop\Module\Ifthenpay\Payments\CCard;
-use PrestaShop\Module\Ifthenpay\Payments\CofidisPay;
 use PrestaShop\Module\Ifthenpay\Payments\MbWay;
 use PrestaShop\Module\Ifthenpay\Payments\Payshop;
 use PrestaShop\Module\Ifthenpay\Payments\Multibanco;
@@ -51,8 +50,6 @@ class PaymentFactory
 				return new Payshop($data, $orderId, $valor);
 			case 'ccard':
 				return new CCard($data, $orderId, $valor);
-			case 'cofidispay':
-				return new CofidisPay($data, $orderId, $valor);
 			case 'ifthenpaygateway':
 				return new Ifthenpaygateway($data, $orderId, $valor);
 				case 'pix':

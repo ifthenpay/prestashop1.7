@@ -39,7 +39,7 @@ class Gateway
 {
 	private $webservice;
 	private $account;
-	private $paymentMethods = ['multibanco', 'mbway', 'payshop', 'ccard', 'cofidispay', 'ifthenpay', 'ifthenpaygateway', 'pix'];
+	private $paymentMethods = ['multibanco', 'mbway', 'payshop', 'ccard', 'ifthenpay', 'ifthenpaygateway', 'pix'];
 	private $previousModulePaymentMethods = ['pagamento por multibanco', 'pagamento por mbway', 'pagamento por payshop'];
 	private $aliasPaymentMethods = [
 		'multibanco' => [
@@ -69,13 +69,6 @@ class Gateway
 			'pt' => 'Cartão de Crédito',
 			'es' => 'Tarjeta de crédito',
 			'de' => 'Kreditkarte'
-		],
-		'cofidispay' => [
-			'gb' => 'Cofidis Pay',
-			'en' => 'Cofidis Pay',
-			'pt' => 'Cofidis Pay',
-			'es' => 'Cofidis Pay',
-			'de' => 'Cofidis Pay'
 		],
 		'ifthenpaygateway' => [
 			'gb' => 'Ifthenpay Gateway',
@@ -174,9 +167,8 @@ class Gateway
 	{
 		$userPaymentMethods = [];
 		$paymentMethodMapping = [
-			'mb' => $this->paymentMethods[0],
-			'cofidis' => $this->paymentMethods[4],
-			'ifthenpaygateway' => $this->paymentMethods[6],
+			'mb' => 'multibanco',
+			'ifthenpaygateway' => 'ifthenpaygateway',
 		];
 
 		foreach ($this->account as $account) {
@@ -186,8 +178,6 @@ class Gateway
 				$userPaymentMethods[] = $entidade;
 			} elseif (is_numeric($entidade) || $entidade == 'mb') {
 				$userPaymentMethods[] = $paymentMethodMapping['mb'];
-			} elseif ($entidade == 'cofidis') {
-				$userPaymentMethods[] = $paymentMethodMapping['cofidis'];
 			} elseif ($entidade == 'ifthenpaygateway') {
 				$userPaymentMethods[] = $paymentMethodMapping['ifthenpaygateway'];
 			}
@@ -215,12 +205,6 @@ class Gateway
 					return is_numeric($value) || $value === 'MB' || $value === 'mb';
 				}
 			);
-		} elseif ($paymentMethod === 'cofidispay') {
-			foreach (array_column($this->account, 'SubEntidade', 'Entidade') as $key => $value) {
-				if ($key === \Tools::strtoupper('cofidis')) {
-					$list[] = $value;
-				}
-			}
 		} else {
 			$list = [];
 			foreach (array_column($this->account, 'SubEntidade', 'Entidade') as $key => $value) {
@@ -284,20 +268,6 @@ class Gateway
 		return $methods;
 	}
 
-
-
-	public function getCofidisLimits($cofidisKey)
-	{
-		$response = $this->webservice->getRequest("https://ifthenpay.com/api/cofidis/limits/$cofidisKey")->getResponseJson();
-		$limits = [];
-
-		if (is_array($response) && $response['message'] == 'success') {
-			$limits['maxAmount'] = $response['limits']['maxAmount'];
-			$limits['minAmount'] = $response['limits']['minAmount'];
-		}
-
-		return $limits;
-	}
 
 
 	public function execute($paymentMethod, $data, $orderId, $valor)

@@ -31,7 +31,6 @@ if (!defined('_PS_VERSION_')) {
 }
 
 use PrestaShop\Module\Ifthenpay\Payments\Data\CCardOrderDetail;
-use PrestaShop\Module\Ifthenpay\Payments\Data\CofidispayOrderDetail;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MbwayOrderDetail;
 use PrestaShop\Module\Ifthenpay\Payments\Data\PayshopOrderDetail;
 use PrestaShop\Module\Ifthenpay\Payments\Data\MultibancoOrderDetail;
@@ -55,8 +54,6 @@ class OrderDetailFactory
 				return new PayshopOrderDetail($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
 			case 'ccard':
 				return new CCardOrderDetail($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
-			case 'cofidispay':
-				return new CofidispayOrderDetail($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
 			case 'ifthenpaygateway':
 				return new IfthenpaygatewayOrderDetail($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
 			case 'pix':

@@ -51,7 +51,7 @@ class CallbackOffline extends CallbackProcess implements CallbackProcessInterfac
         if (empty($this->paymentData)) {
             if ($this->paymentMethod === 'ifthenpaygateway') {
 
-                $methodsWithCallback = ['multibanco', 'mbway', 'payshop', 'ccard', 'cofidispay', 'ifthenpaygateway', 'pix'];
+                $methodsWithCallback = ['multibanco', 'mbway', 'payshop', 'ccard', 'ifthenpaygateway', 'pix'];
 
                 // search every active payment method tables
                 foreach ($methodsWithCallback as $paymentMethod) {

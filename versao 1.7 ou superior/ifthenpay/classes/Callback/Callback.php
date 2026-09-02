@@ -110,19 +110,6 @@ class Callback
                     Cb::PM => '[PAYMENT_METHOD]',
                 ]
             ),
-            'cofidispay' => $this->toHttpQuery(
-                [
-                    Cb::TYPE => 'offline',
-                    Cb::ECOMMERCE_VERSION => '{ec}',
-                    Cb::MODULE_VERSION => '{mv}',
-                    Cb::PAYMENT => '{paymentMethod}',
-                    Cb::ANTIPHISH_KEY => '[ANTI_PHISHING_KEY]',
-                    Cb::ORDER_ID => '[ID]',
-                    Cb::TRANSACTION_ID => '[REQUEST_ID]',
-                    Cb::AMOUNT => '[AMOUNT]',
-                    Cb::PM => '[PAYMENT_METHOD]',
-                ]
-            ),
             'ifthenpaygateway' => $this->toHttpQuery(
                 [
                     Cb::TYPE => 'offline',

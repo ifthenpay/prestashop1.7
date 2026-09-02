@@ -91,11 +91,6 @@ class CallbackProcess
 		if ($this->paymentMethod == 'ccard' && isset($this->paymentData['requestId'])) {
 			$ifthenpayModel->requestId = $this->paymentData['requestId'];
 		}
-		if ($this->paymentMethod == 'cofidispay' && isset($this->paymentData['transaction_id'])) {
-			$ifthenpayModel->transaction_id = $this->paymentData['transaction_id'];
-		}
-
-
 		$ifthenpayModel->status = $status;
 		$ifthenpayModel->update();
 	}

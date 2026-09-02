@@ -53,7 +53,7 @@
 
 	</div>
 	<div class="panel-body">
-		<h3>{l s='Multibanco, MB WAY, PAYSHOP, Credit Card and Cofidis Pay payments has numerous advantages for your business' mod='ifthenpay'}
+		<h3>{l s='Multibanco, MB WAY, PAYSHOP, Credit Card and Pix payments have numerous advantages for your business' mod='ifthenpay'}
 		</h3>
 		<ul>
 			<li>
@@ -63,14 +63,14 @@
 				<h6>{l s='Payments 24 hours a day with real-time notifications' mod='ifthenpay'}</h6>
 			</li>
 			<li>
-				<h6>{l s='Secure payments by Multibanco, MB WAY, PAYSHOP, Credit Card and Cofidis Pay' mod='ifthenpay'}
+				<h6>{l s='Secure payments by Multibanco, MB WAY, PAYSHOP, Credit Card and Pix' mod='ifthenpay'}
 				</h6>
 			</li>
 			<li>
 				<h6>{l s='Protected user data, no need to enter bank or card information' mod='ifthenpay'}</h6>
 			</li>
 			<li>
-				<h6>{l s='Multichannel payments: Multibanco ATMs, Homebanking,<br> mobile phones, POS, MB SPOT network, MB WAY, PAYSHOP network, Post Offices' mod='ifthenpay'}
+				<h6>{l s='Multichannel payments: Multibanco ATMs, Homebanking, mobile phones, POS, MB SPOT network, MB WAY, PAYSHOP network, Post Offices' mod='ifthenpay'}
 				</h6>
 			</li>
 			<li>

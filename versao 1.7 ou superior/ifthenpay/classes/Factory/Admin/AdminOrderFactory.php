@@ -34,7 +34,6 @@ use PrestaShop\Module\Ifthenpay\Admin\Payments\MbwayAdminOrder;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\PayshopAdminOrder;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\MultibancoAdminOrder;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\CCardAdminOrder;
-use PrestaShop\Module\Ifthenpay\Admin\Payments\CofidispayAdminOrder;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\IfthenpaygatewayAdminOrder;
 use PrestaShop\Module\Ifthenpay\Admin\Payments\PixAdminOrder;
 
@@ -55,8 +54,6 @@ class AdminOrderFactory
 				return new PayshopAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
 			case 'ccard':
 				return new CCardAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
-			case 'cofidispay':
-				return new CofidispayAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
 			case 'ifthenpaygateway':
 				return new IfthenpaygatewayAdminOrder($ifthenpayModule, $paymentDefaultData, $smartyDefaultData);
 			case 'pix':

@@ -77,14 +77,6 @@ class IfthenpaySql implements InstallerInterface
             PRIMARY KEY  (`id_ifthenpay_ccard`),
             INDEX `requestId` (`requestId`)
           ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
-		'cofidispay' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_cofidispay` (
-            `id_ifthenpay_cofidispay` int(10) unsigned NOT NULL auto_increment,
-            `transaction_id` varchar(50) NOT NULL,
-            `order_id` int(11) NOT NULL,
-            `status` varchar(50) NOT NULL,
-            PRIMARY KEY  (`id_ifthenpay_cofidispay`),
-            INDEX `transaction_id` (`transaction_id`)
-          ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
 		'ifthenpaygateway' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_ifthenpaygateway` (
             `id_ifthenpay_ifthenpaygateway` int(10) unsigned NOT NULL auto_increment,
             `order_id` int(11) NOT NULL,
@@ -144,11 +136,6 @@ class IfthenpaySql implements InstallerInterface
             `id_ifthenpay_ccard` int(10) unsigned NOT NULL auto_increment,
             `id_shop` int(10) unsigned NOT NULL,
             PRIMARY KEY (`id_ifthenpay_ccard`, `id_shop`)
-          ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
-		'cofidispay' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_cofidispay_shop` (
-            `id_ifthenpay_cofidispay` int(10) unsigned NOT NULL auto_increment,
-            `id_shop` int(10) unsigned NOT NULL,
-            PRIMARY KEY (`id_ifthenpay_cofidispay`, `id_shop`)
           ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;',
 		'ifthenpaygateway' => 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'ifthenpay_ifthenpaygateway_shop` (
             `id_ifthenpay_ifthenpaygateway` int(10) unsigned NOT NULL auto_increment,

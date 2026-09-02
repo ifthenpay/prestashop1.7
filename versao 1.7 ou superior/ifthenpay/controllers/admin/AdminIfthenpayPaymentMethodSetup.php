@@ -153,20 +153,6 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
         }
     }
 
-    public function ajaxProcessGetCofidisLimits()
-    {
-        try {
-            $limits = json_encode($this->ifthenpayGateway->getCofidisLimits(Tools::getValue('cofidisKey')));
-            // this log is unnecessary
-            // IfthenpayLogProcess::addLog("Cofidis amount limits request (".$limits.")", IfthenpayLogProcess::INFO, 0);
-            die($limits);
-        } catch (\Throwable $th) {
-            IfthenpayLogProcess::addLog('Error getting Cofidis amount Limits by ajax request - ' . $th->getMessage(), IfthenpayLogProcess::ERROR, 0);
-            die($th->getMessage());
-        }
-    }
-
-
     public function ajaxProcessGetIfthenpayGatewayMethods(): void
     {
         try {
@@ -226,7 +212,6 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
             $amount = Tools::getValue('amount');
             $mbwayTransactionId = Tools::getValue('mbway_transaction_id');
             $payshopTransactionId = Tools::getValue('payshop_transaction_id');
-            $cofidispayTransactionId = Tools::getValue('cofidis_transaction_id');
             $pixTransactionId = Tools::getValue('pix_transaction_id');
             $ccardTransactionId = Tools::getValue('ccard_transaction_id');
             $orderId = Tools::getValue('order_id');
@@ -267,12 +252,6 @@ class AdminIfthenpayPaymentMethodSetupController extends ModuleAdminController
 
             if ($method === 'payshop') {
                 $callbackUrl = str_replace('[REQUEST_ID]', $payshopTransactionId, $callbackUrl);
-                $callbackUrl = str_replace('[AMOUNT]', $amount, $callbackUrl);
-            }
-
-
-            if ($method === 'cofidispay') {
-                $callbackUrl = str_replace('[REQUEST_ID]', $cofidispayTransactionId, $callbackUrl);
                 $callbackUrl = str_replace('[AMOUNT]', $amount, $callbackUrl);
             }
 

@@ -247,7 +247,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
   /******/
 
-  return __webpack_require__(__webpack_require__.s = 6);
+  return __webpack_require__(__webpack_require__.s = 0);
   /******/
 }
 /************************************************************************/
@@ -311,10 +311,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         dom_alignSpinnerWithInput();
       }
 
-      if (isCofidis()) {
-        dom_alignSpinnerWithInput();
-      }
-
       if (isIfthenpaygateway()) {
         dom_alignSpinnerWithInput();
         dom_disableUncheckedDefaultPaymentMethods();
@@ -371,14 +367,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
       if (domSpinner.closest(".col-lg-8")) {
         var domMbSubEnt = document.getElementById("ifthenpayMultibancoSubentidade");
-        var domCofidisKey = document.getElementById("ifthenpayCofidisKey");
         var domIfthenpaygatewayKey = document.getElementById("ifthenpayIfthenpaygatewayKey");
         var domElement = void 0;
 
         if (domMbSubEnt) {
           domElement = domMbSubEnt;
-        } else if (domCofidisKey) {
-          domElement = domCofidisKey;
         } else if (domIfthenpaygatewayKey) {
           domElement = domIfthenpaygatewayKey;
         } else {
@@ -408,10 +401,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
     function isMultbanco() {
       return document.getElementById("ifthenpayMultibancoEntidade") ? true : false;
-    }
-
-    function isCofidis() {
-      return document.getElementById("ifthenpayCofidisKey") ? true : false;
     }
 
     function isIfthenpaygateway() {
@@ -944,28 +933,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         });
       };
 
-      AdminConfigPage.prototype.changeCofidisKey = function (event) {
-        var spinner = $("#appSpinner");
-        var containerCofidisMax = $("#ifthenpayMaxAmount");
-        var containerCofidisMin = $("#ifthenpayMinAmount");
-        spinner.parent().insertAfter($(event.target));
-        spinner.show();
-        this.httpService = inversify_adminConfigPage_1["default"].get(HttpService_1.HttpService);
-        this.httpService.setUrl(controllerUrl);
-        this.httpService.post({
-          ajax: 1,
-          controller: "AdminIfthenpayPaymentMethodSetup",
-          action: "getCofidisLimits",
-          cofidisKey: $(event.target).val()
-        }).then(function (response) {
-          var _a, _b;
-
-          containerCofidisMax.val((_a = response["maxAmount"]) !== null && _a !== void 0 ? _a : "");
-          containerCofidisMin.val((_b = response["minAmount"]) !== null && _b !== void 0 ? _b : "");
-          spinner.hide();
-        });
-      };
-
       AdminConfigPage.prototype.changeIfthenpayGatewayKey = function (event) {
         var spinner = $("#appSpinner");
         spinner.parent().insertAfter($(event.target));
@@ -1020,7 +987,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var amountDom = $("#amount");
         var mbwayTransactionIdDom = $("#mbway_transaction_id");
         var payshopTransactionIdDom = $("#payshop_transaction_id");
-        var cofidisTransactionIdDom = $("#cofidispay_transaction_id");
         var pixTransactionIdDom = $("#pix_transaction_id");
         var ccardTransactionIdDom = $("#ccard_transaction_id");
         var orderIdDom = $("#order_id"); // message template
@@ -1031,12 +997,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var amount = amountDom.length ? amountDom.val() : "";
         var mbwayTransactionId = mbwayTransactionIdDom.length ? mbwayTransactionIdDom.val() : "";
         var payshopTransactionId = payshopTransactionIdDom.length ? payshopTransactionIdDom.val() : "";
-        var cofidisTransactionId = cofidisTransactionIdDom.length ? cofidisTransactionIdDom.val() : "";
         var pixTransactionId = pixTransactionIdDom.length ? pixTransactionIdDom.val() : "";
         var ccardTransactionId = ccardTransactionIdDom.length ? ccardTransactionIdDom.val() : "";
         var orderId = orderIdDom.length ? orderIdDom.val() : ""; // verify if multibanco or mbway or payshop have arguments
 
-        if (method === "multibanco" && (reference === "" || amount === "") || method === "mbway" && (amount === "" || mbwayTransactionId === "") || method === "payshop" && (amount === "" || payshopTransactionId === "") || method === "cofidis" && (amount === "" || cofidisTransactionId === "") || method === "ifthenpaygateway" && (amount === "" || orderId === "") || method === "pix" && (amount === "" || pixTransactionId === "")) {
+        if (method === "multibanco" && (reference === "" || amount === "") || method === "mbway" && (amount === "" || mbwayTransactionId === "") || method === "payshop" && (amount === "" || payshopTransactionId === "") || method === "ifthenpaygateway" && (amount === "" || orderId === "") || method === "pix" && (amount === "" || pixTransactionId === "")) {
           bootstrapMsgContainer.html(msgHtml.replace("{{type}}", "danger").replace("{{message}}", msgFillAllFields));
           return;
         }
@@ -1051,7 +1016,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           amount: amount,
           mbway_transaction_id: mbwayTransactionId,
           payshop_transaction_id: payshopTransactionId,
-          cofidis_transaction_id: cofidisTransactionId,
           pix_transaction_id: pixTransactionId,
           ccard_transaction_id: ccardTransactionId,
           order_id: orderId,
@@ -1072,8 +1036,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       };
 
       __decorate([(0, Event_1.Event)("change", "#ifthenpayMultibancoEntidade"), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminConfigPage.prototype, "changeEntidade", null);
-
-      __decorate([(0, Event_1.Event)("change", "#ifthenpayCofidisKey"), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminConfigPage.prototype, "changeCofidisKey", null);
 
       __decorate([(0, Event_1.Event)("change", "#ifthenpayIfthenpaygatewayKey"), __metadata("design:type", Function), __metadata("design:paramtypes", [Object]), __metadata("design:returntype", void 0)], AdminConfigPage.prototype, "changeIfthenpayGatewayKey", null);
 
@@ -1485,6 +1447,90 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }();
 
     exports.HttpService = HttpService;
+    /***/
+  },
+
+  /***/
+  "./_dev/scss/ifthenpayAdminOrder.scss":
+  /*!********************************************!*\
+    !*** ./_dev/scss/ifthenpayAdminOrder.scss ***!
+    \********************************************/
+
+  /*! no static exports found */
+
+  /***/
+  function _devScssIfthenpayAdminOrderScss(module, exports) {// removed by extract-text-webpack-plugin
+
+    /***/
+  },
+
+  /***/
+  "./_dev/scss/ifthenpayConfig.scss":
+  /*!****************************************!*\
+    !*** ./_dev/scss/ifthenpayConfig.scss ***!
+    \****************************************/
+
+  /*! no static exports found */
+
+  /***/
+  function _devScssIfthenpayConfigScss(module, exports) {// removed by extract-text-webpack-plugin
+
+    /***/
+  },
+
+  /***/
+  "./_dev/scss/ifthenpayConfirmPage.scss":
+  /*!*********************************************!*\
+    !*** ./_dev/scss/ifthenpayConfirmPage.scss ***!
+    \*********************************************/
+
+  /*! no static exports found */
+
+  /***/
+  function _devScssIfthenpayConfirmPageScss(module, exports) {// removed by extract-text-webpack-plugin
+
+    /***/
+  },
+
+  /***/
+  "./_dev/scss/ifthenpayOrderDetail.scss":
+  /*!*********************************************!*\
+    !*** ./_dev/scss/ifthenpayOrderDetail.scss ***!
+    \*********************************************/
+
+  /*! no static exports found */
+
+  /***/
+  function _devScssIfthenpayOrderDetailScss(module, exports) {// removed by extract-text-webpack-plugin
+
+    /***/
+  },
+
+  /***/
+  "./_dev/scss/ifthenpayPaymentMethodSetup.scss":
+  /*!****************************************************!*\
+    !*** ./_dev/scss/ifthenpayPaymentMethodSetup.scss ***!
+    \****************************************************/
+
+  /*! no static exports found */
+
+  /***/
+  function _devScssIfthenpayPaymentMethodSetupScss(module, exports) {// removed by extract-text-webpack-plugin
+
+    /***/
+  },
+
+  /***/
+  "./_dev/scss/paymentOptions.scss":
+  /*!***************************************!*\
+    !*** ./_dev/scss/paymentOptions.scss ***!
+    \***************************************/
+
+  /*! no static exports found */
+
+  /***/
+  function _devScssPaymentOptionsScss(module, exports) {// removed by extract-text-webpack-plugin
+
     /***/
   },
 
@@ -6936,18 +6982,42 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   },
 
   /***/
-  6:
-  /*!******************************************!*\
-    !*** multi ./_dev/js/adminConfigPage.ts ***!
-    \******************************************/
+  0:
+  /*!*************************************************************************************************************************************************************************************************************************************************************************!*\
+    !*** multi ./_dev/js/adminConfigPage.ts ./_dev/scss/ifthenpayConfig.scss ./_dev/scss/ifthenpayPaymentMethodSetup.scss ./_dev/scss/ifthenpayConfirmPage.scss ./_dev/scss/ifthenpayAdminOrder.scss ./_dev/scss/ifthenpayOrderDetail.scss ./_dev/scss/paymentOptions.scss ***!
+    \*************************************************************************************************************************************************************************************************************************************************************************/
 
   /*! no static exports found */
 
   /***/
   function _(module, exports, __webpack_require__) {
-    module.exports = __webpack_require__(
+    __webpack_require__(
     /*! /home/ddev/prestashop17/modules/ifthenpay/_dev/js/adminConfigPage.ts */
     "./_dev/js/adminConfigPage.ts");
+
+    __webpack_require__(
+    /*! /home/ddev/prestashop17/modules/ifthenpay/_dev/scss/ifthenpayConfig.scss */
+    "./_dev/scss/ifthenpayConfig.scss");
+
+    __webpack_require__(
+    /*! /home/ddev/prestashop17/modules/ifthenpay/_dev/scss/ifthenpayPaymentMethodSetup.scss */
+    "./_dev/scss/ifthenpayPaymentMethodSetup.scss");
+
+    __webpack_require__(
+    /*! /home/ddev/prestashop17/modules/ifthenpay/_dev/scss/ifthenpayConfirmPage.scss */
+    "./_dev/scss/ifthenpayConfirmPage.scss");
+
+    __webpack_require__(
+    /*! /home/ddev/prestashop17/modules/ifthenpay/_dev/scss/ifthenpayAdminOrder.scss */
+    "./_dev/scss/ifthenpayAdminOrder.scss");
+
+    __webpack_require__(
+    /*! /home/ddev/prestashop17/modules/ifthenpay/_dev/scss/ifthenpayOrderDetail.scss */
+    "./_dev/scss/ifthenpayOrderDetail.scss");
+
+    module.exports = __webpack_require__(
+    /*! /home/ddev/prestashop17/modules/ifthenpay/_dev/scss/paymentOptions.scss */
+    "./_dev/scss/paymentOptions.scss");
     /***/
   }
   /******/
